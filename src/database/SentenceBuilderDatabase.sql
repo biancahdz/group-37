@@ -1,7 +1,7 @@
 /*==============================================================*/
 /*  File Name   : SentenceBuilderDatabase.sql                   */
-/*  Description : Creates the tabel of the database and links   */
-/*                all them all together                         */
+/*  Description : Creates the tables of the database and links  */
+/*                them all together                             */
 /*                                                              */
 /*  Author      : Cortland Kimzey                               */
 /*  Created On  : 2026-01-29                                    */
