@@ -22,7 +22,7 @@ public class TextFileImporter {
     // ---- DATABASE CONFIG — update password to your MySQL root password ----
     private static final String DB_URL  = "jdbc:mysql://localhost:3306/SentenceBuilder";
     private static final String DB_USER = "root";
-    private static final String DB_PASS = "Luka148766"; // <-- change this
+    private static final String DB_PASS = "password"; // <-- change this
 
     public static void main(String[] args) throws Exception {
 
