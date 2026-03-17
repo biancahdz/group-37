@@ -1,3 +1,18 @@
+/*==============================================================
+  File Name   : NextWordDAO.java                 
+  Description : Data Access Object for managing word-to-next-word relationships 
+              and retrieving weighted random next words for sentence generation.
+                                                              
+  Author      : Amrita Thapa                                  
+  Created On  : 2026-03-14                                    
+                                                              
+  Last Modified By : Amrita Thapa                             
+  Last Modified On : 2026-03-17                               
+  Change History   : 2026-03-14  - Implemented WordDAO methods
+                     2026-03-17  - Updated comments                 
+                                                              
+  Database    : SentenceBuilder                               
+==============================================================*/
 package src.sentencegen;
 
 import java.sql.*;
