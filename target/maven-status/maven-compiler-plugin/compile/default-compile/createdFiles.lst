@@ -1,0 +1,12 @@
+com/group37/sentencebuilder/ui/model/ReportRow.class
+com/group37/sentencebuilder/ui/model/ImportHistoryRow.class
+com/group37/sentencebuilder/ui/ReportsController.class
+com/group37/sentencebuilder/ui/AutocompleteController.class
+com/group37/sentencebuilder/ui/GenerateController.class
+com/group37/sentencebuilder/ui/ViewKey.class
+com/group37/sentencebuilder/ui/MainShellController.class
+com/group37/sentencebuilder/ui/ImportController.class
+com/group37/sentencebuilder/SentenceBuilderApp.class
+com/group37/sentencebuilder/ui/MainShellController$1.class
+com/group37/sentencebuilder/ui/HomeController.class
+com/group37/sentencebuilder/ui/SettingsController.class
