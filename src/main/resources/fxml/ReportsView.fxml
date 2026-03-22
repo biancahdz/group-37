@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.group37.sentencebuilder.ui.ReportsController"
+      styleClass="page-root-wide" spacing="0" maxWidth="Infinity">
+    <Label text="INSIGHTS" styleClass="section-eyebrow section-eyebrow-amber"/>
+    <Label text="Reports" styleClass="section-heading"/>
+    <Label styleClass="section-lead" wrapText="true"
+           text="Sort by clicking column headers. Algorithm filter is wired to mock data; date range is a visual placeholder."/>
+
+    <VBox spacing="16" styleClass="content-card">
+        <HBox alignment="BOTTOM_LEFT" spacing="20">
+            <VBox spacing="6" HBox.hgrow="NEVER">
+                <Label text="Algorithm" styleClass="field-label"/>
+                <ComboBox fx:id="algorithmFilter" prefWidth="240" styleClass="combo-box combo-styled"/>
+            </VBox>
+            <VBox spacing="6" HBox.hgrow="NEVER">
+                <Label text="Date range" styleClass="field-label"/>
+                <ComboBox fx:id="dateFilter" prefWidth="200" styleClass="combo-box combo-styled"/>
+            </VBox>
+            <HBox HBox.hgrow="ALWAYS" minWidth="12"/>
+            <Label text="Click headers to sort" styleClass="pill-label"/>
+        </HBox>
+    </VBox>
+
+    <VBox spacing="14" styleClass="content-card content-card-elevated" VBox.vgrow="ALWAYS">
+        <VBox.margin>
+            <Insets top="24"/>
+        </VBox.margin>
+        <Label text="Generated sentences" styleClass="card-title"/>
+        <Label text="Preview column truncates in the cell; widen for your demo data." styleClass="card-subtitle"/>
+        <TableView fx:id="reportTable" styleClass="table-clean" VBox.vgrow="ALWAYS" minHeight="280">
+            <columns>
+                <TableColumn fx:id="colId" text="ID" prefWidth="72"/>
+                <TableColumn fx:id="colAlgorithm" text="ALGORITHM" prefWidth="220"/>
+                <TableColumn fx:id="colWhen" text="GENERATED" prefWidth="200"/>
+                <TableColumn fx:id="colPreview" text="PREVIEW" prefWidth="520" minWidth="200"/>
+            </columns>
+        </TableView>
+    </VBox>
+</VBox>

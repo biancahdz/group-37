@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.group37.sentencebuilder.ui.HomeController"
+      styleClass="page-root" spacing="0">
+    <Label text="OVERVIEW" styleClass="section-eyebrow section-eyebrow-primary"/>
+    <Label text="Dashboard" styleClass="section-heading section-heading-hero"/>
+    <Label styleClass="section-lead" wrapText="true"
+           text="Import sources, run generators, and review output from one place. Each card opens its workspace — connect your backend when you are ready."/>
+
+    <HBox styleClass="home-stats">
+        <VBox styleClass="stat-tile stat-tile-primary" HBox.hgrow="ALWAYS">
+            <Label text="12" styleClass="stat-tile-value"/>
+            <Label text="TEXT SOURCES" styleClass="stat-tile-label"/>
+        </VBox>
+        <VBox styleClass="stat-tile stat-tile-violet" HBox.hgrow="ALWAYS">
+            <Label text="48.2k" styleClass="stat-tile-value"/>
+            <Label text="SENTENCES" styleClass="stat-tile-label"/>
+        </VBox>
+    </HBox>
+
+    <GridPane styleClass="home-quick-grid" hgap="22" vgap="22">
+        <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS" minWidth="200" prefWidth="300"/>
+            <ColumnConstraints hgrow="ALWAYS" minWidth="200" prefWidth="300"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="168" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="168" vgrow="SOMETIMES"/>
+        </rowConstraints>
+
+        <VBox styleClass="quick-card quick-card-accent-import" GridPane.columnIndex="0" GridPane.rowIndex="0"
+              onMouseClicked="#onQuickImport" spacing="12">
+            <StackPane styleClass="quick-card-icon-wrap quick-icon-import">
+                <Label text="↓" styleClass="quick-card-icon"/>
+            </StackPane>
+            <Label text="Import" styleClass="quick-card-title"/>
+            <Label text="Add plain-text files and stage them for parsing." styleClass="quick-card-desc" wrapText="true"/>
+            <Label text="Open workspace →" styleClass="quick-card-cta"/>
+        </VBox>
+        <VBox styleClass="quick-card quick-card-accent-generate" GridPane.columnIndex="1" GridPane.rowIndex="0"
+              onMouseClicked="#onQuickGenerate" spacing="12">
+            <StackPane styleClass="quick-card-icon-wrap quick-icon-generate">
+                <Label text="✦" styleClass="quick-card-icon"/>
+            </StackPane>
+            <Label text="Generate" styleClass="quick-card-title"/>
+            <Label text="Compose sentences from corpus-backed models." styleClass="quick-card-desc" wrapText="true"/>
+            <Label text="Open workspace →" styleClass="quick-card-cta"/>
+        </VBox>
+        <VBox styleClass="quick-card quick-card-accent-compose" GridPane.columnIndex="0" GridPane.rowIndex="1"
+              onMouseClicked="#onQuickAutocomplete" spacing="12">
+            <StackPane styleClass="quick-card-icon-wrap quick-icon-compose">
+                <Label text="⌁" styleClass="quick-card-icon"/>
+            </StackPane>
+            <Label text="Auto-complete" styleClass="quick-card-title"/>
+            <Label text="Refine suggestions as the user types." styleClass="quick-card-desc" wrapText="true"/>
+            <Label text="Open workspace →" styleClass="quick-card-cta"/>
+        </VBox>
+        <VBox styleClass="quick-card quick-card-accent-reports" GridPane.columnIndex="1" GridPane.rowIndex="1"
+              onMouseClicked="#onQuickReports" spacing="12">
+            <StackPane styleClass="quick-card-icon-wrap quick-icon-reports">
+                <Label text="≡" styleClass="quick-card-icon"/>
+            </StackPane>
+            <Label text="Reports" styleClass="quick-card-title"/>
+            <Label text="Scan history with sortable columns and filters." styleClass="quick-card-desc" wrapText="true"/>
+            <Label text="Open workspace →" styleClass="quick-card-cta"/>
+        </VBox>
+    </GridPane>
+
+    <VBox spacing="14" styleClass="content-card content-card-elevated" maxWidth="640">
+        <VBox.margin>
+            <Insets top="36"/>
+        </VBox.margin>
+        <Label text="Demo note" styleClass="card-title"/>
+        <Label styleClass="card-subtitle card-subtitle-muted" wrapText="true"
+               text="Metrics above are illustrative. Replace with live values from your data layer when available."/>
+    </VBox>
+</VBox>
