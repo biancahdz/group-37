@@ -1,20 +1,20 @@
 /*==============================================================
-  File Name   : GeneratedSentenceDAO.java                 
-  Description : Data Access Object for managing generated sentences, 
-                including inserting new sentences, checking for duplicates, 
+  File Name   : GeneratedSentenceDAO.java
+  Description : Data Access Object for managing generated sentences,
+                including inserting new sentences, checking for duplicates,
                 and retrieving stored sentences with metadata.
-                                                              
-  Author      : Amrita Thapa                                  
-  Created On  : 2026-03-17                                    
-                                                              
-  Last Modified By : Amrita Thapa                             
-  Last Modified On : 2026-03-17                               
-  Change History   : 2026-03-17  - Created DAO class and implemented 
-                                   insert, existence check, and retrieval methods                  
-                                                              
-  Database    : SentenceBuilder                               
+
+  Author      : Amrita Thapa
+  Created On  : 2026-03-17
+
+  Last Modified By : Amrita Thapa
+  Last Modified On : 2026-03-17
+  Change History   : 2026-03-17  - Created DAO class and implemented
+                                   insert, existence check, and retrieval methods
+
+  Database    : SentenceBuilder
 ==============================================================*/
-package src.sentencegen;
+package src.DAO;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -1,19 +1,19 @@
 /*==============================================================
-  File Name   : TxtFile.java                 
-  Description : Handles database operations for txt table     
+  File Name   : TxtFile.java
+  Description : Handles database operations for txt table
                 (tracks imported text files and metadata)
-                                                              
-  Author      : Amrita Thapa                                  
-  Created On  : 2026-03-17                                      
-                                                              
-  Last Modified By : Amrita Thapa                             
-  Last Modified On : 2026-03-17                                 
-  Change History   : 2026-03-17 - Implemented TxtFileDAO methods                
-                                                              
-  Database    : SentenceBuilder                               
+
+  Author      : Amrita Thapa
+  Created On  : 2026-03-17
+
+  Last Modified By : Amrita Thapa
+  Last Modified On : 2026-03-17
+  Change History   : 2026-03-17 - Implemented TxtFileDAO methods
+
+  Database    : SentenceBuilder
 ==============================================================*/
 
-package src.sentencegen;
+package src.DAO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class TxtFileDAO {
         this.conn = conn;
     }
 
-    
+
     // Insert a new text file record
     // Returns generated txtID
     public int insertTxtFile(String txtName, int importance,
@@ -51,7 +51,7 @@ public class TxtFileDAO {
         throw new SQLException("Failed to insert txt file record.");
     }
 
-    
+
     // Get txt file name by ID
     public String getTxtNameByID(int txtID) throws SQLException {
         String sql = "SELECT txtName FROM txt WHERE txtID = ?";
@@ -68,7 +68,7 @@ public class TxtFileDAO {
         return null;
     }
 
-    
+
     // Get all txt files
     public List<String> getAllTxtFiles() throws SQLException {
         List<String> files = new ArrayList<>();
@@ -85,7 +85,7 @@ public class TxtFileDAO {
         return files;
     }
 
-    
+
     // Get file statistics
     public String getTxtStats(int txtID) throws SQLException {
         String sql = "SELECT numWords, numSentences, importedAt FROM txt WHERE txtID = ?";
@@ -108,13 +108,25 @@ public class TxtFileDAO {
         return "No stats found.";
     }
 
-    
+
     // Delete txt file record
     public void deleteTxtFile(int txtID) throws SQLException {
         String sql = "DELETE FROM txt WHERE txtID = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, txtID);
+            ps.executeUpdate();
+        }
+    }
+
+    // Update word and sentence counts after import completes
+    public void updateTxtFile(int txtID, int numWords, int numSentences) throws SQLException {
+        String sql = "UPDATE txt SET numWords = ?, numSentences = ? WHERE txtID = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, numWords);
+            ps.setInt(2, numSentences);
+            ps.setInt(3, txtID);
             ps.executeUpdate();
         }
     }

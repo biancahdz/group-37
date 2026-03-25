@@ -1,30 +1,30 @@
 /*==============================================================
-  File Name   : WordDAO.java                 
+  File Name   : WordDAO.java
   Description : Data Access Object for the word table.
                 Provides methods to:
                     - Insert a new word if it dosen't exist
                     - Increment total, start, and end counts
                     - Retrieve words by ID or prefix
                     - Check if a word can start or end a sentence
-                                                              
-  Author      : Amrita Thapa                                  
-  Created On  : 2026-03-13                                    
-                                                              
-  Last Modified By : Amrita Thapa                             
-  Last Modified On : 2026-03-13                               
-  Change History   : 2026-03-13  - Implemented WordDAO methods                
-                                                              
-  Database    : SentenceBuilder                               
+
+  Author      : Amrita Thapa
+  Created On  : 2026-03-13
+
+  Last Modified By : Amrita Thapa
+  Last Modified On : 2026-03-13
+  Change History   : 2026-03-13  - Implemented WordDAO methods
+
+  Database    : SentenceBuilder
 ==============================================================*/
 
-package src.sentencegen;
+package src.DAO;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class WordDAO {
-    
+
     private Connection conn;
 
     // Constructor requires an active DB connection

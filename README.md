@@ -12,3 +12,37 @@ GUI Framework: JavaFX
 Database: MySQL
 IDE: IntelliJ
 
+---
+1. Make sure you have the following installed:
+    * Java JDK
+    * MySQL Server
+    * MySQL Workbench
+    * VS Code
+
+2. Clone the repo
+
+3. Set up MySQL Database
+    * Open MySQL Workbench
+    * Connect to:
+        * Host: localhost
+        * Port: 3306
+        * User: root
+    * Open and run:
+        * src/database/SentenceBuilderDatabase.sql
+
+4. Configure Database Connection
+    * Open the db/DatabaseConnection.java file and update your MySQL password
+
+5. Compile the Project:
+```
+javac -cp lib/mysql-connector-j-9.6.0.jar -d out src/Main.java src/ingestion/TextFileImporter.java src/DAO/*.java src/db/*.java
+```
+
+6. Run:
+```
+# Windows
+java -cp "out;lib/mysql-connector-j-9.6.0.jar" src.Main
+
+# Mac/Linux
+java -cp "out:lib/mysql-connector-j-9.6.0.jar" src.Main
+```

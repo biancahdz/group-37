@@ -1,18 +1,18 @@
 /*==============================================================
-  File Name   : SentenceDAO.java                   
-  Description : Handles database operations for the sentence  
-                table in the SentenceBuilder database 
-                                                              
-  Author      : Amrita Thapa                                  
-  Created On  : 2026-03-17                                      
-                                                              
-  Last Modified By : Amrita Thapa                             
-  Last Modified On : 2026-03-17                                
-  Change History   : 2026-03-17 - Implemented SentenceDAO methods                
-                                                              
-  Database    : SentenceBuilder                               
+  File Name   : SentenceDAO.java
+  Description : Handles database operations for the sentence
+                table in the SentenceBuilder database
+
+  Author      : Amrita Thapa
+  Created On  : 2026-03-17
+
+  Last Modified By : Amrita Thapa
+  Last Modified On : 2026-03-17
+  Change History   : 2026-03-17 - Implemented SentenceDAO methods
+
+  Database    : SentenceBuilder
 ==============================================================*/
-package src.sentencegen;
+package src.DAO;
 
 import java.sql.*;
 import java.util.ArrayList;
