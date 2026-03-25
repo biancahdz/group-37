@@ -13,7 +13,7 @@
 
   Database    : SentenceBuilder
 ==============================================================*/
-package src.DAO;
+package src.main.java.com.group37.sentencebuilder.DAO;
 
 import java.sql.*;
 import java.util.*;

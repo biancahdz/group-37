@@ -1,10 +1,10 @@
-package src.ingestion;
+package src.main.java.com.group37.sentencebuilder.ingestion;
 import java.io.*;
 import java.nio.file.*;
 import java.sql.*;
 import java.util.*;
 
-import src.DAO.*;
+import src.main.java.com.group37.sentencebuilder.DAO.*;
 
 /*==============================================================*/
 /*  File Name   : TextFileImporter.java                         */

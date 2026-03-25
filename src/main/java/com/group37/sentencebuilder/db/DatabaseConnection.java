@@ -11,7 +11,7 @@
 
   Database    : SentenceBuilder
 ==============================================================*/
-package src.db;
+package src.main.java.com.group37.sentencebuilder.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
