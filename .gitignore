@@ -1,6 +1,0 @@
-bin/
-*.class
-.vscode/
-
-# local testing
-src/testing/*.java
