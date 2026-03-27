@@ -877,3 +877,10 @@
     -fx-border-color: -sb-divider;
     -fx-border-width: 1 0 0 0;
 }
+
+.title-splash {
+    -fx-font-size: 64px;
+    -fx-font-weight: 700;
+    -fx-font-family: "Inter";
+    /*-fx-text-fill: white;*/
+}

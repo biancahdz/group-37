@@ -1,4 +1,20 @@
+/**
+ * File: MainShellController.java
+ * Description: 
+ *
+ * Author: 
+ * Created: 
+ * Last Modified: 2026-03-27
+ *
+ * Version: 1.0
+ */
+
 package com.group37.sentencebuilder.ui_layer;
+
+import com.group37.sentencebuilder.ui_layer.ApplicationPage;
+import com.group37.sentencebuilder.ui_layer.DatabasePage;
+
+import com.group37.sentencebuilder.data_layer.Database;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +36,8 @@ import java.util.Objects;
  * Hosts sidebar navigation and swaps center content views (UI only).
  */
 public class MainShellController {
+
+    private Object currentController;
 
     @FXML
     private StackPane contentHost;
@@ -79,9 +97,24 @@ public class MainShellController {
 
     /** Used by Home quick actions to change the main view. */
     public void showView(ViewKey key) {
+
+        if (currentController instanceof ApplicationPage oldPage)
+        {
+            oldPage.onPageLeave();
+        }
+
         headerTitle.setText(titleFor(key));
         Parent node = viewCache.computeIfAbsent(key, this::loadView);
         contentHost.getChildren().setAll(node);
+
+        Object ctrl = node.getUserData();
+        if (ctrl instanceof ApplicationPage page)
+        {
+            page.onPageEnter();
+        }
+
+        currentController = ctrl;
+
         selectNav(key);
     }
 
@@ -117,12 +150,26 @@ public class MainShellController {
             case SETTINGS -> "/fxml/SettingsView.fxml";
         };
         try {
+
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(resource)));
             Parent parent = loader.load();
+
             Object ctrl = loader.getController();
-            if (ctrl instanceof HomeController home) {
+
+            parent.setUserData(ctrl);
+
+            if (ctrl instanceof HomeController home)
+            {
                 home.setNavigator(this::showView);
             }
+
+            if (ctrl instanceof DatabasePage dbController)
+            {
+                dbController.setDatabase(Database.getDatabase());
+            }
+
+            currentController = ctrl;
+
             return parent;
         } catch (IOException e) {
             throw new UncheckedIOException(e);

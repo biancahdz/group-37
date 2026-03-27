@@ -3,6 +3,7 @@ com\group37\sentencebuilder\ui_layer\model\ReportRow.class
 com\group37\sentencebuilder\ui_layer\SettingsController.class
 com\group37\sentencebuilder\logic_layer\GeneratorLogic.class
 com\group37\sentencebuilder\data_layer\Database.class
+com\group37\sentencebuilder\ui_layer\DatabasePage.class
 com\group37\sentencebuilder\data_layer\TxtFileReader.class
 com\group37\sentencebuilder\logic_layer\BeamNode.class
 com\group37\sentencebuilder\ui_layer\model\ImportHistoryRow.class
@@ -11,6 +12,7 @@ com\group37\sentencebuilder\ui_layer\ImportController.class
 com\group37\sentencebuilder\ui_layer\AutocompleteController.class
 com\group37\sentencebuilder\data_layer\Word.class
 com\group37\sentencebuilder\ui_layer\GenerateController.class
+com\group37\sentencebuilder\ui_layer\ApplicationPage.class
 com\group37\sentencebuilder\SentenceBuilderApp.class
 com\group37\sentencebuilder\data_layer\TxtFileReader$1.class
 com\group37\sentencebuilder\ui_layer\HomeController.class
@@ -20,5 +22,5 @@ com\group37\sentencebuilder\ui_layer\ReportsController.class
 com\group37\sentencebuilder\data_layer\SentenceData.class
 com\group37\sentencebuilder\ui_layer\MainShellController$1.class
 com\group37\sentencebuilder\data_layer\TxtData.class
-com\group37\sentencebuilder\ui_layer\LoginPrompt.class
+com\group37\sentencebuilder\ui_layer\TitleController.class
 com\group37\sentencebuilder\ui_layer\GenerateController$Algorithm.class

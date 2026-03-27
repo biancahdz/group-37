@@ -36,7 +36,7 @@ import java.io.*;
 
 public class Database
 {
-
+    private static final String CONFIG_FILE = "data/db_config.txt";
     private static final String URL = "jdbc:mysql://localhost:3306/SentenceBuilder?useSSL=false&serverTimezone=UTC";
     private Connection conn = null;
     private String username = null;
@@ -503,6 +503,50 @@ public class Database
         }
     }
 
+    public boolean setTxt(String FileName, int numSentences) {
+        String sql = "INSERT INTO txt (txtName, numSentences) VALUES (?, ?)";
+        
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, FileName);
+            stmt.setInt(2, numSentences);
+            stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public int getTxtCount() {
+        String sql = "SELECT COUNT(txtID) AS count FROM txt";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("count");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int getTxtSentenceCount() {
+        String sql = "SELECT SUM(numSentences) AS total FROM txt";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("total");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public TxtData getTxt(String FileName) {
         String sql = "SELECT txtID numSentences FROM txt WHERE txtName = ?";
         
@@ -565,8 +609,47 @@ public class Database
             pass = reader.readLine();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         return new Database(user, pass, "SentenceBuilder");
+    }
+
+    public static boolean canConnect()
+    {
+        String user;
+        String pass;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File("data/db_config.txt")))) {
+            user = reader.readLine();
+            pass = reader.readLine();
+        } catch (IOException e) {
+            return false;
+        }
+
+        try (Connection connection = DriverManager.getConnection(URL, user, pass)) {
+            connection.close();
+            return true;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    public static boolean canConfigConnect(String user, String pass)
+    {
+        try (Connection connection = DriverManager.getConnection(URL, user, pass)) {
+            connection.close();
+        } catch (SQLException e) {
+            return false;
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(CONFIG_FILE))) {
+            writer.write(user);
+            writer.newLine();
+            writer.write(pass);
+        } catch (IOException e) {
+            return false;
+        }
+
+        return true;
     }
 }

@@ -114,6 +114,8 @@ public class TxtFileReader
 
                     database.connect();
 
+                    database.setTxt(fileName, total);
+
                     for (String sentence : sentences) {
                         String[] rawWords = sentence.split("\\s+");
                         List<String> words = new ArrayList<>();
