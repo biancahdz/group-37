@@ -11,7 +11,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.group37.sentencebuilder.ui.HomeController"
-      styleClass="page-root" spacing="0">
+      styleClass="page-root" spacing="12">
     <Label text="OVERVIEW" styleClass="section-eyebrow section-eyebrow-primary"/>
     <Label text="Dashboard" styleClass="section-heading section-heading-hero"/>
     <Label styleClass="section-lead" wrapText="true"
@@ -28,18 +28,18 @@
         </VBox>
     </HBox>
 
-    <GridPane styleClass="home-quick-grid" hgap="22" vgap="22">
+    <GridPane styleClass="home-quick-grid" hgap="24" vgap="24">
         <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" minWidth="200" prefWidth="300"/>
             <ColumnConstraints hgrow="ALWAYS" minWidth="200" prefWidth="300"/>
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints minHeight="168" vgrow="SOMETIMES"/>
-            <RowConstraints minHeight="168" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="188" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="188" vgrow="SOMETIMES"/>
         </rowConstraints>
 
         <VBox styleClass="quick-card quick-card-accent-import" GridPane.columnIndex="0" GridPane.rowIndex="0"
-              onMouseClicked="#onQuickImport" spacing="12">
+              onMouseClicked="#onQuickImport" spacing="14">
             <StackPane styleClass="quick-card-icon-wrap quick-icon-import">
                 <Label text="↓" styleClass="quick-card-icon"/>
             </StackPane>
@@ -48,7 +48,7 @@
             <Label text="Open workspace →" styleClass="quick-card-cta"/>
         </VBox>
         <VBox styleClass="quick-card quick-card-accent-generate" GridPane.columnIndex="1" GridPane.rowIndex="0"
-              onMouseClicked="#onQuickGenerate" spacing="12">
+              onMouseClicked="#onQuickGenerate" spacing="14">
             <StackPane styleClass="quick-card-icon-wrap quick-icon-generate">
                 <Label text="✦" styleClass="quick-card-icon"/>
             </StackPane>
@@ -57,7 +57,7 @@
             <Label text="Open workspace →" styleClass="quick-card-cta"/>
         </VBox>
         <VBox styleClass="quick-card quick-card-accent-compose" GridPane.columnIndex="0" GridPane.rowIndex="1"
-              onMouseClicked="#onQuickAutocomplete" spacing="12">
+              onMouseClicked="#onQuickAutocomplete" spacing="14">
             <StackPane styleClass="quick-card-icon-wrap quick-icon-compose">
                 <Label text="⌁" styleClass="quick-card-icon"/>
             </StackPane>
@@ -66,7 +66,7 @@
             <Label text="Open workspace →" styleClass="quick-card-cta"/>
         </VBox>
         <VBox styleClass="quick-card quick-card-accent-reports" GridPane.columnIndex="1" GridPane.rowIndex="1"
-              onMouseClicked="#onQuickReports" spacing="12">
+              onMouseClicked="#onQuickReports" spacing="14">
             <StackPane styleClass="quick-card-icon-wrap quick-icon-reports">
                 <Label text="≡" styleClass="quick-card-icon"/>
             </StackPane>

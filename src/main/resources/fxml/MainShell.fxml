@@ -11,7 +11,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.group37.sentencebuilder.ui.MainShellController"
-            styleClass="app-root" prefWidth="1280" prefHeight="800">
+            styleClass="app-root theme-default font-stack-default font-metrics-default fs-medium" prefWidth="1280" prefHeight="800">
     <left>
         <VBox styleClass="sidebar" prefWidth="252" minWidth="252" maxWidth="252" spacing="2">
             <HBox styleClass="sidebar-mark" alignment="CENTER_LEFT" spacing="12">
@@ -44,7 +44,7 @@
         <BorderPane styleClass="main-region">
             <top>
                 <HBox styleClass="header-bar" alignment="CENTER_LEFT">
-                    <VBox spacing="3">
+                    <VBox spacing="6">
                         <Label fx:id="headerTitle" styleClass="header-title" text="Home"/>
                         <Label styleClass="header-sub" text="Sentence Builder · Senior Design · Group 37"/>
                     </VBox>
@@ -55,7 +55,9 @@
                 </HBox>
             </top>
             <center>
-                <StackPane fx:id="contentHost" styleClass="content-host"/>
+                <StackPane styleClass="workspace-inset">
+                    <StackPane fx:id="contentHost" styleClass="content-host workspace-surface"/>
+                </StackPane>
             </center>
         </BorderPane>
     </center>

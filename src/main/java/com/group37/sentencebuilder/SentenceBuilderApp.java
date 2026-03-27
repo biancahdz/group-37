@@ -1,5 +1,7 @@
 package com.group37.sentencebuilder;
 
+import com.group37.sentencebuilder.ui.UiPreferences;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,6 +29,10 @@ public class SentenceBuilderApp extends Application {
         Scene scene = new Scene(root, 1280, 800);
         scene.getStylesheets().add(
                 Objects.requireNonNull(getClass().getResource("/css/app-theme.css")).toExternalForm());
+        scene.getStylesheets().add(
+                Objects.requireNonNull(getClass().getResource("/css/theme-palettes.css")).toExternalForm());
+
+        UiPreferences.get().attachShell(root);
 
         stage.setTitle("Sentence Builder");
         stage.setScene(scene);

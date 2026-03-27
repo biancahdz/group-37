@@ -1,0 +1,615 @@
+/*
+ * Theme, font stack, and base size live on .root — change tokens here or via UiPreferences
+ * so one set of sb-* variables drives the whole UI.
+ *
+ * Structural tokens (per theme):
+ *   sb-text-lead          — lead copy under page titles (vs sb-text)
+ *   sb-separator-sidebar  — vertical line between sidebar and main
+ *   sb-separator-brand    — horizontal line under brand block (Sentence Builder / tagline)
+ *   sb-separator-header   — horizontal line under top header bar
+ *   sb-workspace-panel    — rounded main content panel background
+ *
+ * Java mirrors: com.group37.sentencebuilder.ui.appearance.ThemePaletteKeys
+ */
+
+/* ---- Base font size (drives em-based typography in app-theme.css) ---- */
+/* Default when no font-stack-* is set; stacks below override per family. */
+.root.fs-small {
+    -fx-font-size: 11px;
+}
+
+.root.fs-medium {
+    -fx-font-size: 13px;
+}
+
+.root.fs-large {
+    -fx-font-size: 15px;
+}
+
+.root.fs-xl {
+    -fx-font-size: 17px;
+}
+
+/* ---- Font stacks (change default in AppFont.DEFAULT_FONT) ---- */
+.root.font-stack-default {
+    -fx-font-family: "SF Pro Text", "Inter", "Helvetica Neue", "Segoe UI", system-ui, sans-serif;
+}
+
+.root.font-stack-times {
+    -fx-font-family: "Times New Roman", Times, serif;
+}
+
+.root.font-stack-georgia {
+    -fx-font-family: Georgia, "Times New Roman", serif;
+}
+
+.root.font-stack-arial {
+    -fx-font-family: Arial, Helvetica, sans-serif;
+}
+
+.root.font-stack-verdana {
+    -fx-font-family: Verdana, Geneva, sans-serif;
+}
+
+.root.font-stack-consolas {
+    -fx-font-family: Consolas, "Courier New", monospace;
+}
+
+.root.font-stack-serif {
+    -fx-font-family: serif;
+}
+
+.root.font-stack-sans {
+    -fx-font-family: sans-serif;
+}
+
+/*
+ * Per-family root font size (same fs-* preset): different faces have very different cap/x-heights at
+ * one nominal pt size. Tuning each stack keeps switching fonts closer in perceived scale; em-based
+ * headings then stay balanced without huge jumps.
+ * (font-metrics-relaxed adds tracking only — no extra global +1px here.)
+ */
+.root.font-stack-default.fs-small { -fx-font-size: 11px; }
+.root.font-stack-default.fs-medium { -fx-font-size: 13px; }
+.root.font-stack-default.fs-large { -fx-font-size: 15px; }
+.root.font-stack-default.fs-xl { -fx-font-size: 17px; }
+
+.root.font-stack-times.fs-small { -fx-font-size: 12px; }
+.root.font-stack-times.fs-medium { -fx-font-size: 14px; }
+.root.font-stack-times.fs-large { -fx-font-size: 16px; }
+.root.font-stack-times.fs-xl { -fx-font-size: 18px; }
+
+.root.font-stack-georgia.fs-small { -fx-font-size: 11px; }
+.root.font-stack-georgia.fs-medium { -fx-font-size: 13px; }
+.root.font-stack-georgia.fs-large { -fx-font-size: 15px; }
+.root.font-stack-georgia.fs-xl { -fx-font-size: 17px; }
+
+.root.font-stack-arial.fs-small { -fx-font-size: 11px; }
+.root.font-stack-arial.fs-medium { -fx-font-size: 13px; }
+.root.font-stack-arial.fs-large { -fx-font-size: 15px; }
+.root.font-stack-arial.fs-xl { -fx-font-size: 17px; }
+
+/* Verdana reads much larger at the same pt — pull base down so it matches System UI / Arial. */
+.root.font-stack-verdana.fs-small { -fx-font-size: 10px; }
+.root.font-stack-verdana.fs-medium { -fx-font-size: 12px; }
+.root.font-stack-verdana.fs-large { -fx-font-size: 14px; }
+.root.font-stack-verdana.fs-xl { -fx-font-size: 16px; }
+
+/* Monospace: slightly larger root than UI sans so body width/height feels comparable; tracking below. */
+.root.font-stack-consolas.fs-small { -fx-font-size: 12px; }
+.root.font-stack-consolas.fs-medium { -fx-font-size: 14px; }
+.root.font-stack-consolas.fs-large { -fx-font-size: 16px; }
+.root.font-stack-consolas.fs-xl { -fx-font-size: 18px; }
+
+.root.font-stack-serif.fs-small { -fx-font-size: 12px; }
+.root.font-stack-serif.fs-medium { -fx-font-size: 14px; }
+.root.font-stack-serif.fs-large { -fx-font-size: 16px; }
+.root.font-stack-serif.fs-xl { -fx-font-size: 18px; }
+
+.root.font-stack-sans.fs-small { -fx-font-size: 11px; }
+.root.font-stack-sans.fs-medium { -fx-font-size: 13px; }
+.root.font-stack-sans.fs-large { -fx-font-size: 15px; }
+.root.font-stack-sans.fs-xl { -fx-font-size: 17px; }
+
+/*
+ * Font metrics (see AppFont#getMetricsStyleClass): dense monospace / many serifs — tracking and line
+ * spacing so titles vs body stay balanced without glyphs bunching. Root size is set per font-stack above.
+ */
+.root.font-metrics-relaxed {
+    -fx-letter-spacing: 0.022em;
+}
+
+/* Monospace: a touch more tracking than generic relaxed (same root node carries both classes). */
+.root.font-stack-consolas.font-metrics-relaxed {
+    -fx-letter-spacing: 0.028em;
+}
+
+.root.font-metrics-relaxed .section-heading,
+.root.font-metrics-relaxed .section-heading-hero {
+    -fx-letter-spacing: 0.035em;
+}
+
+.root.font-metrics-relaxed .section-eyebrow {
+    -fx-letter-spacing: 0.15em;
+}
+
+.root.font-metrics-relaxed .header-title {
+    -fx-letter-spacing: 0.025em;
+}
+
+.root.font-metrics-relaxed .header-sub {
+    -fx-letter-spacing: 0.02em;
+}
+
+.root.font-metrics-relaxed .section-lead {
+    -fx-font-size: 1.12em;
+    -fx-letter-spacing: 0.03em;
+    -fx-line-spacing: 4px;
+    -fx-padding: 8 2 52 2;
+}
+
+.root.font-metrics-relaxed .quick-card-desc,
+.root.font-metrics-relaxed .about-body,
+.root.font-metrics-relaxed .card-subtitle {
+    -fx-letter-spacing: 0.028em;
+    -fx-line-spacing: 4px;
+}
+
+.root.font-metrics-relaxed .quick-card-title,
+.root.font-metrics-relaxed .card-title,
+.root.font-metrics-relaxed .about-title {
+    -fx-letter-spacing: 0.02em;
+}
+
+.root.font-metrics-relaxed .nav-toggle {
+    -fx-letter-spacing: 0.015em;
+    -fx-padding: 11 16 11 16;
+}
+
+.root.font-metrics-relaxed .sidebar-brand {
+    -fx-letter-spacing: 0.01em;
+}
+
+.root.font-metrics-relaxed .sidebar-tagline,
+.root.font-metrics-relaxed .sidebar-footer-label {
+    -fx-letter-spacing: 0.02em;
+    -fx-line-spacing: 3px;
+}
+
+.root.font-metrics-relaxed .stat-tile-label {
+    -fx-letter-spacing: 0.08em;
+}
+
+/* ---- defaultTheme (dark) — DEFAULT_THEME ---- */
+.root.theme-default {
+    -fx-background-color: sb-canvas;
+
+    sb-canvas: #09090b;
+    sb-sidebar: #0c0c0e;
+    sb-header: #0c0c0e;
+    sb-surface: #18181b;
+    sb-surface-raised: #1f1f23;
+    sb-surface-muted: #27272a;
+    sb-surface-hover: #2f2f33;
+    sb-input: #27272a;
+
+    sb-text: #fafafa;
+    sb-text-secondary: #d4d4d8;
+    sb-text-muted: #a1a1aa;
+    sb-text-tertiary: #71717a;
+    sb-text-lead: #d4d4d8;
+
+    sb-border: #3f3f46;
+    sb-border-subtle: #3f3f46;
+    sb-divider: #27272a;
+    sb-separator-sidebar: #52525b;
+    sb-separator-brand: #3f3f46;
+    sb-separator-header: #3f3f46;
+    sb-workspace-panel: #18181b;
+
+    sb-accent: #60a5fa;
+    sb-accent-hover: #3b82f6;
+    sb-accent-pressed: #2563eb;
+    sb-accent-soft: #1e3a5f;
+    sb-accent-border: #3b82f6;
+
+    sb-violet: #818cf8;
+    sb-violet-soft: #312e81;
+    sb-violet-border: #6366f1;
+
+    sb-teal: #2dd4bf;
+    sb-teal-soft: #134e4a;
+    sb-teal-border: #14b8a6;
+
+    sb-amber: #fb923c;
+    sb-amber-soft: #7c2d12;
+    sb-amber-border: #f97316;
+
+    sb-success: #34d399;
+    sb-success-soft: #064e3b;
+    sb-success-border: #10b981;
+
+    sb-warning: #facc15;
+    sb-error: #f87171;
+
+    sb-shade: rgba(0, 0, 0, 0.45);
+    sb-shade-hover: rgba(0, 0, 0, 0.55);
+}
+
+/* ---- Light mode ---- */
+.root.theme-light {
+    -fx-background-color: sb-canvas;
+
+    sb-canvas: #ececee;
+    sb-sidebar: #ffffff;
+    sb-header: #ffffff;
+    sb-surface: #ffffff;
+    sb-surface-raised: #fafafa;
+    sb-surface-muted: #f4f4f5;
+    sb-surface-hover: #f0f0f2;
+    sb-input: #fafafa;
+
+    sb-text: #18181b;
+    sb-text-secondary: #52525b;
+    sb-text-muted: #71717a;
+    sb-text-tertiary: #a1a1aa;
+    sb-text-lead: #3f3f46;
+
+    sb-border: #c4c4cc;
+    sb-border-subtle: #d4d4d8;
+    sb-divider: #e4e4e7;
+    sb-separator-sidebar: #d4d4d8;
+    sb-separator-brand: #d4d4d8;
+    sb-separator-header: #d4d4d8;
+    sb-workspace-panel: #f4f4f5;
+
+    sb-accent: #1d4ed8;
+    sb-accent-hover: #2563eb;
+    sb-accent-pressed: #1e40af;
+    sb-accent-soft: #dbeafe;
+    sb-accent-border: #3b82f6;
+
+    sb-violet: #4f46e5;
+    sb-violet-soft: #e0e7ff;
+    sb-violet-border: #6366f1;
+
+    sb-teal: #0f766e;
+    sb-teal-soft: #ccfbf1;
+    sb-teal-border: #14b8a6;
+
+    sb-amber: #ea580c;
+    sb-amber-soft: #ffedd5;
+    sb-amber-border: #fb923c;
+
+    sb-success: #059669;
+    sb-success-soft: #d1fae5;
+    sb-success-border: #34d399;
+
+    sb-warning: #ca8a04;
+    sb-error: #dc2626;
+
+    sb-shade: rgba(0, 0, 0, 0.07);
+    sb-shade-hover: rgba(0, 0, 0, 0.11);
+}
+
+/* ---- System mode (clean light “OS-like”; same tokens as light) ---- */
+.root.theme-system {
+    -fx-background-color: sb-canvas;
+
+    sb-canvas: #ececee;
+    sb-sidebar: #ffffff;
+    sb-header: #ffffff;
+    sb-surface: #ffffff;
+    sb-surface-raised: #fafafa;
+    sb-surface-muted: #f4f4f5;
+    sb-surface-hover: #f0f0f2;
+    sb-input: #fafafa;
+
+    sb-text: #18181b;
+    sb-text-secondary: #52525b;
+    sb-text-muted: #71717a;
+    sb-text-tertiary: #a1a1aa;
+    sb-text-lead: #3f3f46;
+
+    sb-border: #c4c4cc;
+    sb-border-subtle: #d4d4d8;
+    sb-divider: #e4e4e7;
+    sb-separator-sidebar: #d4d4d8;
+    sb-separator-brand: #d4d4d8;
+    sb-separator-header: #d4d4d8;
+    sb-workspace-panel: #f4f4f5;
+
+    sb-accent: #1d4ed8;
+    sb-accent-hover: #2563eb;
+    sb-accent-pressed: #1e40af;
+    sb-accent-soft: #dbeafe;
+    sb-accent-border: #3b82f6;
+
+    sb-violet: #4f46e5;
+    sb-violet-soft: #e0e7ff;
+    sb-violet-border: #6366f1;
+
+    sb-teal: #0f766e;
+    sb-teal-soft: #ccfbf1;
+    sb-teal-border: #14b8a6;
+
+    sb-amber: #ea580c;
+    sb-amber-soft: #ffedd5;
+    sb-amber-border: #fb923c;
+
+    sb-success: #059669;
+    sb-success-soft: #d1fae5;
+    sb-success-border: #34d399;
+
+    sb-warning: #ca8a04;
+    sb-error: #dc2626;
+
+    sb-shade: rgba(0, 0, 0, 0.07);
+    sb-shade-hover: rgba(0, 0, 0, 0.11);
+}
+
+/* ---- Christmas (Vanilla / Holly Berry / Peacock / Midnight) ---- */
+.root.theme-christmas {
+    -fx-background-color: sb-canvas;
+
+    sb-canvas: #0D1C20;
+    sb-sidebar: #0A3D3A;
+    sb-header: #0A3D3A;
+    sb-surface: #123d32;
+    sb-surface-raised: #14532d;
+    sb-surface-muted: #0f2a22;
+    sb-surface-hover: #166534;
+    sb-input: #123d32;
+
+    sb-text: #FAECD8;
+    sb-text-secondary: #e8dcc8;
+    sb-text-muted: #c4b5a0;
+    sb-text-tertiary: #a18f7a;
+    sb-text-lead: #d6cbb8;
+
+    sb-border: #6A161C;
+    sb-border-subtle: #14532d;
+    sb-divider: #14532d;
+    sb-separator-sidebar: #14532d;
+    sb-separator-brand: #1a4d3d;
+    sb-separator-header: #14532d;
+    sb-workspace-panel: #123d32;
+
+    sb-accent: #6A161C;
+    sb-accent-hover: #8b1e26;
+    sb-accent-pressed: #4a1015;
+    sb-accent-soft: #3a0f14;
+    sb-accent-border: #b45309;
+
+    sb-violet: #c084fc;
+    sb-violet-soft: #4c1d95;
+    sb-violet-border: #e9d5ff;
+
+    sb-teal: #2dd4bf;
+    sb-teal-soft: #134e4a;
+    sb-teal-border: #5eead4;
+
+    sb-amber: #fbbf24;
+    sb-amber-soft: #78350f;
+    sb-amber-border: #fcd34d;
+
+    sb-success: #4ade80;
+    sb-success-soft: #064e3b;
+    sb-success-border: #34d399;
+
+    sb-warning: #fbbf24;
+    sb-error: #fca5a5;
+
+    sb-shade: rgba(0, 0, 0, 0.4);
+    sb-shade-hover: rgba(0, 0, 0, 0.5);
+}
+
+/* ---- Thanksgiving (Cocoa / Spice / Cream / Olive) ---- */
+.root.theme-thanksgiving {
+    -fx-background-color: sb-canvas;
+
+    sb-canvas: #f0e6d8;
+    sb-sidebar: #EEDCBE;
+    sb-header: #ffffff;
+    sb-surface: #ffffff;
+    sb-surface-raised: #faf7f2;
+    sb-surface-muted: #f2e6d4;
+    sb-surface-hover: #f5ebe0;
+    sb-input: #f5ebe0;
+
+    sb-text: #3E2723;
+    sb-text-secondary: #5d4a42;
+    sb-text-muted: #6d5c55;
+    sb-text-tertiary: #8a7b72;
+    sb-text-lead: #4a3b35;
+
+    sb-border: #B34E22;
+    sb-border-subtle: #c9b8a4;
+    sb-divider: #c9b8a4;
+    sb-separator-sidebar: #c9b8a4;
+    sb-separator-brand: #c9b8a4;
+    sb-separator-header: #c9b8a4;
+    sb-workspace-panel: #EEDCBE;
+
+    sb-accent: #B34E22;
+    sb-accent-hover: #c45d2e;
+    sb-accent-pressed: #8f3e1b;
+    sb-accent-soft: #f0dcc8;
+    sb-accent-border: #d97706;
+
+    sb-violet: #6B7050;
+    sb-violet-soft: #e8e4d6;
+    sb-violet-border: #8b7355;
+
+    sb-teal: #6B7050;
+    sb-teal-soft: #e8e4d6;
+    sb-teal-border: #8b7355;
+
+    sb-amber: #B34E22;
+    sb-amber-soft: #f0dcc8;
+    sb-amber-border: #d97706;
+
+    sb-success: #5d7a3a;
+    sb-success-soft: #e8edd8;
+    sb-success-border: #84a35a;
+
+    sb-warning: #ca8a04;
+    sb-error: #b91c1c;
+
+    sb-shade: rgba(62, 39, 35, 0.12);
+    sb-shade-hover: rgba(62, 39, 35, 0.18);
+}
+
+/* ---- Rainbow ---- */
+.root.theme-rainbow {
+    -fx-background-color: sb-canvas;
+
+    sb-canvas: #1e1b4b;
+    sb-sidebar: #312e81;
+    sb-header: #312e81;
+    sb-surface: #3730a3;
+    sb-surface-raised: #4338ca;
+    sb-surface-muted: #312e81;
+    sb-surface-hover: #4f46e5;
+    sb-input: #312e81;
+
+    sb-text: #fafafa;
+    sb-text-secondary: #e9d5ff;
+    sb-text-muted: #c4b5fd;
+    sb-text-tertiary: #a78bfa;
+    sb-text-lead: #ddd6fe;
+
+    sb-border: #6366f1;
+    sb-border-subtle: #818cf8;
+    sb-divider: #4c1d95;
+    sb-separator-sidebar: #6366f1;
+    sb-separator-brand: #4c1d95;
+    sb-separator-header: #6366f1;
+    sb-workspace-panel: #312e81;
+
+    sb-accent: #f472b6;
+    sb-accent-hover: #ec4899;
+    sb-accent-pressed: #db2777;
+    sb-accent-soft: #500724;
+    sb-accent-border: #f9a8d4;
+
+    sb-violet: #22d3ee;
+    sb-violet-soft: #164e63;
+    sb-violet-border: #67e8f9;
+
+    sb-teal: #4ade80;
+    sb-teal-soft: #14532d;
+    sb-teal-border: #86efac;
+
+    sb-amber: #fbbf24;
+    sb-amber-soft: #78350f;
+    sb-amber-border: #fcd34d;
+
+    sb-success: #4ade80;
+    sb-success-soft: #14532d;
+    sb-success-border: #86efac;
+
+    sb-warning: #facc15;
+    sb-error: #fb7185;
+
+    sb-shade: rgba(0, 0, 0, 0.4);
+    sb-shade-hover: rgba(0, 0, 0, 0.5);
+}
+
+/* ---- Invert System (high-contrast dark inverse of light system) ---- */
+.root.theme-invert-system {
+    -fx-background-color: sb-canvas;
+
+    sb-canvas: #000000;
+    sb-sidebar: #0a0a0a;
+    sb-header: #0a0a0a;
+    sb-surface: #171717;
+    sb-surface-raised: #262626;
+    sb-surface-muted: #171717;
+    sb-surface-hover: #404040;
+    sb-input: #262626;
+
+    sb-text: #ffffff;
+    sb-text-secondary: #e5e5e5;
+    sb-text-muted: #a3a3a3;
+    sb-text-tertiary: #737373;
+    sb-text-lead: #d4d4d4;
+
+    sb-border: #ffffff;
+    sb-border-subtle: #d4d4d4;
+    sb-divider: #404040;
+    sb-separator-sidebar: #525252;
+    sb-separator-brand: #404040;
+    sb-separator-header: #404040;
+    sb-workspace-panel: #171717;
+
+    sb-accent: #fde047;
+    sb-accent-hover: #facc15;
+    sb-accent-pressed: #eab308;
+    sb-accent-soft: #422006;
+    sb-accent-border: #fef08a;
+
+    sb-violet: #c084fc;
+    sb-violet-soft: #3b0764;
+    sb-violet-border: #e879f9;
+
+    sb-teal: #5eead4;
+    sb-teal-soft: #134e4a;
+    sb-teal-border: #2dd4bf;
+
+    sb-amber: #fb923c;
+    sb-amber-soft: #7c2d12;
+    sb-amber-border: #fdba74;
+
+    sb-success: #86efac;
+    sb-success-soft: #14532d;
+    sb-success-border: #4ade80;
+
+    sb-warning: #fde047;
+    sb-error: #fca5a5;
+
+    sb-shade: rgba(255, 255, 255, 0.08);
+    sb-shade-hover: rgba(255, 255, 255, 0.14);
+}
+
+/* Theme-specific tweaks (hardcoded colors in app-theme.css) */
+.root.theme-default .section-heading-hero,
+.root.theme-christmas .section-heading-hero,
+.root.theme-thanksgiving .section-heading-hero,
+.root.theme-rainbow .section-heading-hero,
+.root.theme-invert-system .section-heading-hero {
+    -fx-text-fill: sb-text;
+}
+
+.root.theme-default .table-view.table-clean .table-row-cell:odd,
+.root.theme-christmas .table-view.table-clean .table-row-cell:odd,
+.root.theme-thanksgiving .table-view.table-clean .table-row-cell:odd,
+.root.theme-rainbow .table-view.table-clean .table-row-cell:odd,
+.root.theme-invert-system .table-view.table-clean .table-row-cell:odd {
+    -fx-background-color: sb-surface-muted;
+}
+
+.root.theme-default .quick-card-accent-import .quick-card-title { -fx-text-fill: #93c5fd; }
+.root.theme-default .quick-card-accent-generate .quick-card-title { -fx-text-fill: #c4b5fd; }
+.root.theme-default .quick-card-accent-compose .quick-card-title { -fx-text-fill: #5eead4; }
+.root.theme-default .quick-card-accent-reports .quick-card-title { -fx-text-fill: #fdba74; }
+
+.root.theme-christmas .quick-card-accent-import .quick-card-title { -fx-text-fill: #f9a8a8; }
+.root.theme-christmas .quick-card-accent-generate .quick-card-title { -fx-text-fill: #e9d5ff; }
+.root.theme-christmas .quick-card-accent-compose .quick-card-title { -fx-text-fill: #6ee7b7; }
+.root.theme-christmas .quick-card-accent-reports .quick-card-title { -fx-text-fill: #fde047; }
+
+.root.theme-thanksgiving .quick-card-accent-import .quick-card-title { -fx-text-fill: #B34E22; }
+.root.theme-thanksgiving .quick-card-accent-generate .quick-card-title { -fx-text-fill: #6B7050; }
+.root.theme-thanksgiving .quick-card-accent-compose .quick-card-title { -fx-text-fill: #8f3e1b; }
+.root.theme-thanksgiving .quick-card-accent-reports .quick-card-title { -fx-text-fill: #a16207; }
+
+.root.theme-rainbow .quick-card-accent-import .quick-card-title { -fx-text-fill: #f9a8d4; }
+.root.theme-rainbow .quick-card-accent-generate .quick-card-title { -fx-text-fill: #a5f3fc; }
+.root.theme-rainbow .quick-card-accent-compose .quick-card-title { -fx-text-fill: #bbf7d0; }
+.root.theme-rainbow .quick-card-accent-reports .quick-card-title { -fx-text-fill: #fde047; }
+
+.root.theme-invert-system .quick-card-accent-import .quick-card-title { -fx-text-fill: #fef08a; }
+.root.theme-invert-system .quick-card-accent-generate .quick-card-title { -fx-text-fill: #e9d5ff; }
+.root.theme-invert-system .quick-card-accent-compose .quick-card-title { -fx-text-fill: #5eead4; }
+.root.theme-invert-system .quick-card-accent-reports .quick-card-title { -fx-text-fill: #fdba74; }
