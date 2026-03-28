@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
@@ -22,14 +21,13 @@
         <Label fx:id="hintLabel" styleClass="status-label" wrapText="true"/>
     </VBox>
 
-    <VBox spacing="12" styleClass="content-card content-card-elevated" VBox.vgrow="ALWAYS">
+    <VBox spacing="12" styleClass="content-card content-card-elevated">
         <VBox.margin>
-            <Insets top="24"/>
+            <Insets top="18"/>
         </VBox.margin>
         <Label text="Suggestions" styleClass="card-title"/>
-        <ScrollPane fitToWidth="true" styleClass="scroll-pane" hbarPolicy="NEVER" VBox.vgrow="ALWAYS" minHeight="200">
-            <FlowPane fx:id="suggestionsPane" hgap="10" vgap="10" prefWrapLength="780"
-                      style="-fx-padding: 2 0 8 0;"/>
-        </ScrollPane>
+        <FlowPane fx:id="suggestionsPane" hgap="10" vgap="10" prefWrapLength="780"
+                  maxWidth="Infinity"
+                  style="-fx-padding: 2 0 8 0;"/>
     </VBox>
 </VBox>

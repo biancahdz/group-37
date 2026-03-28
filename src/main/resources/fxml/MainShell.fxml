@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -56,7 +57,10 @@
             </top>
             <center>
                 <StackPane styleClass="workspace-inset">
-                    <StackPane fx:id="contentHost" styleClass="content-host workspace-surface"/>
+                    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true"
+                                styleClass="scroll-pane workspace-scroll" maxWidth="Infinity" maxHeight="Infinity">
+                        <StackPane fx:id="contentHost" styleClass="content-host workspace-surface" maxWidth="Infinity"/>
+                    </ScrollPane>
                 </StackPane>
             </center>
         </BorderPane>

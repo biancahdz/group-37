@@ -33,11 +33,45 @@
     -fx-background-radius: 4;
 }
 
+/* Main workspace: vertical scroll when page content exceeds viewport */
+.workspace-scroll {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.workspace-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.workspace-scroll > .scroll-bar:vertical {
+    -fx-pref-width: 11;
+}
+
+.workspace-scroll > .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(255, 255, 255, 0.22);
+}
+
+.workspace-scroll > .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.36);
+}
+
+.root.theme-light .workspace-scroll > .scroll-bar:vertical .thumb,
+.root.theme-system .workspace-scroll > .scroll-bar:vertical .thumb,
+.root.theme-thanksgiving .workspace-scroll > .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(0, 0, 0, 0.22);
+}
+
+.root.theme-light .workspace-scroll > .scroll-bar:vertical .thumb:hover,
+.root.theme-system .workspace-scroll > .scroll-bar:vertical .thumb:hover,
+.root.theme-thanksgiving .workspace-scroll > .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.36);
+}
+
 /* ---- Sidebar ---- */
 .sidebar {
     -fx-background-color: sb-sidebar;
-    -fx-padding: 28 18 24 18;
-    -fx-spacing: 2;
+    -fx-padding: 24 10 20 10;
+    -fx-spacing: 0;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.18), 14, 0.2, 1, 0);
     -fx-border-color: sb-separator-sidebar;
     -fx-border-width: 0 1 0 0;
@@ -84,7 +118,7 @@
     -fx-text-fill: sb-text-secondary;
     -fx-font-size: 1em;
     -fx-alignment: CENTER_LEFT;
-    -fx-padding: 10 14 10 14;
+    -fx-padding: 7 8 7 8;
     -fx-background-radius: 10;
     -fx-border-width: 0;
     -fx-cursor: hand;
@@ -200,7 +234,7 @@
     -fx-font-size: 0.769em;
     -fx-font-weight: bold;
     -fx-letter-spacing: 0.14em;
-    -fx-padding: 0 0 14 0;
+    -fx-padding: 0 0 18 0;
 }
 
 .section-eyebrow-primary {
@@ -223,19 +257,20 @@
     -fx-text-fill: sb-text;
     -fx-font-size: 2em;
     -fx-font-weight: bold;
+    -fx-padding: 6 0 0 0;
 }
 
 .section-heading-hero {
     -fx-font-size: 2.615em;
     -fx-font-weight: bold;
-    -fx-padding: 0 0 12 0;
+    -fx-padding: 8 0 12 0;
     -fx-text-fill: sb-text;
 }
 
 .section-lead {
     -fx-text-fill: sb-text-lead;
     -fx-font-size: 1.077em;
-    -fx-padding: 6 0 48 0;
+    -fx-padding: 4 0 20 0;
     -fx-max-width: 600;
 }
 

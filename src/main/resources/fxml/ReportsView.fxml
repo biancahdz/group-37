@@ -31,13 +31,13 @@
         </HBox>
     </VBox>
 
-    <VBox spacing="14" styleClass="content-card content-card-elevated" VBox.vgrow="ALWAYS">
+    <VBox spacing="14" styleClass="content-card content-card-elevated">
         <VBox.margin>
-            <Insets top="24"/>
+            <Insets top="18"/>
         </VBox.margin>
         <Label text="Generated sentences" styleClass="card-title"/>
         <Label text="Preview column truncates in the cell; widen for your demo data." styleClass="card-subtitle"/>
-        <TableView fx:id="reportTable" styleClass="table-clean" VBox.vgrow="ALWAYS" minHeight="280">
+        <TableView fx:id="reportTable" styleClass="table-clean" minHeight="200" prefHeight="360">
             <columns>
                 <TableColumn fx:id="colId" text="ID" prefWidth="72"/>
                 <TableColumn fx:id="colAlgorithm" text="ALGORITHM" prefWidth="220"/>

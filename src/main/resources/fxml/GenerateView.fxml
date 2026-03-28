@@ -33,12 +33,12 @@
         </HBox>
     </VBox>
 
-    <VBox spacing="14" styleClass="content-card content-card-elevated" VBox.vgrow="ALWAYS">
+    <VBox spacing="14" styleClass="content-card content-card-elevated">
         <VBox.margin>
-            <Insets top="24"/>
+            <Insets top="18"/>
         </VBox.margin>
         <Label text="Output" styleClass="card-title"/>
         <Label text="Rendered sentence or paragraph appears here." styleClass="card-subtitle"/>
-        <TextArea fx:id="outputArea" wrapText="true" VBox.vgrow="ALWAYS" minHeight="260" promptText="Generated text…"/>
+        <TextArea fx:id="outputArea" wrapText="true" minHeight="200" prefHeight="280" promptText="Generated text…"/>
     </VBox>
 </VBox>

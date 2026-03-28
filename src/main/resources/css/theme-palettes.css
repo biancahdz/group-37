@@ -145,7 +145,7 @@
     -fx-font-size: 1.12em;
     -fx-letter-spacing: 0.03em;
     -fx-line-spacing: 4px;
-    -fx-padding: 8 2 52 2;
+    -fx-padding: 6 2 24 2;
 }
 
 .root.font-metrics-relaxed .quick-card-desc,
@@ -163,7 +163,7 @@
 
 .root.font-metrics-relaxed .nav-toggle {
     -fx-letter-spacing: 0.015em;
-    -fx-padding: 11 16 11 16;
+    -fx-padding: 8 10 8 10;
 }
 
 .root.font-metrics-relaxed .sidebar-brand {
