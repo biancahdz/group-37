@@ -740,7 +740,8 @@
 }
 
 .progress-bar.progress-themed {
-    -fx-pref-height: 8;
+    /*-fx-pref-height: 8;*/
+    -fx-min-height: 12;
     -fx-background-radius: 5;
 }
 

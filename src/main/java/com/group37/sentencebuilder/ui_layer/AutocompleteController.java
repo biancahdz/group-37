@@ -13,6 +13,9 @@ package com.group37.sentencebuilder.ui_layer;
 
 import com.group37.sentencebuilder.data_layer.Database;
 
+import com.group37.sentencebuilder.ui_layer.ApplicationPage;
+import com.group37.sentencebuilder.ui_layer.DatabasePage;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +26,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 
 /** Auto-complete screen with mock suggestion chips. */
-public class AutocompleteController {
+public class AutocompleteController implements ApplicationPage, DatabasePage {
 
-    private Database database = Database.getDatabase();
+    private Database database;
 
     @FXML
     private TextField prefixField;
@@ -39,7 +42,6 @@ public class AutocompleteController {
     @FXML
     private void initialize() {
         prefixField.textProperty().addListener((obs, o, n) -> refreshSuggestions(n));
-        refreshSuggestions(prefixField.getText());
     }
 
     private void refreshSuggestions(String raw) {
@@ -49,6 +51,7 @@ public class AutocompleteController {
         String safeRaw = (raw == null) ? "" : raw;
         String trimmed = safeRaw.trim().toLowerCase();
 
+        boolean stringEmpty = trimmed.isEmpty();
         boolean endsWithSpace = safeRaw.endsWith(" ");
         String[] parts = trimmed.isEmpty() ? new String[0] : trimmed.split("\\s+");
 
@@ -70,22 +73,17 @@ public class AutocompleteController {
             protected List<String> call() throws Exception {
                 List<String> words = new ArrayList<>();
 
-                try {
-                    database.connect();
-
-                    if (endsWithSpace) {
-                        if (!finalCurrentWord.isEmpty() && database.isWord(finalCurrentWord)) {
-                            int wordId = database.getWordID(finalCurrentWord);
-                            words = database.getXBestWords(wordId, 15);
-                        }
-                    } else {
-                        if (!finalCurrentWord.isEmpty()) {
-                            words = database.autoComplete(finalCurrentWord, 15);
-                        }
+                if (stringEmpty) {
+                    words = database.getXBestWords(1, 15);
+                } else if (endsWithSpace) {
+                    if (!finalCurrentWord.isEmpty() && database.isWord(finalCurrentWord)) {
+                        int wordId = database.getWordID(finalCurrentWord);
+                        words = database.getXBestWords(wordId, 15);
                     }
-
-                } finally {
-                    database.disconnect();
+                } else {
+                    if (!finalCurrentWord.isEmpty()) {
+                        words = database.autoComplete(finalCurrentWord, 15);
+                    }
                 }
 
                 return words;
@@ -143,5 +141,25 @@ public class AutocompleteController {
         Thread thread = new Thread(task);
         thread.setDaemon(true);
         thread.start();
+    }
+
+    @Override
+    public void onPageEnter()
+    {
+        database.connect();
+
+        refreshSuggestions(prefixField.getText());
+    }
+
+    @Override
+    public void onPageLeave()
+    {
+        database.disconnect();
+    }
+
+    @Override
+    public void setDatabase(Database database)
+    {
+        this.database = database;
     }
 }

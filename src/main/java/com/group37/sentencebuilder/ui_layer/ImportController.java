@@ -4,7 +4,7 @@
  *
  * Author: 
  * Created: 
- * Last Modified: 2026-03-24
+ * Last Modified: 2026-03-27
  *
  * Version: 1.0
  */
@@ -13,6 +13,11 @@ package com.group37.sentencebuilder.ui_layer;
 
 import com.group37.sentencebuilder.ui_layer.model.ImportHistoryRow;
 import com.group37.sentencebuilder.data_layer.TxtFileReader;
+
+import com.group37.sentencebuilder.ui_layer.ApplicationPage;
+import com.group37.sentencebuilder.ui_layer.DatabasePage;
+
+import com.group37.sentencebuilder.data_layer.Database;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -31,7 +36,15 @@ import javafx.concurrent.Task;
 import java.io.File;
 
 /** Import screen UI — file picker and progress are visual stubs only. */
-public class ImportController {
+public class ImportController implements ApplicationPage, DatabasePage {
+
+    private Database database;
+
+    @Override
+    public void setDatabase(Database database)
+    {
+        this.database = database;
+    }
 
     @FXML
     private Label selectedFileLabel;
@@ -62,6 +75,21 @@ public class ImportController {
 
     private File stagedFile;
 
+    @Override
+    public void onPageEnter()
+    {
+        if (database.connect())
+        {
+            importTable.setItems(database.getTxtHistory());
+            database.disconnect();
+        }
+    }
+
+    @Override
+    public void onPageLeave()
+    {
+    }
+
     @FXML
     private void initialize() {
         colFile.setCellValueFactory(c -> c.getValue().fileNameProperty());
@@ -70,12 +98,6 @@ public class ImportController {
         colWords.setCellValueFactory(c -> c.getValue().wordsProperty());
         colStatus.setCellValueFactory(c -> c.getValue().statusProperty());
 
-        ObservableList<ImportHistoryRow> rows = FXCollections.observableArrayList(
-                new ImportHistoryRow("sample_corpus.txt", "Mar 18, 2026 · 2:14 PM", "12,480", "89,204", "Complete"),
-                new ImportHistoryRow("notes_draft.txt", "Mar 17, 2026 · 9:02 AM", "842", "6,110", "Complete"),
-                new ImportHistoryRow("lecture_transcript.txt", "Mar 15, 2026 · 4:51 PM", "3,201", "24,883", "Complete")
-        );
-        importTable.setItems(rows);
         importProgress.setProgress(0);
         importStatusLabel.setText("No import running.");
     }
@@ -102,6 +124,8 @@ public class ImportController {
         }
 
         importStatusLabel.setText("Importing...");
+
+        importProgress.progressProperty().unbind();
         importProgress.setProgress(0);
 
         TxtFileReader fileReader = new TxtFileReader(stagedFile);
@@ -110,8 +134,14 @@ public class ImportController {
 
         importProgress.progressProperty().bind(task.progressProperty());
 
-        task.setOnSucceeded(e -> importStatusLabel.setText("Import complete!"));
-        task.setOnFailed(e -> importStatusLabel.setText("Import failed."));
+        task.setOnSucceeded(e -> {
+            importStatusLabel.setText("Import complete!");
+            onPageEnter();
+        });
+
+        task.setOnFailed(e -> {
+            importStatusLabel.setText("Import failed.");
+        });
 
         Thread thread = new Thread(task);
         thread.setDaemon(true);

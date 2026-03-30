@@ -1,3 +1,14 @@
+/**
+ * File: 
+ * Description: 
+ *
+ * Author: 
+ * Created: 
+ * Last Modified: 2026-03-27
+ *
+ * Version: 1.0
+ */
+
 package com.group37.sentencebuilder.ui_layer.model;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -12,11 +23,11 @@ public class ImportHistoryRow {
     private final StringProperty words;
     private final StringProperty status;
 
-    public ImportHistoryRow(String fileName, String importedAt, String sentences, String words, String status) {
+    public ImportHistoryRow(String fileName, String importedAt, int sentences, int words, String status) {
         this.fileName = new SimpleStringProperty(fileName);
         this.importedAt = new SimpleStringProperty(importedAt);
-        this.sentences = new SimpleStringProperty(sentences);
-        this.words = new SimpleStringProperty(words);
+        this.sentences = new SimpleStringProperty(String.valueOf(sentences));
+        this.words = new SimpleStringProperty(String.valueOf(words));
         this.status = new SimpleStringProperty(status);
     }
 

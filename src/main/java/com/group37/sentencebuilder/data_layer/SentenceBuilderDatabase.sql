@@ -7,9 +7,8 @@
 /*  Created On  : 2026-01-29                                    */
 /*                                                              */
 /*  Last Modified By : Cortland Kimzey                          */
-/*  Last Modified On : 2026-02-02                               */
-/*  Change History : 2026-02-02 - Add header and table          */
-/*                                descriptions                  */
+/*  Last Modified On : 2026-03-27                               */
+/*  Change History : 2026-03-27                                 */
 /*                                                              */
 /*  Database    : SentenceBuilder                               */
 /*==============================================================*/
@@ -22,8 +21,9 @@ USE SentenceBuilder;
 CREATE TABLE txt (
     txtID INT NOT NULL AUTO_INCREMENT,
     txtName VARCHAR(64) NOT NULL,
-    importance INT,
     numSentences INT,
+    numWords INT,
+    dateAdded DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (txtID)
 ) ENGINE=InnoDB;
 

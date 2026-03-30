@@ -109,12 +109,11 @@ public class TxtFileReader
 
                     List<String> sentences = getSentences(sb);
 
-                    int total = sentences.size();
+                    int numSentences = sentences.size();
+                    int numWords = 0;
                     int count = 0;
 
                     database.connect();
-
-                    database.setTxt(fileName, total);
 
                     for (String sentence : sentences) {
                         String[] rawWords = sentence.split("\\s+");
@@ -127,12 +126,22 @@ public class TxtFileReader
                             }
                         }
 
+                        if (words.isEmpty())
+                        {
+                            numSentences--;
+                            continue;
+                        }
+
+                        numWords += words.size();
+                        
                         addWords(words);
                         addSentence(words);
                         addCombo(words);
 
-                        updateProgress(++count, total);
+                        updateProgress(++count, numSentences);
                     }
+
+                    database.setTxt(fileName, numSentences, numWords);
 
                     database.disconnect();
                 }

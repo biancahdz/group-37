@@ -16,6 +16,11 @@ import com.group37.sentencebuilder.data_layer.TxtData;
 import com.group37.sentencebuilder.data_layer.Word;
 import com.group37.sentencebuilder.data_layer.WordCombo;
 
+import com.group37.sentencebuilder.ui_layer.model.ImportHistoryRow;
+
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -469,7 +474,7 @@ public class Database
     }
 
     public List<String> autoComplete(String word, int x) {
-        String sql = "SELECT word FROM words WHERE word LIKE CONCAT(?, '%') LIMIT ?";
+        String sql =   "SELECT word FROM words WHERE word LIKE CONCAT(?, '%') ORDER BY wordCount DESC LIMIT ?";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, word);
@@ -503,12 +508,13 @@ public class Database
         }
     }
 
-    public boolean setTxt(String FileName, int numSentences) {
-        String sql = "INSERT INTO txt (txtName, numSentences) VALUES (?, ?)";
+    public boolean setTxt(String FileName, int numSentences, int numWords) {
+        String sql = "INSERT INTO txt (txtName, numSentences, numWords) VALUES (?, ?, ?)";
         
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, FileName);
             stmt.setInt(2, numSentences);
+            stmt.setInt(3, numWords);
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -561,6 +567,26 @@ public class Database
                         rs.getInt("numSentences")
                     );
                 }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ObservableList<ImportHistoryRow> getTxtHistory()
+    {
+        String sql = "SELECT txtID, txtName, numSentences, numWords, dateAdded FROM txt";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                ObservableList<ImportHistoryRow> rows = FXCollections.observableArrayList();
+
+                while (rs.next()) {
+                    rows.add(new ImportHistoryRow(rs.getString("txtName"), rs.getString("dateAdded"), rs.getInt("numSentences"), rs.getInt("numWords"), "Complete"));
+                }
+
+                return rows;
             }
         } catch (SQLException e) {
             e.printStackTrace();

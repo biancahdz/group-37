@@ -48,6 +48,8 @@ public class GeneratorLogic
             for (int x = 0; x < 15; x++)
             {
                 currentID = database.getBestCombo(currentID, true);
+                if (currentID == 2)
+                    break;
                 sentence += " " + database.getWord(currentID);
             }
 
