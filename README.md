@@ -1,48 +1,60 @@
 # group-37
-Sentence Builder CS Project 
-Advisor: John Cole 
+
+Sentence Builder CS Project  
+Advisor: John Cole  
 Group Members: Bianca, Cortland, Huy Nhat, Sebastian, Asher, Amrita
 
-Objective: 
-This project is an experimental system that builds a database of words from various sources.  This database can then be used to construct sentences based upon various criteria. 
+## Objective
 
-Tech Stack:
-Language- Java
-GUI Framework: JavaFX
-Database: MySQL
-IDE: IntelliJ
+This project builds a database of words from text sources and uses it to construct sentences under various criteria.
+
+## Tech stack
+
+- Language: Java 17
+- GUI: JavaFX
+- Database: MySQL (single schema: **`SentenceBuilder`**)
+- Build: Maven
 
 ---
-1. Make sure you have the following installed:
-    * Java JDK
-    * MySQL Server
-    * MySQL Workbench
-    * VS Code
 
-2. Clone the repo
+## Prerequisites
 
-3. Set up MySQL Database
-    * Open MySQL Workbench
-    * Connect to:
-        * Host: localhost
-        * Port: 3306
-        * User: root
-    * Open and run:
-        * src/database/SentenceBuilderDatabase.sql
+- JDK 17
+- Maven
+- MySQL Server (listening on `localhost:3306`)
 
-4. Configure Database Connection
-    * Open the db/DatabaseConnection.java file and update your MySQL password
+## 1. Create the database (one canonical schema)
 
-5. Compile the Project:
+Run the script **once** in MySQL Workbench or the `mysql` CLI:
+
+`src/main/resources/database/SentenceBuilderDatabase.sql`
+
+This creates the **`SentenceBuilder`** database and tables (`txt`, `words`, `sentence`, `nextWord`) used by `data_layer.Database`.
+
+> **Note:** The script includes `DROP DATABASE SentenceBuilder;` — do not run it against data you need to keep.
+
+The ER diagram PDF is in the same folder: `src/main/resources/database/SentenceBuilder ER Diagram.pdf`
+
+## 2. Configure credentials
+
+The app reads **`data/db_config.txt`** at the **working directory** when you launch it (project root if you use `mvn javafx:run`):
+
+- Line 1: MySQL username (e.g. `root`)
+- Line 2: MySQL password
+
+If the file is missing, defaults are used until you log in from the title screen (which writes `data/db_config.txt` on success).
+
+All JDBC access goes through **`com.group37.sentencebuilder.data_layer.Database`** and targets **`Database.DEFAULT_DATABASE_NAME`** (`SentenceBuilder`).
+
+## 3. Build and run
+
+```bash
+mvn -q compile
+mvn javafx:run
 ```
-javac -cp lib/mysql-connector-j-9.6.0.jar -d out src/Main.java src/ingestion/TextFileImporter.java src/DAO/*.java src/db/*.java
-```
 
-6. Run:
-```
-# Windows
-java -cp "out;lib/mysql-connector-j-9.6.0.jar" src.Main
+---
 
-# Mac/Linux
-java -cp "out:lib/mysql-connector-j-9.6.0.jar" src.Main
-```
+## Legacy note
+
+Older docs referred to `src/database/SentenceBuilderDatabase.sql`, `DatabaseConnection.java`, and a separate DAO package. Those have been removed; use the paths and class above only.

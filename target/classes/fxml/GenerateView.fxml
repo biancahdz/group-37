@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.group37.sentencebuilder.ui_layer.GenerateController"
+      styleClass="page-root" spacing="0">
+    <Label text="GENERATE" styleClass="section-eyebrow section-eyebrow-violet"/>
+    <Label text="Sentence generator" styleClass="section-heading"/>
+    <Label styleClass="section-lead" wrapText="true"
+           text="Provide an optional seed word and pick an algorithm profile. Output below is placeholder text until the engine is connected."/>
+
+    <VBox spacing="16" styleClass="content-card">
+        <Label text="Parameters" styleClass="card-title"/>
+        <Label text="Fine-tune how the next sentence should be composed." styleClass="card-subtitle"/>
+        <VBox styleClass="form-row">
+            <Label text="Starting word (optional)" styleClass="field-label"/>
+            <TextField fx:id="startWordField" promptText="e.g. the, once, she…"/>
+        </VBox>
+        <VBox styleClass="form-row">
+            <Label text="Algorithm" styleClass="field-label"/>
+            <ComboBox fx:id="algorithmCombo" maxWidth="Infinity" styleClass="combo-box combo-styled"/>
+        </VBox>
+        <HBox spacing="12">
+            <Button text="Generate" onAction="#onGenerate" styleClass="primary-button"/>
+        </HBox>
+    </VBox>
+
+    <VBox spacing="14" styleClass="content-card content-card-elevated" VBox.vgrow="ALWAYS">
+        <VBox.margin>
+            <Insets top="24"/>
+        </VBox.margin>
+        <Label text="Output" styleClass="card-title"/>
+        <Label text="Rendered sentence or paragraph appears here." styleClass="card-subtitle"/>
+        <TextArea fx:id="outputArea" wrapText="true" VBox.vgrow="ALWAYS" minHeight="260" promptText="Generated text…"/>
+    </VBox>
+</VBox>

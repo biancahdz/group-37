@@ -11,11 +11,6 @@
 
 package com.group37.sentencebuilder.data_layer;
 
-import com.group37.sentencebuilder.data_layer.SentenceData;
-import com.group37.sentencebuilder.data_layer.TxtData;
-import com.group37.sentencebuilder.data_layer.Word;
-import com.group37.sentencebuilder.data_layer.WordCombo;
-
 import com.group37.sentencebuilder.ui_layer.model.ImportHistoryRow;
 
 import javafx.collections.ObservableList;
@@ -33,7 +28,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import java.io.IOException;
-import java.util.Objects;
 import java.io.File;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -42,11 +36,15 @@ import java.io.*;
 public class Database
 {
     private static final String CONFIG_FILE = "data/db_config.txt";
-    private static final String URL = "jdbc:mysql://localhost:3306/SentenceBuilder?useSSL=false&serverTimezone=UTC";
+    /** Single MySQL database used by the app (matches {@code SentenceBuilderDatabase.sql}). */
+    public static final String DEFAULT_DATABASE_NAME = "SentenceBuilder";
+    private static final String JDBC_HOST = "localhost";
+    private static final int JDBC_PORT = 3306;
+
     private Connection conn = null;
     private String username = null;
     private String password = null;
-    private String dbName = "SentenceBuilder";
+    private String dbName = DEFAULT_DATABASE_NAME;
 
     public Database(String username, String password, String dbName) {
         this.username = username;
@@ -54,9 +52,14 @@ public class Database
         this.dbName = dbName;
     }
 
+    private static String jdbcUrl(String databaseName) {
+        return "jdbc:mysql://" + JDBC_HOST + ":" + JDBC_PORT + "/" + databaseName
+                + "?useSSL=false&serverTimezone=UTC";
+    }
+
     public boolean connect() {
         try {
-            this.conn = DriverManager.getConnection(URL, username, password);
+            this.conn = DriverManager.getConnection(jdbcUrl(dbName), username, password);
             return true;
         } catch (SQLException e) {
             return false;
@@ -637,7 +640,7 @@ public class Database
         } catch (IOException e) {
             //e.printStackTrace();
         }
-        return new Database(user, pass, "SentenceBuilder");
+        return new Database(user, pass, DEFAULT_DATABASE_NAME);
     }
 
     public static boolean canConnect()
@@ -652,7 +655,7 @@ public class Database
             return false;
         }
 
-        try (Connection connection = DriverManager.getConnection(URL, user, pass)) {
+        try (Connection connection = DriverManager.getConnection(jdbcUrl(DEFAULT_DATABASE_NAME), user, pass)) {
             connection.close();
             return true;
         } catch (SQLException e) {
@@ -662,7 +665,7 @@ public class Database
 
     public static boolean canConfigConnect(String user, String pass)
     {
-        try (Connection connection = DriverManager.getConnection(URL, user, pass)) {
+        try (Connection connection = DriverManager.getConnection(jdbcUrl(DEFAULT_DATABASE_NAME), user, pass)) {
             connection.close();
         } catch (SQLException e) {
             return false;
