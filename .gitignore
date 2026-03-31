@@ -4,3 +4,4 @@ bin/
 
 # local testing
 src/testing/*.javatarget/
+.cursor/
