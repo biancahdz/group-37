@@ -3,4 +3,4 @@ bin/
 .vscode/
 
 # local testing
-src/testing/*.java
+src/testing/*.javatarget/
