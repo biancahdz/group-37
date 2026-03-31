@@ -14,12 +14,14 @@ package com.group37.sentencebuilder.ui_layer;
 import com.group37.sentencebuilder.ui_layer.ApplicationPage;
 import com.group37.sentencebuilder.ui_layer.DatabasePage;
 
+import com.group37.sentencebuilder.DebugLog;
 import com.group37.sentencebuilder.data_layer.Database;
 
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Label;
 
+import java.util.Map;
 import java.util.function.Consumer;
 
 /** Dashboard / welcome screen (placeholder content). */
@@ -59,13 +61,44 @@ public class HomeController implements ApplicationPage, DatabasePage {
         navigator.accept(ViewKey.REPORTS);
     }
 
+    @FXML
+    private void onQuickCorpusStats(MouseEvent e) {
+        navigator.accept(ViewKey.CORPUS_STATS);
+    }
+
     @Override
     public void onPageEnter()
     {
-        database.connect();
-        txtCount.setText(String.valueOf(database.getTxtCount()));
-        sentenceCount.setText(String.valueOf(database.getTxtSentenceCount()));
-        database.disconnect();
+        // #region agent log
+        DebugLog.agent("pre-fix", "H2", "HomeController:onPageEnter", "enter", Map.of(
+                "dbNull", String.valueOf(database == null)));
+        // #endregion
+        if (database == null) {
+            txtCount.setText("—");
+            sentenceCount.setText("—");
+            // #region agent log
+            DebugLog.agent("pre-fix", "H2", "HomeController:onPageEnter", "branch db null", Map.of());
+            // #endregion
+            return;
+        }
+        if (!database.connect()) {
+            txtCount.setText("—");
+            sentenceCount.setText("—");
+            database.disconnect();
+            // #region agent log
+            DebugLog.agent("pre-fix", "H2", "HomeController:onPageEnter", "branch connect failed", Map.of());
+            // #endregion
+            return;
+        }
+        try {
+            txtCount.setText(String.valueOf(database.getTxtCount()));
+            sentenceCount.setText(String.valueOf(database.getTxtSentenceCount()));
+            // #region agent log
+            DebugLog.agent("pre-fix", "H2", "HomeController:onPageEnter", "db query ok", Map.of());
+            // #endregion
+        } finally {
+            database.disconnect();
+        }
     }
 
     @Override

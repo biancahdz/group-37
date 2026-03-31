@@ -31,6 +31,7 @@
             <ToggleButton fx:id="navGenerate" text="Generate" toggleGroup="$navGroup" styleClass="nav-toggle" maxWidth="Infinity"/>
             <ToggleButton fx:id="navAutocomplete" text="Auto-Complete" toggleGroup="$navGroup" styleClass="nav-toggle" maxWidth="Infinity"/>
             <ToggleButton fx:id="navReports" text="Reports" toggleGroup="$navGroup" styleClass="nav-toggle" maxWidth="Infinity"/>
+            <ToggleButton fx:id="navCorpusStats" text="Word analytics" toggleGroup="$navGroup" styleClass="nav-toggle" maxWidth="Infinity"/>
             <ToggleButton fx:id="navSettings" text="Settings" toggleGroup="$navGroup" styleClass="nav-toggle" maxWidth="Infinity"/>
             <VBox VBox.vgrow="ALWAYS"/>
             <VBox styleClass="sidebar-footer">

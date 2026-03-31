@@ -234,6 +234,87 @@
     -fx-max-width: 100000;
 }
 
+.page-scroll {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.page-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.corpus-stat-strip {
+    -fx-padding: 8 0 0 0;
+}
+
+.corpus-stat-chip {
+    -fx-background-color: -sb-surface-muted;
+    -fx-background-radius: 10;
+    -fx-border-color: -sb-border-subtle;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+    -fx-padding: 14 16 14 16;
+    -fx-spacing: 4;
+}
+
+.corpus-stat-value {
+    -fx-text-fill: -sb-text;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.corpus-stat-label {
+    -fx-text-fill: -sb-text-muted;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-letter-spacing: 0.08em;
+}
+
+.corpus-page-root {
+    -fx-min-height: 0;
+}
+
+.corpus-mini-chart {
+    -fx-padding: 4 0 0 0;
+}
+
+.corpus-bar-label {
+    -fx-text-fill: -sb-text;
+    -fx-font-size: 12px;
+}
+
+.corpus-bar-value {
+    -fx-text-fill: -sb-text-secondary;
+    -fx-font-size: 12px;
+    -fx-min-width: 56;
+    -fx-alignment: CENTER_RIGHT;
+}
+
+.corpus-bar-track {
+    -fx-background-color: -sb-surface-muted;
+    -fx-background-radius: 5;
+    -fx-padding: 3 4 3 4;
+}
+
+.corpus-bar-fill-teal {
+    -fx-background-color: -sb-teal;
+    -fx-background-radius: 3;
+}
+
+.corpus-bar-fill-violet {
+    -fx-background-color: -sb-violet;
+    -fx-background-radius: 3;
+}
+
+.corpus-share-line {
+    -fx-text-fill: -sb-text-secondary;
+    -fx-font-size: 12px;
+}
+
+.corpus-share-legend {
+    -fx-padding: 4 0 0 0;
+}
+
 /* ---- Typography ---- */
 .section-eyebrow {
     -fx-text-fill: -sb-text-tertiary;

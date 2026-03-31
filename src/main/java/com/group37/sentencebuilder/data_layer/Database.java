@@ -527,6 +527,9 @@ public class Database
     }
 
     public int getTxtCount() {
+        if (conn == null) {
+            return 0;
+        }
         String sql = "SELECT COUNT(txtID) AS count FROM txt";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -542,6 +545,9 @@ public class Database
     }
 
     public int getTxtSentenceCount() {
+        if (conn == null) {
+            return 0;
+        }
         String sql = "SELECT SUM(numSentences) AS total FROM txt";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {

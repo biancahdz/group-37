@@ -1,3 +1,4 @@
+/Users/hnnong/group-37/src/main/java/com/group37/sentencebuilder/DebugLog.java
 /Users/hnnong/group-37/src/main/java/com/group37/sentencebuilder/SentenceBuilderApp.java
 /Users/hnnong/group-37/src/main/java/com/group37/sentencebuilder/data_layer/Database.java
 /Users/hnnong/group-37/src/main/java/com/group37/sentencebuilder/data_layer/SentenceData.java
@@ -19,6 +20,7 @@
 /Users/hnnong/group-37/src/main/java/com/group37/sentencebuilder/ui/model/ReportRow.java
 /Users/hnnong/group-37/src/main/java/com/group37/sentencebuilder/ui_layer/ApplicationPage.java
 /Users/hnnong/group-37/src/main/java/com/group37/sentencebuilder/ui_layer/AutocompleteController.java
+/Users/hnnong/group-37/src/main/java/com/group37/sentencebuilder/ui_layer/CorpusStatsController.java
 /Users/hnnong/group-37/src/main/java/com/group37/sentencebuilder/ui_layer/DatabasePage.java
 /Users/hnnong/group-37/src/main/java/com/group37/sentencebuilder/ui_layer/GenerateController.java
 /Users/hnnong/group-37/src/main/java/com/group37/sentencebuilder/ui_layer/HomeController.java
@@ -28,5 +30,8 @@
 /Users/hnnong/group-37/src/main/java/com/group37/sentencebuilder/ui_layer/SettingsController.java
 /Users/hnnong/group-37/src/main/java/com/group37/sentencebuilder/ui_layer/TitleController.java
 /Users/hnnong/group-37/src/main/java/com/group37/sentencebuilder/ui_layer/ViewKey.java
+/Users/hnnong/group-37/src/main/java/com/group37/sentencebuilder/ui_layer/model/BigramRow.java
+/Users/hnnong/group-37/src/main/java/com/group37/sentencebuilder/ui_layer/model/FileCorpusStatRow.java
 /Users/hnnong/group-37/src/main/java/com/group37/sentencebuilder/ui_layer/model/ImportHistoryRow.java
 /Users/hnnong/group-37/src/main/java/com/group37/sentencebuilder/ui_layer/model/ReportRow.java
+/Users/hnnong/group-37/src/main/java/com/group37/sentencebuilder/ui_layer/model/WordFrequencyRow.java

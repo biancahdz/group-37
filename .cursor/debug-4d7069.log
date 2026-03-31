@@ -1,0 +1,127 @@
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H4","location":"SentenceBuilderApp:loginCallback","message":"start","timestamp":1774999188486}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H3","location":"SentenceBuilderApp:loadMainShell","message":"enter","timestamp":1774999188487}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"enter","timestamp":1774999188517,"data":{"key":"HOME"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:loadView","message":"enter","timestamp":1774999188517,"data":{"key":"HOME","resource":"/fxml/HomeView.fxml"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:loadView","message":"loaded","timestamp":1774999188538,"data":{"parentClass":"VBox"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"after setAll","timestamp":1774999188538,"data":{"childCount":"1","nodeClass":"VBox"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"HomeController:onPageEnter","message":"enter","timestamp":1774999188538,"data":{"dbNull":"false"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"HomeController:onPageEnter","message":"db query ok","timestamp":1774999188572}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"MainShellController:showView","message":"onPageEnter ok","timestamp":1774999188572,"data":{"key":"HOME"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H5","location":"MainShellController:initialize","message":"showView HOME completed","timestamp":1774999188572}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H3","location":"SentenceBuilderApp:loadMainShell","message":"fxml loaded","timestamp":1774999188573,"data":{"rootClass":"BorderPane"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H3","location":"SentenceBuilderApp:loadMainShell","message":"scene set","timestamp":1774999188627,"data":{"sceneW":"1280.0","sceneH":"800.0"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H4","location":"SentenceBuilderApp:loginCallback","message":"loadMainShell done","timestamp":1774999188627}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"enter","timestamp":1774999190380,"data":{"key":"IMPORT"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:loadView","message":"enter","timestamp":1774999190380,"data":{"key":"IMPORT","resource":"/fxml/ImportView.fxml"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:loadView","message":"loaded","timestamp":1774999190406,"data":{"parentClass":"VBox"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"after setAll","timestamp":1774999190408,"data":{"childCount":"1","nodeClass":"VBox"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"MainShellController:showView","message":"onPageEnter ok","timestamp":1774999190414,"data":{"key":"IMPORT"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"enter","timestamp":1774999192297,"data":{"key":"HOME"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"after setAll","timestamp":1774999192300,"data":{"childCount":"1","nodeClass":"VBox"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"HomeController:onPageEnter","message":"enter","timestamp":1774999192301,"data":{"dbNull":"false"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"HomeController:onPageEnter","message":"db query ok","timestamp":1774999192310}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"MainShellController:showView","message":"onPageEnter ok","timestamp":1774999192311,"data":{"key":"HOME"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"enter","timestamp":1774999195918,"data":{"key":"CORPUS_STATS"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:loadView","message":"enter","timestamp":1774999195919,"data":{"key":"CORPUS_STATS","resource":"/fxml/CorpusStatsView.fxml"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:loadView","message":"loaded","timestamp":1774999195943,"data":{"parentClass":"VBox"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"after setAll","timestamp":1774999195945,"data":{"childCount":"1","nodeClass":"VBox"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"MainShellController:showView","message":"onPageEnter ok","timestamp":1774999195945,"data":{"key":"CORPUS_STATS"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H4","location":"SentenceBuilderApp:loginCallback","message":"start","timestamp":1774999445386}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H3","location":"SentenceBuilderApp:loadMainShell","message":"enter","timestamp":1774999445387}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"enter","timestamp":1774999445415,"data":{"key":"HOME"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:loadView","message":"enter","timestamp":1774999445416,"data":{"resource":"/fxml/HomeView.fxml","key":"HOME"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:loadView","message":"loaded","timestamp":1774999445437,"data":{"parentClass":"VBox"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"after setAll","timestamp":1774999445437,"data":{"nodeClass":"VBox","childCount":"1"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"HomeController:onPageEnter","message":"enter","timestamp":1774999445437,"data":{"dbNull":"false"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"HomeController:onPageEnter","message":"db query ok","timestamp":1774999445459}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"MainShellController:showView","message":"onPageEnter ok","timestamp":1774999445459,"data":{"key":"HOME"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H5","location":"MainShellController:initialize","message":"showView HOME completed","timestamp":1774999445459}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H3","location":"SentenceBuilderApp:loadMainShell","message":"fxml loaded","timestamp":1774999445459,"data":{"rootClass":"BorderPane"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H3","location":"SentenceBuilderApp:loadMainShell","message":"scene set","timestamp":1774999445509,"data":{"sceneH":"800.0","sceneW":"1280.0"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H4","location":"SentenceBuilderApp:loginCallback","message":"loadMainShell done","timestamp":1774999445509}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"enter","timestamp":1774999446730,"data":{"key":"GENERATE"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:loadView","message":"enter","timestamp":1774999446731,"data":{"resource":"/fxml/GenerateView.fxml","key":"GENERATE"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:loadView","message":"loaded","timestamp":1774999446743,"data":{"parentClass":"VBox"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"after setAll","timestamp":1774999446745,"data":{"nodeClass":"VBox","childCount":"1"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"enter","timestamp":1774999454848,"data":{"key":"REPORTS"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:loadView","message":"enter","timestamp":1774999454850,"data":{"resource":"/fxml/ReportsView.fxml","key":"REPORTS"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:loadView","message":"loaded","timestamp":1774999454883,"data":{"parentClass":"VBox"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"after setAll","timestamp":1774999454885,"data":{"nodeClass":"VBox","childCount":"1"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"enter","timestamp":1774999455747,"data":{"key":"AUTOCOMPLETE"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:loadView","message":"enter","timestamp":1774999455748,"data":{"resource":"/fxml/AutocompleteView.fxml","key":"AUTOCOMPLETE"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:loadView","message":"loaded","timestamp":1774999455756,"data":{"parentClass":"VBox"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"after setAll","timestamp":1774999455758,"data":{"nodeClass":"VBox","childCount":"1"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"MainShellController:showView","message":"onPageEnter ok","timestamp":1774999455762,"data":{"key":"AUTOCOMPLETE"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"enter","timestamp":1774999459864,"data":{"key":"HOME"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"after setAll","timestamp":1774999459867,"data":{"nodeClass":"VBox","childCount":"1"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"HomeController:onPageEnter","message":"enter","timestamp":1774999459868,"data":{"dbNull":"false"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"HomeController:onPageEnter","message":"db query ok","timestamp":1774999459874}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"MainShellController:showView","message":"onPageEnter ok","timestamp":1774999459874,"data":{"key":"HOME"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H4","location":"SentenceBuilderApp:loginCallback","message":"start","timestamp":1774999470136}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H3","location":"SentenceBuilderApp:loadMainShell","message":"enter","timestamp":1774999470138}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"enter","timestamp":1774999470167,"data":{"key":"HOME"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:loadView","message":"enter","timestamp":1774999470167,"data":{"resource":"/fxml/HomeView.fxml","key":"HOME"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:loadView","message":"loaded","timestamp":1774999470188,"data":{"parentClass":"VBox"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"after setAll","timestamp":1774999470188,"data":{"nodeClass":"VBox","childCount":"1"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"HomeController:onPageEnter","message":"enter","timestamp":1774999470188,"data":{"dbNull":"false"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"HomeController:onPageEnter","message":"db query ok","timestamp":1774999470208}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"MainShellController:showView","message":"onPageEnter ok","timestamp":1774999470208,"data":{"key":"HOME"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H5","location":"MainShellController:initialize","message":"showView HOME completed","timestamp":1774999470209}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H3","location":"SentenceBuilderApp:loadMainShell","message":"fxml loaded","timestamp":1774999470209,"data":{"rootClass":"BorderPane"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H3","location":"SentenceBuilderApp:loadMainShell","message":"scene set","timestamp":1774999470259,"data":{"sceneH":"800.0","sceneW":"1280.0"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H4","location":"SentenceBuilderApp:loginCallback","message":"loadMainShell done","timestamp":1774999470260}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"enter","timestamp":1774999471881,"data":{"key":"IMPORT"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:loadView","message":"enter","timestamp":1774999471882,"data":{"resource":"/fxml/ImportView.fxml","key":"IMPORT"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:loadView","message":"loaded","timestamp":1774999471911,"data":{"parentClass":"VBox"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"after setAll","timestamp":1774999471914,"data":{"nodeClass":"VBox","childCount":"1"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"MainShellController:showView","message":"onPageEnter ok","timestamp":1774999471918,"data":{"key":"IMPORT"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"enter","timestamp":1774999488365,"data":{"key":"GENERATE"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:loadView","message":"enter","timestamp":1774999488366,"data":{"resource":"/fxml/GenerateView.fxml","key":"GENERATE"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:loadView","message":"loaded","timestamp":1774999488388,"data":{"parentClass":"VBox"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"after setAll","timestamp":1774999488390,"data":{"nodeClass":"VBox","childCount":"1"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"enter","timestamp":1774999494631,"data":{"key":"AUTOCOMPLETE"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:loadView","message":"enter","timestamp":1774999494632,"data":{"resource":"/fxml/AutocompleteView.fxml","key":"AUTOCOMPLETE"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:loadView","message":"loaded","timestamp":1774999494647,"data":{"parentClass":"VBox"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"after setAll","timestamp":1774999494649,"data":{"nodeClass":"VBox","childCount":"1"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"MainShellController:showView","message":"onPageEnter ok","timestamp":1774999494653,"data":{"key":"AUTOCOMPLETE"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"enter","timestamp":1774999503098,"data":{"key":"REPORTS"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:loadView","message":"enter","timestamp":1774999503100,"data":{"resource":"/fxml/ReportsView.fxml","key":"REPORTS"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:loadView","message":"loaded","timestamp":1774999503116,"data":{"parentClass":"VBox"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"after setAll","timestamp":1774999503118,"data":{"nodeClass":"VBox","childCount":"1"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"enter","timestamp":1774999504048,"data":{"key":"CORPUS_STATS"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:loadView","message":"enter","timestamp":1774999504049,"data":{"resource":"/fxml/CorpusStatsView.fxml","key":"CORPUS_STATS"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:loadView","message":"loaded","timestamp":1774999504069,"data":{"parentClass":"VBox"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"after setAll","timestamp":1774999504072,"data":{"nodeClass":"VBox","childCount":"1"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"MainShellController:showView","message":"onPageEnter ok","timestamp":1774999504072,"data":{"key":"CORPUS_STATS"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"enter","timestamp":1774999521914,"data":{"key":"CORPUS_STATS"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"after setAll","timestamp":1774999521915,"data":{"nodeClass":"VBox","childCount":"1"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"MainShellController:showView","message":"onPageEnter ok","timestamp":1774999521915,"data":{"key":"CORPUS_STATS"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"enter","timestamp":1774999522348,"data":{"key":"AUTOCOMPLETE"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"after setAll","timestamp":1774999522352,"data":{"nodeClass":"VBox","childCount":"1"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"MainShellController:showView","message":"onPageEnter ok","timestamp":1774999522358,"data":{"key":"AUTOCOMPLETE"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"enter","timestamp":1774999523448,"data":{"key":"HOME"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"after setAll","timestamp":1774999523451,"data":{"nodeClass":"VBox","childCount":"1"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"HomeController:onPageEnter","message":"enter","timestamp":1774999523451,"data":{"dbNull":"false"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"HomeController:onPageEnter","message":"db query ok","timestamp":1774999523456}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"MainShellController:showView","message":"onPageEnter ok","timestamp":1774999523457,"data":{"key":"HOME"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"enter","timestamp":1774999529466,"data":{"key":"CORPUS_STATS"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"after setAll","timestamp":1774999529474,"data":{"nodeClass":"VBox","childCount":"1"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"MainShellController:showView","message":"onPageEnter ok","timestamp":1774999529474,"data":{"key":"CORPUS_STATS"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"enter","timestamp":1774999531714,"data":{"key":"HOME"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"after setAll","timestamp":1774999531717,"data":{"nodeClass":"VBox","childCount":"1"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"HomeController:onPageEnter","message":"enter","timestamp":1774999531717,"data":{"dbNull":"false"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"HomeController:onPageEnter","message":"db query ok","timestamp":1774999531725}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"MainShellController:showView","message":"onPageEnter ok","timestamp":1774999531725,"data":{"key":"HOME"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"enter","timestamp":1774999542414,"data":{"key":"IMPORT"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"after setAll","timestamp":1774999542420,"data":{"nodeClass":"VBox","childCount":"1"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"MainShellController:showView","message":"onPageEnter ok","timestamp":1774999542425,"data":{"key":"IMPORT"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"enter","timestamp":1774999543115,"data":{"key":"AUTOCOMPLETE"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"after setAll","timestamp":1774999543118,"data":{"nodeClass":"VBox","childCount":"1"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"MainShellController:showView","message":"onPageEnter ok","timestamp":1774999543122,"data":{"key":"AUTOCOMPLETE"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"enter","timestamp":1774999544215,"data":{"key":"GENERATE"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"after setAll","timestamp":1774999544218,"data":{"nodeClass":"VBox","childCount":"1"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"enter","timestamp":1774999547831,"data":{"key":"HOME"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H1","location":"MainShellController:showView","message":"after setAll","timestamp":1774999547833,"data":{"nodeClass":"VBox","childCount":"1"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"HomeController:onPageEnter","message":"enter","timestamp":1774999547833,"data":{"dbNull":"false"}}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"HomeController:onPageEnter","message":"db query ok","timestamp":1774999547838}
+{"sessionId":"4d7069","runId":"pre-fix","hypothesisId":"H2","location":"MainShellController:showView","message":"onPageEnter ok","timestamp":1774999547839,"data":{"key":"HOME"}}
