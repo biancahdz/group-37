@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.group37.sentencebuilder.ui.HomeController"
+      fx:controller="com.group37.sentencebuilder.ui_layer.HomeController"
       styleClass="page-root" spacing="12">
     <Label text="OVERVIEW" styleClass="section-eyebrow section-eyebrow-primary"/>
     <Label text="Dashboard" styleClass="section-heading section-heading-hero"/>
@@ -19,11 +19,15 @@
 
     <HBox styleClass="home-stats">
         <VBox styleClass="stat-tile stat-tile-primary" HBox.hgrow="ALWAYS">
-            <Label text="12" styleClass="stat-tile-value"/>
+            <Label  fx:id="txtCount"
+                    text="0"
+                    styleClass="stat-tile-value"/>
             <Label text="TEXT SOURCES" styleClass="stat-tile-label"/>
         </VBox>
         <VBox styleClass="stat-tile stat-tile-violet" HBox.hgrow="ALWAYS">
-            <Label text="48.2k" styleClass="stat-tile-value"/>
+            <Label  fx:id="sentenceCount"
+                    text="0"
+                    styleClass="stat-tile-value"/>
             <Label text="SENTENCES" styleClass="stat-tile-label"/>
         </VBox>
     </HBox>

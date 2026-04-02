@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.group37.sentencebuilder.ui.MainShellController"
+            fx:controller="com.group37.sentencebuilder.ui_layer.MainShellController"
             styleClass="app-root theme-default font-stack-default font-metrics-default fs-medium" prefWidth="1280" prefHeight="800">
     <left>
         <VBox styleClass="sidebar" prefWidth="252" minWidth="252" maxWidth="252" spacing="2">

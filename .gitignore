@@ -1,6 +1,7 @@
 bin/
 *.class
 .vscode/
+target/
 
 # local testing
 src/testing/*.java

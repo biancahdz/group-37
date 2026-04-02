@@ -1,3 +1,14 @@
+/**
+ * File: 
+ * Description: 
+ *
+ * Author: 
+ * Created: 
+ * Last Modified: 2026-03-25
+ *
+ * Version: 1.0
+ */
+
 package com.group37.sentencebuilder;
 
 import com.group37.sentencebuilder.ui.UiPreferences;
@@ -8,6 +19,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import com.group37.sentencebuilder.ui_layer.TitleController;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -22,8 +35,40 @@ public class SentenceBuilderApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+
         FXMLLoader loader = new FXMLLoader(
-                Objects.requireNonNull(getClass().getResource("/fxml/MainShell.fxml")));
+                Objects.requireNonNull(getClass().getResource("/fxml/TitleView.fxml")));
+        Parent root = loader.load();
+
+        TitleController controller = loader.getController();
+
+        controller.setOnLoginSuccess(() -> {
+            try {
+                loadMainShell(stage);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        Scene scene = new Scene(root, 1280, 800);
+        scene.getStylesheets().add(
+                Objects.requireNonNull(getClass().getResource("/css/app-theme.css")).toExternalForm());
+        scene.getStylesheets().add(
+                Objects.requireNonNull(getClass().getResource("/css/theme-palettes.css")).toExternalForm());
+
+        stage.setTitle("Sentence Builder");
+        stage.setScene(scene);
+        stage.setMinWidth(MIN_WIDTH);
+        stage.setMinHeight(MIN_HEIGHT);
+        stage.initStyle(StageStyle.DECORATED);
+        stage.show();
+    }
+
+    private void loadMainShell(Stage stage) throws IOException
+    {
+        FXMLLoader loader = new FXMLLoader(
+                Objects.requireNonNull(getClass().getResource("/fxml/MainShell.fxml"))
+        );
         Parent root = loader.load();
 
         Scene scene = new Scene(root, 1280, 800);
@@ -34,12 +79,7 @@ public class SentenceBuilderApp extends Application {
 
         UiPreferences.get().attachShell(root);
 
-        stage.setTitle("Sentence Builder");
         stage.setScene(scene);
-        stage.setMinWidth(MIN_WIDTH);
-        stage.setMinHeight(MIN_HEIGHT);
-        stage.initStyle(StageStyle.DECORATED);
-        stage.show();
     }
 
     public static void main(String[] args) {
