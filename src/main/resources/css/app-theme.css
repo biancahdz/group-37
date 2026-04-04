@@ -177,11 +177,14 @@
     -fx-text-fill: sb-text;
     -fx-font-size: 1.692em;
     -fx-font-weight: bold;
+    -fx-padding: 0 0 2 0;
 }
 
 .header-sub {
     -fx-text-fill: sb-text-secondary;
     -fx-font-size: 0.923em;
+    -fx-padding: 0 0 0 0;
+    -fx-line-spacing: 2;
 }
 
 .header-meta {
@@ -883,28 +886,34 @@
 }
 
 .about-block {
-    -fx-spacing: 8;
+    -fx-spacing: 10;
 }
 
 /* Settings page: extra breathing room */
 .settings-page-root .section-eyebrow {
-    -fx-padding: 0 0 16 0;
+    -fx-padding: 0 0 22 0;
 }
 
 .settings-page-root .section-heading {
-    -fx-padding: 0 0 6 0;
+    -fx-padding: 0 0 12 0;
+}
+
+.settings-page-root .section-lead {
+    -fx-padding: 0 0 28 0;
+    -fx-line-spacing: 3;
 }
 
 .settings-main-card {
-    -fx-padding: 34 38 36 38;
+    -fx-padding: 36 40 40 40;
+    -fx-spacing: 22;
 }
 
 .settings-pref-section .card-title {
-    -fx-padding: 0 0 6 0;
+    -fx-padding: 0 0 10 0;
 }
 
 .separator.settings-sep {
-    -fx-padding: 14 0 14 0;
+    -fx-padding: 18 0 18 0;
 }
 
 .about-title {
@@ -928,5 +937,5 @@
     -fx-font-size: 64px;
     -fx-font-weight: 700;
     -fx-font-family: "Inter";
-    /*-fx-text-fill: white;*/
+    -fx-text-fill: sb-text;
 }

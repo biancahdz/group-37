@@ -42,6 +42,8 @@ public class SentenceBuilderApp extends Application {
 
         TitleController controller = loader.getController();
 
+        UiPreferences.get().attachShell(root);
+
         controller.setOnLoginSuccess(() -> {
             try {
                 loadMainShell(stage);

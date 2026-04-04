@@ -19,6 +19,7 @@
         <Label fx:id="titleLabel"
                text="Sentence Builder"
                styleClass="title-splash"
+               opacity="0"
                />
 
         <!-- Login Pane (hidden at first) -->

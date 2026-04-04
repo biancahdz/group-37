@@ -21,10 +21,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
-import java.util.prefs.Preferences;
-
-import java.io.*;
-
 public class TitleController {
 
     @FXML private Label titleLabel;

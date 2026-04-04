@@ -45,7 +45,7 @@
         <BorderPane styleClass="main-region">
             <top>
                 <HBox styleClass="header-bar" alignment="CENTER_LEFT">
-                    <VBox spacing="6">
+                    <VBox spacing="10">
                         <Label fx:id="headerTitle" styleClass="header-title" text="Home"/>
                         <Label styleClass="header-sub" text="Sentence Builder · Senior Design · Group 37"/>
                     </VBox>

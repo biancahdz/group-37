@@ -8,28 +8,28 @@
 
 <VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.group37.sentencebuilder.ui_layer.SettingsController"
-      styleClass="page-root settings-page-root" spacing="18">
+      styleClass="page-root settings-page-root" spacing="26">
     <Label text="PROJECT" styleClass="section-eyebrow"/>
     <Label text="Settings &amp; About" styleClass="section-heading"/>
     <Label styleClass="section-lead" wrapText="true"
            text="Appearance applies app-wide from UiPreferences (theme, font, size). About the app and team below."/>
 
     <VBox spacing="24" styleClass="content-card content-card-elevated settings-main-card" maxWidth="680">
-        <VBox spacing="14" styleClass="settings-pref-section">
+        <VBox spacing="18" styleClass="settings-pref-section">
             <Label text="Themes" styleClass="card-title"/>
             <ComboBox fx:id="themeCombo" styleClass="combo-styled settings-pref-combo" maxWidth="420"/>
         </VBox>
 
         <Separator styleClass="settings-sep"/>
 
-        <VBox spacing="14" styleClass="settings-pref-section">
+        <VBox spacing="18" styleClass="settings-pref-section">
             <Label text="Font" styleClass="card-title"/>
             <ComboBox fx:id="fontCombo" styleClass="combo-styled settings-pref-combo" maxWidth="420"/>
         </VBox>
 
         <Separator styleClass="settings-sep"/>
 
-        <VBox spacing="14" styleClass="settings-pref-section">
+        <VBox spacing="18" styleClass="settings-pref-section">
             <Label text="Font size" styleClass="card-title"/>
             <ComboBox fx:id="fontSizeCombo" styleClass="combo-styled settings-pref-combo" maxWidth="420"/>
         </VBox>

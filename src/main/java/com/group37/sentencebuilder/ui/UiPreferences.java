@@ -1,5 +1,7 @@
 package com.group37.sentencebuilder.ui;
 
+import javafx.application.ColorScheme;
+import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
@@ -24,6 +26,8 @@ public final class UiPreferences {
 
     private Node shellRoot;
 
+    private boolean colorSchemeListenerInstalled;
+
     private UiPreferences() {
         theme.addListener((obs, o, n) -> applyShellStyles());
         font.addListener((obs, o, n) -> applyShellStyles());
@@ -39,7 +43,33 @@ public final class UiPreferences {
      */
     public void attachShell(Node shellRoot) {
         this.shellRoot = shellRoot;
+        ensureColorSchemeListener();
         applyShellStyles();
+    }
+
+    private void ensureColorSchemeListener() {
+        if (colorSchemeListenerInstalled) {
+            return;
+        }
+        colorSchemeListenerInstalled = true;
+        try {
+            Platform.getPreferences().colorSchemeProperty().addListener((obs, o, n) -> {
+                AppTheme t = getTheme();
+                if (t == AppTheme.SYSTEM || t == AppTheme.INVERT_SYSTEM) {
+                    applyShellStyles();
+                }
+            });
+        } catch (Exception ignored) {
+            // Unsupported platform or JavaFX build without Platform preferences
+        }
+    }
+
+    private static ColorScheme currentColorScheme() {
+        try {
+            return Platform.getPreferences().getColorScheme();
+        } catch (Exception e) {
+            return ColorScheme.LIGHT;
+        }
     }
 
     public AppTheme getTheme() {
@@ -90,8 +120,9 @@ public final class UiPreferences {
         }
         shellRoot.getStyleClass().removeAll(toRemove);
 
+        String paletteClass = getTheme().resolvedPaletteStyleClass(currentColorScheme());
         shellRoot.getStyleClass().addAll(
-                getTheme().getStyleClass(),
+                paletteClass,
                 getFont().getStyleClass(),
                 getFont().getMetricsStyleClass(),
                 getFontSize().getStyleClass());
