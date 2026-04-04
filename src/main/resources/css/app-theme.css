@@ -33,6 +33,73 @@
     -fx-background-radius: 4;
 }
 
+/*
+ * Dark themes: default black-based thumbs sit on dark sb-surface / tables and disappear.
+ * Use cool neutral greys (zinc-like) for thumb + track — readable, still subdued.
+ */
+.root.theme-default .scroll-bar:vertical,
+.root.theme-christmas .scroll-bar:vertical,
+.root.theme-rainbow .scroll-bar:vertical,
+.root.theme-invert-system .scroll-bar:vertical {
+    -fx-pref-width: 11;
+}
+
+.root.theme-default .scroll-bar:horizontal,
+.root.theme-christmas .scroll-bar:horizontal,
+.root.theme-rainbow .scroll-bar:horizontal,
+.root.theme-invert-system .scroll-bar:horizontal {
+    -fx-pref-height: 11;
+}
+
+.root.theme-default .scroll-bar .track,
+.root.theme-christmas .scroll-bar .track,
+.root.theme-rainbow .scroll-bar .track,
+.root.theme-invert-system .scroll-bar .track {
+    -fx-background-color: rgba(255, 255, 255, 0.07);
+    -fx-background-radius: 5;
+}
+
+.root.theme-default .scroll-bar .thumb,
+.root.theme-christmas .scroll-bar .thumb,
+.root.theme-rainbow .scroll-bar .thumb,
+.root.theme-invert-system .scroll-bar .thumb {
+    -fx-background-color: rgba(212, 212, 216, 0.42);
+    -fx-background-radius: 5;
+}
+
+.root.theme-default .scroll-bar .thumb:hover,
+.root.theme-default .scroll-bar .thumb:pressed,
+.root.theme-christmas .scroll-bar .thumb:hover,
+.root.theme-christmas .scroll-bar .thumb:pressed,
+.root.theme-rainbow .scroll-bar .thumb:hover,
+.root.theme-rainbow .scroll-bar .thumb:pressed,
+.root.theme-invert-system .scroll-bar .thumb:hover,
+.root.theme-invert-system .scroll-bar .thumb:pressed {
+    -fx-background-color: rgba(228, 228, 231, 0.62);
+}
+
+/* TableView (Reports, etc.): ensure nested scrollbars match */
+.root.theme-default .table-view.table-clean .scroll-bar .thumb,
+.root.theme-christmas .table-view.table-clean .scroll-bar .thumb,
+.root.theme-rainbow .table-view.table-clean .scroll-bar .thumb,
+.root.theme-invert-system .table-view.table-clean .scroll-bar .thumb {
+    -fx-background-color: rgba(212, 212, 216, 0.48);
+}
+
+.root.theme-default .table-view.table-clean .scroll-bar .thumb:hover,
+.root.theme-christmas .table-view.table-clean .scroll-bar .thumb:hover,
+.root.theme-rainbow .table-view.table-clean .scroll-bar .thumb:hover,
+.root.theme-invert-system .table-view.table-clean .scroll-bar .thumb:hover {
+    -fx-background-color: rgba(244, 244, 245, 0.65);
+}
+
+.root.theme-default .table-view.table-clean .scroll-bar .track,
+.root.theme-christmas .table-view.table-clean .scroll-bar .track,
+.root.theme-rainbow .table-view.table-clean .scroll-bar .track,
+.root.theme-invert-system .table-view.table-clean .scroll-bar .track {
+    -fx-background-color: rgba(255, 255, 255, 0.09);
+}
+
 /* Main workspace: vertical scroll when page content exceeds viewport */
 .workspace-scroll {
     -fx-background-color: transparent;
