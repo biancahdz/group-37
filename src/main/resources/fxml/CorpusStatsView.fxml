@@ -14,7 +14,7 @@
     <Label text="CORPUS" styleClass="section-eyebrow section-eyebrow-teal"/>
     <Label text="Word analytics" styleClass="section-heading"/>
     <Label styleClass="section-lead" wrapText="true"
-           text="Hard-coded sample tables for top words, word pairs, and per-file totals. Use the dropdown to change scope — connect to the database when ready."/>
+           text='Top words and pairs from MySQL. All imported files shows corpus-wide ranks plus a per-file grid; each other entry scopes tables to that import (run migration + re-import if your DB predates per-file tables).'/>
 
     <VBox spacing="16" styleClass="content-card">
         <HBox alignment="BOTTOM_LEFT" spacing="20">

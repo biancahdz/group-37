@@ -1,5 +1,11 @@
 package com.group37.sentencebuilder.ui_layer;
 
+import com.group37.sentencebuilder.data_layer.Database;
+import com.group37.sentencebuilder.data_layer.Database.CorpusAggregate;
+import com.group37.sentencebuilder.data_layer.TxtOnDiskAnalytics;
+import com.group37.sentencebuilder.data_layer.Database.TopBigramEntry;
+import com.group37.sentencebuilder.data_layer.Database.TopWordEntry;
+import com.group37.sentencebuilder.data_layer.Database.TxtFileSummary;
 import com.group37.sentencebuilder.ui_layer.model.BigramRow;
 import com.group37.sentencebuilder.ui_layer.model.FileCorpusStatRow;
 import com.group37.sentencebuilder.ui_layer.model.WordFrequencyRow;
@@ -11,16 +17,31 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+import java.text.NumberFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 
 /**
- * Word analytics — hard-coded tables only; dropdown swaps sample datasets.
+ * Word analytics backed by {@link Database}. Dropdown switches scope; per-file word/pair tables
+ * use {@code txt_word} / {@code txt_nextword} when those rows exist for an import.
  */
-public class CorpusStatsController implements ApplicationPage {
+public class CorpusStatsController implements ApplicationPage, DatabasePage {
 
     static final String ALL_SOURCES = "All imported files";
+
+    private static final int TABLE_LIMIT = 50;
+
+    private static final NumberFormat INT_FMT = NumberFormat.getIntegerInstance(Locale.US);
+
+    private static final DateTimeFormatter IMPORT_FMT =
+            DateTimeFormatter.ofPattern("MMM d, yyyy · h:mm a", Locale.US);
 
     @FXML
     private ComboBox<String> sourceCombo;
@@ -82,15 +103,21 @@ public class CorpusStatsController implements ApplicationPage {
     @FXML
     private TableColumn<FileCorpusStatRow, String> colFileImported;
 
-    private final Map<String, CorpusSnapshot> snapshots = new LinkedHashMap<>();
+    private Database database;
+
+    private CorpusAggregate aggregate = new CorpusAggregate(0, 0, 0);
+
+    private List<TopWordEntry> cachedWords = List.of();
+
+    private List<TopBigramEntry> cachedBigrams = List.of();
+
+    private List<FileCorpusStatRow> cachedFileRows = List.of();
+
+    /** Combo label ({@code name · imported}) → row (includes {@code txtID} for per-file queries). */
+    private final Map<String, TxtFileSummary> fileByComboLabel = new LinkedHashMap<>();
 
     @FXML
     private void initialize() {
-        buildMockSnapshots();
-
-        sourceCombo.getItems().setAll(snapshots.keySet());
-        sourceCombo.getSelectionModel().selectFirst();
-
         colWordRank.setCellValueFactory(c -> c.getValue().rankProperty());
         colWord.setCellValueFactory(c -> c.getValue().wordProperty());
         colWordCount.setCellValueFactory(c -> c.getValue().countProperty());
@@ -105,145 +132,247 @@ public class CorpusStatsController implements ApplicationPage {
         colFileWords.setCellValueFactory(c -> c.getValue().wordsProperty());
         colFileImported.setCellValueFactory(c -> c.getValue().importedProperty());
 
-        sourceCombo.valueProperty().addListener((o, prev, cur) -> applySnapshot(cur));
-
-        applySnapshot(sourceCombo.getSelectionModel().getSelectedItem());
+        sourceCombo.valueProperty().addListener((o, prev, cur) -> {
+            if (cur != null) {
+                applySnapshot(cur);
+            }
+        });
     }
 
-    private void buildMockSnapshots() {
-        snapshots.put(ALL_SOURCES, new CorpusSnapshot(
-                "Aggregating every text source in the corpus.",
-                "12,840", "186,220", "4,902",
-                List.of(
-                        new WordFrequencyRow("1", "the", "9,842"),
-                        new WordFrequencyRow("2", "and", "6,110"),
-                        new WordFrequencyRow("3", "to", "4,905"),
-                        new WordFrequencyRow("4", "of", "4,201"),
-                        new WordFrequencyRow("5", "a", "3,884"),
-                        new WordFrequencyRow("6", "in", "2,910"),
-                        new WordFrequencyRow("7", "that", "2,403"),
-                        new WordFrequencyRow("8", "it", "2,102")
-                ),
-                List.of(
-                        new BigramRow("1", "of", "the", "1,240"),
-                        new BigramRow("2", "in", "the", "982"),
-                        new BigramRow("3", "to", "be", "876"),
-                        new BigramRow("4", "on", "the", "744"),
-                        new BigramRow("5", "and", "the", "701"),
-                        new BigramRow("6", "at", "the", "612"),
-                        new BigramRow("7", "for", "a", "540"),
-                        new BigramRow("8", "with", "the", "498")
-                ),
-                List.of(
-                        new FileCorpusStatRow("corpus_lecture_spring.txt", "3,201", "24,883", "Mar 15, 2026 · 4:51 PM"),
-                        new FileCorpusStatRow("notes_draft.txt", "842", "6,110", "Mar 17, 2026 · 9:02 AM"),
-                        new FileCorpusStatRow("sample_corpus.txt", "12,480", "89,204", "Mar 18, 2026 · 2:14 PM"),
-                        new FileCorpusStatRow("micro_essay.txt", "317", "2,023", "Mar 19, 2026 · 11:20 AM")
-                )
-        ));
-
-        snapshots.put("sample_corpus.txt", new CorpusSnapshot(
-                "Stats scoped to sample_corpus.txt only.",
-                "8,920", "89,204", "2,104",
-                List.of(
-                        new WordFrequencyRow("1", "the", "4,102"),
-                        new WordFrequencyRow("2", "and", "2,881"),
-                        new WordFrequencyRow("3", "data", "1,440"),
-                        new WordFrequencyRow("4", "model", "1,205"),
-                        new WordFrequencyRow("5", "to", "1,102"),
-                        new WordFrequencyRow("6", "of", "998")
-                ),
-                List.of(
-                        new BigramRow("1", "of", "the", "612"),
-                        new BigramRow("2", "in", "the", "501"),
-                        new BigramRow("3", "the", "data", "440"),
-                        new BigramRow("4", "data", "set", "398"),
-                        new BigramRow("5", "to", "the", "355")
-                ),
-                List.of()
-        ));
-
-        snapshots.put("notes_draft.txt", new CorpusSnapshot(
-                "Stats scoped to notes_draft.txt only.",
-                "1,940", "6,110", "188",
-                List.of(
-                        new WordFrequencyRow("1", "the", "402"),
-                        new WordFrequencyRow("2", "todo", "301"),
-                        new WordFrequencyRow("3", "meeting", "244"),
-                        new WordFrequencyRow("4", "and", "220"),
-                        new WordFrequencyRow("5", "chapter", "198")
-                ),
-                List.of(
-                        new BigramRow("1", "the", "meeting", "88"),
-                        new BigramRow("2", "for", "the", "72"),
-                        new BigramRow("3", "in", "chapter", "61"),
-                        new BigramRow("4", "and", "then", "54")
-                ),
-                List.of()
-        ));
-
-        snapshots.put("lecture_transcript.txt", new CorpusSnapshot(
-                "Stats scoped to lecture_transcript.txt only.",
-                "4,102", "31,402", "640",
-                List.of(
-                        new WordFrequencyRow("1", "the", "2,001"),
-                        new WordFrequencyRow("2", "we", "1,442"),
-                        new WordFrequencyRow("3", "so", "1,110"),
-                        new WordFrequencyRow("4", "that", "990"),
-                        new WordFrequencyRow("5", "is", "876")
-                ),
-                List.of(
-                        new BigramRow("1", "we", "can", "240"),
-                        new BigramRow("2", "going", "to", "198"),
-                        new BigramRow("3", "of", "the", "176"),
-                        new BigramRow("4", "this", "is", "155")
-                ),
-                List.of()
-        ));
-    }
-
-    private void applySnapshot(String key) {
-        CorpusSnapshot snap = snapshots.get(key);
-        if (snap == null) {
-            return;
-        }
-
-        scopeHintLabel.setText(snap.hint());
-        chipUniqueWords.setText(snap.uniqueWords());
-        chipTotalTokens.setText(snap.totalTokens());
-        chipTopCombo.setText(snap.topComboCount());
-
-        wordTable.setItems(FXCollections.observableArrayList(snap.words()));
-        bigramTable.setItems(FXCollections.observableArrayList(snap.bigrams()));
-
-        boolean showPerFile = ALL_SOURCES.equals(key);
-        fileTable.setVisible(showPerFile);
-        fileTable.setManaged(showPerFile);
-        if (showPerFile) {
-            fileTable.setItems(FXCollections.observableArrayList(snap.perFile()));
-            fileTableSubtitle.setText("Each imported file — sentence totals, token totals, and ingest time.");
-        } else {
-            fileTable.setItems(FXCollections.observableArrayList());
-            fileTableSubtitle.setText("Select \"" + ALL_SOURCES + "\" in the dropdown to compare every file side by side.");
-        }
+    @Override
+    public void setDatabase(Database db) {
+        this.database = db;
     }
 
     @Override
     public void onPageEnter() {
-        // Tables stay in sync via cached controller state; avoid extra UI passes that could lag navigation.
+        reloadFromDatabase();
     }
 
     @Override
     public void onPageLeave() {
     }
 
-    private record CorpusSnapshot(
-            String hint,
-            String uniqueWords,
-            String totalTokens,
-            String topComboCount,
-            List<WordFrequencyRow> words,
-            List<BigramRow> bigrams,
-            List<FileCorpusStatRow> perFile
-    ) {}
+    private void reloadFromDatabase() {
+        String previous = sourceCombo.getValue();
+
+        if (database == null) {
+            showDisconnectedState();
+            return;
+        }
+
+        if (!database.connect()) {
+            database.disconnect();
+            showDisconnectedState();
+            return;
+        }
+
+        try {
+            aggregate = database.fetchCorpusAggregate();
+            cachedWords = database.fetchTopWords(TABLE_LIMIT);
+            cachedBigrams = database.fetchTopBigrams(TABLE_LIMIT);
+
+            List<TxtFileSummary> files = database.listTxtFileSummaries();
+            fileByComboLabel.clear();
+            List<FileCorpusStatRow> fileRows = new ArrayList<>();
+            List<String> comboItems = new ArrayList<>();
+            comboItems.add(ALL_SOURCES);
+
+            for (TxtFileSummary f : files) {
+                String label = f.txtName() + " · " + formatImported(f.importedAt());
+                fileByComboLabel.put(label, f);
+                comboItems.add(label);
+                fileRows.add(new FileCorpusStatRow(
+                        f.txtName(),
+                        INT_FMT.format(f.numSentences()),
+                        INT_FMT.format(f.numWords()),
+                        formatImported(f.importedAt())));
+            }
+            cachedFileRows = fileRows;
+
+            sourceCombo.getItems().setAll(comboItems);
+
+            if (previous != null && comboItems.contains(previous)) {
+                sourceCombo.setValue(previous);
+            } else {
+                sourceCombo.getSelectionModel().selectFirst();
+            }
+
+            applySnapshot(sourceCombo.getValue());
+        } finally {
+            database.disconnect();
+        }
+    }
+
+    private void showDisconnectedState() {
+        aggregate = new CorpusAggregate(0, 0, 0);
+        cachedWords = List.of();
+        cachedBigrams = List.of();
+        cachedFileRows = List.of();
+        fileByComboLabel.clear();
+        sourceCombo.getItems().setAll(ALL_SOURCES);
+        sourceCombo.getSelectionModel().selectFirst();
+        scopeHintLabel.setText("Could not connect to the database. Check MySQL and data/db_config.txt.");
+        chipUniqueWords.setText("—");
+        chipTotalTokens.setText("—");
+        chipTopCombo.setText("—");
+        wordTable.setItems(FXCollections.observableArrayList());
+        bigramTable.setItems(FXCollections.observableArrayList());
+        fileTable.setVisible(false);
+        fileTable.setManaged(false);
+        fileTable.setItems(FXCollections.observableArrayList());
+    }
+
+    private void applySnapshot(String key) {
+        if (key == null) {
+            return;
+        }
+
+        if (ALL_SOURCES.equals(key)) {
+            List<WordFrequencyRow> wordRows = new ArrayList<>();
+            int rank = 1;
+            for (TopWordEntry e : cachedWords) {
+                wordRows.add(new WordFrequencyRow(String.valueOf(rank++), e.word(), INT_FMT.format(e.count())));
+            }
+            List<BigramRow> biRows = new ArrayList<>();
+            rank = 1;
+            for (TopBigramEntry e : cachedBigrams) {
+                biRows.add(new BigramRow(
+                        String.valueOf(rank++), e.firstWord(), e.secondWord(), INT_FMT.format(e.count())));
+            }
+            wordTable.setItems(FXCollections.observableArrayList(wordRows));
+            bigramTable.setItems(FXCollections.observableArrayList(biRows));
+
+            scopeHintLabel.setText("Aggregating every imported text file. Word and pair ranks use the full corpus.");
+            chipUniqueWords.setText(INT_FMT.format(aggregate.uniqueWordTypes()));
+            chipTotalTokens.setText(INT_FMT.format(aggregate.totalTokens()));
+            chipTopCombo.setText(aggregate.topBigramCount() > 0 ? INT_FMT.format(aggregate.topBigramCount()) : "—");
+
+            boolean hasFiles = !cachedFileRows.isEmpty();
+            fileTable.setVisible(hasFiles);
+            fileTable.setManaged(hasFiles);
+            if (hasFiles) {
+                fileTable.setItems(FXCollections.observableArrayList(cachedFileRows));
+                fileTableSubtitle.setText("Each imported file — sentence totals, token totals, and ingest time.");
+            } else {
+                fileTable.setItems(FXCollections.observableArrayList());
+                fileTableSubtitle.setText("No files in the corpus yet. Import a .txt file to see per-file totals here.");
+            }
+            return;
+        }
+
+        TxtFileSummary meta = fileByComboLabel.get(key);
+        if (meta == null) {
+            return;
+        }
+
+        // Prefer on-disk scan (no extra DB tables): Txt Files/<txtName> under the app working directory.
+        Optional<TxtOnDiskAnalytics.ScanResult> fromDisk =
+                TxtOnDiskAnalytics.scan(meta.txtName(), TABLE_LIMIT);
+        if (fromDisk.isPresent()) {
+            TxtOnDiskAnalytics.ScanResult r = fromDisk.get();
+            renderPerFileTables(r.topWords(), r.topBigrams(), r.aggregate(), meta);
+            scopeHintLabel.setText(
+                    "Rankings from the file on disk (Txt Files/ or full path), using the same token rules as import. "
+                            + "If this file changed after import, counts may differ from the database summary.");
+            finishSingleFileScope();
+            return;
+        }
+
+        // Optional fallback: per-row tables in MySQL (txt_word / txt_nextword) if present and populated.
+        int txtId = meta.txtID();
+        if (database == null || txtId <= 0) {
+            clearPerFileTables(meta.txtName());
+            finishSingleFileScope();
+            return;
+        }
+
+        if (!database.connect()) {
+            database.disconnect();
+            scopeHintLabel.setText("Could not connect. Add \"" + meta.txtName()
+                    + "\" under the project's Txt Files folder for offline per-file rankings, or fix the DB connection.");
+            chipUniqueWords.setText("—");
+            chipTotalTokens.setText("—");
+            chipTopCombo.setText("—");
+            wordTable.setItems(FXCollections.observableArrayList());
+            bigramTable.setItems(FXCollections.observableArrayList());
+            finishSingleFileScope();
+            return;
+        }
+
+        try {
+            List<TopWordEntry> words = database.fetchTopWordsForTxt(txtId, TABLE_LIMIT);
+            List<TopBigramEntry> bigrams = database.fetchTopBigramsForTxt(txtId, TABLE_LIMIT);
+            CorpusAggregate localAgg = database.fetchCorpusAggregateForTxt(txtId);
+
+            renderPerFileTables(words, bigrams, localAgg, meta);
+
+            boolean missingPerFileRows = meta.numWords() > 0 && words.isEmpty() && bigrams.isEmpty();
+            if (missingPerFileRows) {
+                scopeHintLabel.setText(
+                        "No per-file DB rows for this import. Copy \"" + meta.txtName()
+                                + "\" into the Txt Files folder (same name as in the database) to fill tables from disk.");
+            } else {
+                scopeHintLabel.setText("Word counts, pairs, and chips from per-import database rows.");
+            }
+        } finally {
+            database.disconnect();
+        }
+
+        finishSingleFileScope();
+    }
+
+    private void renderPerFileTables(
+            List<TopWordEntry> words,
+            List<TopBigramEntry> bigrams,
+            CorpusAggregate localAgg,
+            TxtFileSummary meta) {
+        List<WordFrequencyRow> wordRows = new ArrayList<>();
+        int rank = 1;
+        for (TopWordEntry e : words) {
+            wordRows.add(new WordFrequencyRow(String.valueOf(rank++), e.word(), INT_FMT.format(e.count())));
+        }
+        List<BigramRow> biRows = new ArrayList<>();
+        rank = 1;
+        for (TopBigramEntry e : bigrams) {
+            biRows.add(new BigramRow(
+                    String.valueOf(rank++), e.firstWord(), e.secondWord(), INT_FMT.format(e.count())));
+        }
+        wordTable.setItems(FXCollections.observableArrayList(wordRows));
+        bigramTable.setItems(FXCollections.observableArrayList(biRows));
+
+        chipUniqueWords.setText(localAgg.uniqueWordTypes() > 0 ? INT_FMT.format(localAgg.uniqueWordTypes()) : "—");
+        chipTotalTokens.setText(localAgg.totalTokens() > 0 ? INT_FMT.format(localAgg.totalTokens()) : "—");
+        chipTopCombo.setText(localAgg.topBigramCount() > 0 ? INT_FMT.format(localAgg.topBigramCount()) : "—");
+
+        if (localAgg.totalTokens() == 0 && meta.numWords() > 0) {
+            chipTotalTokens.setText(INT_FMT.format(meta.numWords()));
+        }
+    }
+
+    private void clearPerFileTables(String txtName) {
+        scopeHintLabel.setText(
+                "Could not find \"" + txtName + "\" on disk (try Txt Files/" + txtName
+                        + " next to where you run the app). Per-file DB tables are also empty for this import.");
+        chipUniqueWords.setText("—");
+        chipTotalTokens.setText("—");
+        chipTopCombo.setText("—");
+        wordTable.setItems(FXCollections.observableArrayList());
+        bigramTable.setItems(FXCollections.observableArrayList());
+    }
+
+    private void finishSingleFileScope() {
+        fileTable.setVisible(false);
+        fileTable.setManaged(false);
+        fileTable.setItems(FXCollections.observableArrayList());
+        fileTableSubtitle.setText("Select \"" + ALL_SOURCES + "\" to compare every file side by side.");
+    }
+
+    private static String formatImported(java.sql.Timestamp ts) {
+        if (ts == null) {
+            return "—";
+        }
+        LocalDateTime ldt = LocalDateTime.ofInstant(ts.toInstant(), ZoneId.systemDefault());
+        return ldt.format(IMPORT_FMT);
+    }
 }

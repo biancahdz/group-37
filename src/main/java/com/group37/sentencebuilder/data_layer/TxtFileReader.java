@@ -15,6 +15,7 @@ import com.group37.sentencebuilder.data_layer.Database;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -95,6 +96,22 @@ public class TxtFileReader
         return database.addCombos(combos);
     }
 
+    private List<int[]> adjacentPairs(List<String> words) {
+        if (words == null || words.size() < 2) {
+            return Collections.emptyList();
+        }
+        Map<String, Integer> wordIDs = database.getWordIDs(words);
+        List<int[]> pairs = new ArrayList<>();
+        for (int i = 0; i < words.size() - 1; i++) {
+            Integer a = wordIDs.get(words.get(i));
+            Integer b = wordIDs.get(words.get(i + 1));
+            if (a != null && b != null) {
+                pairs.add(new int[]{a, b});
+            }
+        }
+        return pairs;
+    }
+
     public Task<Void> createTask() {
         return new Task<>() {
             @Override
@@ -114,36 +131,45 @@ public class TxtFileReader
                     int count = 0;
 
                     database.connect();
-
-                    for (String sentence : sentences) {
-                        String[] rawWords = sentence.split("\\s+");
-                        List<String> words = new ArrayList<>();
-
-                        for (String w : rawWords) {
-                            String word = w.replaceAll("[^A-Za-z]", "").toLowerCase();
-                            if (!word.isBlank()) {
-                                words.add(word);
-                            }
-                        }
-
-                        if (words.isEmpty())
-                        {
-                            numSentences--;
-                            continue;
-                        }
-
-                        numWords += words.size();
-                        
-                        addWords(words);
-                        addSentence(words);
-                        addCombo(words);
-
-                        updateProgress(++count, numSentences);
+                    int txtId = database.startTxtImport(fileName);
+                    if (txtId <= 0) {
+                        database.disconnect();
+                        throw new IOException("Could not create import row for " + fileName);
                     }
 
-                    database.setTxt(fileName, numSentences, numWords);
+                    try {
+                        for (String sentence : sentences) {
+                            String[] rawWords = sentence.split("\\s+");
+                            List<String> words = new ArrayList<>();
 
-                    database.disconnect();
+                            for (String w : rawWords) {
+                                String word = w.replaceAll("[^A-Za-z]", "").toLowerCase();
+                                if (!word.isBlank()) {
+                                    words.add(word);
+                                }
+                            }
+
+                            if (words.isEmpty())
+                            {
+                                numSentences--;
+                                continue;
+                            }
+
+                            numWords += words.size();
+
+                            addWords(words);
+                            database.addTxtWordOccurrences(txtId, words);
+                            addSentence(words);
+                            addCombo(words);
+                            database.addTxtCombosForTxt(txtId, adjacentPairs(words));
+
+                            updateProgress(++count, numSentences);
+                        }
+
+                        database.finishTxtImport(txtId, numSentences, numWords);
+                    } finally {
+                        database.disconnect();
+                    }
                 }
 
                 return null;

@@ -50,5 +50,26 @@ CREATE TABLE nextWord (
     FOREIGN KEY (nextWordID) REFERENCES words(wordID)
 ) ENGINE=InnoDB;
 
+-- Per-import word and bigram counts (Word analytics scoped to one txt row)
+CREATE TABLE txt_word (
+    txtID INT NOT NULL,
+    wordID INT NOT NULL,
+    occurrenceCount INT NOT NULL DEFAULT 0,
+    PRIMARY KEY (txtID, wordID),
+    FOREIGN KEY (txtID) REFERENCES txt(txtID) ON DELETE CASCADE,
+    FOREIGN KEY (wordID) REFERENCES words(wordID)
+) ENGINE=InnoDB;
+
+CREATE TABLE txt_nextword (
+    txtID INT NOT NULL,
+    wordID INT NOT NULL,
+    nextWordID INT NOT NULL,
+    comboCount INT NOT NULL DEFAULT 0,
+    PRIMARY KEY (txtID, wordID, nextWordID),
+    FOREIGN KEY (txtID) REFERENCES txt(txtID) ON DELETE CASCADE,
+    FOREIGN KEY (wordID) REFERENCES words(wordID),
+    FOREIGN KEY (nextWordID) REFERENCES words(wordID)
+) ENGINE=InnoDB;
+
 INSERT INTO words (word, wordID) VALUES ("<START>", 1);
 INSERT INTO words (word, wordID) VALUES ("<END>", 2);
