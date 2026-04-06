@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.group37.sentencebuilder.ui_layer.CorpusStatsController"
+      styleClass="page-root-wide" spacing="0" maxWidth="Infinity">
+    <Label text="CORPUS" styleClass="section-eyebrow section-eyebrow-teal"/>
+    <Label text="Word analytics" styleClass="section-heading"/>
+    <Label styleClass="section-lead" wrapText="true"
+           text='Top words and pairs from MySQL. All imported files shows corpus-wide ranks plus a per-file grid; each other entry scopes tables to that import (run migration + re-import if your DB predates per-file tables).'/>
+
+    <VBox spacing="16" styleClass="content-card">
+        <HBox alignment="BOTTOM_LEFT" spacing="20">
+            <VBox spacing="6" HBox.hgrow="NEVER">
+                <Label text="Analyze" styleClass="field-label"/>
+                <ComboBox fx:id="sourceCombo" prefWidth="320" styleClass="combo-box combo-styled"/>
+            </VBox>
+            <HBox HBox.hgrow="ALWAYS" minWidth="12"/>
+            <Label fx:id="scopeHintLabel" styleClass="pill-label" wrapText="true" maxWidth="420"/>
+        </HBox>
+
+        <HBox styleClass="corpus-stat-strip" spacing="14" alignment="CENTER_LEFT">
+            <VBox styleClass="corpus-stat-chip" HBox.hgrow="ALWAYS">
+                <Label fx:id="chipUniqueWords" text="—" styleClass="corpus-stat-value"/>
+                <Label text="UNIQUE WORDS" styleClass="corpus-stat-label"/>
+            </VBox>
+            <VBox styleClass="corpus-stat-chip" HBox.hgrow="ALWAYS">
+                <Label fx:id="chipTotalTokens" text="—" styleClass="corpus-stat-value"/>
+                <Label text="TOTAL TOKENS" styleClass="corpus-stat-label"/>
+            </VBox>
+            <VBox styleClass="corpus-stat-chip" HBox.hgrow="ALWAYS">
+                <Label fx:id="chipTopCombo" text="—" styleClass="corpus-stat-value"/>
+                <Label text="TOP PAIR COUNT" styleClass="corpus-stat-label"/>
+            </VBox>
+        </HBox>
+    </VBox>
+
+    <VBox spacing="14" styleClass="content-card content-card-elevated" VBox.vgrow="ALWAYS">
+        <VBox.margin>
+            <Insets top="24"/>
+        </VBox.margin>
+        <Label text="Highest word counts" styleClass="card-title"/>
+        <Label text="Ranked by occurrences in the selected scope." styleClass="card-subtitle"/>
+        <TableView fx:id="wordTable" styleClass="table-clean" VBox.vgrow="ALWAYS" minHeight="200" prefHeight="240">
+            <columns>
+                <TableColumn fx:id="colWordRank" text="No." prefWidth="56"/>
+                <TableColumn fx:id="colWord" text="WORD" prefWidth="220" minWidth="120"/>
+                <TableColumn fx:id="colWordCount" text="COUNT" prefWidth="120"/>
+            </columns>
+        </TableView>
+    </VBox>
+
+    <VBox spacing="14" styleClass="content-card content-card-elevated" VBox.vgrow="ALWAYS">
+        <VBox.margin>
+            <Insets top="20"/>
+        </VBox.margin>
+        <Label text="Strongest word pairs" styleClass="card-title"/>
+        <Label text="Co-occurrence counts for next-word transitions." styleClass="card-subtitle"/>
+        <TableView fx:id="bigramTable" styleClass="table-clean" VBox.vgrow="ALWAYS" minHeight="200" prefHeight="260">
+            <columns>
+                <TableColumn fx:id="colBiRank" text="No." prefWidth="56"/>
+                <TableColumn fx:id="colBiFirst" text="FIRST" prefWidth="180" minWidth="100"/>
+                <TableColumn fx:id="colBiSecond" text="NEXT" prefWidth="180" minWidth="100"/>
+                <TableColumn fx:id="colBiCount" text="PAIR COUNT" prefWidth="130"/>
+            </columns>
+        </TableView>
+    </VBox>
+
+    <VBox spacing="14" styleClass="content-card content-card-elevated" VBox.vgrow="SOMETIMES">
+        <VBox.margin>
+            <Insets top="20"/>
+        </VBox.margin>
+        <Label text="Per-file breakdown" styleClass="card-title"/>
+        <Label fx:id="fileTableSubtitle" wrapText="true"
+               text="Shown when aggregating all imports." styleClass="card-subtitle"/>
+        <TableView fx:id="fileTable" styleClass="table-clean" minHeight="160" prefHeight="200">
+            <columns>
+                <TableColumn fx:id="colFileName" text="FILE" prefWidth="280" minWidth="160"/>
+                <TableColumn fx:id="colFileSentences" text="SENTENCES" prefWidth="120"/>
+                <TableColumn fx:id="colFileWords" text="WORDS" prefWidth="120"/>
+                <TableColumn fx:id="colFileImported" text="IMPORTED" prefWidth="200"/>
+            </columns>
+        </TableView>
+    </VBox>
+</VBox>

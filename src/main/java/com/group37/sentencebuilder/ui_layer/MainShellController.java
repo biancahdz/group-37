@@ -18,7 +18,6 @@ import com.group37.sentencebuilder.data_layer.Database;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.Toggle;
@@ -65,9 +64,15 @@ public class MainShellController {
     private ToggleButton navReports;
 
     @FXML
+    private ToggleButton navCorpusStats;
+
+    @FXML
     private ToggleButton navSettings;
 
     private final Map<ViewKey, Parent> viewCache = new EnumMap<>(ViewKey.class);
+
+    /** Suppresses nav toggle listeners while we sync the sidebar programmatically. */
+    private boolean suppressNavToggleCallbacks;
 
     @FXML
     private void initialize() {
@@ -78,20 +83,18 @@ public class MainShellController {
         wireNav(navGenerate, ViewKey.GENERATE);
         wireNav(navAutocomplete, ViewKey.AUTOCOMPLETE);
         wireNav(navReports, ViewKey.REPORTS);
+        wireNav(navCorpusStats, ViewKey.CORPUS_STATS);
         wireNav(navSettings, ViewKey.SETTINGS);
 
-        navGroup.selectedToggleProperty().addListener((obs, oldT, newT) -> {
-            if (newT == null && oldT != null) {
-                oldT.setSelected(true);
-            }
-        });
-
-        selectNav(ViewKey.HOME);
+        showView(ViewKey.HOME);
     }
 
     private void wireNav(ToggleButton button, ViewKey key) {
         button.setUserData(key);
         button.selectedProperty().addListener((obs, was, isNow) -> {
+            if (suppressNavToggleCallbacks) {
+                return;
+            }
             if (Boolean.TRUE.equals(isNow)) {
                 showView(key);
             }
@@ -100,7 +103,6 @@ public class MainShellController {
 
     /** Used by Home quick actions to change the main view. */
     public void showView(ViewKey key) {
-
         if (currentController instanceof ApplicationPage oldPage)
         {
             oldPage.onPageLeave();
@@ -121,7 +123,12 @@ public class MainShellController {
 
         currentController = ctrl;
 
-        selectNav(key);
+        suppressNavToggleCallbacks = true;
+        try {
+            selectNav(key);
+        } finally {
+            suppressNavToggleCallbacks = false;
+        }
     }
 
     private void selectNav(ViewKey key) {
@@ -142,6 +149,7 @@ public class MainShellController {
             case GENERATE -> "Sentence Generator";
             case AUTOCOMPLETE -> "Auto-Complete";
             case REPORTS -> "Reports";
+            case CORPUS_STATS -> "Word analytics";
             case SETTINGS -> "Settings & About";
         };
     }
@@ -153,6 +161,7 @@ public class MainShellController {
             case GENERATE -> "/fxml/GenerateView.fxml";
             case AUTOCOMPLETE -> "/fxml/AutocompleteView.fxml";
             case REPORTS -> "/fxml/ReportsView.fxml";
+            case CORPUS_STATS -> "/fxml/CorpusStatsView.fxml";
             case SETTINGS -> "/fxml/SettingsView.fxml";
         };
         try {

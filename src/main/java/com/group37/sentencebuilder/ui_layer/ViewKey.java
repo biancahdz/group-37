@@ -9,5 +9,6 @@ public enum ViewKey {
     GENERATE,
     AUTOCOMPLETE,
     REPORTS,
+    CORPUS_STATS,
     SETTINGS
 }

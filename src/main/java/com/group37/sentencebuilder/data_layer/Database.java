@@ -26,6 +26,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 import java.io.IOException;
 import java.io.File;
@@ -526,7 +527,122 @@ public class Database
         }
     }
 
+    /**
+     * Creates a {@code txt} row at the start of import so per-file analytics can attach {@code txtID}.
+     * Call {@link #finishTxtImport(int, int, int)} after processing all sentences.
+     */
+    public int startTxtImport(String fileName) {
+        if (!hasConnection(conn)) {
+            return -1;
+        }
+        String sql = "INSERT INTO txt (txtName, numSentences, numWords) VALUES (?, 0, 0)";
+        try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setString(1, fileName);
+            stmt.executeUpdate();
+            try (ResultSet keys = stmt.getGeneratedKeys()) {
+                if (keys.next()) {
+                    return keys.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public boolean finishTxtImport(int txtId, int numSentences, int numWords) {
+        if (!hasConnection(conn) || txtId <= 0) {
+            return false;
+        }
+        String sql = "UPDATE txt SET numSentences = ?, numWords = ? WHERE txtID = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, numSentences);
+            stmt.setInt(2, numWords);
+            stmt.setInt(3, txtId);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /** Adds token counts for one sentence into {@code txt_word} (after global {@link #addWords}). */
+    public boolean addTxtWordOccurrences(int txtId, List<String> words) {
+        if (!hasConnection(conn) || txtId <= 0 || words == null || words.isEmpty()) {
+            return true;
+        }
+        Map<String, Integer> wordIDs = getWordIDs(words);
+        Map<Integer, Integer> delta = new HashMap<>();
+        for (String w : words) {
+            Integer id = wordIDs.get(w);
+            if (id != null) {
+                delta.merge(id, 1, Integer::sum);
+            }
+        }
+        if (delta.isEmpty()) {
+            return true;
+        }
+        String sql = "INSERT INTO txt_word (txtID, wordID, occurrenceCount) VALUES (?, ?, ?) "
+                + "ON DUPLICATE KEY UPDATE occurrenceCount = occurrenceCount + VALUES(occurrenceCount)";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            for (Map.Entry<Integer, Integer> e : delta.entrySet()) {
+                stmt.setInt(1, txtId);
+                stmt.setInt(2, e.getKey());
+                stmt.setInt(3, e.getValue());
+                stmt.addBatch();
+            }
+            stmt.executeBatch();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /** Adds adjacent-word pair counts for one sentence into {@code txt_nextword}. */
+    public boolean addTxtCombosForTxt(int txtId, List<int[]> combos) {
+        if (!hasConnection(conn) || txtId <= 0 || combos == null || combos.isEmpty()) {
+            return true;
+        }
+        Map<String, Integer> counts = new HashMap<>();
+        for (int[] pair : combos) {
+            String key = pair[0] + "," + pair[1];
+            counts.put(key, counts.getOrDefault(key, 0) + 1);
+        }
+
+        StringBuilder sql = new StringBuilder(
+                "INSERT INTO txt_nextword (txtID, wordID, nextWordID, comboCount) VALUES ");
+        int size = counts.size();
+        int i = 0;
+        for (int ignored = 0; ignored < size; ignored++) {
+            sql.append("(?, ?, ?, ?)");
+            if (i++ < size - 1) {
+                sql.append(", ");
+            }
+        }
+        sql.append(" ON DUPLICATE KEY UPDATE comboCount = comboCount + VALUES(comboCount)");
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+            int index = 1;
+            for (Map.Entry<String, Integer> entry : counts.entrySet()) {
+                String[] parts = entry.getKey().split(",");
+                stmt.setInt(index++, txtId);
+                stmt.setInt(index++, Integer.parseInt(parts[0]));
+                stmt.setInt(index++, Integer.parseInt(parts[1]));
+                stmt.setInt(index++, entry.getValue());
+            }
+            stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public int getTxtCount() {
+        if (conn == null) {
+            return 0;
+        }
         String sql = "SELECT COUNT(txtID) AS count FROM txt";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -542,6 +658,9 @@ public class Database
     }
 
     public int getTxtSentenceCount() {
+        if (conn == null) {
+            return 0;
+        }
         String sql = "SELECT SUM(numSentences) AS total FROM txt";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -595,6 +714,215 @@ public class Database
             e.printStackTrace();
         }
         return null;
+    }
+
+    // --- Word analytics (corpus stats UI) ---------------------------------
+
+    public record TxtFileSummary(int txtID, String txtName, int numSentences, int numWords, java.sql.Timestamp importedAt) {}
+
+    public record TopWordEntry(String word, int count) {}
+
+    public record TopBigramEntry(String firstWord, String secondWord, int count) {}
+
+    public record CorpusAggregate(long uniqueWordTypes, long totalTokens, long topBigramCount) {}
+
+    private static boolean hasConnection(Connection c) {
+        try {
+            return c != null && !c.isClosed();
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Imported files for scope dropdown and per-file table, newest first.
+     */
+    public List<TxtFileSummary> listTxtFileSummaries() {
+        List<TxtFileSummary> out = new ArrayList<>();
+        if (!hasConnection(conn)) {
+            return out;
+        }
+        String sql = "SELECT txtID, txtName, numSentences, numWords, dateAdded FROM txt ORDER BY dateAdded DESC";
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                int s = rs.getInt("numSentences");
+                if (rs.wasNull()) {
+                    s = 0;
+                }
+                int w = rs.getInt("numWords");
+                if (rs.wasNull()) {
+                    w = 0;
+                }
+                out.add(new TxtFileSummary(
+                        rs.getInt("txtID"),
+                        rs.getString("txtName"),
+                        s,
+                        w,
+                        rs.getTimestamp("dateAdded")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return out;
+    }
+
+    /**
+     * Most frequent word types (excluding generator sentinel tokens).
+     */
+    public List<TopWordEntry> fetchTopWords(int limit) {
+        List<TopWordEntry> out = new ArrayList<>();
+        if (!hasConnection(conn) || limit <= 0) {
+            return out;
+        }
+        String sql = "SELECT word, wordCount FROM words WHERE word NOT IN ('<START>', '<END>') "
+                + "ORDER BY wordCount DESC LIMIT ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, limit);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    out.add(new TopWordEntry(rs.getString("word"), rs.getInt("wordCount")));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return out;
+    }
+
+    /**
+     * Strongest next-word transitions (excluding pairs involving sentinel tokens).
+     */
+    public List<TopBigramEntry> fetchTopBigrams(int limit) {
+        List<TopBigramEntry> out = new ArrayList<>();
+        if (!hasConnection(conn) || limit <= 0) {
+            return out;
+        }
+        String sql = "SELECT w1.word AS w1, w2.word AS w2, nw.comboCount AS cc "
+                + "FROM nextWord nw "
+                + "JOIN words w1 ON nw.wordID = w1.wordID "
+                + "JOIN words w2 ON nw.nextWordID = w2.wordID "
+                + "WHERE w1.word NOT IN ('<START>', '<END>') AND w2.word NOT IN ('<START>', '<END>') "
+                + "ORDER BY nw.comboCount DESC LIMIT ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, limit);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    out.add(new TopBigramEntry(rs.getString("w1"), rs.getString("w2"), rs.getInt("cc")));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return out;
+    }
+
+    /**
+     * Corpus-wide headline metrics for the analytics chips.
+     */
+    public CorpusAggregate fetchCorpusAggregate() {
+        if (!hasConnection(conn)) {
+            return new CorpusAggregate(0, 0, 0);
+        }
+        String sql = "SELECT "
+                + "(SELECT COUNT(*) FROM words WHERE word NOT IN ('<START>', '<END>')) AS u, "
+                + "(SELECT COALESCE(SUM(wordCount), 0) FROM words WHERE word NOT IN ('<START>', '<END>')) AS t, "
+                + "(SELECT COALESCE(MAX(nw.comboCount), 0) FROM nextWord nw "
+                + "JOIN words w1 ON nw.wordID = w1.wordID "
+                + "JOIN words w2 ON nw.nextWordID = w2.wordID "
+                + "WHERE w1.word NOT IN ('<START>', '<END>') AND w2.word NOT IN ('<START>', '<END>')) AS m";
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                return new CorpusAggregate(rs.getLong("u"), rs.getLong("t"), rs.getLong("m"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return new CorpusAggregate(0, 0, 0);
+    }
+
+    /**
+     * Per-file top words (requires {@code txt_word}; populated on import).
+     */
+    public List<TopWordEntry> fetchTopWordsForTxt(int txtId, int limit) {
+        List<TopWordEntry> out = new ArrayList<>();
+        if (!hasConnection(conn) || txtId <= 0 || limit <= 0) {
+            return out;
+        }
+        String sql = "SELECT w.word, tw.occurrenceCount AS cc FROM txt_word tw "
+                + "JOIN words w ON tw.wordID = w.wordID "
+                + "WHERE tw.txtID = ? AND w.word NOT IN ('<START>', '<END>') "
+                + "ORDER BY tw.occurrenceCount DESC LIMIT ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, txtId);
+            stmt.setInt(2, limit);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    out.add(new TopWordEntry(rs.getString("word"), rs.getInt("cc")));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return out;
+    }
+
+    /**
+     * Per-file top bigrams (requires {@code txt_nextword}; populated on import).
+     */
+    public List<TopBigramEntry> fetchTopBigramsForTxt(int txtId, int limit) {
+        List<TopBigramEntry> out = new ArrayList<>();
+        if (!hasConnection(conn) || txtId <= 0 || limit <= 0) {
+            return out;
+        }
+        String sql = "SELECT w1.word AS w1, w2.word AS w2, tn.comboCount AS cc FROM txt_nextword tn "
+                + "JOIN words w1 ON tn.wordID = w1.wordID "
+                + "JOIN words w2 ON tn.nextWordID = w2.wordID "
+                + "WHERE tn.txtID = ? AND w1.word NOT IN ('<START>', '<END>') "
+                + "AND w2.word NOT IN ('<START>', '<END>') "
+                + "ORDER BY tn.comboCount DESC LIMIT ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, txtId);
+            stmt.setInt(2, limit);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    out.add(new TopBigramEntry(rs.getString("w1"), rs.getString("w2"), rs.getInt("cc")));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return out;
+    }
+
+    /** Headline metrics for one import row. */
+    public CorpusAggregate fetchCorpusAggregateForTxt(int txtId) {
+        if (!hasConnection(conn) || txtId <= 0) {
+            return new CorpusAggregate(0, 0, 0);
+        }
+        String sql = "SELECT "
+                + "(SELECT COUNT(*) FROM txt_word tw JOIN words w ON tw.wordID = w.wordID "
+                + "WHERE tw.txtID = ? AND w.word NOT IN ('<START>', '<END>')) AS u, "
+                + "(SELECT COALESCE(SUM(tw.occurrenceCount), 0) FROM txt_word tw JOIN words w ON tw.wordID = w.wordID "
+                + "WHERE tw.txtID = ? AND w.word NOT IN ('<START>', '<END>')) AS t, "
+                + "(SELECT COALESCE(MAX(tn.comboCount), 0) FROM txt_nextword tn "
+                + "JOIN words w1 ON tn.wordID = w1.wordID JOIN words w2 ON tn.nextWordID = w2.wordID "
+                + "WHERE tn.txtID = ? AND w1.word NOT IN ('<START>', '<END>') "
+                + "AND w2.word NOT IN ('<START>', '<END>')) AS m";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, txtId);
+            stmt.setInt(2, txtId);
+            stmt.setInt(3, txtId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new CorpusAggregate(rs.getLong("u"), rs.getLong("t"), rs.getLong("m"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return new CorpusAggregate(0, 0, 0);
     }
 
     public void dumpDatabase() throws Exception

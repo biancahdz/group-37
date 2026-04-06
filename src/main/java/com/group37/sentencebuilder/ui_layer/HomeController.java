@@ -59,13 +59,31 @@ public class HomeController implements ApplicationPage, DatabasePage {
         navigator.accept(ViewKey.REPORTS);
     }
 
+    @FXML
+    private void onQuickCorpusStats(MouseEvent e) {
+        navigator.accept(ViewKey.CORPUS_STATS);
+    }
+
     @Override
     public void onPageEnter()
     {
-        database.connect();
-        txtCount.setText(String.valueOf(database.getTxtCount()));
-        sentenceCount.setText(String.valueOf(database.getTxtSentenceCount()));
-        database.disconnect();
+        if (database == null) {
+            txtCount.setText("—");
+            sentenceCount.setText("—");
+            return;
+        }
+        if (!database.connect()) {
+            txtCount.setText("—");
+            sentenceCount.setText("—");
+            database.disconnect();
+            return;
+        }
+        try {
+            txtCount.setText(String.valueOf(database.getTxtCount()));
+            sentenceCount.setText(String.valueOf(database.getTxtSentenceCount()));
+        } finally {
+            database.disconnect();
+        }
     }
 
     @Override
