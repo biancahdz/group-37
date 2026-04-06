@@ -1,0 +1,2 @@
+root
+your_mysql_password

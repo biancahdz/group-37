@@ -1,0 +1,47 @@
+package com.group37.sentencebuilder.ui.appearance;
+
+/**
+ * Names of CSS custom properties set on {@code .root} (scene root) in {@code theme-palettes.css}.
+ * Use these when reading or documenting theme data instead of duplicating string literals.
+ */
+public final class ThemePaletteKeys {
+
+    public static final String CANVAS = "sb-canvas";
+    public static final String SIDEBAR = "sb-sidebar";
+    public static final String HEADER = "sb-header";
+    public static final String SURFACE = "sb-surface";
+    public static final String SURFACE_RAISED = "sb-surface-raised";
+    public static final String SURFACE_MUTED = "sb-surface-muted";
+    public static final String SURFACE_HOVER = "sb-surface-hover";
+    public static final String INPUT = "sb-input";
+    public static final String WORKSPACE_PANEL = "sb-workspace-panel";
+
+    public static final String TEXT = "sb-text";
+    public static final String TEXT_SECONDARY = "sb-text-secondary";
+    public static final String TEXT_MUTED = "sb-text-muted";
+    public static final String TEXT_TERTIARY = "sb-text-tertiary";
+    /** Paragraph / lead copy under page titles — stronger separation from {@link #TEXT} than {@link #TEXT_MUTED}. */
+    public static final String TEXT_LEAD = "sb-text-lead";
+
+    public static final String BORDER = "sb-border";
+    public static final String BORDER_SUBTLE = "sb-border-subtle";
+    public static final String DIVIDER = "sb-divider";
+    /** Vertical line between sidebar and main content. */
+    public static final String SEPARATOR_SIDEBAR = "sb-separator-sidebar";
+    /** Horizontal line under the brand block (Sentence Builder / tagline). */
+    public static final String SEPARATOR_BRAND = "sb-separator-brand";
+    /** Horizontal line under the top header bar. */
+    public static final String SEPARATOR_HEADER = "sb-separator-header";
+
+    public static final String ACCENT = "sb-accent";
+    public static final String ACCENT_HOVER = "sb-accent-hover";
+    public static final String ACCENT_SOFT = "sb-accent-soft";
+    public static final String ACCENT_BORDER = "sb-accent-border";
+
+    public static final String VIOLET = "sb-violet";
+    public static final String TEAL = "sb-teal";
+    public static final String AMBER = "sb-amber";
+    public static final String SHADE = "sb-shade";
+
+    private ThemePaletteKeys() {}
+}

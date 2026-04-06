@@ -14,7 +14,6 @@ package com.group37.sentencebuilder.ui_layer;
 import com.group37.sentencebuilder.ui_layer.ApplicationPage;
 import com.group37.sentencebuilder.ui_layer.DatabasePage;
 
-import com.group37.sentencebuilder.DebugLog;
 import com.group37.sentencebuilder.data_layer.Database;
 
 import javafx.fxml.FXML;
@@ -24,6 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
@@ -76,6 +76,8 @@ public class MainShellController {
 
     @FXML
     private void initialize() {
+        contentHost.setMaxHeight(Region.USE_PREF_SIZE);
+
         wireNav(navHome, ViewKey.HOME);
         wireNav(navImport, ViewKey.IMPORT);
         wireNav(navGenerate, ViewKey.GENERATE);
@@ -84,19 +86,7 @@ public class MainShellController {
         wireNav(navCorpusStats, ViewKey.CORPUS_STATS);
         wireNav(navSettings, ViewKey.SETTINGS);
 
-        try {
-            showView(ViewKey.HOME);
-            // #region agent log
-            DebugLog.agent("pre-fix", "H5", "MainShellController:initialize", "showView HOME completed", Map.of());
-            // #endregion
-        } catch (Throwable t) {
-            // #region agent log
-            DebugLog.agent("pre-fix", "H5", "MainShellController:initialize", "showView threw", Map.of(
-                    "ex", t.getClass().getSimpleName(),
-                    "msg", String.valueOf(t.getMessage())));
-            // #endregion
-            throw t;
-        }
+        showView(ViewKey.HOME);
     }
 
     private void wireNav(ToggleButton button, ViewKey key) {
@@ -113,10 +103,6 @@ public class MainShellController {
 
     /** Used by Home quick actions to change the main view. */
     public void showView(ViewKey key) {
-        // #region agent log
-        DebugLog.agent("pre-fix", "H1", "MainShellController:showView", "enter", Map.of("key", key.name()));
-        // #endregion
-
         if (currentController instanceof ApplicationPage oldPage)
         {
             oldPage.onPageLeave();
@@ -125,28 +111,14 @@ public class MainShellController {
         headerTitle.setText(titleFor(key));
         Parent node = viewCache.computeIfAbsent(key, this::loadView);
         contentHost.getChildren().setAll(node);
-        // #region agent log
-        DebugLog.agent("pre-fix", "H1", "MainShellController:showView", "after setAll", Map.of(
-                "childCount", String.valueOf(contentHost.getChildren().size()),
-                "nodeClass", node.getClass().getSimpleName()));
-        // #endregion
+        if (node instanceof Region pageRoot) {
+            pageRoot.setMaxHeight(Region.USE_PREF_SIZE);
+        }
 
         Object ctrl = node.getUserData();
         if (ctrl instanceof ApplicationPage page)
         {
-            try {
-                page.onPageEnter();
-                // #region agent log
-                DebugLog.agent("pre-fix", "H2", "MainShellController:showView", "onPageEnter ok", Map.of("key", key.name()));
-                // #endregion
-            } catch (Throwable t) {
-                // #region agent log
-                DebugLog.agent("pre-fix", "H2", "MainShellController:showView", "onPageEnter threw", Map.of(
-                        "ex", t.getClass().getSimpleName(),
-                        "msg", String.valueOf(t.getMessage())));
-                // #endregion
-                throw t;
-            }
+            page.onPageEnter();
         }
 
         currentController = ctrl;
@@ -192,19 +164,10 @@ public class MainShellController {
             case CORPUS_STATS -> "/fxml/CorpusStatsView.fxml";
             case SETTINGS -> "/fxml/SettingsView.fxml";
         };
-        // #region agent log
-        DebugLog.agent("pre-fix", "H1", "MainShellController:loadView", "enter", Map.of(
-                "key", key.name(),
-                "resource", resource));
-        // #endregion
         try {
 
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(resource)));
             Parent parent = loader.load();
-            // #region agent log
-            DebugLog.agent("pre-fix", "H1", "MainShellController:loadView", "loaded", Map.of(
-                    "parentClass", parent.getClass().getSimpleName()));
-            // #endregion
 
             Object ctrl = loader.getController();
 
@@ -224,12 +187,6 @@ public class MainShellController {
 
             return parent;
         } catch (IOException e) {
-            // #region agent log
-            DebugLog.agent("corpus-nav", "W1", "MainShellController:loadView", "IOException", Map.of(
-                    "key", key.name(),
-                    "resource", resource,
-                    "msg", String.valueOf(e.getMessage())));
-            // #endregion
             throw new UncheckedIOException(e);
         }
     }

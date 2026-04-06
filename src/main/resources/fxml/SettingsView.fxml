@@ -1,19 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.group37.sentencebuilder.ui_layer.SettingsController"
-      styleClass="page-root" spacing="0">
+      styleClass="page-root settings-page-root" spacing="26">
     <Label text="PROJECT" styleClass="section-eyebrow"/>
     <Label text="Settings &amp; About" styleClass="section-heading"/>
     <Label styleClass="section-lead" wrapText="true"
-           text="Credits and stack overview. No preferences are stored in this UI-only build."/>
+           text="Appearance applies app-wide from UiPreferences (theme, font, size). About the app and team below."/>
 
-    <VBox spacing="20" styleClass="content-card content-card-elevated" maxWidth="640">
+    <VBox spacing="24" styleClass="content-card content-card-elevated settings-main-card" maxWidth="680">
+        <VBox spacing="18" styleClass="settings-pref-section">
+            <Label text="Themes" styleClass="card-title"/>
+            <ComboBox fx:id="themeCombo" styleClass="combo-styled settings-pref-combo" maxWidth="420"/>
+        </VBox>
+
+        <Separator styleClass="settings-sep"/>
+
+        <VBox spacing="18" styleClass="settings-pref-section">
+            <Label text="Font" styleClass="card-title"/>
+            <ComboBox fx:id="fontCombo" styleClass="combo-styled settings-pref-combo" maxWidth="420"/>
+        </VBox>
+
+        <Separator styleClass="settings-sep"/>
+
+        <VBox spacing="18" styleClass="settings-pref-section">
+            <Label text="Font size" styleClass="card-title"/>
+            <ComboBox fx:id="fontSizeCombo" styleClass="combo-styled settings-pref-combo" maxWidth="420"/>
+        </VBox>
+
+        <Separator styleClass="settings-sep"/>
+
         <Label text="Application" styleClass="card-title"/>
         <VBox styleClass="about-block">
             <Label text="Sentence Builder" styleClass="about-title"/>

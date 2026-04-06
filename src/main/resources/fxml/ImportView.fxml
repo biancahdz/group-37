@@ -37,13 +37,13 @@
         </VBox>
     </VBox>
 
-    <VBox spacing="14" VBox.vgrow="ALWAYS" styleClass="content-card content-card-elevated">
+    <VBox spacing="14" styleClass="content-card content-card-elevated">
         <VBox.margin>
-            <Insets top="24"/>
+            <Insets top="18"/>
         </VBox.margin>
         <Label text="Recent imports" styleClass="card-title"/>
         <Label text="Representative rows for layout — swap for live query results." styleClass="card-subtitle"/>
-        <TableView fx:id="importTable" styleClass="table-clean" VBox.vgrow="ALWAYS" minHeight="240">
+        <TableView fx:id="importTable" styleClass="table-clean" minHeight="200" prefHeight="360">
             <columns>
                 <TableColumn fx:id="colFile" text="FILE" prefWidth="200"/>
                 <TableColumn fx:id="colDate" text="IMPORTED" prefWidth="180"/>

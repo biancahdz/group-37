@@ -2,6 +2,11 @@ bin/
 *.class
 .vscode/
 
-# local testing
-src/testing/*.javatarget/
+# Maven build output — do not commit (avoids repeated merge conflicts on target/)
+target/
+
+# Local editor / tooling
 .cursor/
+
+# Optional: local DB credentials (use db_config.example if you add one)
+data/db_config.txt

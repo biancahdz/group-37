@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
@@ -52,6 +53,9 @@ public class MainShellController {
 
     @FXML
     private void initialize() {
+        /* Let page roots size to their natural height so the shell ScrollPane can scroll vertically. */
+        contentHost.setMaxHeight(Region.USE_PREF_SIZE);
+
         wireNav(navHome, ViewKey.HOME);
         wireNav(navImport, ViewKey.IMPORT);
         wireNav(navGenerate, ViewKey.GENERATE);
@@ -82,6 +86,9 @@ public class MainShellController {
         headerTitle.setText(titleFor(key));
         Parent node = viewCache.computeIfAbsent(key, this::loadView);
         contentHost.getChildren().setAll(node);
+        if (node instanceof Region pageRoot) {
+            pageRoot.setMaxHeight(Region.USE_PREF_SIZE);
+        }
         selectNav(key);
     }
 
