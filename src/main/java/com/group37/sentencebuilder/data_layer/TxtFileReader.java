@@ -1,6 +1,8 @@
 /**
  * File: TxtFileReader.java
- * Description: 
+ * Description: Reads a text file, splits it into sentences and words,
+ * stores words, sentences, and word combinations in the database,
+ * and runs the import process as a background JavaFX task.
  *
  * Author: 
  * Created: 2026-03-15
@@ -8,6 +10,7 @@
  *
  * Version: 1.0
  */
+
 
 package com.group37.sentencebuilder.data_layer;
 
