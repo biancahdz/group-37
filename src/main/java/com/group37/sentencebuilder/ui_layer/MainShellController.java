@@ -18,6 +18,7 @@ import com.group37.sentencebuilder.data_layer.Database;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -140,6 +141,7 @@ public class MainShellController {
         headerTitle.setText(titleFor(key));
         Parent node = viewCache.computeIfAbsent(key, this::loadView);
         contentHost.getChildren().setAll(node);
+        StackPane.setAlignment(node, Pos.TOP_LEFT);
         if (node instanceof Region pageRoot) {
             pageRoot.setMaxHeight(Region.USE_PREF_SIZE);
         }

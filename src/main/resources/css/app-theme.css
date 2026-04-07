@@ -145,7 +145,7 @@
 }
 
 .sidebar-mark {
-    -fx-padding: 0 0 22 0;
+    -fx-padding: 0 0 18 0;
 }
 
 .sidebar-mark-badge {
@@ -1039,7 +1039,7 @@
 
 /* Settings page: extra breathing room */
 .settings-page-root .section-eyebrow {
-    -fx-padding: 0 0 22 0;
+    -fx-padding: 0 0 18 0;
 }
 
 .settings-page-root .section-heading {
