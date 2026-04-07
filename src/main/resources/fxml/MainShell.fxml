@@ -57,8 +57,8 @@
                 </HBox>
             </top>
             <center>
-                <StackPane styleClass="workspace-inset">
-                    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true"
+                <StackPane fx:id="workspaceInset" styleClass="workspace-inset">
+                    <ScrollPane fx:id="workspaceScroll" fitToWidth="true" hbarPolicy="NEVER" pannable="true"
                                 styleClass="scroll-pane workspace-scroll" maxWidth="Infinity" maxHeight="Infinity">
                         <StackPane fx:id="contentHost" styleClass="content-host workspace-surface" maxWidth="Infinity"/>
                     </ScrollPane>

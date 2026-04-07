@@ -20,11 +20,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.input.ScrollEvent;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -41,6 +43,12 @@ public class MainShellController {
 
     @FXML
     private StackPane contentHost;
+
+    @FXML
+    private StackPane workspaceInset;
+
+    @FXML
+    private ScrollPane workspaceScroll;
 
     @FXML
     private Label headerTitle;
@@ -77,6 +85,7 @@ public class MainShellController {
     @FXML
     private void initialize() {
         contentHost.setMaxHeight(Region.USE_PREF_SIZE);
+        wireWorkspaceScrolling();
 
         wireNav(navHome, ViewKey.HOME);
         wireNav(navImport, ViewKey.IMPORT);
@@ -87,6 +96,26 @@ public class MainShellController {
         wireNav(navSettings, ViewKey.SETTINGS);
 
         showView(ViewKey.HOME);
+    }
+
+    /**
+     * Make mouse-wheel / trackpad scrolling work across the full workspace area,
+     * not just when the cursor is over the inner content node.
+     */
+    private void wireWorkspaceScrolling() {
+        workspaceInset.addEventFilter(ScrollEvent.SCROLL, event -> {
+            double contentHeight = contentHost.getBoundsInLocal().getHeight();
+            double viewportHeight = workspaceScroll.getViewportBounds().getHeight();
+            double scrollableHeight = contentHeight - viewportHeight;
+            if (scrollableHeight <= 0) {
+                return;
+            }
+
+            double delta = -event.getDeltaY() / scrollableHeight;
+            double next = Math.max(0.0, Math.min(1.0, workspaceScroll.getVvalue() + delta));
+            workspaceScroll.setVvalue(next);
+            event.consume();
+        });
     }
 
     private void wireNav(ToggleButton button, ViewKey key) {
