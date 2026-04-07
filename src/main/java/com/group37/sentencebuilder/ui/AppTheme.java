@@ -16,6 +16,12 @@ public enum AppTheme {
     CHRISTMAS("Christmas mode", "theme-christmas"),
     THANKSGIVING("Thanksgiving mode", "theme-thanksgiving"),
     RAINBOW("Rainbow mode", "theme-rainbow"),
+    LUNA("Luna mode", "theme-luna"),
+    NEON_NOIR("Neon Noir mode", "theme-neon-noir"),
+    FAIRY_LIGHTS("Fairy Lights mode", "theme-fairy-lights"),
+    DEEP_INK("Deep Ink mode", "theme-deep-ink"),
+    EMERALD_LIGHT("Emerald Light mode", "theme-emerald-light"),
+    TRAPPED_RAINBOW("Trapped Rainbow mode", "theme-trapped-rainbow"),
     SYSTEM("System mode", "theme-system"),
     INVERT_SYSTEM("Invert System mode", "theme-invert-system");
 
@@ -91,6 +97,12 @@ public enum AppTheme {
             case THANKSGIVING -> "#faf7f2";
             case CHRISTMAS -> "#1a2e28";
             case RAINBOW -> "#2e2a5c";
+            case LUNA -> "#11243f";
+            case NEON_NOIR -> "#0d1a2f";
+            case FAIRY_LIGHTS -> "#f7f1ff";
+            case DEEP_INK -> "#0f1217";
+            case EMERALD_LIGHT -> "#f2fbf8";
+            case TRAPPED_RAINBOW -> "#fff8ff";
             case DEFAULT -> "#2d2d33";
             case INVERT_SYSTEM -> "#000000";
             case SYSTEM -> "#ffffff";
@@ -103,6 +115,12 @@ public enum AppTheme {
             case THANKSGIVING -> "#3e2723";
             case CHRISTMAS -> "#faecd8";
             case RAINBOW -> "#fafafa";
+            case LUNA -> "#dbeafe";
+            case NEON_NOIR -> "#e2e8f0";
+            case FAIRY_LIGHTS -> "#3b2f56";
+            case DEEP_INK -> "#d4e7ef";
+            case EMERALD_LIGHT -> "#123b2f";
+            case TRAPPED_RAINBOW -> "#6e5a8a";
             case DEFAULT -> "#f4f4f5";
             case INVERT_SYSTEM -> "#ffffff";
             case SYSTEM -> "#18181b";

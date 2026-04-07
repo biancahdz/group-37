@@ -516,6 +516,342 @@
     sb-shade-hover: rgba(0, 0, 0, 0.5);
 }
 
+/* ---- Luna (deep sapphire moonlight) ---- */
+.root.theme-luna {
+    -fx-background-color: sb-canvas;
+
+    sb-canvas: #0a1c40;
+    sb-sidebar: #11243f;
+    sb-header: #11243f;
+    sb-surface: #17365f;
+    sb-surface-raised: #1f4774;
+    sb-surface-muted: #143154;
+    sb-surface-hover: #215586;
+    sb-input: #17365f;
+
+    sb-text: #eaf3fb;
+    sb-text-secondary: #b8d2e8;
+    sb-text-muted: #8fb2cf;
+    sb-text-tertiary: #6d91af;
+    sb-text-lead: #c7def0;
+
+    sb-border: #2a5d8f;
+    sb-border-subtle: #3370a6;
+    sb-divider: #1e4a75;
+    sb-separator-sidebar: #2a5d8f;
+    sb-separator-brand: #1e4a75;
+    sb-separator-header: #2a5d8f;
+    sb-workspace-panel: #102949;
+
+    sb-accent: #54acbf;
+    sb-accent-hover: #67bed1;
+    sb-accent-pressed: #3b95ab;
+    sb-accent-soft: #1c4f62;
+    sb-accent-border: #7bcadd;
+
+    sb-violet: #9a8cff;
+    sb-violet-soft: #3b3473;
+    sb-violet-border: #b8adff;
+
+    sb-teal: #77e4f2;
+    sb-teal-soft: #1b6472;
+    sb-teal-border: #98eef9;
+
+    sb-amber: #e6bd8b;
+    sb-amber-soft: #7b5830;
+    sb-amber-border: #efd0a8;
+
+    sb-success: #86e0bf;
+    sb-success-soft: #205f49;
+    sb-success-border: #a0ebd0;
+
+    sb-warning: #f7d985;
+    sb-error: #ff9aa2;
+
+    sb-shade: rgba(0, 0, 0, 0.38);
+    sb-shade-hover: rgba(0, 0, 0, 0.48);
+}
+
+/* ---- Neon Noir (teal + crimson cyber dark) ---- */
+.root.theme-neon-noir {
+    -fx-background-color: sb-canvas;
+
+    sb-canvas: #0d1a2f;
+    sb-sidebar: #17364f;
+    sb-header: #17364f;
+    sb-surface: #17364f;
+    sb-surface-raised: #1f4566;
+    sb-surface-muted: #411e3a;
+    sb-surface-hover: #245173;
+    sb-input: #17364f;
+
+    sb-text: #f5f9ff;
+    sb-text-secondary: #d7e4f2;
+    sb-text-muted: #b5c8dc;
+    sb-text-tertiary: #95aec8;
+    sb-text-lead: #e4eef9;
+
+    sb-border: #2d5f85;
+    sb-border-subtle: #3a7099;
+    sb-divider: #285174;
+    sb-separator-sidebar: #2d5f85;
+    sb-separator-brand: #285174;
+    sb-separator-header: #2d5f85;
+    sb-workspace-panel: #122941;
+
+    sb-accent: #09dbc7;
+    sb-accent-hover: #26edd8;
+    sb-accent-pressed: #07b8a8;
+    sb-accent-soft: #17364f;
+    sb-accent-border: #09dbc7;
+
+    sb-violet: #411e3a;
+    sb-violet-soft: #2f172a;
+    sb-violet-border: #6a3461;
+
+    sb-teal: #17364f;
+    sb-teal-soft: #11283b;
+    sb-teal-border: #245173;
+
+    sb-amber: #bd0927;
+    sb-amber-soft: #500a1f;
+    sb-amber-border: #bd0927;
+
+    sb-success: #09dbc7;
+    sb-success-soft: #17364f;
+    sb-success-border: #09dbc7;
+
+    sb-warning: #bd0927;
+    sb-error: #bd0927;
+
+    sb-shade: rgba(0, 0, 0, 0.48);
+    sb-shade-hover: rgba(0, 0, 0, 0.6);
+}
+
+/* ---- Fairy Lights (soft pastel glow) ---- */
+.root.theme-fairy-lights {
+    -fx-background-color: sb-canvas;
+
+    sb-canvas: #faf6ff;
+    sb-sidebar: #f6f0ff;
+    sb-header: #ffffff;
+    sb-surface: #ffffff;
+    sb-surface-raised: #fdf9ff;
+    sb-surface-muted: #f3ecff;
+    sb-surface-hover: #ece3ff;
+    sb-input: #ffffff;
+
+    sb-text: #3f3381;
+    sb-text-secondary: #5b4ca0;
+    sb-text-muted: #7a6ab4;
+    sb-text-tertiary: #9989cb;
+    sb-text-lead: #53469a;
+
+    sb-border: #d9cbf7;
+    sb-border-subtle: #e7ddfb;
+    sb-divider: #e9e1fb;
+    sb-separator-sidebar: #e2d8fa;
+    sb-separator-brand: #e2d8fa;
+    sb-separator-header: #e2d8fa;
+    sb-workspace-panel: #f6f0ff;
+
+    sb-accent: #86bada;
+    sb-accent-hover: #78add1;
+    sb-accent-pressed: #5f97be;
+    sb-accent-soft: #e7f1fb;
+    sb-accent-border: #9bc9e7;
+
+    sb-violet: #9f99d1;
+    sb-violet-soft: #ece7fb;
+    sb-violet-border: #b8b1e0;
+
+    sb-teal: #9fd6cf;
+    sb-teal-soft: #e9f7f4;
+    sb-teal-border: #b5e3de;
+
+    sb-amber: #f6beb0;
+    sb-amber-soft: #fdeeea;
+    sb-amber-border: #f8ccbf;
+
+    sb-success: #93d8bd;
+    sb-success-soft: #e8f7ef;
+    sb-success-border: #afe5cf;
+
+    sb-warning: #f6e3b3;
+    sb-error: #db8aa8;
+
+    sb-shade: rgba(88, 66, 138, 0.08);
+    sb-shade-hover: rgba(88, 66, 138, 0.14);
+}
+
+/* ---- Deep Ink (film sea palette) ---- */
+.root.theme-deep-ink {
+    -fx-background-color: sb-canvas;
+
+    sb-canvas: #0f1217;
+    sb-sidebar: #111821;
+    sb-header: #111821;
+    sb-surface: #122533;
+    sb-surface-raised: #1a3a4a;
+    sb-surface-muted: #101f2b;
+    sb-surface-hover: #1e4a5e;
+    sb-input: #173244;
+
+    sb-text: #eaf4f8;
+    sb-text-secondary: #bdd8e2;
+    sb-text-muted: #92b6c3;
+    sb-text-tertiary: #7298a8;
+    sb-text-lead: #c9e2ea;
+
+    sb-border: #27606c;
+    sb-border-subtle: #4f8089;
+    sb-divider: #1e4d56;
+    sb-separator-sidebar: #27606c;
+    sb-separator-brand: #1e4d56;
+    sb-separator-header: #27606c;
+    sb-workspace-panel: #0f1f2b;
+
+    sb-accent: #27606c;
+    sb-accent-hover: #2f7381;
+    sb-accent-pressed: #1f4f58;
+    sb-accent-soft: #143640;
+    sb-accent-border: #5f8f9a;
+
+    sb-violet: #c68d5d;
+    sb-violet-soft: #5c3f2a;
+    sb-violet-border: #deb58f;
+
+    sb-teal: #7baacb;
+    sb-teal-soft: #24485f;
+    sb-teal-border: #9ec5df;
+
+    sb-amber: #d7b27a;
+    sb-amber-soft: #6e5433;
+    sb-amber-border: #e4c79e;
+
+    sb-success: #7fb8a2;
+    sb-success-soft: #215545;
+    sb-success-border: #9acdb9;
+
+    sb-warning: #f0c57f;
+    sb-error: #f1957c;
+
+    sb-shade: rgba(0, 0, 0, 0.45);
+    sb-shade-hover: rgba(0, 0, 0, 0.55);
+}
+
+/* ---- Emerald Light (aurora mint) ---- */
+.root.theme-emerald-light {
+    -fx-background-color: sb-canvas;
+
+    sb-canvas: #eef9f6;
+    sb-sidebar: #e5f4f0;
+    sb-header: #ffffff;
+    sb-surface: #ffffff;
+    sb-surface-raised: #f7fdfb;
+    sb-surface-muted: #eaf7f3;
+    sb-surface-hover: #dff3ed;
+    sb-input: #ffffff;
+
+    sb-text: #1b2121;
+    sb-text-secondary: #1c434a;
+    sb-text-muted: #3b6f76;
+    sb-text-tertiary: #5f8f93;
+    sb-text-lead: #1f5c64;
+
+    sb-border: #b7ddd4;
+    sb-border-subtle: #cde9e1;
+    sb-divider: #d7eee8;
+    sb-separator-sidebar: #cde9e1;
+    sb-separator-brand: #cde9e1;
+    sb-separator-header: #cde9e1;
+    sb-workspace-panel: #e9f8f3;
+
+    sb-accent: #057569;
+    sb-accent-hover: #0b887a;
+    sb-accent-pressed: #04645a;
+    sb-accent-soft: #cfeee8;
+    sb-accent-border: #37a699;
+
+    sb-violet: #1c434a;
+    sb-violet-soft: #d9ecef;
+    sb-violet-border: #3f7b84;
+
+    sb-teal: #6dabc3;
+    sb-teal-soft: #deeff4;
+    sb-teal-border: #8dc2d6;
+
+    sb-amber: #cda46f;
+    sb-amber-soft: #f3e7d4;
+    sb-amber-border: #d9b88b;
+
+    sb-success: #2f9e78;
+    sb-success-soft: #d3f0e4;
+    sb-success-border: #5ec29c;
+
+    sb-warning: #b9925b;
+    sb-error: #b44b5e;
+
+    sb-shade: rgba(19, 67, 74, 0.08);
+    sb-shade-hover: rgba(19, 67, 74, 0.14);
+}
+
+/* ---- Trapped Rainbow (pastel prism) ---- */
+.root.theme-trapped-rainbow {
+    -fx-background-color: sb-canvas;
+
+    sb-canvas: #fdf8ff;
+    sb-sidebar: #f4ebff;
+    sb-header: #ffffff;
+    sb-surface: #ffffff;
+    sb-surface-raised: #fff9ff;
+    sb-surface-muted: #f6eeff;
+    sb-surface-hover: #eee3ff;
+    sb-input: #ffffff;
+
+    sb-text: #3f3381;
+    sb-text-secondary: #7060aa;
+    sb-text-muted: #9387be;
+    sb-text-tertiary: #b0a3d0;
+    sb-text-lead: #5d4ea1;
+
+    sb-border: #dfd4f4;
+    sb-border-subtle: #ebe3fa;
+    sb-divider: #ede5fa;
+    sb-separator-sidebar: #e4dcf7;
+    sb-separator-brand: #e4dcf7;
+    sb-separator-header: #e4dcf7;
+    sb-workspace-panel: #f4edff;
+
+    sb-accent: #9f99d1;
+    sb-accent-hover: #8d88c7;
+    sb-accent-pressed: #7973b4;
+    sb-accent-soft: #f0ecfa;
+    sb-accent-border: #b7b1df;
+
+    sb-violet: #dbaad7;
+    sb-violet-soft: #f9ecf7;
+    sb-violet-border: #e7bfdf;
+
+    sb-teal: #86bada;
+    sb-teal-soft: #e8f1fb;
+    sb-teal-border: #9fc9e5;
+
+    sb-amber: #f6beb0;
+    sb-amber-soft: #fdeeea;
+    sb-amber-border: #f9cdc2;
+
+    sb-success: #a7d9cb;
+    sb-success-soft: #ecf8f4;
+    sb-success-border: #bce4d8;
+
+    sb-warning: #f6e3b3;
+    sb-error: #c27396;
+
+    sb-shade: rgba(111, 96, 170, 0.08);
+    sb-shade-hover: rgba(111, 96, 170, 0.14);
+}
+
 /* ---- Invert System (high-contrast dark inverse of light system) ---- */
 .root.theme-invert-system {
     -fx-background-color: sb-canvas;
@@ -577,6 +913,12 @@
 .root.theme-christmas .section-heading-hero,
 .root.theme-thanksgiving .section-heading-hero,
 .root.theme-rainbow .section-heading-hero,
+.root.theme-luna .section-heading-hero,
+.root.theme-neon-noir .section-heading-hero,
+.root.theme-fairy-lights .section-heading-hero,
+.root.theme-deep-ink .section-heading-hero,
+.root.theme-emerald-light .section-heading-hero,
+.root.theme-trapped-rainbow .section-heading-hero,
 .root.theme-invert-system .section-heading-hero {
     -fx-text-fill: sb-text;
 }
@@ -585,6 +927,12 @@
 .root.theme-christmas .table-view.table-clean .table-row-cell:odd,
 .root.theme-thanksgiving .table-view.table-clean .table-row-cell:odd,
 .root.theme-rainbow .table-view.table-clean .table-row-cell:odd,
+.root.theme-luna .table-view.table-clean .table-row-cell:odd,
+.root.theme-neon-noir .table-view.table-clean .table-row-cell:odd,
+.root.theme-fairy-lights .table-view.table-clean .table-row-cell:odd,
+.root.theme-deep-ink .table-view.table-clean .table-row-cell:odd,
+.root.theme-emerald-light .table-view.table-clean .table-row-cell:odd,
+.root.theme-trapped-rainbow .table-view.table-clean .table-row-cell:odd,
 .root.theme-invert-system .table-view.table-clean .table-row-cell:odd {
     -fx-background-color: sb-surface-muted;
 }
@@ -608,6 +956,36 @@
 .root.theme-rainbow .quick-card-accent-generate .quick-card-title { -fx-text-fill: #a5f3fc; }
 .root.theme-rainbow .quick-card-accent-compose .quick-card-title { -fx-text-fill: #bbf7d0; }
 .root.theme-rainbow .quick-card-accent-reports .quick-card-title { -fx-text-fill: #fde047; }
+
+.root.theme-luna .quick-card-accent-import .quick-card-title { -fx-text-fill: #9ad8f2; }
+.root.theme-luna .quick-card-accent-generate .quick-card-title { -fx-text-fill: #c7b9ff; }
+.root.theme-luna .quick-card-accent-compose .quick-card-title { -fx-text-fill: #8de8ff; }
+.root.theme-luna .quick-card-accent-reports .quick-card-title { -fx-text-fill: #efd0a8; }
+
+.root.theme-neon-noir .quick-card-accent-import .quick-card-title { -fx-text-fill: #09dbc7; }
+.root.theme-neon-noir .quick-card-accent-generate .quick-card-title { -fx-text-fill: #bd0927; }
+.root.theme-neon-noir .quick-card-accent-compose .quick-card-title { -fx-text-fill: #7f99b3; }
+.root.theme-neon-noir .quick-card-accent-reports .quick-card-title { -fx-text-fill: #c9daea; }
+
+.root.theme-fairy-lights .quick-card-accent-import .quick-card-title { -fx-text-fill: #6a8fb2; }
+.root.theme-fairy-lights .quick-card-accent-generate .quick-card-title { -fx-text-fill: #7b74b1; }
+.root.theme-fairy-lights .quick-card-accent-compose .quick-card-title { -fx-text-fill: #5b9f94; }
+.root.theme-fairy-lights .quick-card-accent-reports .quick-card-title { -fx-text-fill: #d28e7d; }
+
+.root.theme-deep-ink .quick-card-accent-import .quick-card-title { -fx-text-fill: #7baacb; }
+.root.theme-deep-ink .quick-card-accent-generate .quick-card-title { -fx-text-fill: #deb58f; }
+.root.theme-deep-ink .quick-card-accent-compose .quick-card-title { -fx-text-fill: #9acdb9; }
+.root.theme-deep-ink .quick-card-accent-reports .quick-card-title { -fx-text-fill: #e4c79e; }
+
+.root.theme-emerald-light .quick-card-accent-import .quick-card-title { -fx-text-fill: #057569; }
+.root.theme-emerald-light .quick-card-accent-generate .quick-card-title { -fx-text-fill: #1c434a; }
+.root.theme-emerald-light .quick-card-accent-compose .quick-card-title { -fx-text-fill: #2f9e78; }
+.root.theme-emerald-light .quick-card-accent-reports .quick-card-title { -fx-text-fill: #b9925b; }
+
+.root.theme-trapped-rainbow .quick-card-accent-import .quick-card-title { -fx-text-fill: #8d88c7; }
+.root.theme-trapped-rainbow .quick-card-accent-generate .quick-card-title { -fx-text-fill: #d190c9; }
+.root.theme-trapped-rainbow .quick-card-accent-compose .quick-card-title { -fx-text-fill: #75adc8; }
+.root.theme-trapped-rainbow .quick-card-accent-reports .quick-card-title { -fx-text-fill: #e7aa97; }
 
 .root.theme-invert-system .quick-card-accent-import .quick-card-title { -fx-text-fill: #fef08a; }
 .root.theme-invert-system .quick-card-accent-generate .quick-card-title { -fx-text-fill: #e9d5ff; }
