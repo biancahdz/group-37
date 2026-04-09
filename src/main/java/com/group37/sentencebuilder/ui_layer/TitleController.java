@@ -1,19 +1,33 @@
 /**
  * File: TitleController.java
- * Description: 
+ * Description: Controls the title/login screen. On successful login,
+ *              preloads the database with default text files if empty,
+ *              then transitions to the main shell.
  *
  * Author: Cortland Kimzey
  * Created: 2026-03-26
- * Last Modified: 2026-03-26
+ * Last Modified: 2026-03-26 - Cortland Kimzey
+ *                2026-04-26 - Amrita Thapa: Added runPreloadThenLaunch()
+ *  to trigger default database preloading on login if the database is empty
+ *  before transitioning to the main shell.
  *
- * Version: 1.0
+ * Version: 1.1
  */
 
 package com.group37.sentencebuilder.ui_layer;
 
-import com.group37.sentencebuilder.data_layer.Database;
+import java.util.List;
 
-import javafx.animation.*;
+import com.group37.sentencebuilder.data_layer.Database;
+import com.group37.sentencebuilder.data_layer.DefaultDataLoader;
+
+import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
+import javafx.animation.PauseTransition;
+import javafx.animation.SequentialTransition;
+import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -27,6 +41,7 @@ public class TitleController {
     @FXML private VBox loginPane;
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
+    @FXML private Label statusLabel;
 
     private Runnable onLoginSuccess;
 
@@ -46,7 +61,6 @@ public class TitleController {
 
     private void loginLaunchAnimation()
     {
-
         PauseTransition pause1 = new PauseTransition(Duration.millis(600));
 
         FadeTransition fadeIn = new FadeTransition(Duration.millis(1000), titleLabel);
@@ -75,7 +89,6 @@ public class TitleController {
         seq.play();
     }
 
-
     private void launchAnimation()
     {
         PauseTransition pause1 = new PauseTransition(Duration.millis(600));
@@ -98,11 +111,7 @@ public class TitleController {
                 slide
         );
 
-        seq.setOnFinished(e -> {
-            if (onLoginSuccess != null) {
-                onLoginSuccess.run();
-            }
-        });
+        seq.setOnFinished(e -> runPreloadThenLaunch());
 
         seq.play();
     }
@@ -114,7 +123,57 @@ public class TitleController {
         String pass = passwordField.getText();
 
         if (Database.canConfigConnect(user, pass))
-            if (onLoginSuccess != null)
-                onLoginSuccess.run();
+            runPreloadThenLaunch();
+    }
+
+    /**
+     * Checks if the database is empty; if so, runs all default-file preload
+     * tasks sequentially on a background thread, then fires onLoginSuccess
+     * on the JavaFX thread when done.
+     */
+    private void runPreloadThenLaunch() {
+        Thread thread = new Thread(() -> {
+
+            boolean isEmpty = DefaultDataLoader.isDatabaseEmpty(
+                    Database.getDatabase());
+
+            if (!isEmpty) {
+                Platform.runLater(() -> {
+                    if (onLoginSuccess != null) onLoginSuccess.run();
+                });
+                return;
+            }
+
+            Platform.runLater(() -> statusLabel.setText("Setting up for first time use..."));
+
+            List<Task<Void>> tasks = DefaultDataLoader.buildPreloadTasks();
+
+            if (tasks.isEmpty()) {
+                Platform.runLater(() -> {
+                    if (onLoginSuccess != null) onLoginSuccess.run();
+                });
+                return;
+            }
+
+            for (int i = 0; i < tasks.size(); i++) {
+                final int fileNum = i + 1;
+                final int total = tasks.size();
+                Platform.runLater(() ->
+                    statusLabel.setText("Importing default files (" + fileNum + "/" + total + ")..."));
+                try {
+                    tasks.get(i).run();
+                } catch (Exception e) {
+                    System.err.println("[DefaultDataLoader] Task failed: " + e.getMessage());
+                }
+            }
+
+            Platform.runLater(() -> {
+                statusLabel.setText("Done!");
+                if (onLoginSuccess != null) onLoginSuccess.run();
+            });
+        });
+
+        thread.setDaemon(true);
+        thread.start();
     }
 }

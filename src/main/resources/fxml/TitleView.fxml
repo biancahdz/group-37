@@ -45,6 +45,13 @@
                     maxWidth="260"
                     styleClass="primary-button"/>
         </VBox>
+
+        <!-- Status label shown during first-time preload -->
+        <Label fx:id="statusLabel"
+               text=""
+               styleClass="body-text"
+               alignment="CENTER"/>
+
     </VBox>
 
 </StackPane>

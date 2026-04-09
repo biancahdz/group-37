@@ -30,9 +30,9 @@ public class TxtFileReader
     private File txtFile;
     private Database database = Database.getDatabase();
 
-    public TxtFileReader(String fileName) {
-        this.fileName = fileName;
-        this.txtFile = new File(fileName);
+    public TxtFileReader(File file, String displayName) {
+        this.fileName = displayName;
+        this.txtFile = file;
     }
 
     public TxtFileReader(File file) {
