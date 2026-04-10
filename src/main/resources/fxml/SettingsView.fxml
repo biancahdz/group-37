@@ -1,58 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.group37.sentencebuilder.ui_layer.SettingsController"
-      styleClass="page-root settings-page-root" spacing="26">
-    <Label text="PROJECT" styleClass="section-eyebrow"/>
-    <Label text="Settings &amp; About" styleClass="section-heading"/>
-    <Label styleClass="section-lead" wrapText="true"
-           text="Appearance applies app-wide from UiPreferences (theme, font, size). About the app and team below."/>
+      styleClass="page-root settings-page-root" spacing="22" maxWidth="Infinity">
 
-    <VBox spacing="24" styleClass="content-card content-card-elevated settings-main-card" maxWidth="680">
-        <VBox spacing="18" styleClass="settings-pref-section">
-            <Label text="Themes" styleClass="card-title"/>
-            <ComboBox fx:id="themeCombo" styleClass="combo-styled settings-pref-combo" maxWidth="420"/>
-        </VBox>
-
-        <Separator styleClass="settings-sep"/>
-
-        <VBox spacing="18" styleClass="settings-pref-section">
-            <Label text="Font" styleClass="card-title"/>
-            <ComboBox fx:id="fontCombo" styleClass="combo-styled settings-pref-combo" maxWidth="420"/>
-        </VBox>
-
-        <Separator styleClass="settings-sep"/>
-
-        <VBox spacing="18" styleClass="settings-pref-section">
-            <Label text="Font size" styleClass="card-title"/>
-            <ComboBox fx:id="fontSizeCombo" styleClass="combo-styled settings-pref-combo" maxWidth="420"/>
-        </VBox>
-
-        <Separator styleClass="settings-sep"/>
-
-        <Label text="Application" styleClass="card-title"/>
-        <VBox styleClass="about-block">
-            <Label text="Sentence Builder" styleClass="about-title"/>
-            <Label styleClass="about-body" wrapText="true"
-                   text="Experimental system for building a corpus from text sources and generating sentences from statistical patterns."/>
-        </VBox>
-        <Separator styleClass="settings-sep"/>
-        <VBox styleClass="about-block">
-            <Label text="Team" styleClass="about-title"/>
-            <Label styleClass="about-body" wrapText="true"
-                   text="Group 37 — Bianca, Cortland, Huy Nhat, Sebastian, Asher, Amrita. Advisor: John Cole."/>
-        </VBox>
-        <Separator styleClass="settings-sep"/>
-        <VBox styleClass="about-block">
-            <Label text="Stack" styleClass="about-title"/>
-            <Label styleClass="about-body" wrapText="true"
-                   text="Java · JavaFX (this UI) · MySQL (backend). IDE: IntelliJ."/>
-        </VBox>
+    <VBox styleClass="settings-hero content-card content-card-elevated" spacing="10" maxWidth="Infinity">
+        <Label text="WORKSPACE" styleClass="section-eyebrow section-eyebrow-teal"/>
+        <Label text="Settings &amp; About" styleClass="section-heading section-heading-hero"/>
+        <Label styleClass="section-lead settings-hero-lead" wrapText="true"
+               text="Tune how Sentence Builder looks and feels. Appearance is saved app-wide. Sign out when you are done on a shared machine."/>
     </VBox>
+
+    <GridPane styleClass="settings-two-col" hgap="24" vgap="0" maxWidth="Infinity">
+        <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS" minWidth="280" prefWidth="400" maxWidth="520"/>
+            <ColumnConstraints hgrow="ALWAYS" minWidth="280" prefWidth="400" maxWidth="520"/>
+        </columnConstraints>
+
+        <!-- Appearance -->
+        <VBox spacing="0" styleClass="content-card content-card-elevated settings-column-card"
+               GridPane.columnIndex="0" GridPane.rowIndex="0" maxWidth="Infinity">
+            <HBox styleClass="settings-card-header" alignment="CENTER_LEFT" spacing="12">
+                <Label text="◐" styleClass="settings-card-icon" minWidth="40" alignment="CENTER"/>
+                <VBox spacing="4">
+                    <Label text="Appearance" styleClass="card-title settings-card-title"/>
+                    <Label text="Theme, typeface, and reading size" styleClass="card-subtitle card-subtitle-muted" wrapText="true"/>
+                </VBox>
+            </HBox>
+            <Separator styleClass="settings-sep"/>
+
+            <VBox spacing="16" styleClass="settings-pref-body">
+                <VBox spacing="8">
+                    <Label text="Theme" styleClass="field-label"/>
+                    <ComboBox fx:id="themeCombo" styleClass="combo-styled settings-pref-combo" maxWidth="Infinity"/>
+                </VBox>
+                <VBox spacing="8">
+                    <Label text="Font family" styleClass="field-label"/>
+                    <ComboBox fx:id="fontCombo" styleClass="combo-styled settings-pref-combo" maxWidth="Infinity"/>
+                </VBox>
+                <VBox spacing="8">
+                    <Label text="Font size" styleClass="field-label"/>
+                    <ComboBox fx:id="fontSizeCombo" styleClass="combo-styled settings-pref-combo" maxWidth="Infinity"/>
+                </VBox>
+            </VBox>
+        </VBox>
+
+        <!-- About -->
+        <VBox spacing="0" styleClass="content-card content-card-elevated settings-column-card"
+               GridPane.columnIndex="1" GridPane.rowIndex="0" maxWidth="Infinity">
+            <HBox styleClass="settings-card-header" alignment="CENTER_LEFT" spacing="12">
+                <Label text="ⓘ" styleClass="settings-card-icon" minWidth="40" alignment="CENTER"/>
+                <VBox spacing="4">
+                    <Label text="About" styleClass="card-title settings-card-title"/>
+                    <Label text="Project, team, and stack" styleClass="card-subtitle card-subtitle-muted" wrapText="true"/>
+                </VBox>
+            </HBox>
+            <Separator styleClass="settings-sep"/>
+
+            <VBox spacing="18" styleClass="settings-about-body">
+                <VBox styleClass="about-block settings-about-chip" spacing="6">
+                    <Label text="Application" styleClass="about-title"/>
+                    <Label styleClass="about-body" wrapText="true"
+                           text="Sentence Builder — corpus import, statistical patterns, and generated text in one desktop shell."/>
+                </VBox>
+                <VBox styleClass="about-block settings-about-chip" spacing="6">
+                    <Label text="Team" styleClass="about-title"/>
+                    <Label styleClass="about-body" wrapText="true"
+                           text="Group 37 — Bianca, Cortland, Huy Nhat, Sebastian, Asher, Amrita. Advisor: John Cole."/>
+                </VBox>
+                <VBox styleClass="about-block settings-about-chip" spacing="6">
+                    <Label text="Stack" styleClass="about-title"/>
+                    <Label styleClass="about-body" wrapText="true"
+                           text="Java · JavaFX · MySQL. Built with IntelliJ."/>
+                </VBox>
+            </VBox>
+        </VBox>
+    </GridPane>
+
+    <!-- Session -->
+    <HBox styleClass="settings-session-card content-card content-card-elevated" alignment="CENTER_LEFT" spacing="24" maxWidth="Infinity">
+        <VBox spacing="6" HBox.hgrow="ALWAYS">
+            <Label text="Session" styleClass="card-title"/>
+            <Label styleClass="card-subtitle card-subtitle-muted" wrapText="true"
+                   text="Return to the login screen. Your theme preferences stay on this device."/>
+        </VBox>
+        <Region HBox.hgrow="NEVER"/>
+        <Button text="Log out" onAction="#onLogoutClicked"
+                styleClass="button logout-button" minWidth="120"/>
+    </HBox>
 </VBox>

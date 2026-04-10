@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import com.group37.sentencebuilder.ui_layer.MainShellController;
 import com.group37.sentencebuilder.ui_layer.TitleController;
 
 import java.io.IOException;
@@ -35,13 +36,27 @@ public class SentenceBuilderApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        stage.setTitle("Sentence Builder");
+        stage.setMinWidth(MIN_WIDTH);
+        stage.setMinHeight(MIN_HEIGHT);
+        stage.initStyle(StageStyle.DECORATED);
 
+        showTitleView(stage, false);
+        stage.show();
+    }
+
+    /**
+     * @param afterLogout if true, skip auto-launch when the DB is reachable so the user sees login again
+     */
+    private void showTitleView(Stage stage, boolean afterLogout) throws IOException {
+        if (afterLogout) {
+            TitleController.setNextShowLoginOnly(true);
+        }
         FXMLLoader loader = new FXMLLoader(
                 Objects.requireNonNull(getClass().getResource("/fxml/TitleView.fxml")));
         Parent root = loader.load();
 
         TitleController controller = loader.getController();
-
         UiPreferences.get().attachShell(root);
 
         controller.setOnLoginSuccess(() -> {
@@ -58,20 +73,22 @@ public class SentenceBuilderApp extends Application {
         scene.getStylesheets().add(
                 Objects.requireNonNull(getClass().getResource("/css/theme-palettes.css")).toExternalForm());
 
-        stage.setTitle("Sentence Builder");
         stage.setScene(scene);
-        stage.setMinWidth(MIN_WIDTH);
-        stage.setMinHeight(MIN_HEIGHT);
-        stage.initStyle(StageStyle.DECORATED);
-        stage.show();
     }
 
-    private void loadMainShell(Stage stage) throws IOException
-    {
+    private void loadMainShell(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(
-                Objects.requireNonNull(getClass().getResource("/fxml/MainShell.fxml"))
-        );
+                Objects.requireNonNull(getClass().getResource("/fxml/MainShell.fxml")));
         Parent root = loader.load();
+
+        MainShellController shell = loader.getController();
+        shell.setOnLogout(() -> {
+            try {
+                showTitleView(stage, true);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         Scene scene = new Scene(root, 1280, 800);
         scene.getStylesheets().add(
