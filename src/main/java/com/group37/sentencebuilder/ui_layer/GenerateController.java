@@ -13,13 +13,19 @@ package com.group37.sentencebuilder.ui_layer;
 
 import com.group37.sentencebuilder.logic_layer.GeneratorLogic;
 
+import com.group37.sentencebuilder.ui.DarkSurfaceText;
+import com.group37.sentencebuilder.ui.UiPreferences;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 
 /** Sentence generator screen (output is placeholder text). */
-public class GenerateController {
+public class GenerateController implements ApplicationPage {
 
     enum Algorithm {
         MARKOV("Stochastic Markov chain"),
@@ -57,6 +63,9 @@ public class GenerateController {
     private TextArea outputArea;
 
     @FXML
+    private Label sectionEyebrowLabel;
+
+    @FXML
     private void initialize() {
         algorithmCombo.getItems().setAll(
                 "Stochastic Markov chain",
@@ -68,6 +77,38 @@ public class GenerateController {
         outputArea.setText(
                 "Generated sentences will appear here!"
         );
+    }
+
+    @Override
+    public void onPageEnter() {
+        applyGenerateDarkChrome();
+    }
+
+    @Override
+    public void onPageLeave() {
+    }
+
+    /** Same pattern as Import: Modena + cascade can leave eyebrow/prompts too dim on black. */
+    private void applyGenerateDarkChrome() {
+        if (!UiPreferences.get().isResolvedDarkSurface()) {
+            if (sectionEyebrowLabel != null) {
+                sectionEyebrowLabel.setTextFill(null);
+                sectionEyebrowLabel.setStyle(null);
+            }
+            return;
+        }
+        if (sectionEyebrowLabel != null) {
+            DarkSurfaceText.forceLabeledFill(sectionEyebrowLabel, Color.WHITE);
+            Platform.runLater(() -> DarkSurfaceText.forceLabeledFill(sectionEyebrowLabel, Color.WHITE));
+        }
+        Platform.runLater(() -> {
+            if (startWordField != null) {
+                startWordField.setStyle("-fx-prompt-text-fill: #e4e4e7;");
+            }
+            if (outputArea != null) {
+                outputArea.setStyle("-fx-prompt-text-fill: #e4e4e7;");
+            }
+        });
     }
 
     @FXML

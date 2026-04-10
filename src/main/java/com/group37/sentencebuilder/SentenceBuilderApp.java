@@ -42,8 +42,6 @@ public class SentenceBuilderApp extends Application {
 
         TitleController controller = loader.getController();
 
-        UiPreferences.get().attachShell(root);
-
         controller.setOnLoginSuccess(() -> {
             try {
                 loadMainShell(stage);
@@ -54,9 +52,12 @@ public class SentenceBuilderApp extends Application {
 
         Scene scene = new Scene(root, 1280, 800);
         scene.getStylesheets().add(
-                Objects.requireNonNull(getClass().getResource("/css/app-theme.css")).toExternalForm());
-        scene.getStylesheets().add(
                 Objects.requireNonNull(getClass().getResource("/css/theme-palettes.css")).toExternalForm());
+        scene.getStylesheets().add(
+                Objects.requireNonNull(getClass().getResource("/css/app-theme.css")).toExternalForm());
+
+        /* After stylesheets exist so theme classes + #sb-shell-root rules resolve on first paint. */
+        UiPreferences.get().attachShell(root);
 
         stage.setTitle("Sentence Builder");
         stage.setScene(scene);
@@ -75,9 +76,9 @@ public class SentenceBuilderApp extends Application {
 
         Scene scene = new Scene(root, 1280, 800);
         scene.getStylesheets().add(
-                Objects.requireNonNull(getClass().getResource("/css/app-theme.css")).toExternalForm());
-        scene.getStylesheets().add(
                 Objects.requireNonNull(getClass().getResource("/css/theme-palettes.css")).toExternalForm());
+        scene.getStylesheets().add(
+                Objects.requireNonNull(getClass().getResource("/css/app-theme.css")).toExternalForm());
 
         UiPreferences.get().attachShell(root);
 

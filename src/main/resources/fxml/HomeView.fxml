@@ -10,10 +10,11 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:id="pageRoot"
       fx:controller="com.group37.sentencebuilder.ui_layer.HomeController"
       styleClass="page-root" spacing="12">
-    <Label text="OVERVIEW" styleClass="section-eyebrow section-eyebrow-primary"/>
-    <Label text="Dashboard" styleClass="section-heading section-heading-hero"/>
+    <Label fx:id="homeSectionEyebrow" text="Workspace" styleClass="section-eyebrow section-eyebrow-primary"/>
+    <Label fx:id="homeSectionTitle" text="Dashboard" styleClass="section-heading section-heading-hero"/>
     <Label styleClass="section-lead" wrapText="true"
            text="Import sources, run generators, and review output from one place. Each card opens its workspace — connect your backend when you are ready."/>
 

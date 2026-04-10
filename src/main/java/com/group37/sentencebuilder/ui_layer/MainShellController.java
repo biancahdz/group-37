@@ -16,18 +16,26 @@ import com.group37.sentencebuilder.ui_layer.DatabasePage;
 
 import com.group37.sentencebuilder.data_layer.Database;
 
+import com.group37.sentencebuilder.ui.DarkSurfaceText;
+import com.group37.sentencebuilder.ui.UiPreferences;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -39,6 +47,10 @@ import java.util.Objects;
  * Hosts sidebar navigation and swaps center content views (UI only).
  */
 public class MainShellController {
+
+    /** Scene root — {@link #initialize()} sets a stable CSS id for high-specificity dark-theme text rules. */
+    @FXML
+    private BorderPane shellRoot;
 
     private Object currentController;
 
@@ -53,6 +65,15 @@ public class MainShellController {
 
     @FXML
     private Label headerTitle;
+
+    @FXML
+    private Label sidebarTagline;
+
+    @FXML
+    private Label workspaceSectionLabel;
+
+    @FXML
+    private Label shellFooterLabel;
 
     @FXML
     private ToggleGroup navGroup;
@@ -85,6 +106,7 @@ public class MainShellController {
 
     @FXML
     private void initialize() {
+        shellRoot.setId("sb-shell-root");
         contentHost.setMaxHeight(Region.USE_PREF_SIZE);
         wireWorkspaceScrolling();
 
@@ -96,7 +118,122 @@ public class MainShellController {
         wireNav(navCorpusStats, ViewKey.CORPUS_STATS);
         wireNav(navSettings, ViewKey.SETTINGS);
 
+        preventNavDeselection();
+
+        UiPreferences prefs = UiPreferences.get();
+        prefs.themeProperty().addListener((o, a, b) -> {
+            applyShellChromeInlineText();
+            applyWorkspaceEyebrowInlineText();
+        });
+        navGroup.selectedToggleProperty().addListener((o, a, b) -> applyShellChromeInlineText());
+        try {
+            Platform.getPreferences().colorSchemeProperty().addListener((o, a, b) -> {
+                applyShellChromeInlineText();
+                applyWorkspaceEyebrowInlineText();
+            });
+        } catch (Exception ignored) {
+            // no Platform preferences
+        }
+        applyShellChromeInlineText();
+
         showView(ViewKey.HOME);
+
+        shellRoot.sceneProperty().addListener((obs, oldS, newS) -> {
+            if (newS != null) {
+                Platform.runLater(() -> {
+                    applyShellChromeInlineText();
+                    applyWorkspaceEyebrowInlineText();
+                });
+            }
+        });
+    }
+
+    /**
+     * Modena can paint ToggleButton / Label text darker than our CSS on dark palettes. Inline
+     * {@code -fx-text-fill} wins over user-agent styles so inactive nav + chrome labels stay readable.
+     */
+    private void applyShellChromeInlineText() {
+        boolean dark = UiPreferences.get().isResolvedDarkSurface();
+
+        ToggleButton[] nav = {
+                navHome, navImport, navGenerate, navAutocomplete, navReports, navCorpusStats, navSettings
+        };
+        if (!dark) {
+            for (ToggleButton b : nav) {
+                b.setTextFill(null);
+                b.setStyle(null);
+            }
+            if (sidebarTagline != null) {
+                sidebarTagline.setTextFill(null);
+                sidebarTagline.setStyle(null);
+            }
+            if (workspaceSectionLabel != null) {
+                workspaceSectionLabel.setTextFill(null);
+                workspaceSectionLabel.setStyle(null);
+            }
+            if (shellFooterLabel != null) {
+                shellFooterLabel.setTextFill(null);
+                shellFooterLabel.setStyle(null);
+            }
+            return;
+        }
+
+        for (ToggleButton b : nav) {
+            if (b.isSelected()) {
+                DarkSurfaceText.forceLabeledFill(b, Color.web("#bfdbfe"));
+            } else {
+                DarkSurfaceText.forceLabeledFill(b, Color.color(1, 1, 1, 0.92));
+            }
+        }
+        if (sidebarTagline != null) {
+            DarkSurfaceText.forceLabeledFill(sidebarTagline, Color.color(1, 1, 1, 0.92));
+        }
+        if (workspaceSectionLabel != null) {
+            DarkSurfaceText.forceLabeledFill(workspaceSectionLabel, Color.color(1, 1, 1, 0.92));
+        }
+        if (shellFooterLabel != null) {
+            DarkSurfaceText.forceLabeledFill(shellFooterLabel, Color.color(1, 1, 1, 0.92));
+        }
+    }
+
+    /**
+     * Same issue as sidebar chrome: on dark palettes, stylesheet fills for page section eyebrows
+     * (DATA IN, GENERATE, …) can render too dark. {@link Labeled#setTextFill} reaches LabeledSkin
+     * more reliably than {@code -fx-text-fill} alone (see {@link HomeController#applyHomeHeroLabels}).
+     */
+    private void applyWorkspaceEyebrowInlineText() {
+        if (contentHost == null) {
+            return;
+        }
+        boolean dark = UiPreferences.get().isResolvedDarkSurface();
+        for (Node n : contentHost.lookupAll(".section-eyebrow")) {
+            if (!(n instanceof Labeled lab)) {
+                continue;
+            }
+            if (!dark) {
+                lab.setTextFill(null);
+                lab.setStyle(null);
+                continue;
+            }
+            DarkSurfaceText.forceLabeledFill(lab, eyebrowColorForAccentClass(lab));
+        }
+    }
+
+    /** Maximum contrast on #000 / #18181b; primary eyebrow is white so small-caps stay readable. */
+    private static Color eyebrowColorForAccentClass(Labeled lab) {
+        if (lab.getStyleClass().contains("section-eyebrow-primary")) {
+            return Color.web("#ffffff");
+        }
+        if (lab.getStyleClass().contains("section-eyebrow-teal")) {
+            return Color.web("#99f6e4");
+        }
+        if (lab.getStyleClass().contains("section-eyebrow-violet")) {
+            return Color.web("#e9d5ff");
+        }
+        if (lab.getStyleClass().contains("section-eyebrow-amber")) {
+            return Color.web("#fde68a");
+        }
+        return Color.color(1, 1, 1, 0.95);
     }
 
     /**
@@ -116,6 +253,24 @@ public class MainShellController {
             double next = Math.max(0.0, Math.min(1.0, workspaceScroll.getVvalue() + delta));
             workspaceScroll.setVvalue(next);
             event.consume();
+        });
+    }
+
+    /**
+     * A {@link ToggleGroup} clears the selected toggle when the user clicks it again.
+     * Keep one workspace always selected so the sidebar highlight never disappears.
+     */
+    private void preventNavDeselection() {
+        navGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
+            if (newToggle != null || oldToggle == null) {
+                return;
+            }
+            suppressNavToggleCallbacks = true;
+            try {
+                oldToggle.setSelected(true);
+            } finally {
+                suppressNavToggleCallbacks = false;
+            }
         });
     }
 
@@ -151,6 +306,9 @@ public class MainShellController {
         {
             page.onPageEnter();
         }
+
+        applyWorkspaceEyebrowInlineText();
+        Platform.runLater(this::applyWorkspaceEyebrowInlineText);
 
         currentController = ctrl;
 

@@ -3,12 +3,13 @@ package com.group37.sentencebuilder.ui;
 import javafx.application.ColorScheme;
 
 /**
- * UI color themes. {@link #DEFAULT} is the built-in default (dark); the combo shows {@link #getDisplayLabel()}
- * (e.g. "Dark"), not a placeholder name.
+ * UI color themes. The combo shows {@link #getDisplayLabel()} (e.g. "Light mode", "Dark").
  *
- * <p>{@link #SYSTEM} follows the OS light/dark appearance (via JavaFX {@link ColorScheme}) and updates when
- * the system setting changes (e.g. day/night schedule). {@link #INVERT_SYSTEM} uses the opposite pairing:
- * light palette when the OS is dark, and the high-contrast inverted palette when the OS is light.</p>
+ * <p>Contrast for shell chrome, table headers, and page eyebrows is driven by {@code sb-chrome-*},
+ * {@code sb-table-header-*}, and {@code sb-eyebrow-*} tokens defined per theme in {@code theme-palettes.css}.</p>
+ *
+ * <p>{@link #SYSTEM} maps to the OS light/dark appearance via JavaFX {@link ColorScheme} (same signal as the
+ * OS “appearance” setting — not a separate clock). {@link #INVERT_SYSTEM} inverts that pairing.</p>
  */
 public enum AppTheme {
     DEFAULT("Dark", "theme-default"),
@@ -26,7 +27,7 @@ public enum AppTheme {
     INVERT_SYSTEM("Invert System mode", "theme-invert-system");
 
     /** Change this one value to switch the default theme used at startup. */
-    public static final AppTheme DEFAULT_THEME = DEFAULT;
+    public static final AppTheme DEFAULT_THEME = SYSTEM;
 
     private final String displayLabel;
     private final String styleClass;

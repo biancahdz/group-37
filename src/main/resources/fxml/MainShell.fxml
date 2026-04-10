@@ -11,19 +11,20 @@
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:id="shellRoot"
             fx:controller="com.group37.sentencebuilder.ui_layer.MainShellController"
-            styleClass="app-root theme-default font-stack-default font-metrics-default fs-medium" prefWidth="1280" prefHeight="800">
+            styleClass="app-root theme-light font-stack-default font-metrics-default fs-medium" prefWidth="1280" prefHeight="800">
     <left>
         <VBox styleClass="sidebar" prefWidth="252" minWidth="252" maxWidth="252" spacing="2">
             <HBox styleClass="sidebar-mark" alignment="CENTER_LEFT" spacing="12">
                 <Label text="SB" styleClass="sidebar-mark-badge" minWidth="36" alignment="CENTER"/>
                 <VBox spacing="3">
                     <Label text="Sentence Builder" styleClass="sidebar-brand"/>
-                    <Label text="Corpus · Generate · Report" styleClass="sidebar-tagline"/>
+                    <Label fx:id="sidebarTagline" text="Corpus · Generate · Report" styleClass="sidebar-tagline"/>
                 </VBox>
             </HBox>
             <Separator styleClass="sidebar-sep"/>
-            <Label text="WORKSPACE" styleClass="sidebar-section-label"/>
+            <Label fx:id="workspaceSectionLabel" text="WORKSPACE" styleClass="sidebar-section-label"/>
             <fx:define>
                 <ToggleGroup fx:id="navGroup"/>
             </fx:define>
@@ -36,7 +37,7 @@
             <ToggleButton fx:id="navSettings" text="Settings" toggleGroup="$navGroup" styleClass="nav-toggle" maxWidth="Infinity"/>
             <VBox VBox.vgrow="ALWAYS"/>
             <VBox styleClass="sidebar-footer">
-                <Label styleClass="sidebar-footer-label"
+                <Label fx:id="shellFooterLabel" styleClass="sidebar-footer-label"
                        text="Frontend shell — connect services when backend is ready."
                        wrapText="true"/>
             </VBox>

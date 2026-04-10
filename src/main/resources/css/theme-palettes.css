@@ -10,6 +10,22 @@
  *   sb-workspace-panel    — rounded main content panel background
  *
  * Java mirrors: com.group37.sentencebuilder.ui.appearance.ThemePaletteKeys
+ *
+ * Contrast (per theme, explicit hex — JavaFX Label inner .text uses the same tokens):
+ *   sb-chrome-tagline     — sidebar subtitle under the app name
+ *   sb-chrome-header-sub  — main header subtitle under the page title
+ *   sb-chrome-section     — e.g. WORKSPACE label
+ *   sb-chrome-footer      — sidebar footer note
+ *   sb-table-header-bg    — TableView column header row background
+ *   sb-table-header-text  — TableView column header label + .text fill
+ *   sb-eyebrow-neutral    — section-eyebrow (no accent variant)
+ *   sb-eyebrow-primary|teal|violet|amber — small-caps row labels (must stay readable on sb-workspace-panel)
+ *
+ * Every {@code .root.theme-*} block assigns these; {@code app-theme.css} consumes them for shell + tables + eyebrows.
+ *
+ * Dark-surface bundles: {@code UiPreferences} adds {@code sb-dark-ui} on the scene root for dark palettes
+ * so shared contrast rules can target all dark backgrounds without repeating every {@code .root.theme-*}
+ * selector.
  */
 
 /* ---- Base font size (drives em-based typography in app-theme.css) ---- */
@@ -194,10 +210,10 @@
     sb-input: #27272a;
 
     sb-text: #fafafa;
-    sb-text-secondary: #d4d4d8;
-    sb-text-muted: #a1a1aa;
-    sb-text-tertiary: #71717a;
-    sb-text-lead: #d4d4d8;
+    sb-text-secondary: #e4e4e7;
+    sb-text-muted: #b4b4bc;
+    sb-text-tertiary: #a1a1aa;
+    sb-text-lead: #e4e4e7;
 
     sb-border: #3f3f46;
     sb-border-subtle: #3f3f46;
@@ -234,6 +250,18 @@
 
     sb-shade: rgba(0, 0, 0, 0.45);
     sb-shade-hover: rgba(0, 0, 0, 0.55);
+
+    sb-chrome-tagline: #e4e4e7;
+    sb-chrome-header-sub: #e4e4e7;
+    sb-chrome-section: #e4e4e7;
+    sb-chrome-footer: #d4d4d8;
+    sb-table-header-bg: #27272a;
+    sb-table-header-text: #fafafa;
+    sb-eyebrow-neutral: #c4c4cc;
+    sb-eyebrow-primary: #60a5fa;
+    sb-eyebrow-teal: #2dd4bf;
+    sb-eyebrow-violet: #818cf8;
+    sb-eyebrow-amber: #fb923c;
 }
 
 /* ---- Light mode ---- */
@@ -290,6 +318,18 @@
 
     sb-shade: rgba(0, 0, 0, 0.07);
     sb-shade-hover: rgba(0, 0, 0, 0.11);
+
+    sb-chrome-tagline: #71717a;
+    sb-chrome-header-sub: #52525b;
+    sb-chrome-section: #a1a1aa;
+    sb-chrome-footer: #a1a1aa;
+    sb-table-header-bg: #e4e4e7;
+    sb-table-header-text: #18181b;
+    sb-eyebrow-neutral: #71717a;
+    sb-eyebrow-primary: #1d4ed8;
+    sb-eyebrow-teal: #0f766e;
+    sb-eyebrow-violet: #4f46e5;
+    sb-eyebrow-amber: #ea580c;
 }
 
 /* ---- System mode (clean light “OS-like”; same tokens as light) ---- */
@@ -346,6 +386,18 @@
 
     sb-shade: rgba(0, 0, 0, 0.07);
     sb-shade-hover: rgba(0, 0, 0, 0.11);
+
+    sb-chrome-tagline: #71717a;
+    sb-chrome-header-sub: #52525b;
+    sb-chrome-section: #a1a1aa;
+    sb-chrome-footer: #a1a1aa;
+    sb-table-header-bg: #e4e4e7;
+    sb-table-header-text: #18181b;
+    sb-eyebrow-neutral: #71717a;
+    sb-eyebrow-primary: #1d4ed8;
+    sb-eyebrow-teal: #0f766e;
+    sb-eyebrow-violet: #4f46e5;
+    sb-eyebrow-amber: #ea580c;
 }
 
 /* ---- Christmas (Vanilla / Holly Berry / Peacock / Midnight) ---- */
@@ -402,6 +454,18 @@
 
     sb-shade: rgba(0, 0, 0, 0.4);
     sb-shade-hover: rgba(0, 0, 0, 0.5);
+
+    sb-chrome-tagline: #e8dcc8;
+    sb-chrome-header-sub: #e8dcc8;
+    sb-chrome-section: #c4b5a0;
+    sb-chrome-footer: #c4b5a0;
+    sb-table-header-bg: #14532d;
+    sb-table-header-text: #faecd8;
+    sb-eyebrow-neutral: #c4b5a0;
+    sb-eyebrow-primary: #f9a8a8;
+    sb-eyebrow-teal: #5eead4;
+    sb-eyebrow-violet: #e9d5ff;
+    sb-eyebrow-amber: #fde047;
 }
 
 /* ---- Thanksgiving (Cocoa / Spice / Cream / Olive) ---- */
@@ -458,6 +522,18 @@
 
     sb-shade: rgba(62, 39, 35, 0.12);
     sb-shade-hover: rgba(62, 39, 35, 0.18);
+
+    sb-chrome-tagline: #6d5c55;
+    sb-chrome-header-sub: #5d4a42;
+    sb-chrome-section: #8a7b72;
+    sb-chrome-footer: #8a7b72;
+    sb-table-header-bg: #e8ddd0;
+    sb-table-header-text: #3e2723;
+    sb-eyebrow-neutral: #6d5c55;
+    sb-eyebrow-primary: #B34E22;
+    sb-eyebrow-teal: #5d7a3a;
+    sb-eyebrow-violet: #6B7050;
+    sb-eyebrow-amber: #a16207;
 }
 
 /* ---- Rainbow ---- */
@@ -514,6 +590,18 @@
 
     sb-shade: rgba(0, 0, 0, 0.4);
     sb-shade-hover: rgba(0, 0, 0, 0.5);
+
+    sb-chrome-tagline: #ddd6fe;
+    sb-chrome-header-sub: #e9d5ff;
+    sb-chrome-section: #c4b5fd;
+    sb-chrome-footer: #c4b5fd;
+    sb-table-header-bg: #4f46e5;
+    sb-table-header-text: #f5f3ff;
+    sb-eyebrow-neutral: #c4b5fd;
+    sb-eyebrow-primary: #fbcfe8;
+    sb-eyebrow-teal: #86efac;
+    sb-eyebrow-violet: #a5f3fc;
+    sb-eyebrow-amber: #fde047;
 }
 
 /* ---- Luna (deep sapphire moonlight) ---- */
@@ -570,6 +658,18 @@
 
     sb-shade: rgba(0, 0, 0, 0.38);
     sb-shade-hover: rgba(0, 0, 0, 0.48);
+
+    sb-chrome-tagline: #8fb2cf;
+    sb-chrome-header-sub: #b8d2e8;
+    sb-chrome-section: #8fb2cf;
+    sb-chrome-footer: #8fb2cf;
+    sb-table-header-bg: #1f4774;
+    sb-table-header-text: #eaf3fb;
+    sb-eyebrow-neutral: #8fb2cf;
+    sb-eyebrow-primary: #9ad8f2;
+    sb-eyebrow-teal: #8de8ff;
+    sb-eyebrow-violet: #c7b9ff;
+    sb-eyebrow-amber: #efd0a8;
 }
 
 /* ---- Neon Noir (teal + crimson cyber dark) ---- */
@@ -626,6 +726,18 @@
 
     sb-shade: rgba(0, 0, 0, 0.48);
     sb-shade-hover: rgba(0, 0, 0, 0.6);
+
+    sb-chrome-tagline: #b5c8dc;
+    sb-chrome-header-sub: #d7e4f2;
+    sb-chrome-section: #95aec8;
+    sb-chrome-footer: #c9daea;
+    sb-table-header-bg: #245173;
+    sb-table-header-text: #f5f9ff;
+    sb-eyebrow-neutral: #b5c8dc;
+    sb-eyebrow-primary: #09dbc7;
+    sb-eyebrow-teal: #c9daea;
+    sb-eyebrow-violet: #09dbc7;
+    sb-eyebrow-amber: #fbbf24;
 }
 
 /* ---- Fairy Lights (soft pastel glow) ---- */
@@ -682,6 +794,18 @@
 
     sb-shade: rgba(88, 66, 138, 0.08);
     sb-shade-hover: rgba(88, 66, 138, 0.14);
+
+    sb-chrome-tagline: #7a6ab4;
+    sb-chrome-header-sub: #5b4ca0;
+    sb-chrome-section: #9989cb;
+    sb-chrome-footer: #9989cb;
+    sb-table-header-bg: #ebe3fa;
+    sb-table-header-text: #3f3381;
+    sb-eyebrow-neutral: #7a6ab4;
+    sb-eyebrow-primary: #6a8fb2;
+    sb-eyebrow-teal: #5b9f94;
+    sb-eyebrow-violet: #7b74b1;
+    sb-eyebrow-amber: #d28e7d;
 }
 
 /* ---- Deep Ink (film sea palette) ---- */
@@ -738,6 +862,18 @@
 
     sb-shade: rgba(0, 0, 0, 0.45);
     sb-shade-hover: rgba(0, 0, 0, 0.55);
+
+    sb-chrome-tagline: #92b6c3;
+    sb-chrome-header-sub: #bdd8e2;
+    sb-chrome-section: #92b6c3;
+    sb-chrome-footer: #92b6c3;
+    sb-table-header-bg: #1a3a4a;
+    sb-table-header-text: #eaf4f8;
+    sb-eyebrow-neutral: #92b6c3;
+    sb-eyebrow-primary: #7baacb;
+    sb-eyebrow-teal: #9acdb9;
+    sb-eyebrow-violet: #deb58f;
+    sb-eyebrow-amber: #e4c79e;
 }
 
 /* ---- Emerald Light (aurora mint) ---- */
@@ -794,6 +930,18 @@
 
     sb-shade: rgba(19, 67, 74, 0.08);
     sb-shade-hover: rgba(19, 67, 74, 0.14);
+
+    sb-chrome-tagline: #3b6f76;
+    sb-chrome-header-sub: #1c434a;
+    sb-chrome-section: #5f8f93;
+    sb-chrome-footer: #5f8f93;
+    sb-table-header-bg: #dff3ed;
+    sb-table-header-text: #1c434a;
+    sb-eyebrow-neutral: #3b6f76;
+    sb-eyebrow-primary: #057569;
+    sb-eyebrow-teal: #2f9e78;
+    sb-eyebrow-violet: #1c434a;
+    sb-eyebrow-amber: #b9925b;
 }
 
 /* ---- Trapped Rainbow (pastel prism) ---- */
@@ -850,6 +998,18 @@
 
     sb-shade: rgba(111, 96, 170, 0.08);
     sb-shade-hover: rgba(111, 96, 170, 0.14);
+
+    sb-chrome-tagline: #9387be;
+    sb-chrome-header-sub: #7060aa;
+    sb-chrome-section: #b0a3d0;
+    sb-chrome-footer: #b0a3d0;
+    sb-table-header-bg: #ebe3fa;
+    sb-table-header-text: #4c1d95;
+    sb-eyebrow-neutral: #9387be;
+    sb-eyebrow-primary: #8d88c7;
+    sb-eyebrow-teal: #75adc8;
+    sb-eyebrow-violet: #d190c9;
+    sb-eyebrow-amber: #e7aa97;
 }
 
 /* ---- Invert System (high-contrast dark inverse of light system) ---- */
@@ -906,6 +1066,18 @@
 
     sb-shade: rgba(255, 255, 255, 0.08);
     sb-shade-hover: rgba(255, 255, 255, 0.14);
+
+    sb-chrome-tagline: #d4d4d4;
+    sb-chrome-header-sub: #e5e5e5;
+    sb-chrome-section: #a3a3a3;
+    sb-chrome-footer: #a3a3a3;
+    sb-table-header-bg: #262626;
+    sb-table-header-text: #ffffff;
+    sb-eyebrow-neutral: #a3a3a3;
+    sb-eyebrow-primary: #fef08a;
+    sb-eyebrow-teal: #5eead4;
+    sb-eyebrow-violet: #e879f9;
+    sb-eyebrow-amber: #fdba74;
 }
 
 /* Theme-specific tweaks (hardcoded colors in app-theme.css) */
@@ -922,25 +1094,6 @@
 .root.theme-invert-system .section-heading-hero {
     -fx-text-fill: sb-text;
 }
-
-.root.theme-default .table-view.table-clean .table-row-cell:odd,
-.root.theme-christmas .table-view.table-clean .table-row-cell:odd,
-.root.theme-thanksgiving .table-view.table-clean .table-row-cell:odd,
-.root.theme-rainbow .table-view.table-clean .table-row-cell:odd,
-.root.theme-luna .table-view.table-clean .table-row-cell:odd,
-.root.theme-neon-noir .table-view.table-clean .table-row-cell:odd,
-.root.theme-fairy-lights .table-view.table-clean .table-row-cell:odd,
-.root.theme-deep-ink .table-view.table-clean .table-row-cell:odd,
-.root.theme-emerald-light .table-view.table-clean .table-row-cell:odd,
-.root.theme-trapped-rainbow .table-view.table-clean .table-row-cell:odd,
-.root.theme-invert-system .table-view.table-clean .table-row-cell:odd {
-    -fx-background-color: sb-surface-muted;
-}
-
-.root.theme-default .quick-card-accent-import .quick-card-title { -fx-text-fill: #93c5fd; }
-.root.theme-default .quick-card-accent-generate .quick-card-title { -fx-text-fill: #c4b5fd; }
-.root.theme-default .quick-card-accent-compose .quick-card-title { -fx-text-fill: #5eead4; }
-.root.theme-default .quick-card-accent-reports .quick-card-title { -fx-text-fill: #fdba74; }
 
 .root.theme-christmas .quick-card-accent-import .quick-card-title { -fx-text-fill: #f9a8a8; }
 .root.theme-christmas .quick-card-accent-generate .quick-card-title { -fx-text-fill: #e9d5ff; }
@@ -991,3 +1144,55 @@
 .root.theme-invert-system .quick-card-accent-generate .quick-card-title { -fx-text-fill: #e9d5ff; }
 .root.theme-invert-system .quick-card-accent-compose .quick-card-title { -fx-text-fill: #5eead4; }
 .root.theme-invert-system .quick-card-accent-reports .quick-card-title { -fx-text-fill: #fdba74; }
+
+/*
+ * Rainbow-only extras: dashboard “Open workspace” pills (accent-on-dark-soft) + workspace scroll thumb.
+ * Shell chrome, eyebrows, and table headers use sb-chrome-* / sb-eyebrow-* / sb-table-header-* on .root.
+ */
+.root.theme-rainbow .quick-card .label.quick-card-cta {
+    -fx-text-fill: #ffffff;
+}
+
+.root.theme-rainbow .quick-card-accent-import .label.quick-card-cta {
+    -fx-background-color: rgba(244, 63, 94, 0.45);
+    -fx-border-color: #f9a8d4;
+}
+
+.root.theme-rainbow .quick-card-accent-generate .label.quick-card-cta {
+    -fx-background-color: rgba(6, 182, 212, 0.35);
+    -fx-border-color: #67e8f9;
+}
+
+.root.theme-rainbow .quick-card-accent-compose .label.quick-card-cta {
+    -fx-background-color: rgba(34, 197, 94, 0.4);
+    -fx-border-color: #86efac;
+}
+
+.root.theme-rainbow .quick-card-accent-reports .label.quick-card-cta {
+    -fx-background-color: rgba(245, 158, 11, 0.4);
+    -fx-border-color: #fcd34d;
+}
+
+.root.theme-rainbow .quick-icon-import .quick-card-icon {
+    -fx-text-fill: #fbcfe8;
+}
+
+.root.theme-rainbow .quick-icon-generate .quick-card-icon {
+    -fx-text-fill: #a5f3fc;
+}
+
+.root.theme-rainbow .quick-icon-compose .quick-card-icon {
+    -fx-text-fill: #bbf7d0;
+}
+
+.root.theme-rainbow .quick-icon-reports .quick-card-icon {
+    -fx-text-fill: #fde047;
+}
+
+.root.theme-rainbow .workspace-scroll > .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(255, 255, 255, 0.5);
+}
+
+.root.theme-rainbow .workspace-scroll > .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.68);
+}
