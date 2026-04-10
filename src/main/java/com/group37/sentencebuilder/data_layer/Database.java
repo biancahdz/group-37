@@ -999,12 +999,12 @@ public class Database
             return false;
         }
 
+        // Persisting credentials is best-effort; successful DB auth should still allow login.
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(CONFIG_FILE))) {
             writer.write(user);
             writer.newLine();
             writer.write(pass);
-        } catch (IOException e) {
-            return false;
+        } catch (IOException ignored) {
         }
 
         return true;
