@@ -12,7 +12,7 @@
     <Label text="TYPEAHEAD" styleClass="section-eyebrow section-eyebrow-teal"/>
     <Label text="Auto-complete" styleClass="section-heading"/>
     <Label styleClass="section-lead" wrapText="true"
-           text="Mock suggestions narrow as you type. Tap a chip to append — swap the data source when the model is ready."/>
+           text="Suggestions update as you type. Tap a chip to insert the word and keep composing."/>
 
     <VBox spacing="14" styleClass="content-card">
         <Label text="Composer" styleClass="card-title"/>

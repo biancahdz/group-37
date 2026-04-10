@@ -16,7 +16,7 @@
     <Label text="DATA IN" styleClass="section-eyebrow section-eyebrow-primary"/>
     <Label text="Import corpus" styleClass="section-heading"/>
     <Label styleClass="section-lead" wrapText="true"
-           text="Choose a plain-text file and run a staged import. Controls below are UI-only until your importer service is bound."/>
+           text="Choose a plain-text file and import it into the corpus. Progress and history update when the import finishes."/>
 
     <VBox spacing="16" styleClass="content-card">
         <Label text="File" styleClass="card-title"/>

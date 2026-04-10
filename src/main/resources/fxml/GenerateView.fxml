@@ -15,7 +15,7 @@
     <Label text="GENERATE" styleClass="section-eyebrow section-eyebrow-violet"/>
     <Label text="Sentence generator" styleClass="section-heading"/>
     <Label styleClass="section-lead" wrapText="true"
-           text="Provide an optional seed word and pick an algorithm profile. Output below is placeholder text until the engine is connected."/>
+           text="Provide an optional seed word and pick an algorithm profile. Generated text appears in the output area below."/>
 
     <VBox spacing="16" styleClass="content-card">
         <Label text="Parameters" styleClass="card-title"/>

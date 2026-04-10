@@ -283,9 +283,10 @@
 .content-host.workspace-surface {
     -fx-background-color: sb-workspace-panel;
     -fx-background-radius: 16;
-    -fx-border-color: sb-border-subtle;
+    -fx-border-color: sb-border;
     -fx-border-radius: 16;
-    -fx-border-width: 1;
+    -fx-border-width: 1.5;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 28, 0.12, 0, 2);
 }
 
 .page-root {
@@ -296,6 +297,22 @@
 .page-root-wide {
     -fx-spacing: 0;
     -fx-max-width: 100000;
+}
+
+/* Shared boxed section shell (home + settings) */
+.page-section-panel {
+    -fx-background-color: sb-surface;
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-border-color: sb-border;
+    -fx-border-width: 1;
+    -fx-padding: 22 24 24 24;
+    -fx-spacing: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.14), 20, 0.22, 0, 4);
+}
+
+.page-section-panel.content-card-elevated {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.18), 26, 0.24, 0, 6);
 }
 
 .page-scroll {
@@ -426,7 +443,92 @@
 }
 
 .home-quick-grid {
-    -fx-padding: 8 0 0 0;
+    -fx-padding: 0;
+}
+
+/* ---- Home: each block is its own boxed panel ---- */
+.home-page-root {
+    -fx-spacing: 20;
+}
+
+.home-intro-panel {
+    -fx-border-width: 1 1 1 5;
+    -fx-border-color: sb-border sb-border sb-border sb-accent;
+}
+
+.home-intro-panel .section-heading-hero {
+    -fx-padding: 4 0 8 0;
+}
+
+.home-intro-lead {
+    -fx-padding: 0;
+    -fx-max-width: 100000;
+}
+
+.home-metrics-panel {
+    -fx-padding: 20 24 22 24;
+}
+
+.home-metrics-panel .home-stats {
+    -fx-padding: 0;
+    -fx-spacing: 20;
+}
+
+.home-shortcuts-panel {
+    -fx-padding: 12 12 15 12;
+    -fx-background-color: sb-surface-muted;
+    -fx-border-color: sb-border-subtle;
+}
+
+/* Compact workspace tiles: smaller footprint on the dashboard grid */
+.home-shortcuts-panel .quick-card {
+    -fx-padding: 14 16 12 16;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-width: 4 1.5 1.5 4;
+    -fx-spacing: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.12), 12, 0.2, 0, 3);
+}
+
+.home-shortcuts-panel .button.quick-nav-button {
+    -fx-padding: 14 16 12 16;
+    /* Same fixed grid height for every tile; keep content pinned to top */
+    -fx-alignment: TOP_LEFT;
+}
+
+.home-shortcuts-panel .quick-card-title {
+    -fx-font-size: 1.077em;
+}
+
+.home-shortcuts-panel .quick-card-desc {
+    -fx-font-size: 0.885em;
+    -fx-padding: 0;
+    /* Two-line slot so titles and CTAs line up across the 2×2 grid */
+    -fx-min-height: 44;
+}
+
+.home-shortcuts-panel .quick-card-cta {
+    -fx-font-size: 0.808em;
+    -fx-padding: 6 12 6 12;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+}
+
+.home-shortcuts-panel .quick-card-icon-wrap {
+    -fx-min-width: 40;
+    -fx-min-height: 40;
+    -fx-max-width: 40;
+    -fx-max-height: 40;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-width: 2;
+}
+
+.home-shortcuts-panel .quick-icon-import .quick-card-icon,
+.home-shortcuts-panel .quick-icon-generate .quick-card-icon,
+.home-shortcuts-panel .quick-icon-compose .quick-card-icon,
+.home-shortcuts-panel .quick-icon-reports .quick-card-icon {
+    -fx-font-size: 1.2em;
 }
 
 .card-title {
@@ -467,14 +569,14 @@
     -fx-background-radius: 12;
     -fx-padding: 28 32 30 32;
     -fx-spacing: 16;
-    -fx-border-color: sb-border-subtle;
+    -fx-border-color: sb-border;
     -fx-border-width: 1;
     -fx-border-radius: 12;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.12), 14, 0.2, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.14), 16, 0.22, 0, 4);
 }
 
 .content-card-elevated {
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.14), 20, 0.22, 0, 5);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.18), 22, 0.24, 0, 6);
 }
 
 .form-row {
@@ -496,7 +598,7 @@
 
 /* ---- Metrics: neutral cards + accent edge ---- */
 .home-stats {
-    -fx-padding: 0 0 40 0;
+    -fx-padding: 0;
     -fx-spacing: 20;
 }
 
@@ -505,21 +607,21 @@
     -fx-background-radius: 12;
     -fx-padding: 20 24 20 24;
     -fx-spacing: 10;
-    -fx-border-color: sb-border-subtle;
     -fx-border-radius: 12;
-    -fx-border-width: 1;
+    -fx-border-width: 1 1 1 5;
+    -fx-border-color: sb-border sb-border sb-border sb-border-subtle;
     -fx-max-width: 100000;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 8, 0.12, 0, 1);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.12), 14, 0.18, 0, 3);
 }
 
 .stat-tile-primary {
-    -fx-border-width: 0 0 0 5;
-    -fx-border-color: transparent transparent transparent sb-accent-border;
+    -fx-border-width: 1 1 1 5;
+    -fx-border-color: sb-border sb-border sb-border sb-accent-border;
 }
 
 .stat-tile-violet {
-    -fx-border-width: 0 0 0 5;
-    -fx-border-color: transparent transparent transparent sb-violet-border;
+    -fx-border-width: 1 1 1 5;
+    -fx-border-color: sb-border sb-border sb-border sb-violet-border;
 }
 
 .stat-tile-primary .stat-tile-value {
@@ -619,20 +721,43 @@
  */
 .quick-card {
     -fx-background-color: sb-surface;
-    -fx-background-radius: 12;
+    -fx-background-radius: 14;
     -fx-padding: 24 24 22 24;
     -fx-spacing: 16;
-    -fx-border-radius: 12;
+    -fx-border-radius: 14;
     -fx-cursor: hand;
     -fx-alignment: TOP_LEFT;
-    /* top strip | right | bottom | left — left accent bar + thick top */
+    /* Full outline + thick top + left accent so each shortcut reads as a button-like control */
     -fx-border-width: 5 2 2 5;
-    -fx-border-color: sb-border sb-border-subtle sb-border-subtle sb-border-subtle;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.12), 12, 0.18, 0, 3);
+    -fx-border-color: sb-border sb-border sb-border sb-border-subtle;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.14), 14, 0.2, 0, 4);
+}
+
+/* Real Button nodes: drop default modena chrome so .quick-card paints the full box */
+.button.quick-nav-button {
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
+    -fx-padding: 24 24 22 24;
+    -fx-content-display: GRAPHIC_ONLY;
+    -fx-graphic-text-gap: 0;
+    -fx-text-fill: transparent;
+    -fx-alignment: TOP_LEFT;
+}
+
+.button.quick-nav-button:focused {
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
 }
 
 .quick-card:hover {
     -fx-background-color: sb-surface-raised;
+    -fx-translate-y: -1;
+}
+
+.quick-card:pressed {
+    -fx-background-color: sb-surface-hover;
+    -fx-translate-y: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 8, 0.2, 0, 1);
 }
 
 .quick-card-accent-import {
@@ -719,11 +844,13 @@
 .quick-card-cta {
     -fx-font-size: 0.923em;
     -fx-font-weight: bold;
-    -fx-padding: 12 18 12 18;
-    -fx-background-radius: 22;
-    -fx-border-radius: 22;
-    -fx-border-width: 1;
+    -fx-padding: 10 20 10 20;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-width: 1.5;
     -fx-cursor: hand;
+    -fx-alignment: CENTER_LEFT;
+    -fx-max-width: 100000;
 }
 
 .quick-card-accent-import .quick-card-cta {
@@ -1038,31 +1165,66 @@
 }
 
 /* ---- Settings page ---- */
-.settings-page-root .section-eyebrow {
-    -fx-padding: 0;
-}
-
 .settings-page-root .section-heading {
-    -fx-padding: 0;
+    -fx-padding: 0 0 6 0;
 }
 
-.settings-hero {
-    -fx-padding: 28 32 28 32;
-    -fx-spacing: 10;
+.settings-hero-panel {
+    -fx-border-width: 1 1 1 5;
+    -fx-border-color: sb-border sb-border sb-border sb-teal;
 }
 
 .settings-hero-lead {
-    -fx-padding: 4 0 0 0;
+    -fx-padding: 2 0 0 0;
     -fx-line-spacing: 3;
+}
+
+.settings-columns-panel {
+    -fx-padding: 22 22 24 22;
+    -fx-background-color: sb-surface-muted;
+    -fx-border-color: sb-border-subtle;
 }
 
 .settings-two-col {
     -fx-padding: 0;
 }
 
-.settings-column-card {
+.settings-inner-card {
+    -fx-background-color: sb-surface;
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-border-color: sb-border;
+    -fx-border-width: 1.5;
     -fx-padding: 0 0 22 0;
     -fx-spacing: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.14), 18, 0.2, 0, 4);
+}
+
+.settings-appearance-card {
+    -fx-border-width: 1.5 1.5 1.5 6;
+    -fx-border-color: sb-border sb-border sb-border sb-violet;
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, sb-violet-soft 0%, sb-surface 52%);
+}
+
+.settings-about-column-card {
+    -fx-border-width: 1.5 1.5 1.5 6;
+    -fx-border-color: sb-border sb-border sb-border sb-teal;
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, sb-teal-soft 0%, sb-surface 52%);
+}
+
+.settings-appearance-card .settings-card-icon {
+    -fx-text-fill: sb-violet;
+}
+
+.settings-about-column-card .settings-card-icon {
+    -fx-text-fill: sb-teal;
+}
+
+.settings-session-panel {
+    -fx-padding: 22 28 22 28;
+    -fx-spacing: 16;
+    -fx-border-width: 1 1 1 4;
+    -fx-border-color: sb-border sb-border sb-border sb-amber-border;
 }
 
 .settings-card-header {
@@ -1084,6 +1246,14 @@
     -fx-spacing: 16;
 }
 
+.settings-page-root .combo-box.combo-styled .combo-box-base {
+    -fx-border-color: sb-border;
+}
+
+.settings-page-root .combo-box.combo-styled .arrow-button {
+    -fx-border-color: sb-border;
+}
+
 .settings-about-body {
     -fx-padding: 8 24 22 24;
     -fx-spacing: 14;
@@ -1093,11 +1263,9 @@
     -fx-padding: 12 14 12 14;
     -fx-background-color: sb-surface-muted;
     -fx-background-radius: 10;
-}
-
-.settings-session-card {
-    -fx-padding: 22 28 22 28;
-    -fx-spacing: 16;
+    -fx-border-color: sb-border-subtle;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
 }
 
 .button.logout-button {
