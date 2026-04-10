@@ -118,6 +118,8 @@ public class MainShellController {
         wireNav(navCorpusStats, ViewKey.CORPUS_STATS);
         wireNav(navSettings, ViewKey.SETTINGS);
 
+        preventNavDeselection();
+
         UiPreferences prefs = UiPreferences.get();
         prefs.themeProperty().addListener((o, a, b) -> {
             applyShellChromeInlineText();
@@ -251,6 +253,24 @@ public class MainShellController {
             double next = Math.max(0.0, Math.min(1.0, workspaceScroll.getVvalue() + delta));
             workspaceScroll.setVvalue(next);
             event.consume();
+        });
+    }
+
+    /**
+     * A {@link ToggleGroup} clears the selected toggle when the user clicks it again.
+     * Keep one workspace always selected so the sidebar highlight never disappears.
+     */
+    private void preventNavDeselection() {
+        navGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
+            if (newToggle != null || oldToggle == null) {
+                return;
+            }
+            suppressNavToggleCallbacks = true;
+            try {
+                oldToggle.setSelected(true);
+            } finally {
+                suppressNavToggleCallbacks = false;
+            }
         });
     }
 
