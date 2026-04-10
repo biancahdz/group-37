@@ -18,6 +18,8 @@ import java.util.function.Function;
  */
 public class SettingsController {
 
+    private Runnable onLogout;
+
     @FXML
     private ComboBox<AppTheme> themeCombo;
 
@@ -26,6 +28,17 @@ public class SettingsController {
 
     @FXML
     private ComboBox<FontSizePreset> fontSizeCombo;
+
+    public void setOnLogout(Runnable onLogout) {
+        this.onLogout = onLogout;
+    }
+
+    @FXML
+    private void onLogoutClicked() {
+        if (onLogout != null) {
+            onLogout.run();
+        }
+    }
 
     @FXML
     private void initialize() {

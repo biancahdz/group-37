@@ -11,9 +11,6 @@
 
 package com.group37.sentencebuilder.ui_layer;
 
-import com.group37.sentencebuilder.ui_layer.ApplicationPage;
-import com.group37.sentencebuilder.ui_layer.DatabasePage;
-
 import com.group37.sentencebuilder.data_layer.Database;
 
 import javafx.fxml.FXML;
@@ -38,6 +35,8 @@ import java.util.Objects;
 public class MainShellController {
 
     private Object currentController;
+
+    private Runnable onLogout;
 
     @FXML
     private StackPane contentHost;
@@ -87,6 +86,17 @@ public class MainShellController {
         wireNav(navSettings, ViewKey.SETTINGS);
 
         showView(ViewKey.HOME);
+    }
+
+    /** Wired from {@link com.group37.sentencebuilder.SentenceBuilderApp} to return to the login scene. */
+    public void setOnLogout(Runnable onLogout) {
+        this.onLogout = onLogout;
+    }
+
+    public void requestLogout() {
+        if (onLogout != null) {
+            onLogout.run();
+        }
     }
 
     private void wireNav(ToggleButton button, ViewKey key) {
@@ -181,6 +191,10 @@ public class MainShellController {
             if (ctrl instanceof DatabasePage dbController)
             {
                 dbController.setDatabase(Database.getDatabase());
+            }
+
+            if (ctrl instanceof SettingsController settings) {
+                settings.setOnLogout(this::requestLogout);
             }
 
             currentController = ctrl;

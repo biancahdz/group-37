@@ -1037,27 +1037,89 @@
     -fx-spacing: 10;
 }
 
-/* Settings page: extra breathing room */
+/* ---- Settings page ---- */
 .settings-page-root .section-eyebrow {
-    -fx-padding: 0 0 22 0;
+    -fx-padding: 0;
 }
 
 .settings-page-root .section-heading {
-    -fx-padding: 0 0 12 0;
+    -fx-padding: 0;
 }
 
-.settings-page-root .section-lead {
-    -fx-padding: 0 0 28 0;
+.settings-hero {
+    -fx-padding: 28 32 28 32;
+    -fx-spacing: 10;
+}
+
+.settings-hero-lead {
+    -fx-padding: 4 0 0 0;
     -fx-line-spacing: 3;
 }
 
-.settings-main-card {
-    -fx-padding: 36 40 40 40;
-    -fx-spacing: 22;
+.settings-two-col {
+    -fx-padding: 0;
 }
 
-.settings-pref-section .card-title {
-    -fx-padding: 0 0 10 0;
+.settings-column-card {
+    -fx-padding: 0 0 22 0;
+    -fx-spacing: 0;
+}
+
+.settings-card-header {
+    -fx-padding: 22 24 0 24;
+}
+
+.settings-card-icon {
+    -fx-font-size: 1.35em;
+    -fx-text-fill: sb-accent;
+    -fx-opacity: 0.92;
+}
+
+.settings-card-title {
+    -fx-padding: 0;
+}
+
+.settings-pref-body {
+    -fx-padding: 8 24 8 24;
+    -fx-spacing: 16;
+}
+
+.settings-about-body {
+    -fx-padding: 8 24 22 24;
+    -fx-spacing: 14;
+}
+
+.settings-about-chip {
+    -fx-padding: 12 14 12 14;
+    -fx-background-color: sb-surface-muted;
+    -fx-background-radius: 10;
+}
+
+.settings-session-card {
+    -fx-padding: 22 28 22 28;
+    -fx-spacing: 16;
+}
+
+.button.logout-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: sb-error;
+    -fx-font-weight: bold;
+    -fx-font-size: 1em;
+    -fx-border-color: sb-error;
+    -fx-border-radius: 10;
+    -fx-border-width: 1.5;
+    -fx-background-radius: 10;
+    -fx-padding: 10 22 10 22;
+    -fx-cursor: hand;
+}
+
+.button.logout-button:hover {
+    -fx-background-color: derive(sb-error, 92%);
+    -fx-text-fill: derive(sb-error, -15%);
+}
+
+.button.logout-button:pressed {
+    -fx-background-color: derive(sb-error, 85%);
 }
 
 .separator.settings-sep {

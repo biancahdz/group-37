@@ -37,6 +37,16 @@ import javafx.util.Duration;
 
 public class TitleController {
 
+    /**
+     * When true, the next FXML load shows the login panel instead of auto-entering the main shell
+     * (used after logout while {@link Database#canConnect()} is still true).
+     */
+    private static volatile boolean nextShowLoginOnly;
+
+    public static void setNextShowLoginOnly(boolean value) {
+        nextShowLoginOnly = value;
+    }
+
     @FXML private Label titleLabel;
     @FXML private VBox loginPane;
     @FXML private TextField usernameField;
@@ -53,10 +63,16 @@ public class TitleController {
     @FXML
     private void initialize()
     {
-        if (Database.canConnect())
+        boolean loginOnly = nextShowLoginOnly;
+        if (loginOnly) {
+            nextShowLoginOnly = false;
+        }
+
+        if (Database.canConnect() && !loginOnly) {
             launchAnimation();
-        else
+        } else {
             loginLaunchAnimation();
+        }
     }
 
     private void loginLaunchAnimation()
