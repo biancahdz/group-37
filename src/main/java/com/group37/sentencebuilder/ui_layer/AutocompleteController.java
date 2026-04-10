@@ -25,7 +25,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 
-/** Auto-complete screen with mock suggestion chips. */
+/** Auto-complete screen — suggestion chips from corpus word data. */
 public class AutocompleteController implements ApplicationPage, DatabasePage {
 
     private Database database;

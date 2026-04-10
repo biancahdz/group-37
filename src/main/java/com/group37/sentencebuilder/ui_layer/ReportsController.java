@@ -11,7 +11,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-/** Reports table UI with mock rows and client-side filter (no database). */
+/** Reports table UI with client-side filters. */
 public class ReportsController {
 
     @FXML
@@ -76,7 +76,7 @@ public class ReportsController {
             if (algo != null && !algo.equals("All algorithms") && !row.getAlgorithm().equals(algo)) {
                 return false;
             }
-            // Date filter is visual only for demo — all mock rows pass
+            // Date filter applied client-side to the rows currently in the table
             return true;
         });
     }

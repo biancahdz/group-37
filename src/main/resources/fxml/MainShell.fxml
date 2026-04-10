@@ -35,11 +35,6 @@
             <ToggleButton fx:id="navCorpusStats" text="Word analytics" toggleGroup="$navGroup" styleClass="nav-toggle" maxWidth="Infinity"/>
             <ToggleButton fx:id="navSettings" text="Settings" toggleGroup="$navGroup" styleClass="nav-toggle" maxWidth="Infinity"/>
             <VBox VBox.vgrow="ALWAYS"/>
-            <VBox styleClass="sidebar-footer">
-                <Label styleClass="sidebar-footer-label"
-                       text="Frontend shell — connect services when backend is ready."
-                       wrapText="true"/>
-            </VBox>
         </VBox>
     </left>
     <center>

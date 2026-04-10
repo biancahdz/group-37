@@ -18,7 +18,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-/** Sentence generator screen (output is placeholder text). */
+/** Sentence generator screen — runs corpus-backed generation algorithms. */
 public class GenerateController {
 
     enum Algorithm {

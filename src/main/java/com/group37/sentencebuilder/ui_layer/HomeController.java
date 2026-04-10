@@ -17,12 +17,11 @@ import com.group37.sentencebuilder.ui_layer.DatabasePage;
 import com.group37.sentencebuilder.data_layer.Database;
 
 import javafx.fxml.FXML;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Label;
 
 import java.util.function.Consumer;
 
-/** Dashboard / welcome screen (placeholder content). */
+/** Dashboard / welcome screen with live metrics and workspace shortcuts. */
 public class HomeController implements ApplicationPage, DatabasePage {
 
     private Database database;
@@ -40,27 +39,27 @@ public class HomeController implements ApplicationPage, DatabasePage {
     private Label sentenceCount;
 
     @FXML
-    private void onQuickImport(MouseEvent e) {
+    private void onQuickImport() {
         navigator.accept(ViewKey.IMPORT);
     }
 
     @FXML
-    private void onQuickGenerate(MouseEvent e) {
+    private void onQuickGenerate() {
         navigator.accept(ViewKey.GENERATE);
     }
 
     @FXML
-    private void onQuickAutocomplete(MouseEvent e) {
+    private void onQuickAutocomplete() {
         navigator.accept(ViewKey.AUTOCOMPLETE);
     }
 
     @FXML
-    private void onQuickReports(MouseEvent e) {
+    private void onQuickReports() {
         navigator.accept(ViewKey.REPORTS);
     }
 
     @FXML
-    private void onQuickCorpusStats(MouseEvent e) {
+    private void onQuickCorpusStats() {
         navigator.accept(ViewKey.CORPUS_STATS);
     }
 
