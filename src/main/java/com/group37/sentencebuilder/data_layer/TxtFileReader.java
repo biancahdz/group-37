@@ -6,7 +6,7 @@
  *
  * Author: 
  * Created: 2026-03-15
- * Last Modified: 2026-03-16
+ * Last Modified: 2026-04-10
  *
  * Version: 1.0
  */
@@ -58,16 +58,11 @@ public class TxtFileReader
         return sentences;
     }
 
-    private boolean addWords(List<String> words) {
-        if(!database.addWords(words))
-            return false;
-        return true;
-    }
-
     private boolean addSentence(List<String> words) {
+        Integer firstID = database.getWordID(words.get(0));
+        Integer lastID = database.getWordID(words.get(words.size() - 1));
 
-        int firstID = database.getWordID(words.get(0));
-        int lastID = database.getWordID(words.get(words.size() - 1));
+        if (firstID == null || lastID == null) return false;
 
         if(!database.addSentence(firstID, lastID))
             return false;
@@ -112,11 +107,10 @@ public class TxtFileReader
 
                     List<String> sentences = getSentences(sb);
 
-                    int numSentences = sentences.size();
+                    // Pre-parse all sentences before DB calls so the progress
+                    // denominator is accurate and never mutated mid-loop
+                    List<List<String>> parsedSentences = new ArrayList<>(sentences.size());
                     int numWords = 0;
-                    int count = 0;
-
-                    database.connect();
 
                     for (String sentence : sentences) {
                         String[] rawWords = sentence.split("\\s+");
@@ -129,15 +123,19 @@ public class TxtFileReader
                             }
                         }
 
-                        if (words.isEmpty())
-                        {
-                            numSentences--;
-                            continue;
+                        if (!words.isEmpty()) {
+                            parsedSentences.add(words);
+                            numWords += words.size();
                         }
+                    }
 
-                        numWords += words.size();
-                        
-                        addWords(words);
+                    int numSentences = parsedSentences.size();
+                    int count = 0;
+
+                    database.connect();
+
+                    for (List<String> words : parsedSentences) {
+                        database.addWords(words);
                         addSentence(words);
                         addCombo(words);
 
@@ -154,3 +152,4 @@ public class TxtFileReader
         };
     }
 }
+
