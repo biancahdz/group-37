@@ -23,6 +23,21 @@ public final class ThemePaletteKeys {
     /** Paragraph / lead copy under page titles — stronger separation from {@link #TEXT} than {@link #TEXT_MUTED}. */
     public static final String TEXT_LEAD = "sb-text-lead";
 
+    /** Sidebar tagline, header subtitle, section label, footer — tuned per theme for contrast. */
+    public static final String CHROME_TAGLINE = "sb-chrome-tagline";
+    public static final String CHROME_HEADER_SUB = "sb-chrome-header-sub";
+    public static final String CHROME_SECTION = "sb-chrome-section";
+    public static final String CHROME_FOOTER = "sb-chrome-footer";
+
+    public static final String TABLE_HEADER_BG = "sb-table-header-bg";
+    public static final String TABLE_HEADER_TEXT = "sb-table-header-text";
+
+    public static final String EYEBROW_NEUTRAL = "sb-eyebrow-neutral";
+    public static final String EYEBROW_PRIMARY = "sb-eyebrow-primary";
+    public static final String EYEBROW_TEAL = "sb-eyebrow-teal";
+    public static final String EYEBROW_VIOLET = "sb-eyebrow-violet";
+    public static final String EYEBROW_AMBER = "sb-eyebrow-amber";
+
     public static final String BORDER = "sb-border";
     public static final String BORDER_SUBTLE = "sb-border-subtle";
     public static final String DIVIDER = "sb-divider";

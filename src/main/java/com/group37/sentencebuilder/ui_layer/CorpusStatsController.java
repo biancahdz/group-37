@@ -6,12 +6,17 @@ import com.group37.sentencebuilder.data_layer.TxtOnDiskAnalytics;
 import com.group37.sentencebuilder.data_layer.Database.TopBigramEntry;
 import com.group37.sentencebuilder.data_layer.Database.TopWordEntry;
 import com.group37.sentencebuilder.data_layer.Database.TxtFileSummary;
+import com.group37.sentencebuilder.ui.DarkSurfaceText;
+import com.group37.sentencebuilder.ui.UiPreferences;
+
 import com.group37.sentencebuilder.ui_layer.model.BigramRow;
 import com.group37.sentencebuilder.ui_layer.model.FileCorpusStatRow;
 import com.group37.sentencebuilder.ui_layer.model.WordFrequencyRow;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.paint.Color;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -45,6 +50,9 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
 
     @FXML
     private ComboBox<String> sourceCombo;
+
+    @FXML
+    private Label sectionEyebrowLabel;
 
     @FXML
     private Label scopeHintLabel;
@@ -146,7 +154,22 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
 
     @Override
     public void onPageEnter() {
+        applyCorpusDarkChrome();
         reloadFromDatabase();
+    }
+
+    private void applyCorpusDarkChrome() {
+        if (!UiPreferences.get().isResolvedDarkSurface()) {
+            if (sectionEyebrowLabel != null) {
+                sectionEyebrowLabel.setTextFill(null);
+                sectionEyebrowLabel.setStyle(null);
+            }
+            return;
+        }
+        if (sectionEyebrowLabel != null) {
+            DarkSurfaceText.forceLabeledFill(sectionEyebrowLabel, Color.WHITE);
+            Platform.runLater(() -> DarkSurfaceText.forceLabeledFill(sectionEyebrowLabel, Color.WHITE));
+        }
     }
 
     @Override

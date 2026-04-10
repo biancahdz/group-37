@@ -126,12 +126,43 @@ public final class UiPreferences {
                 getFont().getStyleClass(),
                 getFont().getMetricsStyleClass(),
                 getFontSize().getStyleClass());
+        shellRoot.getStyleClass().add(isDarkSurfacePalette(paletteClass) ? "sb-dark-ui" : "sb-light-ui");
+    }
+
+    /**
+     * True when the resolved palette uses dark surfaces — same condition as {@code sb-dark-ui} on the shell.
+     * Use for inline text / ComboBox fixes instead of checking only {@code theme-default}.
+     */
+    public boolean isResolvedDarkSurface() {
+        return isDarkSurfacePalette(getTheme().resolvedPaletteStyleClass(currentColorScheme()));
+    }
+
+    /**
+     * Palettes with dark canvas/surfaces — drives {@code .root.sb-dark-ui} for shared contrast rules
+     * (prompt text, optional Modena overrides) without listing every {@code theme-*} block again.
+     */
+    private static boolean isDarkSurfacePalette(String paletteClass) {
+        if (paletteClass == null) {
+            return false;
+        }
+        return switch (paletteClass) {
+            case "theme-default",
+                 "theme-christmas",
+                 "theme-rainbow",
+                 "theme-luna",
+                 "theme-neon-noir",
+                 "theme-deep-ink",
+                 "theme-invert-system" -> true;
+            default -> false;
+        };
     }
 
     private static boolean isManagedUiClass(String c) {
         return c.startsWith("theme-")
                 || c.startsWith("font-stack-")
                 || c.startsWith("font-metrics-")
-                || c.startsWith("fs-");
+                || c.startsWith("fs-")
+                || "sb-dark-ui".equals(c)
+                || "sb-light-ui".equals(c);
     }
 }

@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:id="settingsPageRoot"
       fx:controller="com.group37.sentencebuilder.ui_layer.SettingsController"
       styleClass="page-root settings-page-root" spacing="0">
     <Label text="PROJECT" styleClass="section-eyebrow"/>

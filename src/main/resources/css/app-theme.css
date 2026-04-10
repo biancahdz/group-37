@@ -7,6 +7,14 @@
     -fx-background-color: transparent;
 }
 
+/*
+ * Dark surfaces (root also has .sb-dark-ui from UiPreferences): prompts must stay readable on sb-input.
+ */
+.root.sb-dark-ui .text-field,
+.root.sb-dark-ui .text-area {
+    -fx-prompt-text-fill: #e4e4e7;
+}
+
 .scroll-pane,
 .scroll-pane > .viewport {
     -fx-background-color: transparent;
@@ -160,24 +168,40 @@
     -fx-font-weight: bold;
 }
 
+.sidebar-mark-badge .text {
+    -fx-fill: sb-accent;
+}
+
 .sidebar-brand {
     -fx-text-fill: sb-text;
     -fx-font-size: 1.308em;
     -fx-font-weight: bold;
 }
 
+.sidebar-brand .text {
+    -fx-fill: sb-text;
+}
+
 .sidebar-tagline {
-    -fx-text-fill: sb-text-muted;
+    -fx-text-fill: sb-chrome-tagline;
     -fx-font-size: 0.885em;
     -fx-wrap-text: true;
 }
 
+.sidebar-tagline .text {
+    -fx-fill: sb-chrome-tagline;
+}
+
 .sidebar-section-label {
-    -fx-text-fill: sb-text-tertiary;
+    -fx-text-fill: sb-chrome-section;
     -fx-font-size: 0.769em;
     -fx-font-weight: bold;
     -fx-letter-spacing: 0.12em;
     -fx-padding: 22 8 8 8;
+}
+
+.sidebar-section-label .text {
+    -fx-fill: sb-chrome-section;
 }
 
 .nav-toggle {
@@ -204,8 +228,28 @@
     -fx-border-color: transparent transparent transparent sb-accent-border;
 }
 
+/*
+ * ToggleButton (nav) paints text in a child .text node; -fx-fill: inherit does not track -fx-text-fill
+ * reliably — without explicit fills, inactive items read as near-black on a dark sidebar.
+ */
 .nav-toggle .text {
-    -fx-fill: inherit;
+    -fx-fill: sb-text-secondary;
+}
+
+.nav-toggle:hover .text {
+    -fx-fill: sb-teal;
+}
+
+.nav-toggle:armed .text {
+    -fx-fill: sb-teal;
+}
+
+.nav-toggle:selected .text {
+    -fx-fill: sb-accent;
+}
+
+.nav-toggle:selected:hover .text {
+    -fx-fill: sb-accent;
 }
 
 .sidebar-footer {
@@ -213,9 +257,13 @@
 }
 
 .sidebar-footer-label {
-    -fx-text-fill: sb-text-tertiary;
+    -fx-text-fill: sb-chrome-footer;
     -fx-font-size: 0.808em;
     -fx-wrap-text: true;
+}
+
+.sidebar-footer-label .text {
+    -fx-fill: sb-chrome-footer;
 }
 
 .separator.sidebar-sep {
@@ -247,11 +295,19 @@
     -fx-padding: 0 0 2 0;
 }
 
+.header-title .text {
+    -fx-fill: sb-text;
+}
+
 .header-sub {
-    -fx-text-fill: sb-text-secondary;
+    -fx-text-fill: sb-chrome-header-sub;
     -fx-font-size: 0.923em;
     -fx-padding: 0 0 0 0;
     -fx-line-spacing: 2;
+}
+
+.header-sub .text {
+    -fx-fill: sb-chrome-header-sub;
 }
 
 .header-meta {
@@ -268,6 +324,10 @@
     -fx-text-fill: sb-amber;
     -fx-font-size: 0.846em;
     -fx-font-weight: bold;
+}
+
+.header-pill .text {
+    -fx-fill: sb-amber;
 }
 
 .workspace-inset {
@@ -312,9 +372,9 @@
 }
 
 .corpus-stat-chip {
-    -fx-background-color: -sb-surface-muted;
+    -fx-background-color: sb-surface-muted;
     -fx-background-radius: 10;
-    -fx-border-color: -sb-border-subtle;
+    -fx-border-color: sb-border-subtle;
     -fx-border-radius: 10;
     -fx-border-width: 1;
     -fx-padding: 14 16 14 16;
@@ -322,16 +382,24 @@
 }
 
 .corpus-stat-value {
-    -fx-text-fill: -sb-text;
+    -fx-text-fill: sb-text;
     -fx-font-size: 22px;
     -fx-font-weight: bold;
 }
 
+.corpus-stat-value .text {
+    -fx-fill: sb-text;
+}
+
 .corpus-stat-label {
-    -fx-text-fill: -sb-text-muted;
+    -fx-text-fill: sb-text-muted;
     -fx-font-size: 10px;
     -fx-font-weight: bold;
     -fx-letter-spacing: 0.08em;
+}
+
+.corpus-stat-label .text {
+    -fx-fill: sb-text-muted;
 }
 
 .corpus-page-root {
@@ -343,35 +411,43 @@
 }
 
 .corpus-bar-label {
-    -fx-text-fill: -sb-text;
+    -fx-text-fill: sb-text;
     -fx-font-size: 12px;
 }
 
+.corpus-bar-label .text {
+    -fx-fill: sb-text;
+}
+
 .corpus-bar-value {
-    -fx-text-fill: -sb-text-secondary;
+    -fx-text-fill: sb-text-secondary;
     -fx-font-size: 12px;
     -fx-min-width: 56;
     -fx-alignment: CENTER_RIGHT;
 }
 
+.corpus-bar-value .text {
+    -fx-fill: sb-text-secondary;
+}
+
 .corpus-bar-track {
-    -fx-background-color: -sb-surface-muted;
+    -fx-background-color: sb-surface-muted;
     -fx-background-radius: 5;
     -fx-padding: 3 4 3 4;
 }
 
 .corpus-bar-fill-teal {
-    -fx-background-color: -sb-teal;
+    -fx-background-color: sb-teal;
     -fx-background-radius: 3;
 }
 
 .corpus-bar-fill-violet {
-    -fx-background-color: -sb-violet;
+    -fx-background-color: sb-violet;
     -fx-background-radius: 3;
 }
 
 .corpus-share-line {
-    -fx-text-fill: -sb-text-secondary;
+    -fx-text-fill: sb-text-secondary;
     -fx-font-size: 12px;
 }
 
@@ -381,27 +457,47 @@
 
 /* ---- Typography ---- */
 .section-eyebrow {
-    -fx-text-fill: sb-text-tertiary;
+    -fx-text-fill: sb-eyebrow-neutral;
     -fx-font-size: 0.769em;
     -fx-font-weight: bold;
     -fx-letter-spacing: 0.14em;
     -fx-padding: 0 0 18 0;
 }
 
+.section-eyebrow .text {
+    -fx-fill: sb-eyebrow-neutral;
+}
+
 .section-eyebrow-primary {
-    -fx-text-fill: sb-accent;
+    -fx-text-fill: sb-eyebrow-primary;
+}
+
+.section-eyebrow-primary .text {
+    -fx-fill: sb-eyebrow-primary;
 }
 
 .section-eyebrow-teal {
-    -fx-text-fill: sb-teal;
+    -fx-text-fill: sb-eyebrow-teal;
+}
+
+.section-eyebrow-teal .text {
+    -fx-fill: sb-eyebrow-teal;
 }
 
 .section-eyebrow-violet {
-    -fx-text-fill: sb-violet;
+    -fx-text-fill: sb-eyebrow-violet;
+}
+
+.section-eyebrow-violet .text {
+    -fx-fill: sb-eyebrow-violet;
 }
 
 .section-eyebrow-amber {
-    -fx-text-fill: sb-amber;
+    -fx-text-fill: sb-eyebrow-amber;
+}
+
+.section-eyebrow-amber .text {
+    -fx-fill: sb-eyebrow-amber;
 }
 
 .section-heading {
@@ -411,6 +507,10 @@
     -fx-padding: 6 0 0 0;
 }
 
+.section-heading .text {
+    -fx-fill: sb-text;
+}
+
 .section-heading-hero {
     -fx-font-size: 2.615em;
     -fx-font-weight: bold;
@@ -418,11 +518,19 @@
     -fx-text-fill: sb-text;
 }
 
+.section-heading-hero .text {
+    -fx-fill: sb-text;
+}
+
 .section-lead {
     -fx-text-fill: sb-text-lead;
     -fx-font-size: 1.077em;
     -fx-padding: 4 0 20 0;
     -fx-max-width: 600;
+}
+
+.section-lead .text {
+    -fx-fill: sb-text-lead;
 }
 
 .home-quick-grid {
@@ -435,14 +543,26 @@
     -fx-font-weight: bold;
 }
 
+.card-title .text {
+    -fx-fill: sb-text;
+}
+
 .card-subtitle {
     -fx-text-fill: sb-text-secondary;
     -fx-font-size: 0.962em;
     -fx-padding: 0 0 2 0;
 }
 
+.card-subtitle .text {
+    -fx-fill: sb-text-secondary;
+}
+
 .card-subtitle-muted {
     -fx-text-fill: sb-text-muted;
+}
+
+.card-subtitle-muted .text {
+    -fx-fill: sb-text-muted;
 }
 
 .field-label {
@@ -451,14 +571,26 @@
     -fx-font-weight: bold;
 }
 
+.field-label .text {
+    -fx-fill: sb-text-secondary;
+}
+
 .status-label {
     -fx-text-fill: sb-text-muted;
     -fx-font-size: 0.923em;
 }
 
+.status-label .text {
+    -fx-fill: sb-text-muted;
+}
+
 .muted {
     -fx-text-fill: sb-text-muted;
     -fx-font-size: 0.923em;
+}
+
+.muted .text {
+    -fx-fill: sb-text-muted;
 }
 
 /* ---- Content cards (forms, tables wrapper) ---- */
@@ -530,10 +662,22 @@
     -fx-text-fill: sb-violet;
 }
 
+.stat-tile-primary .stat-tile-value .text {
+    -fx-fill: sb-accent;
+}
+
+.stat-tile-violet .stat-tile-value .text {
+    -fx-fill: sb-violet;
+}
+
 .stat-tile-value {
     -fx-text-fill: sb-text;
     -fx-font-size: 2em;
     -fx-font-weight: bold;
+}
+
+.stat-tile-value .text {
+    -fx-fill: sb-text;
 }
 
 .stat-tile-label {
@@ -541,6 +685,10 @@
     -fx-font-size: 0.846em;
     -fx-font-weight: bold;
     -fx-letter-spacing: 0.06em;
+}
+
+.stat-tile-label .text {
+    -fx-fill: sb-text-muted;
 }
 
 /* ---- Buttons ---- */
@@ -557,6 +705,10 @@
     -fx-background-radius: 10;
     -fx-padding: 10 22 10 22;
     -fx-cursor: hand;
+}
+
+.button.primary-button .text {
+    -fx-fill: #ffffff;
 }
 
 .button.primary-button:hover {
@@ -586,10 +738,18 @@
     -fx-cursor: hand;
 }
 
+.button.secondary-button .text {
+    -fx-fill: sb-text;
+}
+
 .button.secondary-button:hover {
     -fx-background-color: sb-violet-soft;
     -fx-border-color: sb-violet-border;
     -fx-text-fill: sb-violet;
+}
+
+.button.secondary-button:hover .text {
+    -fx-fill: sb-violet;
 }
 
 .button.secondary-button:pressed {
@@ -606,6 +766,10 @@
     -fx-font-weight: bold;
     -fx-padding: 8 12 8 12;
     -fx-cursor: hand;
+}
+
+.button.ghost-button .text {
+    -fx-fill: sb-accent;
 }
 
 .button.ghost-button:hover {
@@ -645,7 +809,11 @@
 }
 
 .quick-card-accent-import .quick-card-title {
-    -fx-text-fill: #1e3a8a;
+    -fx-text-fill: sb-accent;
+}
+
+.quick-card-accent-import .quick-card-title .text {
+    -fx-fill: sb-accent;
 }
 
 .quick-card-accent-import .quick-card-cta {
@@ -662,7 +830,11 @@
 }
 
 .quick-card-accent-generate .quick-card-title {
-    -fx-text-fill: #3730a3;
+    -fx-text-fill: sb-violet;
+}
+
+.quick-card-accent-generate .quick-card-title .text {
+    -fx-fill: sb-violet;
 }
 
 .quick-card-accent-generate .quick-card-cta {
@@ -679,7 +851,11 @@
 }
 
 .quick-card-accent-compose .quick-card-title {
-    -fx-text-fill: #115e59;
+    -fx-text-fill: sb-teal;
+}
+
+.quick-card-accent-compose .quick-card-title .text {
+    -fx-fill: sb-teal;
 }
 
 .quick-card-accent-compose .quick-card-cta {
@@ -696,7 +872,11 @@
 }
 
 .quick-card-accent-reports .quick-card-title {
-    -fx-text-fill: #9a3412;
+    -fx-text-fill: sb-amber;
+}
+
+.quick-card-accent-reports .quick-card-title .text {
+    -fx-fill: sb-amber;
 }
 
 .quick-card-accent-reports .quick-card-cta {
@@ -709,11 +889,19 @@
     -fx-font-weight: bold;
 }
 
+.quick-card-title .text {
+    -fx-fill: sb-text;
+}
+
 .quick-card-desc {
     -fx-text-fill: sb-text-muted;
     -fx-font-size: 1em;
     -fx-wrap-text: true;
     -fx-padding: 2 0 0 0;
+}
+
+.quick-card-desc .text {
+    -fx-fill: sb-text-muted;
 }
 
 .quick-card-cta {
@@ -732,10 +920,18 @@
     -fx-border-color: sb-accent-border;
 }
 
+.quick-card-accent-import .quick-card-cta .text {
+    -fx-fill: sb-accent;
+}
+
 .quick-card-accent-generate .quick-card-cta {
     -fx-background-color: sb-violet-soft;
     -fx-text-fill: sb-violet;
     -fx-border-color: sb-violet-border;
+}
+
+.quick-card-accent-generate .quick-card-cta .text {
+    -fx-fill: sb-violet;
 }
 
 .quick-card-accent-compose .quick-card-cta {
@@ -744,10 +940,18 @@
     -fx-border-color: sb-teal-border;
 }
 
+.quick-card-accent-compose .quick-card-cta .text {
+    -fx-fill: sb-teal;
+}
+
 .quick-card-accent-reports .quick-card-cta {
     -fx-background-color: sb-amber-soft;
     -fx-text-fill: sb-amber;
     -fx-border-color: sb-amber-border;
+}
+
+.quick-card-accent-reports .quick-card-cta .text {
+    -fx-fill: sb-amber;
 }
 
 /* Icon wells — tinted fill (small area only) + strong ring + saturated glyph */
@@ -773,6 +977,10 @@
     -fx-font-weight: bold;
 }
 
+.quick-icon-import .quick-card-icon .text {
+    -fx-fill: sb-accent;
+}
+
 .quick-icon-generate {
     -fx-background-color: sb-violet-soft;
     -fx-border-color: sb-violet;
@@ -782,6 +990,10 @@
     -fx-text-fill: sb-violet;
     -fx-font-size: 1.538em;
     -fx-font-weight: bold;
+}
+
+.quick-icon-generate .quick-card-icon .text {
+    -fx-fill: sb-violet;
 }
 
 .quick-icon-compose {
@@ -795,6 +1007,10 @@
     -fx-font-weight: bold;
 }
 
+.quick-icon-compose .quick-card-icon .text {
+    -fx-fill: sb-teal;
+}
+
 .quick-icon-reports {
     -fx-background-color: sb-amber-soft;
     -fx-border-color: sb-amber;
@@ -804,6 +1020,10 @@
     -fx-text-fill: sb-amber;
     -fx-font-size: 1.538em;
     -fx-font-weight: bold;
+}
+
+.quick-icon-reports .quick-card-icon .text {
+    -fx-fill: sb-amber;
 }
 
 .quick-card-icon {
@@ -823,6 +1043,10 @@
     -fx-text-fill: sb-text;
 }
 
+.text-field .text {
+    -fx-fill: sb-text;
+}
+
 .text-field:focused {
     -fx-border-color: sb-accent-border;
     -fx-background-color: sb-surface;
@@ -837,6 +1061,10 @@
     -fx-padding: 10 14 10 14;
     -fx-prompt-text-fill: sb-text-tertiary;
     -fx-text-fill: sb-text;
+}
+
+.text-area .text {
+    -fx-fill: sb-text;
 }
 
 .text-area .content {
@@ -861,12 +1089,20 @@
     -fx-padding: 4 10 4 10;
 }
 
+.combo-box.combo-styled > .list-cell .text {
+    -fx-fill: sb-text;
+}
+
 .combo-box.combo-styled .combo-box-base {
     -fx-background-color: sb-input;
     -fx-border-color: sb-border-subtle;
     -fx-border-radius: 10;
     -fx-border-width: 1;
     -fx-background-radius: 10;
+}
+
+.combo-box.combo-styled .combo-box-base > .list-cell {
+    -fx-background-color: sb-input;
 }
 
 .combo-box.combo-styled:focused .combo-box-base {
@@ -946,23 +1182,52 @@
     -fx-padding: 0;
 }
 
-.table-view.table-clean .column-header-background {
-    -fx-background-color: sb-surface-muted;
+/* Header row: fill every layer — Modena can leave nested regions light on dark themes. */
+.root .table-view.table-clean .column-header-background {
+    -fx-background-color: sb-table-header-bg;
+    -fx-background-insets: 0;
     -fx-background-radius: 12 12 0 0;
 }
 
-.table-view.table-clean .column-header,
-.table-view.table-clean .filler {
+.root .table-view.table-clean .nested-column-header {
+    -fx-background-color: sb-table-header-bg;
+}
+
+.root .table-view.table-clean .column-header,
+.root .table-view.table-clean .filler {
+    -fx-background-color: sb-table-header-bg;
     -fx-size: 42;
     -fx-border-color: transparent sb-divider sb-border-subtle transparent;
     -fx-font-size: 0.808em;
     -fx-font-weight: bold;
-    -fx-text-fill: sb-text-secondary;
+    -fx-text-fill: sb-table-header-text;
+}
+
+.table-view.table-clean .column-header .label {
+    -fx-text-fill: sb-table-header-text;
+}
+
+.table-view.table-clean .column-header .label .text {
+    -fx-fill: sb-table-header-text;
+}
+
+.table-view.table-clean .nested-column-header .label,
+.table-view.table-clean .nested-column-header .label .text {
+    -fx-text-fill: sb-table-header-text;
+    -fx-fill: sb-table-header-text;
 }
 
 .table-view.table-clean .table-cell {
     -fx-text-fill: sb-text;
     -fx-font-size: 0.962em;
+}
+
+.table-view.table-clean .table-cell .text {
+    -fx-fill: sb-text;
+}
+
+.table-view.table-clean .table-row-cell .table-cell {
+    -fx-text-fill: sb-text;
 }
 
 .table-view.table-clean .table-row-cell {
@@ -971,8 +1236,9 @@
     -fx-cell-size: 42;
 }
 
+/* Stripe from the active theme — never hard-code a light grey here (breaks dark palettes). */
 .table-view.table-clean .table-row-cell:odd {
-    -fx-background-color: #f9fafb;
+    -fx-background-color: sb-surface-muted;
 }
 
 .table-view.table-clean .table-row-cell:selected {
@@ -989,6 +1255,18 @@
 
 .table-view.table-clean .placeholder .label {
     -fx-text-fill: sb-text-tertiary;
+}
+
+.table-view.table-clean .placeholder .label .text {
+    -fx-fill: sb-text-tertiary;
+}
+
+.root.sb-dark-ui .table-view.table-clean .placeholder .label {
+    -fx-text-fill: sb-text-muted;
+}
+
+.root.sb-dark-ui .table-view.table-clean .placeholder .label .text {
+    -fx-fill: sb-text-muted;
 }
 
 .suggestion-chip {
@@ -1009,6 +1287,14 @@
     -fx-background-color: sb-teal-soft;
 }
 
+.suggestion-chip .text {
+    -fx-fill: sb-text;
+}
+
+.suggestion-chip:hover .text {
+    -fx-fill: sb-teal;
+}
+
 .pill-label {
     -fx-background-color: sb-violet-soft;
     -fx-text-fill: sb-violet;
@@ -1019,6 +1305,10 @@
     -fx-border-width: 1;
     -fx-font-size: 0.808em;
     -fx-font-weight: bold;
+}
+
+.pill-label .text {
+    -fx-fill: sb-violet;
 }
 
 .text-success {
@@ -1070,10 +1360,18 @@
     -fx-text-fill: sb-text;
 }
 
+.about-title .text {
+    -fx-fill: sb-text;
+}
+
 .about-body {
     -fx-font-size: 0.962em;
     -fx-text-fill: sb-text-muted;
     -fx-wrap-text: true;
+}
+
+.about-body .text {
+    -fx-fill: sb-text-muted;
 }
 
 .separator.settings-sep .line {
@@ -1086,4 +1384,552 @@
     -fx-font-weight: 700;
     -fx-font-family: "Inter";
     -fx-text-fill: sb-text;
+}
+
+/*
+ * Dark palette (theme-default): MainShellController sets id "sb-shell-root" on the shell BorderPane.
+ * #sb-shell-root.theme-default wins over Modena / theme-palettes so -fx-text-fill / -fx-fill apply reliably.
+ * Parent + .text mirror; hex tweaked slightly brighter than base tokens for readability on black.
+ */
+
+/* ---- Parent paint (propagates through LabeledSkin / ToggleButtonSkin) ---- */
+#sb-shell-root.theme-default .nav-toggle {
+    -fx-text-fill: rgba(255, 255, 255, 0.9);
+    -fx-opacity: 1;
+}
+
+#sb-shell-root.theme-default .nav-toggle:hover,
+#sb-shell-root.theme-default .nav-toggle:armed {
+    -fx-text-fill: #5eead4;
+}
+
+#sb-shell-root.theme-default .nav-toggle:selected,
+#sb-shell-root.theme-default .nav-toggle:selected:hover {
+    -fx-text-fill: #bfdbfe;
+}
+
+#sb-shell-root.theme-default .sidebar-brand {
+    -fx-text-fill: #fafafa;
+}
+
+#sb-shell-root.theme-default .sidebar-mark-badge {
+    -fx-text-fill: #93c5fd;
+}
+
+#sb-shell-root.theme-default .sidebar-tagline,
+#sb-shell-root.sb-dark-ui .sidebar-tagline {
+    -fx-text-fill: rgba(255, 255, 255, 0.92);
+}
+
+#sb-shell-root.theme-default .sidebar-section-label,
+#sb-shell-root.sb-dark-ui .sidebar-section-label {
+    -fx-text-fill: rgba(255, 255, 255, 0.92);
+}
+
+#sb-shell-root.theme-default .sidebar-footer-label,
+#sb-shell-root.sb-dark-ui .sidebar-footer-label {
+    -fx-text-fill: rgba(255, 255, 255, 0.92);
+}
+
+#sb-shell-root.theme-default .header-title {
+    -fx-text-fill: #fafafa;
+}
+
+#sb-shell-root.theme-default .header-sub {
+    -fx-text-fill: #e4e4e7;
+}
+
+#sb-shell-root.theme-default .header-pill {
+    -fx-text-fill: #fb923c;
+}
+
+#sb-shell-root.theme-default .label.section-eyebrow.section-eyebrow-primary,
+#sb-shell-root.sb-dark-ui .label.section-eyebrow.section-eyebrow-primary {
+    -fx-text-fill: #ffffff;
+}
+
+/*
+ * Accent eyebrow variants: .section-eyebrow-violet|.text can beat :not(.primary) in the cascade
+ * (more specific than the generic non-primary shell rule). Keep them as bright as primary.
+ */
+#sb-shell-root.theme-default .label.section-eyebrow.section-eyebrow-teal,
+#sb-shell-root.sb-dark-ui .label.section-eyebrow.section-eyebrow-teal,
+#sb-shell-root.theme-default .label.section-eyebrow.section-eyebrow-violet,
+#sb-shell-root.sb-dark-ui .label.section-eyebrow.section-eyebrow-violet,
+#sb-shell-root.theme-default .label.section-eyebrow.section-eyebrow-amber,
+#sb-shell-root.sb-dark-ui .label.section-eyebrow.section-eyebrow-amber {
+    -fx-text-fill: #ffffff;
+}
+
+#sb-shell-root.theme-default .section-eyebrow:not(.section-eyebrow-primary),
+#sb-shell-root.sb-dark-ui .section-eyebrow:not(.section-eyebrow-primary) {
+    -fx-text-fill: rgba(255, 255, 255, 0.92);
+}
+
+#sb-shell-root.theme-default .section-heading-hero,
+#sb-shell-root.theme-default .section-heading,
+#sb-shell-root.sb-dark-ui .section-heading-hero,
+#sb-shell-root.sb-dark-ui .section-heading {
+    -fx-text-fill: #ffffff;
+}
+
+#sb-shell-root.theme-default .section-lead,
+#sb-shell-root.sb-dark-ui .section-lead {
+    -fx-text-fill: #e4e4e7;
+}
+
+#sb-shell-root.theme-default .card-title {
+    -fx-text-fill: #fafafa;
+}
+
+#sb-shell-root.theme-default .card-subtitle {
+    -fx-text-fill: #e4e4e7;
+}
+
+#sb-shell-root.theme-default .card-subtitle-muted {
+    -fx-text-fill: #b4b4bc;
+}
+
+#sb-shell-root.theme-default .field-label,
+#sb-shell-root.sb-dark-ui .field-label {
+    -fx-text-fill: #f4f4f5;
+}
+
+#sb-shell-root.theme-default .status-label,
+#sb-shell-root.theme-default .muted {
+    -fx-text-fill: #b4b4bc;
+}
+
+#sb-shell-root.theme-default .stat-tile-value {
+    -fx-text-fill: #fafafa;
+}
+
+#sb-shell-root.theme-default .stat-tile-primary .stat-tile-value {
+    -fx-text-fill: #93c5fd;
+}
+
+#sb-shell-root.theme-default .stat-tile-violet .stat-tile-value {
+    -fx-text-fill: #a5b4fc;
+}
+
+#sb-shell-root.theme-default .stat-tile-label {
+    -fx-text-fill: rgba(255, 255, 255, 0.8);
+}
+
+#sb-shell-root.theme-default .quick-card-title {
+    -fx-text-fill: #fafafa;
+}
+
+#sb-shell-root.theme-default .quick-card-accent-import .quick-card-title {
+    -fx-text-fill: #93c5fd;
+}
+
+#sb-shell-root.theme-default .quick-card-accent-generate .quick-card-title {
+    -fx-text-fill: #a5b4fc;
+}
+
+#sb-shell-root.theme-default .quick-card-accent-compose .quick-card-title {
+    -fx-text-fill: #2dd4bf;
+}
+
+#sb-shell-root.theme-default .quick-card-accent-reports .quick-card-title {
+    -fx-text-fill: #fb923c;
+}
+
+#sb-shell-root.theme-default .quick-card-desc {
+    -fx-text-fill: rgba(255, 255, 255, 0.82);
+}
+
+#sb-shell-root.theme-default .quick-card-accent-import .quick-card-cta {
+    -fx-text-fill: #e0f2fe;
+}
+
+#sb-shell-root.theme-default .quick-card-accent-generate .quick-card-cta {
+    -fx-text-fill: #ede9fe;
+}
+
+#sb-shell-root.theme-default .quick-card-accent-compose .quick-card-cta {
+    -fx-text-fill: #ccfbf1;
+}
+
+#sb-shell-root.theme-default .quick-card-accent-reports .quick-card-cta {
+    -fx-text-fill: #ffedd5;
+}
+
+#sb-shell-root.theme-default .quick-icon-import .quick-card-icon {
+    -fx-text-fill: #93c5fd;
+}
+
+#sb-shell-root.theme-default .quick-icon-generate .quick-card-icon {
+    -fx-text-fill: #a5b4fc;
+}
+
+#sb-shell-root.theme-default .quick-icon-compose .quick-card-icon {
+    -fx-text-fill: #2dd4bf;
+}
+
+#sb-shell-root.theme-default .quick-icon-reports .quick-card-icon {
+    -fx-text-fill: #fb923c;
+}
+
+#sb-shell-root.theme-default .text-field,
+#sb-shell-root.theme-default .text-area {
+    -fx-text-fill: #fafafa;
+}
+
+#sb-shell-root.sb-dark-ui .combo-box.combo-styled > .list-cell {
+    -fx-text-fill: #fafafa;
+    -fx-background-color: #27272a;
+}
+
+#sb-shell-root.sb-dark-ui .combo-box.combo-styled .combo-box-base {
+    -fx-background-color: #27272a;
+}
+
+#sb-shell-root.sb-dark-ui .combo-box.combo-styled .combo-box-base > .list-cell {
+    -fx-background-color: #27272a;
+    -fx-text-fill: #fafafa;
+}
+
+#sb-shell-root.sb-dark-ui .combo-box.combo-styled:hover .combo-box-base {
+    -fx-background-color: #3f3f46;
+}
+
+#sb-shell-root.sb-dark-ui .combo-box.combo-styled:hover .combo-box-base > .list-cell {
+    -fx-background-color: #3f3f46;
+    -fx-text-fill: #fafafa;
+}
+
+#sb-shell-root.sb-dark-ui .combo-box.combo-styled:focused .combo-box-base {
+    -fx-background-color: #3f3f46;
+}
+
+#sb-shell-root.sb-dark-ui .combo-box.combo-styled:focused .combo-box-base > .list-cell {
+    -fx-background-color: #3f3f46;
+    -fx-text-fill: #fafafa;
+}
+
+#sb-shell-root.sb-dark-ui .combo-box.combo-styled .arrow-button {
+    -fx-background-color: #3f3f46;
+    -fx-border-color: #52525b;
+    -fx-border-width: 0 0 0 1;
+}
+
+#sb-shell-root.sb-dark-ui .combo-box.combo-styled:hover .arrow-button,
+#sb-shell-root.sb-dark-ui .combo-box.combo-styled:focused .arrow-button,
+#sb-shell-root.sb-dark-ui .combo-box.combo-styled:showing .arrow-button {
+    -fx-background-color: #52525b;
+}
+
+#sb-shell-root.sb-dark-ui .combo-box.combo-styled .arrow {
+    -fx-background-color: #e4e4e7;
+}
+
+#sb-shell-root.theme-default .table-view.table-clean .table-cell,
+#sb-shell-root.theme-default .table-view.table-clean .table-row-cell .table-cell,
+#sb-shell-root.sb-dark-ui .table-view.table-clean .table-cell,
+#sb-shell-root.sb-dark-ui .table-view.table-clean .table-row-cell .table-cell {
+    -fx-text-fill: #ffffff;
+}
+
+#sb-shell-root.theme-default .table-view.table-clean .column-header .label,
+#sb-shell-root.theme-default .table-view.table-clean .nested-column-header .label,
+#sb-shell-root.sb-dark-ui .table-view.table-clean .column-header .label,
+#sb-shell-root.sb-dark-ui .table-view.table-clean .nested-column-header .label {
+    -fx-text-fill: #ffffff;
+}
+
+#sb-shell-root.theme-default .about-title {
+    -fx-text-fill: #fafafa;
+}
+
+#sb-shell-root.theme-default .about-body {
+    -fx-text-fill: #b4b4bc;
+}
+
+#sb-shell-root.theme-default .corpus-stat-value {
+    -fx-text-fill: #fafafa;
+}
+
+#sb-shell-root.theme-default .corpus-stat-label,
+#sb-shell-root.sb-dark-ui .corpus-stat-label {
+    -fx-text-fill: rgba(255, 255, 255, 0.92);
+}
+
+#sb-shell-root.theme-default .corpus-bar-label {
+    -fx-text-fill: #fafafa;
+}
+
+#sb-shell-root.theme-default .corpus-bar-value {
+    -fx-text-fill: #e4e4e7;
+}
+
+#sb-shell-root.theme-default .corpus-share-line {
+    -fx-text-fill: #e4e4e7;
+}
+
+#sb-shell-root.theme-default .pill-label {
+    -fx-text-fill: #a5b4fc;
+}
+
+#sb-shell-root.theme-default .suggestion-chip {
+    -fx-text-fill: #fafafa;
+}
+
+#sb-shell-root.theme-default .suggestion-chip:hover {
+    -fx-text-fill: #2dd4bf;
+}
+
+/* ---- Leaf .text fills (backup if skin still paints Text separately) ---- */
+#sb-shell-root.theme-default .nav-toggle .text {
+    -fx-fill: rgba(255, 255, 255, 0.9);
+}
+
+#sb-shell-root.theme-default .nav-toggle:hover .text,
+#sb-shell-root.theme-default .nav-toggle:armed .text {
+    -fx-fill: #5eead4;
+}
+
+#sb-shell-root.theme-default .nav-toggle:selected .text,
+#sb-shell-root.theme-default .nav-toggle:selected:hover .text {
+    -fx-fill: #bfdbfe;
+}
+
+#sb-shell-root.theme-default .sidebar-brand .text {
+    -fx-fill: #fafafa;
+}
+
+#sb-shell-root.theme-default .sidebar-mark-badge .text {
+    -fx-fill: #93c5fd;
+}
+
+#sb-shell-root.theme-default .sidebar-tagline .text,
+#sb-shell-root.sb-dark-ui .sidebar-tagline .text {
+    -fx-fill: rgba(255, 255, 255, 0.92);
+}
+
+#sb-shell-root.theme-default .sidebar-section-label .text,
+#sb-shell-root.sb-dark-ui .sidebar-section-label .text {
+    -fx-fill: rgba(255, 255, 255, 0.92);
+}
+
+#sb-shell-root.theme-default .sidebar-footer-label .text,
+#sb-shell-root.sb-dark-ui .sidebar-footer-label .text {
+    -fx-fill: rgba(255, 255, 255, 0.92);
+}
+
+#sb-shell-root.theme-default .header-title .text {
+    -fx-fill: #fafafa;
+}
+
+#sb-shell-root.theme-default .header-sub .text {
+    -fx-fill: #e4e4e7;
+}
+
+#sb-shell-root.theme-default .header-pill .text {
+    -fx-fill: #fb923c;
+}
+
+#sb-shell-root.theme-default .label.section-eyebrow.section-eyebrow-primary .text,
+#sb-shell-root.sb-dark-ui .label.section-eyebrow.section-eyebrow-primary .text {
+    -fx-fill: #ffffff;
+}
+
+#sb-shell-root.theme-default .label.section-eyebrow.section-eyebrow-teal .text,
+#sb-shell-root.sb-dark-ui .label.section-eyebrow.section-eyebrow-teal .text,
+#sb-shell-root.theme-default .label.section-eyebrow.section-eyebrow-violet .text,
+#sb-shell-root.sb-dark-ui .label.section-eyebrow.section-eyebrow-violet .text,
+#sb-shell-root.theme-default .label.section-eyebrow.section-eyebrow-amber .text,
+#sb-shell-root.sb-dark-ui .label.section-eyebrow.section-eyebrow-amber .text {
+    -fx-fill: #ffffff;
+}
+
+#sb-shell-root.theme-default .section-eyebrow:not(.section-eyebrow-primary) .text,
+#sb-shell-root.sb-dark-ui .section-eyebrow:not(.section-eyebrow-primary) .text {
+    -fx-fill: rgba(255, 255, 255, 0.92);
+}
+
+#sb-shell-root.theme-default .section-heading-hero .text,
+#sb-shell-root.theme-default .section-heading .text,
+#sb-shell-root.sb-dark-ui .section-heading-hero .text,
+#sb-shell-root.sb-dark-ui .section-heading .text {
+    -fx-fill: #ffffff;
+}
+
+#sb-shell-root.theme-default .section-lead .text,
+#sb-shell-root.sb-dark-ui .section-lead .text {
+    -fx-fill: #e4e4e7;
+}
+
+#sb-shell-root.theme-default .card-title .text {
+    -fx-fill: #fafafa;
+}
+
+#sb-shell-root.theme-default .card-subtitle .text {
+    -fx-fill: #e4e4e7;
+}
+
+#sb-shell-root.theme-default .card-subtitle-muted .text {
+    -fx-fill: #b4b4bc;
+}
+
+#sb-shell-root.theme-default .field-label .text,
+#sb-shell-root.sb-dark-ui .field-label .text {
+    -fx-fill: #f4f4f5;
+}
+
+#sb-shell-root.theme-default .status-label .text,
+#sb-shell-root.theme-default .muted .text {
+    -fx-fill: #b4b4bc;
+}
+
+#sb-shell-root.theme-default .stat-tile-value .text {
+    -fx-fill: #fafafa;
+}
+
+#sb-shell-root.theme-default .stat-tile-primary .stat-tile-value .text {
+    -fx-fill: #93c5fd;
+}
+
+#sb-shell-root.theme-default .stat-tile-violet .stat-tile-value .text {
+    -fx-fill: #a5b4fc;
+}
+
+#sb-shell-root.theme-default .stat-tile-label .text {
+    -fx-fill: rgba(255, 255, 255, 0.8);
+}
+
+#sb-shell-root.theme-default .quick-card-title .text {
+    -fx-fill: #fafafa;
+}
+
+#sb-shell-root.theme-default .quick-card-accent-import .quick-card-title .text {
+    -fx-fill: #93c5fd;
+}
+
+#sb-shell-root.theme-default .quick-card-accent-generate .quick-card-title .text {
+    -fx-fill: #a5b4fc;
+}
+
+#sb-shell-root.theme-default .quick-card-accent-compose .quick-card-title .text {
+    -fx-fill: #2dd4bf;
+}
+
+#sb-shell-root.theme-default .quick-card-accent-reports .quick-card-title .text {
+    -fx-fill: #fb923c;
+}
+
+#sb-shell-root.theme-default .quick-card-desc .text {
+    -fx-fill: rgba(255, 255, 255, 0.82);
+}
+
+#sb-shell-root.theme-default .quick-card-accent-import .quick-card-cta .text {
+    -fx-fill: #e0f2fe;
+}
+
+#sb-shell-root.theme-default .quick-card-accent-generate .quick-card-cta .text {
+    -fx-fill: #ede9fe;
+}
+
+#sb-shell-root.theme-default .quick-card-accent-compose .quick-card-cta .text {
+    -fx-fill: #ccfbf1;
+}
+
+#sb-shell-root.theme-default .quick-card-accent-reports .quick-card-cta .text {
+    -fx-fill: #ffedd5;
+}
+
+#sb-shell-root.theme-default .quick-icon-import .quick-card-icon .text {
+    -fx-fill: #93c5fd;
+}
+
+#sb-shell-root.theme-default .quick-icon-generate .quick-card-icon .text {
+    -fx-fill: #a5b4fc;
+}
+
+#sb-shell-root.theme-default .quick-icon-compose .quick-card-icon .text {
+    -fx-fill: #2dd4bf;
+}
+
+#sb-shell-root.theme-default .quick-icon-reports .quick-card-icon .text {
+    -fx-fill: #fb923c;
+}
+
+#sb-shell-root.theme-default .text-field .text,
+#sb-shell-root.theme-default .text-area .text {
+    -fx-fill: #fafafa;
+}
+
+#sb-shell-root.sb-dark-ui .combo-box.combo-styled > .list-cell .text,
+#sb-shell-root.sb-dark-ui .combo-box.combo-styled .combo-box-base > .list-cell .text {
+    -fx-fill: #fafafa;
+}
+
+#sb-shell-root.theme-default .table-view.table-clean .table-cell .text,
+#sb-shell-root.theme-default .table-view.table-clean .table-row-cell .table-cell .text,
+#sb-shell-root.sb-dark-ui .table-view.table-clean .table-cell .text,
+#sb-shell-root.sb-dark-ui .table-view.table-clean .table-row-cell .table-cell .text {
+    -fx-fill: #ffffff;
+}
+
+#sb-shell-root.theme-default .table-view.table-clean .column-header .label .text,
+#sb-shell-root.theme-default .table-view.table-clean .nested-column-header .label .text,
+#sb-shell-root.sb-dark-ui .table-view.table-clean .column-header .label .text,
+#sb-shell-root.sb-dark-ui .table-view.table-clean .nested-column-header .label .text {
+    -fx-fill: #ffffff;
+}
+
+#sb-shell-root.theme-default .about-title .text {
+    -fx-fill: #fafafa;
+}
+
+#sb-shell-root.theme-default .about-body .text {
+    -fx-fill: #b4b4bc;
+}
+
+#sb-shell-root.theme-default .corpus-stat-value .text {
+    -fx-fill: #fafafa;
+}
+
+#sb-shell-root.theme-default .corpus-stat-label .text,
+#sb-shell-root.sb-dark-ui .corpus-stat-label .text {
+    -fx-fill: rgba(255, 255, 255, 0.92);
+}
+
+#sb-shell-root.theme-default .corpus-bar-label .text {
+    -fx-fill: #fafafa;
+}
+
+#sb-shell-root.theme-default .corpus-bar-value .text {
+    -fx-fill: #e4e4e7;
+}
+
+#sb-shell-root.theme-default .corpus-share-line .text {
+    -fx-fill: #e4e4e7;
+}
+
+#sb-shell-root.theme-default .pill-label .text {
+    -fx-fill: #a5b4fc;
+}
+
+#sb-shell-root.theme-default .suggestion-chip .text {
+    -fx-fill: #fafafa;
+}
+
+#sb-shell-root.theme-default .suggestion-chip:hover .text {
+    -fx-fill: #2dd4bf;
+}
+
+/*
+ * Last-pass shell dark inputs: prompt fill can lose to .text-field/.text-area earlier in this file;
+ * theme-default+sb-dark-ui on the same node matches the main app shell.
+ */
+#sb-shell-root.theme-default.sb-dark-ui .text-field,
+#sb-shell-root.theme-default.sb-dark-ui .text-area {
+    -fx-prompt-text-fill: #e4e4e7;
+}
+
+#sb-shell-root.theme-default.sb-dark-ui .text-field .text,
+#sb-shell-root.theme-default.sb-dark-ui .text-area .text {
+    -fx-fill: #fafafa;
 }

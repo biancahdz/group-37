@@ -19,18 +19,18 @@ import com.group37.sentencebuilder.ui_layer.DatabasePage;
 
 import com.group37.sentencebuilder.data_layer.Database;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import com.group37.sentencebuilder.ui.DarkSurfaceText;
+import com.group37.sentencebuilder.ui.UiPreferences;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.paint.Color;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
-import javafx.util.Duration;
 import javafx.concurrent.Task;
 
 import java.io.File;
@@ -73,6 +73,9 @@ public class ImportController implements ApplicationPage, DatabasePage {
     @FXML
     private TableColumn<ImportHistoryRow, String> colStatus;
 
+    @FXML
+    private Label sectionEyebrowLabel;
+
     private File stagedFile;
 
     @Override
@@ -83,6 +86,21 @@ public class ImportController implements ApplicationPage, DatabasePage {
             importTable.setItems(database.getTxtHistory());
             database.disconnect();
         }
+        applyImportEyebrowContrast();
+    }
+
+    /** Backup to shell chrome: forces leaf {@code Text} fill after layout / DB work. */
+    private void applyImportEyebrowContrast() {
+        if (sectionEyebrowLabel == null) {
+            return;
+        }
+        if (!UiPreferences.get().isResolvedDarkSurface()) {
+            sectionEyebrowLabel.setTextFill(null);
+            sectionEyebrowLabel.setStyle(null);
+            return;
+        }
+        DarkSurfaceText.forceLabeledFill(sectionEyebrowLabel, Color.WHITE);
+        Platform.runLater(() -> DarkSurfaceText.forceLabeledFill(sectionEyebrowLabel, Color.WHITE));
     }
 
     @Override
@@ -100,6 +118,7 @@ public class ImportController implements ApplicationPage, DatabasePage {
 
         importProgress.setProgress(0);
         importStatusLabel.setText("No import running.");
+
     }
 
     @FXML

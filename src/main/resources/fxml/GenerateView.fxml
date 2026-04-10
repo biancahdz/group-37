@@ -12,7 +12,7 @@
 <VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.group37.sentencebuilder.ui_layer.GenerateController"
       styleClass="page-root" spacing="0">
-    <Label text="GENERATE" styleClass="section-eyebrow section-eyebrow-violet"/>
+    <Label fx:id="sectionEyebrowLabel" text="GENERATE" styleClass="section-eyebrow section-eyebrow-primary"/>
     <Label text="Sentence generator" styleClass="section-heading"/>
     <Label styleClass="section-lead" wrapText="true"
            text="Provide an optional seed word and pick an algorithm profile. Output below is placeholder text until the engine is connected."/>

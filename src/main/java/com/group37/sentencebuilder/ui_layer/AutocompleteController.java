@@ -13,17 +13,22 @@ package com.group37.sentencebuilder.ui_layer;
 
 import com.group37.sentencebuilder.data_layer.Database;
 
+import com.group37.sentencebuilder.ui.DarkSurfaceText;
+import com.group37.sentencebuilder.ui.UiPreferences;
+
 import com.group37.sentencebuilder.ui_layer.ApplicationPage;
 import com.group37.sentencebuilder.ui_layer.DatabasePage;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.concurrent.Task;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.paint.Color;
 
 /** Auto-complete screen with mock suggestion chips. */
 public class AutocompleteController implements ApplicationPage, DatabasePage {
@@ -38,6 +43,9 @@ public class AutocompleteController implements ApplicationPage, DatabasePage {
 
     @FXML
     private Label hintLabel;
+
+    @FXML
+    private Label sectionEyebrowLabel;
 
     @FXML
     private void initialize() {
@@ -146,9 +154,31 @@ public class AutocompleteController implements ApplicationPage, DatabasePage {
     @Override
     public void onPageEnter()
     {
+        applyAutocompleteDarkChrome();
+
         database.connect();
 
         refreshSuggestions(prefixField.getText());
+    }
+
+    /** Matches Import/Generate: shell CSS alone leaves small-caps eyebrow + prompt too dim on black. */
+    private void applyAutocompleteDarkChrome() {
+        if (!UiPreferences.get().isResolvedDarkSurface()) {
+            if (sectionEyebrowLabel != null) {
+                sectionEyebrowLabel.setTextFill(null);
+                sectionEyebrowLabel.setStyle(null);
+            }
+            return;
+        }
+        if (sectionEyebrowLabel != null) {
+            DarkSurfaceText.forceLabeledFill(sectionEyebrowLabel, Color.WHITE);
+            Platform.runLater(() -> DarkSurfaceText.forceLabeledFill(sectionEyebrowLabel, Color.WHITE));
+        }
+        Platform.runLater(() -> {
+            if (prefixField != null) {
+                prefixField.setStyle("-fx-prompt-text-fill: #e4e4e7;");
+            }
+        });
     }
 
     @Override

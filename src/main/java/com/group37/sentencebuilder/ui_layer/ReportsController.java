@@ -1,18 +1,24 @@
 package com.group37.sentencebuilder.ui_layer;
 
+import com.group37.sentencebuilder.ui.DarkSurfaceText;
+import com.group37.sentencebuilder.ui.UiPreferences;
+
 import com.group37.sentencebuilder.ui_layer.model.ReportRow;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.paint.Color;
 
 /** Reports table UI with mock rows and client-side filter (no database). */
-public class ReportsController {
+public class ReportsController implements ApplicationPage {
 
     @FXML
     private ComboBox<String> algorithmFilter;
@@ -34,6 +40,9 @@ public class ReportsController {
 
     @FXML
     private TableColumn<ReportRow, String> colPreview;
+
+    @FXML
+    private Label sectionEyebrowLabel;
 
     private ObservableList<ReportRow> master;
 
@@ -79,5 +88,28 @@ public class ReportsController {
             // Date filter is visual only for demo — all mock rows pass
             return true;
         });
+    }
+
+    @Override
+    public void onPageEnter() {
+        applyReportsDarkChrome();
+    }
+
+    @Override
+    public void onPageLeave() {
+    }
+
+    private void applyReportsDarkChrome() {
+        if (!UiPreferences.get().isResolvedDarkSurface()) {
+            if (sectionEyebrowLabel != null) {
+                sectionEyebrowLabel.setTextFill(null);
+                sectionEyebrowLabel.setStyle(null);
+            }
+            return;
+        }
+        if (sectionEyebrowLabel != null) {
+            DarkSurfaceText.forceLabeledFill(sectionEyebrowLabel, Color.WHITE);
+            Platform.runLater(() -> DarkSurfaceText.forceLabeledFill(sectionEyebrowLabel, Color.WHITE));
+        }
     }
 }
