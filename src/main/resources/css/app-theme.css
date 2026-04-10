@@ -465,6 +465,46 @@
     -fx-max-width: 100000;
 }
 
+.help-page-root {
+    -fx-spacing: 18;
+}
+
+.help-intro-panel {
+    -fx-border-width: 1 1 1 5;
+    -fx-border-color: sb-border sb-border sb-border sb-amber-border;
+}
+
+.help-intro-lead {
+    -fx-padding: 0;
+    -fx-max-width: 100000;
+}
+
+.help-tip-panel {
+    -fx-border-width: 1 1 1 4;
+    -fx-border-color: sb-border sb-border sb-border sb-teal-border;
+}
+
+.about-mail-link,
+.help-mail-link {
+    -fx-padding: 0;
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+    -fx-font-size: 0.962em;
+    -fx-text-fill: sb-accent;
+    -fx-underline: true;
+    -fx-cursor: hand;
+}
+
+.about-mail-link:hover,
+.help-mail-link:hover {
+    -fx-text-fill: sb-accent-hover;
+}
+
+.about-mail-link:visited,
+.help-mail-link:visited {
+    -fx-text-fill: sb-violet;
+}
+
 .home-metrics-panel {
     -fx-padding: 20 24 22 24;
 }
