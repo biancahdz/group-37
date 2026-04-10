@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -82,6 +83,11 @@
                     <Label text="Stack" styleClass="about-title"/>
                     <Label styleClass="about-body" wrapText="true"
                            text="Java · JavaFX · MySQL. Built with IntelliJ."/>
+                </VBox>
+                <VBox styleClass="about-block settings-about-chip" spacing="6">
+                    <Label text="Contact" styleClass="about-title"/>
+                    <Hyperlink fx:id="contactMailHyperlink" onAction="#onContactMailClicked"
+                               styleClass="about-mail-link" wrapText="true"/>
                 </VBox>
             </VBox>
         </VBox>

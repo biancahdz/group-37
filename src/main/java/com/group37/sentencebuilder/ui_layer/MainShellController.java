@@ -68,6 +68,9 @@ public class MainShellController {
     @FXML
     private ToggleButton navSettings;
 
+    @FXML
+    private ToggleButton navHelp;
+
     private final Map<ViewKey, Parent> viewCache = new EnumMap<>(ViewKey.class);
 
     /** Suppresses nav toggle listeners while we sync the sidebar programmatically. */
@@ -84,6 +87,7 @@ public class MainShellController {
         wireNav(navReports, ViewKey.REPORTS);
         wireNav(navCorpusStats, ViewKey.CORPUS_STATS);
         wireNav(navSettings, ViewKey.SETTINGS);
+        wireNav(navHelp, ViewKey.HELP);
 
         showView(ViewKey.HOME);
     }
@@ -161,6 +165,7 @@ public class MainShellController {
             case REPORTS -> "Reports";
             case CORPUS_STATS -> "Word analytics";
             case SETTINGS -> "Settings & About";
+            case HELP -> "Help";
         };
     }
 
@@ -173,6 +178,7 @@ public class MainShellController {
             case REPORTS -> "/fxml/ReportsView.fxml";
             case CORPUS_STATS -> "/fxml/CorpusStatsView.fxml";
             case SETTINGS -> "/fxml/SettingsView.fxml";
+            case HELP -> "/fxml/HelpView.fxml";
         };
         try {
 

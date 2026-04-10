@@ -7,6 +7,7 @@ import com.group37.sentencebuilder.ui.UiPreferences;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.ListCell;
 
 import java.util.function.Function;
@@ -29,6 +30,9 @@ public class SettingsController {
     @FXML
     private ComboBox<FontSizePreset> fontSizeCombo;
 
+    @FXML
+    private Hyperlink contactMailHyperlink;
+
     public void setOnLogout(Runnable onLogout) {
         this.onLogout = onLogout;
     }
@@ -41,7 +45,14 @@ public class SettingsController {
     }
 
     @FXML
+    private void onContactMailClicked() {
+        Mailto.openSupportInbox();
+    }
+
+    @FXML
     private void initialize() {
+        contactMailHyperlink.setText(Mailto.SUPPORT_EMAIL);
+
         UiPreferences prefs = UiPreferences.get();
 
         themeCombo.setItems(FXCollections.observableArrayList(AppTheme.values()));
