@@ -27,11 +27,6 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-
-import java.io.IOException;
-import java.io.File;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.*;
 
 public class Database
@@ -46,6 +41,13 @@ public class Database
     private String username = null;
     private String password = null;
     private String dbName = DEFAULT_DATABASE_NAME;
+
+    public String getUsername() { return this.username; }
+    public String getPassword() { return this.password; }
+    // Returns the active connection. Used by DefaultDataLoader to execute batch SQL.
+    public Connection getConnection() {
+        return this.conn;
+    }
 
     public Database(String username, String password, String dbName) {
         this.username = username;
