@@ -24,6 +24,12 @@
     </VBox>
 
     <VBox spacing="16" styleClass="content-card content-card-elevated" maxWidth="Infinity">
+        <Label text="First launch &amp; empty database" styleClass="card-title"/>
+        <Label styleClass="card-subtitle card-subtitle-muted" wrapText="true" maxWidth="Infinity"
+               text="After you sign in (or when the app auto-starts with a saved DB config), if there are no imported text files yet, the app imports bundled sample .txt files from resources/defaults so generate and analytics have data. You can add your own files later on Import."/>
+    </VBox>
+
+    <VBox spacing="16" styleClass="content-card" maxWidth="Infinity">
         <Label text="Home" styleClass="card-title"/>
         <Label styleClass="card-subtitle card-subtitle-muted" wrapText="true" maxWidth="Infinity"
                text="Overview of the app plus live counts for text sources and sentences (when the database is available). Workspace buttons open the same pages as the sidebar."/>

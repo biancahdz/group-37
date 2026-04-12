@@ -33,13 +33,20 @@ public class DefaultDataLoader {
         "sample2.txt"
     };
 
-    // Returns true if the database has no imported text files yet.
-    // Requires an active connection on the given Database instance.
+    /**
+     * @return true only when we can connect and the {@code txt} table has no rows yet.
+     *         If connect fails, returns false so we do not run preload on a bad connection
+     *         ({@link Database#getTxtCount()} would otherwise report 0 with no connection).
+     */
     public static boolean isDatabaseEmpty(Database database) {
-        database.connect();
-        int count = database.getTxtCount();
-        database.disconnect();
-        return count == 0;
+        if (!database.connect()) {
+            return false;
+        }
+        try {
+            return database.getTxtCount() == 0;
+        } finally {
+            database.disconnect();
+        }
     }
 
     // Builds a list of TxtFileReader tasks for each bundled default file.
@@ -50,20 +57,15 @@ public class DefaultDataLoader {
         List<Task<Void>> tasks = new ArrayList<>();
 
         for (String resourceName : DEFAULT_FILES) {
-            try {
-                // Copy the bundled resource to a temp file
-                InputStream in = DefaultDataLoader.class
-                        .getResourceAsStream("/defaults/" + resourceName);
-
+            try (InputStream in = DefaultDataLoader.class.getResourceAsStream("/defaults/" + resourceName)) {
                 if (in == null) {
-                    System.err.println("[DefaultDataLoader] Resource not found: " + resourceName);
+                    System.err.println("[DefaultDataLoader] Resource not found: /defaults/" + resourceName);
                     continue;
                 }
 
                 Path tempFile = Files.createTempFile("sb_default_", "_" + resourceName);
                 tempFile.toFile().deleteOnExit();
                 Files.copy(in, tempFile, StandardCopyOption.REPLACE_EXISTING);
-                in.close();
 
                 TxtFileReader reader = new TxtFileReader(tempFile.toFile(), resourceName);
                 tasks.add(reader.createTask());

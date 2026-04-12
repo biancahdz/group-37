@@ -176,16 +176,25 @@ public class TitleController {
                 final int total = tasks.size();
                 Platform.runLater(() ->
                     statusLabel.setText("Importing default files (" + fileNum + "/" + total + ")..."));
+                Task<Void> task = tasks.get(i);
                 try {
-                    tasks.get(i).run();
+                    task.run();
                 } catch (Exception e) {
                     System.err.println("[DefaultDataLoader] Task failed: " + e.getMessage());
+                    e.printStackTrace();
+                }
+                Throwable ex = task.getException();
+                if (ex != null) {
+                    System.err.println("[DefaultDataLoader] Import error for file " + fileNum + ": " + ex.getMessage());
+                    ex.printStackTrace();
                 }
             }
 
             Platform.runLater(() -> {
                 statusLabel.setText("Done!");
-                if (onLoginSuccess != null) onLoginSuccess.run();
+                if (onLoginSuccess != null) {
+                    onLoginSuccess.run();
+                }
             });
         });
 
