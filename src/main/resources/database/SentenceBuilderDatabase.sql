@@ -4,7 +4,7 @@
 /*  Java code connects via data_layer.Database (see db_config). */
 /*==============================================================*/
 
-DROP DATABASE SentenceBuilder;
+DROP DATABASE IF EXISTS SentenceBuilder;
 CREATE DATABASE IF NOT EXISTS SentenceBuilder;
 USE SentenceBuilder;
 
