@@ -177,7 +177,9 @@ public class TitleController {
 
             Platform.runLater(() -> {
                 statusLabel.setText("Done!");
-                if (onLoginSuccess != null) onLoginSuccess.run();
+                if (onLoginSuccess != null) {
+                    onLoginSuccess.run();
+                }
             });
         });
 

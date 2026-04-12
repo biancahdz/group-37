@@ -153,10 +153,14 @@ public class DefaultDataLoader {
      * @return true if no text files have been imported yet, false otherwise
      */
     public static boolean isDatabaseEmpty(Database database) {
-        database.connect();
-        int count = database.getTxtCount();
-        database.disconnect();
-        return count == 0;
+        if (!database.connect()) {
+            return false;
+        }
+        try {
+            return database.getTxtCount() == 0;
+        } finally {
+            database.disconnect();
+        }
     }
 
     /**
