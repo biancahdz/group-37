@@ -27,7 +27,15 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.io.*;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.FileOutputStream;
 
 public class Database
 {
@@ -1001,12 +1009,12 @@ public class Database
             return false;
         }
 
+        // Persisting credentials is best-effort; successful DB auth should still allow login.
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(CONFIG_FILE))) {
             writer.write(user);
             writer.newLine();
             writer.write(pass);
-        } catch (IOException e) {
-            return false;
+        } catch (IOException ignored) {
         }
 
         return true;
