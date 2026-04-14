@@ -29,7 +29,7 @@ import javafx.scene.paint.Color;
 
 import java.util.function.Consumer;
 
-/** Dashboard / welcome screen (placeholder content). */
+/** Dashboard / welcome screen with live metrics and workspace shortcuts. */
 public class HomeController implements ApplicationPage, DatabasePage {
 
     private Database database;
@@ -164,22 +164,22 @@ public class HomeController implements ApplicationPage, DatabasePage {
     }
 
     @FXML
-    private void onQuickGenerate(MouseEvent e) {
+    private void onQuickGenerate() {
         navigator.accept(ViewKey.GENERATE);
     }
 
     @FXML
-    private void onQuickAutocomplete(MouseEvent e) {
+    private void onQuickAutocomplete() {
         navigator.accept(ViewKey.AUTOCOMPLETE);
     }
 
     @FXML
-    private void onQuickReports(MouseEvent e) {
+    private void onQuickReports() {
         navigator.accept(ViewKey.REPORTS);
     }
 
     @FXML
-    private void onQuickCorpusStats(MouseEvent e) {
+    private void onQuickCorpusStats() {
         navigator.accept(ViewKey.CORPUS_STATS);
     }
 

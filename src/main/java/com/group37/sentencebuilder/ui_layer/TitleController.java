@@ -7,11 +7,15 @@
  * Author: Cortland Kimzey
  * Created: 2026-03-26
  * Last Modified: 2026-03-26 - Cortland Kimzey
- *                2026-04-26 - Amrita Thapa: Added runPreloadThenLaunch()
- *  to trigger default database preloading on login if the database is empty
- *  before transitioning to the main shell.
+ *                2026-04-09 - Amrita Thapa: Added runPreloadThenLaunch()
+ *                             to trigger default database preloading on
+ *                             login if the database is empty before
+ *                             transitioning to the main shell.
+ *                2026-04-10 - Amrita Thapa: Updated runPreloadThenLaunch()
+ *                             to call ensureSchema() on every login to
+ *                             automatically rebuild the database if the
+ *                             schema is missing or outdated.
  *
- * Version: 1.1
  */
 
 package com.group37.sentencebuilder.ui_layer;
@@ -37,6 +41,16 @@ import javafx.util.Duration;
 
 public class TitleController {
 
+    /**
+     * When true, the next FXML load shows the login panel instead of auto-entering the main shell
+     * (used after logout while {@link Database#canConnect()} is still true).
+     */
+    private static volatile boolean nextShowLoginOnly;
+
+    public static void setNextShowLoginOnly(boolean value) {
+        nextShowLoginOnly = value;
+    }
+
     @FXML private Label titleLabel;
     @FXML private VBox loginPane;
     @FXML private TextField usernameField;
@@ -53,10 +67,16 @@ public class TitleController {
     @FXML
     private void initialize()
     {
-        if (Database.canConnect())
+        boolean loginOnly = nextShowLoginOnly;
+        if (loginOnly) {
+            nextShowLoginOnly = false;
+        }
+
+        if (Database.canConnect() && !loginOnly) {
             launchAnimation();
-        else
+        } else {
             loginLaunchAnimation();
+        }
     }
 
     private void loginLaunchAnimation()
@@ -134,6 +154,9 @@ public class TitleController {
     private void runPreloadThenLaunch() {
         Thread thread = new Thread(() -> {
 
+            // Always check and fix schema first before anything else
+            DefaultDataLoader.ensureSchema(Database.getDatabase());
+
             boolean isEmpty = DefaultDataLoader.isDatabaseEmpty(
                     Database.getDatabase());
 
@@ -146,30 +169,17 @@ public class TitleController {
 
             Platform.runLater(() -> statusLabel.setText("Setting up for first time use..."));
 
-            List<Task<Void>> tasks = DefaultDataLoader.buildPreloadTasks();
+            boolean success = DefaultDataLoader.executeDump(Database.getDatabase());
 
-            if (tasks.isEmpty()) {
-                Platform.runLater(() -> {
-                    if (onLoginSuccess != null) onLoginSuccess.run();
-                });
-                return;
-            }
-
-            for (int i = 0; i < tasks.size(); i++) {
-                final int fileNum = i + 1;
-                final int total = tasks.size();
-                Platform.runLater(() ->
-                    statusLabel.setText("Importing default files (" + fileNum + "/" + total + ")..."));
-                try {
-                    tasks.get(i).run();
-                } catch (Exception e) {
-                    System.err.println("[DefaultDataLoader] Task failed: " + e.getMessage());
-                }
+            if (!success) {
+                System.err.println("[DefaultDataLoader] Dump failed, launching anyway.");
             }
 
             Platform.runLater(() -> {
                 statusLabel.setText("Done!");
-                if (onLoginSuccess != null) onLoginSuccess.run();
+                if (onLoginSuccess != null) {
+                    onLoginSuccess.run();
+                }
             });
         });
 

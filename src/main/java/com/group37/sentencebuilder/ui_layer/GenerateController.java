@@ -24,7 +24,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
-/** Sentence generator screen (output is placeholder text). */
+/** Sentence generator screen — runs corpus-backed generation algorithms. */
 public class GenerateController implements ApplicationPage {
 
     enum Algorithm {

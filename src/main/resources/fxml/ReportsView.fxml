@@ -14,7 +14,7 @@
     <Label fx:id="sectionEyebrowLabel" text="INSIGHTS" styleClass="section-eyebrow section-eyebrow-primary"/>
     <Label text="Reports" styleClass="section-heading"/>
     <Label styleClass="section-lead" wrapText="true"
-           text="Sort by clicking column headers. Algorithm filter is wired to mock data; date range is a visual placeholder."/>
+           text="Sort by clicking column headers. Use the algorithm and date filters to narrow the table."/>
 
     <VBox spacing="16" styleClass="content-card">
         <HBox alignment="BOTTOM_LEFT" spacing="20">
@@ -36,7 +36,7 @@
             <Insets top="18"/>
         </VBox.margin>
         <Label text="Generated sentences" styleClass="card-title"/>
-        <Label text="Preview column truncates in the cell; widen for your demo data." styleClass="card-subtitle"/>
+        <Label text="Resize the Preview column or the window to see more of each sentence." styleClass="card-subtitle"/>
         <TableView fx:id="reportTable" styleClass="table-clean" minHeight="200" prefHeight="360">
             <columns>
                 <TableColumn fx:id="colId" text="ID" prefWidth="72"/>

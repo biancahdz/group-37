@@ -27,11 +27,6 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-
-import java.io.IOException;
-import java.io.File;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.*;
 
 public class Database
@@ -47,6 +42,13 @@ public class Database
     private String password = null;
     private String dbName = DEFAULT_DATABASE_NAME;
 
+    public String getUsername() { return this.username; }
+    public String getPassword() { return this.password; }
+    // Returns the active connection. Used by DefaultDataLoader to execute batch SQL.
+    public Connection getConnection() {
+        return this.conn;
+    }
+
     public Database(String username, String password, String dbName) {
         this.username = username;
         this.password = password;
@@ -55,7 +57,7 @@ public class Database
 
     private static String jdbcUrl(String databaseName) {
         return "jdbc:mysql://" + JDBC_HOST + ":" + JDBC_PORT + "/" + databaseName
-                + "?useSSL=false&serverTimezone=UTC";
+                + "?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
     }
 
     public boolean connect() {
@@ -999,12 +1001,12 @@ public class Database
             return false;
         }
 
-        // Persisting credentials is best-effort; successful DB auth should still allow login.
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(CONFIG_FILE))) {
             writer.write(user);
             writer.newLine();
             writer.write(pass);
-        } catch (IOException ignored) {
+        } catch (IOException e) {
+            return false;
         }
 
         return true;

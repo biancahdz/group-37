@@ -11,9 +11,6 @@
 
 package com.group37.sentencebuilder.ui_layer;
 
-import com.group37.sentencebuilder.ui_layer.ApplicationPage;
-import com.group37.sentencebuilder.ui_layer.DatabasePage;
-
 import com.group37.sentencebuilder.data_layer.Database;
 
 import com.group37.sentencebuilder.ui.DarkSurfaceText;
@@ -53,6 +50,8 @@ public class MainShellController {
     private BorderPane shellRoot;
 
     private Object currentController;
+
+    private Runnable onLogout;
 
     @FXML
     private StackPane contentHost;
@@ -99,6 +98,9 @@ public class MainShellController {
     @FXML
     private ToggleButton navSettings;
 
+    @FXML
+    private ToggleButton navHelp;
+
     private final Map<ViewKey, Parent> viewCache = new EnumMap<>(ViewKey.class);
 
     /** Suppresses nav toggle listeners while we sync the sidebar programmatically. */
@@ -117,6 +119,7 @@ public class MainShellController {
         wireNav(navReports, ViewKey.REPORTS);
         wireNav(navCorpusStats, ViewKey.CORPUS_STATS);
         wireNav(navSettings, ViewKey.SETTINGS);
+        wireNav(navHelp, ViewKey.HELP);
 
         preventNavDeselection();
 
@@ -274,6 +277,17 @@ public class MainShellController {
         });
     }
 
+    /** Wired from {@link com.group37.sentencebuilder.SentenceBuilderApp} to return to the login scene. */
+    public void setOnLogout(Runnable onLogout) {
+        this.onLogout = onLogout;
+    }
+
+    public void requestLogout() {
+        if (onLogout != null) {
+            onLogout.run();
+        }
+    }
+
     private void wireNav(ToggleButton button, ViewKey key) {
         button.setUserData(key);
         button.selectedProperty().addListener((obs, was, isNow) -> {
@@ -340,6 +354,7 @@ public class MainShellController {
             case REPORTS -> "Reports";
             case CORPUS_STATS -> "Word analytics";
             case SETTINGS -> "Settings & About";
+            case HELP -> "Help";
         };
     }
 
@@ -352,6 +367,7 @@ public class MainShellController {
             case REPORTS -> "/fxml/ReportsView.fxml";
             case CORPUS_STATS -> "/fxml/CorpusStatsView.fxml";
             case SETTINGS -> "/fxml/SettingsView.fxml";
+            case HELP -> "/fxml/HelpView.fxml";
         };
         try {
 
@@ -370,6 +386,10 @@ public class MainShellController {
             if (ctrl instanceof DatabasePage dbController)
             {
                 dbController.setDatabase(Database.getDatabase());
+            }
+
+            if (ctrl instanceof SettingsController settings) {
+                settings.setOnLogout(this::requestLogout);
             }
 
             currentController = ctrl;

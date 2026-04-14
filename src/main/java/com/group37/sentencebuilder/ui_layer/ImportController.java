@@ -35,7 +35,7 @@ import javafx.concurrent.Task;
 
 import java.io.File;
 
-/** Import screen UI — file picker and progress are visual stubs only. */
+/** Import screen — choose a text file and import into the corpus. */
 public class ImportController implements ApplicationPage, DatabasePage {
 
     private Database database;
@@ -131,7 +131,7 @@ public class ImportController implements ApplicationPage, DatabasePage {
         if (file != null) {
             stagedFile = file;
             selectedFileLabel.setText(file.getName());
-            importStatusLabel.setText("File selected — ready to import (UI demo).");
+            importStatusLabel.setText("File selected — ready to import.");
         }
     }
 

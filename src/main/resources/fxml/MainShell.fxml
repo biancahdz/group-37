@@ -35,6 +35,9 @@
             <ToggleButton fx:id="navReports" text="Reports" toggleGroup="$navGroup" styleClass="nav-toggle" maxWidth="Infinity"/>
             <ToggleButton fx:id="navCorpusStats" text="Word analytics" toggleGroup="$navGroup" styleClass="nav-toggle" maxWidth="Infinity"/>
             <ToggleButton fx:id="navSettings" text="Settings" toggleGroup="$navGroup" styleClass="nav-toggle" maxWidth="Infinity"/>
+            <Separator styleClass="sidebar-sep"/>
+            <Label text="REFERENCE" styleClass="sidebar-section-label"/>
+            <ToggleButton fx:id="navHelp" text="Help" toggleGroup="$navGroup" styleClass="nav-toggle" maxWidth="Infinity"/>
             <VBox VBox.vgrow="ALWAYS"/>
             <VBox styleClass="sidebar-footer">
                 <Label fx:id="shellFooterLabel" styleClass="sidebar-footer-label"

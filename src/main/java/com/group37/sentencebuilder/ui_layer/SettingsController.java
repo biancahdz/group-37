@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.Pane;
@@ -26,6 +27,8 @@ import java.util.function.Function;
  */
 public class SettingsController implements ApplicationPage {
 
+    private Runnable onLogout;
+
     @FXML
     private ComboBox<AppTheme> themeCombo;
 
@@ -38,10 +41,31 @@ public class SettingsController implements ApplicationPage {
     @FXML
     private Pane settingsPageRoot;
 
+    @FXML
+    private Hyperlink contactMailHyperlink;
+
     private final InvalidationListener settingsChromeRefresh = obs -> applySettingsPageChrome();
+
+    public void setOnLogout(Runnable onLogout) {
+        this.onLogout = onLogout;
+    }
+
+    @FXML
+    private void onLogoutClicked() {
+        if (onLogout != null) {
+            onLogout.run();
+        }
+    }
+
+    @FXML
+    private void onContactMailClicked() {
+        Mailto.openSupportInbox();
+    }
 
     @FXML
     private void initialize() {
+        contactMailHyperlink.setText(Mailto.SUPPORT_EMAIL);
+
         UiPreferences prefs = UiPreferences.get();
 
         themeCombo.setItems(FXCollections.observableArrayList(AppTheme.values()));
