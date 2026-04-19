@@ -110,6 +110,8 @@ public class SettingsController implements ApplicationPage {
         prefs.themeProperty().addListener((o, a, b) -> {
             attachThemedPopupCells();
             applySettingsPageChrome();
+            /* Skin/button cell may not exist until next pulse after factory swap; repaint combo chrome again. */
+            Platform.runLater(this::applySettingsPageChrome);
         });
         try {
             Platform.getPreferences().colorSchemeProperty().addListener(settingsChromeRefresh);
@@ -186,38 +188,18 @@ public class SettingsController implements ApplicationPage {
     }
 
     /**
-     * Modena often keeps a light {@code .combo-box-base} even when root tokens are dark. Inline styles on
-     * skin nodes (after lookup) match our {@code #sb-shell-root.sb-dark-ui} combo rules.
+     * Settings preference combos use {@code settings-pref-combo} + CSS only: light field and dark text on
+     * {@code sb-dark-ui} (readable, stable across theme toggles). Do not paint inline dark chrome here —
+     * that fought stylesheets and caused muddy initial text vs. white-on-light after System ↔ Invert.
      */
     private void paintComboSubstructure() {
-        boolean dark = UiPreferences.get().isResolvedDarkSurface();
         for (ComboBox<?> combo : new ComboBox<?>[] { themeCombo, fontCombo, fontSizeCombo }) {
             if (combo == null) {
                 continue;
             }
-            if (!dark) {
-                combo.setStyle(null);
-                clearComboSkinStyles(combo);
-                continue;
-            }
-            combo.setStyle("-fx-background-color: transparent;");
-            Node base = combo.lookup(".combo-box-base");
-            if (base != null) {
-                base.setStyle(
-                        "-fx-background-color: #27272a; -fx-background-radius: 10; -fx-border-radius: 10; "
-                                + "-fx-border-width: 1; -fx-border-color: #3f3f46;");
-            }
-            /* Button cell text is styled in themedButtonCell — do not set .list-cell here or it fights updateItem. */
-            Node arrowBtn = combo.lookup(".arrow-button");
-            if (arrowBtn != null) {
-                arrowBtn.setStyle(
-                        "-fx-background-color: #3f3f46; -fx-border-color: #52525b; "
-                                + "-fx-border-width: 0 0 0 1;");
-            }
-            Node arrow = combo.lookup(".arrow");
-            if (arrow != null) {
-                arrow.setStyle("-fx-background-color: #e4e4e7;");
-            }
+            combo.setStyle(null);
+            clearComboSkinStyles(combo);
+            combo.applyCss();
         }
     }
 
@@ -274,9 +256,9 @@ public class SettingsController implements ApplicationPage {
     }
 
     /**
-     * Closed combo value. Only set {@code -fx-text-fill} on dark surfaces — no cell background here
-     * (that reintroduces the white arrow block). Base/arrow are painted in {@link #paintComboSubstructure}.
-     * Popup rows use {@link #themedCell} + {@link #applyPopupRowStyle}.
+     * Closed combo value: no inline styles — {@code settings-pref-combo} rules in {@code app-theme.css}
+     * own text on both {@code sb-light-ui} and {@code sb-dark-ui}. Popup rows use {@link #themedCell} +
+     * {@link #applyPopupRowStyle}.
      */
     private <T> ListCell<T> themedButtonCell(Function<T, String> label) {
         return new ListCell<>() {
@@ -289,11 +271,7 @@ public class SettingsController implements ApplicationPage {
                     return;
                 }
                 setText(label.apply(item));
-                if (UiPreferences.get().isResolvedDarkSurface()) {
-                    setStyle("-fx-text-fill: #fafafa; -fx-opacity: 1;");
-                } else {
-                    setStyle(null);
-                }
+                setStyle(null);
             }
         };
     }

@@ -130,10 +130,18 @@ public final class UiPreferences {
     }
 
     /**
-     * True when the resolved palette uses dark surfaces — same condition as {@code sb-dark-ui} on the shell.
-     * Use for inline text / ComboBox fixes instead of checking only {@code theme-default}.
+     * True when chrome should use dark-surface text fixes. Prefer the shell’s {@code sb-dark-ui} /
+     * {@code sb-light-ui} when attached so this matches CSS after {@link #applyShellStyles()}.
      */
     public boolean isResolvedDarkSurface() {
+        if (shellRoot != null) {
+            if (shellRoot.getStyleClass().contains("sb-dark-ui")) {
+                return true;
+            }
+            if (shellRoot.getStyleClass().contains("sb-light-ui")) {
+                return false;
+            }
+        }
         return isDarkSurfacePalette(getTheme().resolvedPaletteStyleClass(currentColorScheme()));
     }
 

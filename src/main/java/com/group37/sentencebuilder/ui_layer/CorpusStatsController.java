@@ -17,6 +17,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.paint.Color;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -50,6 +51,9 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
 
     @FXML
     private ComboBox<String> sourceCombo;
+
+    @FXML
+    private Button exportButton;
 
     @FXML
     private Label sectionEyebrowLabel;
@@ -145,6 +149,12 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
                 applySnapshot(cur);
             }
         });
+
+        exportButton.setOnAction(e -> onExportRequested());
+    }
+
+    /** Placeholder for backend export (e.g. CSV); use {@link #sourceCombo} scope when implementing. */
+    private void onExportRequested() {
     }
 
     @Override

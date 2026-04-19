@@ -29,16 +29,50 @@ public final class DarkSurfaceText {
         Platform.runLater(() -> Platform.runLater(() -> paintTextChild(labeled, color)));
     }
 
+    /**
+     * Clears programmatic fills so stylesheet / palette tokens apply again (e.g. light mode after dark).
+     * Uses the same deferred passes as {@link #forceLabeledFill} so stale {@code paintTextChild} runs from
+     * a previous theme cannot repaint white after this clear (sidebar invisible in light mode).
+     */
+    public static void clearForcedLabeledPaint(Labeled labeled) {
+        if (labeled == null) {
+            return;
+        }
+        labeled.setTextFill(null);
+        labeled.setStyle(null);
+        clearTextChildFills(labeled);
+        Platform.runLater(() -> clearTextChildFills(labeled));
+        Platform.runLater(() -> Platform.runLater(() -> clearTextChildFills(labeled)));
+    }
+
+    private static void clearTextChildFills(Labeled labeled) {
+        for (Node n : labeled.lookupAll(".text")) {
+            if (n instanceof Text t) {
+                if (t.fillProperty().isBound()) t.fillProperty().unbind();
+                t.setFill(null);
+                t.setStyle(null);
+            }
+        }
+        Node n = labeled.lookup(".text");
+        if (n instanceof Text t) {
+            if (t.fillProperty().isBound()) t.fillProperty().unbind();
+            t.setFill(null);
+            t.setStyle(null);
+        }
+    }
+
     private static void paintTextChild(Labeled labeled, Color color) {
         Set<Node> nodes = labeled.lookupAll(".text");
         for (Node n : nodes) {
             if (n instanceof Text t) {
+                if (t.fillProperty().isBound()) t.fillProperty().unbind();
                 t.setFill(color);
             }
         }
         if (nodes.isEmpty()) {
             Node n = labeled.lookup(".text");
             if (n instanceof Text t) {
+                if (t.fillProperty().isBound()) t.fillProperty().unbind();
                 t.setFill(color);
             }
         }

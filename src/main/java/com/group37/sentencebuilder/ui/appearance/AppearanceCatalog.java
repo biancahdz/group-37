@@ -1,15 +1,19 @@
 package com.group37.sentencebuilder.ui.appearance;
 
 /**
- * Entry point for appearance-related data used by the Sentence Builder UI.
+ * <strong>Documentation anchor only — not used at runtime.</strong>
+ * <p>
+ * The app does not load themes from a central “catalog object.” Appearance is driven by:
+ * {@link com.group37.sentencebuilder.ui.AppTheme}, {@link com.group37.sentencebuilder.ui.AppFont},
+ * {@link com.group37.sentencebuilder.ui.FontSizePreset}, {@link com.group37.sentencebuilder.ui.UiPreferences},
+ * and CSS under {@code src/main/resources/css/}. This empty class exists so the package has a single
+ * discoverable entry in the IDE and this Javadoc can point engineers to those types — similar to a
+ * README index, not a data structure.
+ * </p>
  * <ul>
- *   <li><strong>Themes / fonts / sizes</strong> — runtime enums {@code AppTheme}, {@code AppFont},
- *       {@code FontSizePreset} plus CSS in {@code theme-palettes.css}.</li>
- *   <li><strong>Palette variable names</strong> — {@link ThemePaletteKeys}.</li>
- *   <li><strong>Typography hierarchy</strong> — {@link TypographyRole}.</li>
- *   <li><strong>Surfaces &amp; buttons</strong> — {@link SurfaceRole}.</li>
+ *   <li><strong>Palette variable names</strong> — {@link ThemePaletteKeys}</li>
+ *   <li><strong>Typography / surface roles</strong> — {@link TypographyRole}, {@link SurfaceRole}</li>
  * </ul>
- * This class exists so engineers can find naming and classification in one place without a separate “page” in the app.
  */
 public final class AppearanceCatalog {
 

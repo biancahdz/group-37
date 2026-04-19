@@ -7,6 +7,11 @@
     -fx-background-color: transparent;
 }
 
+/* macOS LCD subpixel text can make bold sans look “smushed”; gray smoothing + tracking on labels below. */
+#sb-shell-root {
+    -fx-font-smoothing-type: gray;
+}
+
 /*
  * Dark surfaces (root also has .sb-dark-ui from UiPreferences): prompts must stay readable on sb-input.
  */
@@ -176,10 +181,12 @@
     -fx-text-fill: sb-text;
     -fx-font-size: 1.308em;
     -fx-font-weight: bold;
+    -fx-letter-spacing: 0.05em;
 }
 
 .sidebar-brand .text {
     -fx-fill: sb-text;
+    -fx-letter-spacing: 0.05em;
 }
 
 .sidebar-tagline {
@@ -213,6 +220,7 @@
     -fx-background-radius: 10;
     -fx-border-width: 0;
     -fx-cursor: hand;
+    -fx-letter-spacing: 0.065em;
 }
 
 .nav-toggle:hover {
@@ -234,22 +242,191 @@
  */
 .nav-toggle .text {
     -fx-fill: sb-text-secondary;
+    -fx-letter-spacing: 0.065em;
 }
 
 .nav-toggle:hover .text {
     -fx-fill: sb-teal;
+    -fx-letter-spacing: 0.065em;
 }
 
 .nav-toggle:armed .text {
     -fx-fill: sb-teal;
+    -fx-letter-spacing: 0.065em;
 }
 
 .nav-toggle:selected .text {
     -fx-fill: sb-accent;
+    -fx-letter-spacing: 0.065em;
 }
 
 .nav-toggle:selected:hover .text {
     -fx-fill: sb-accent;
+    -fx-letter-spacing: 0.065em;
+}
+
+/*
+ * Light shell (sb-light-ui on #sb-shell-root): force nav + sidebar chrome text with ID-level specificity.
+ * Stale DarkSurfaceText fills or cascade order can leave nav near-white on white; these rules win after clear.
+ */
+#sb-shell-root.sb-light-ui .nav-toggle {
+    -fx-text-fill: sb-text;
+    -fx-opacity: 1;
+}
+
+#sb-shell-root.sb-light-ui .nav-toggle .text {
+    -fx-fill: sb-text;
+    -fx-letter-spacing: 0.065em;
+}
+
+/* Avoid Modena focus / pressed leaving the first nav item nearly invisible */
+#sb-shell-root.sb-light-ui .nav-toggle:focused {
+    -fx-opacity: 1;
+}
+
+#sb-shell-root.sb-light-ui .nav-toggle:hover,
+#sb-shell-root.sb-light-ui .nav-toggle:armed {
+    -fx-text-fill: sb-teal;
+}
+
+#sb-shell-root.sb-light-ui .nav-toggle:hover .text,
+#sb-shell-root.sb-light-ui .nav-toggle:armed .text {
+    -fx-fill: sb-teal;
+    -fx-letter-spacing: 0.065em;
+}
+
+#sb-shell-root.sb-light-ui .nav-toggle:selected,
+#sb-shell-root.sb-light-ui .nav-toggle:selected:hover {
+    -fx-text-fill: sb-accent;
+}
+
+#sb-shell-root.sb-light-ui .nav-toggle:selected .text,
+#sb-shell-root.sb-light-ui .nav-toggle:selected:hover .text {
+    -fx-fill: sb-accent;
+    -fx-letter-spacing: 0.065em;
+}
+
+#sb-shell-root.sb-light-ui .sidebar-brand {
+    -fx-text-fill: sb-text;
+}
+
+#sb-shell-root.sb-light-ui .sidebar-brand .text {
+    -fx-fill: sb-text;
+    -fx-letter-spacing: 0.05em;
+}
+
+#sb-shell-root.sb-light-ui .sidebar-mark-badge {
+    -fx-text-fill: sb-accent;
+}
+
+#sb-shell-root.sb-light-ui .sidebar-mark-badge .text {
+    -fx-fill: sb-accent;
+}
+
+#sb-shell-root.sb-light-ui .sidebar-tagline {
+    -fx-text-fill: sb-chrome-tagline;
+}
+
+#sb-shell-root.sb-light-ui .sidebar-tagline .text {
+    -fx-fill: sb-chrome-tagline;
+}
+
+#sb-shell-root.sb-light-ui .sidebar-section-label {
+    -fx-text-fill: sb-chrome-section;
+}
+
+#sb-shell-root.sb-light-ui .sidebar-section-label .text {
+    -fx-fill: sb-chrome-section;
+}
+
+#sb-shell-root.sb-light-ui .sidebar-footer-label {
+    -fx-text-fill: sb-chrome-footer;
+}
+
+#sb-shell-root.sb-light-ui .sidebar-footer-label .text {
+    -fx-fill: sb-chrome-footer;
+}
+
+/*
+ * Dark shell (sb-dark-ui): nav uses palette tokens (sb-text-secondary, sb-teal, sb-accent) so each theme
+ * picks readable contrast on sb-sidebar — no hardcoded white in Java for toggles.
+ */
+#sb-shell-root.sb-dark-ui .nav-toggle {
+    -fx-text-fill: sb-text-secondary;
+    -fx-opacity: 1;
+}
+
+#sb-shell-root.sb-dark-ui .nav-toggle .text {
+    -fx-fill: sb-text-secondary;
+    -fx-letter-spacing: 0.065em;
+}
+
+#sb-shell-root.sb-dark-ui .nav-toggle:hover,
+#sb-shell-root.sb-dark-ui .nav-toggle:armed {
+    -fx-text-fill: sb-teal;
+}
+
+#sb-shell-root.sb-dark-ui .nav-toggle:hover .text,
+#sb-shell-root.sb-dark-ui .nav-toggle:armed .text {
+    -fx-fill: sb-teal;
+    -fx-letter-spacing: 0.065em;
+}
+
+#sb-shell-root.sb-dark-ui .nav-toggle:selected,
+#sb-shell-root.sb-dark-ui .nav-toggle:selected:hover {
+    -fx-text-fill: sb-accent;
+}
+
+#sb-shell-root.sb-dark-ui .nav-toggle:selected .text,
+#sb-shell-root.sb-dark-ui .nav-toggle:selected:hover .text {
+    -fx-fill: sb-accent;
+    -fx-letter-spacing: 0.065em;
+}
+
+#sb-shell-root.sb-dark-ui .nav-toggle:focused {
+    -fx-opacity: 1;
+}
+
+/* Brand row + WORKSPACE label: palette tokens only (no Java forceLabeledFill — avoids vanishing on nav change) */
+#sb-shell-root.sb-dark-ui .sidebar-brand {
+    -fx-text-fill: sb-text;
+}
+
+#sb-shell-root.sb-dark-ui .sidebar-brand .text {
+    -fx-fill: sb-text;
+    -fx-letter-spacing: 0.05em;
+}
+
+#sb-shell-root.sb-dark-ui .sidebar-mark-badge {
+    -fx-text-fill: sb-accent;
+}
+
+#sb-shell-root.sb-dark-ui .sidebar-mark-badge .text {
+    -fx-fill: sb-accent;
+}
+
+#sb-shell-root.sb-dark-ui .sidebar-tagline {
+    -fx-text-fill: sb-chrome-tagline;
+}
+
+#sb-shell-root.sb-dark-ui .sidebar-tagline .text {
+    -fx-fill: sb-chrome-tagline;
+}
+
+#sb-shell-root.sb-dark-ui .sidebar-section-label {
+    -fx-text-fill: sb-chrome-section;
+}
+
+#sb-shell-root.sb-dark-ui .sidebar-section-label .text {
+    -fx-fill: sb-chrome-section;
+}
+
+#sb-shell-root.sb-dark-ui .sidebar-footer-label {
+    -fx-text-fill: sb-chrome-footer;
+}
+
+#sb-shell-root.sb-dark-ui .sidebar-footer-label .text {
+    -fx-fill: sb-chrome-footer;
 }
 
 .sidebar-footer {
@@ -293,10 +470,13 @@
     -fx-font-size: 1.692em;
     -fx-font-weight: bold;
     -fx-padding: 0 0 2 0;
+    /* Uniform tracking so bold / synthetic-bold glyphs do not visually overlap (e.g. Home, long titles). */
+    -fx-letter-spacing: 0.08em;
 }
 
 .header-title .text {
     -fx-fill: sb-text;
+    -fx-letter-spacing: 0.08em;
 }
 
 .header-sub {
@@ -522,10 +702,12 @@
     -fx-font-size: 2em;
     -fx-font-weight: bold;
     -fx-padding: 6 0 0 0;
+    -fx-letter-spacing: 0.08em;
 }
 
 .section-heading .text {
     -fx-fill: sb-text;
+    -fx-letter-spacing: 0.08em;
 }
 
 .section-heading-hero {
@@ -533,10 +715,12 @@
     -fx-font-weight: bold;
     -fx-padding: 8 0 12 0;
     -fx-text-fill: sb-text;
+    -fx-letter-spacing: 0.08em;
 }
 
 .section-heading-hero .text {
     -fx-fill: sb-text;
+    -fx-letter-spacing: 0.08em;
 }
 
 .section-lead {
@@ -902,6 +1086,44 @@
     -fx-opacity: 0.45;
 }
 
+/*
+ * Word analytics Export — id selector beats Modena’s flat Button skin so rounding matches Generate (primary).
+ */
+#corpus-export-btn {
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
+    -fx-background-color: sb-accent;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 1em;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-width: 0;
+    /* Vertical padding tuned so total height matches 40px combo row (Modena ~40px). */
+    -fx-padding: 8 22 8 22;
+    -fx-cursor: hand;
+    -fx-min-height: 40;
+    -fx-pref-height: 40;
+}
+
+#corpus-export-btn .text {
+    -fx-fill: #ffffff;
+}
+
+#corpus-export-btn:hover {
+    -fx-background-color: sb-accent-hover;
+    -fx-effect: dropshadow(gaussian, rgba(37, 99, 235, 0.45), 14, 0.35, 0, 3);
+}
+
+#corpus-export-btn:pressed {
+    -fx-background-color: sb-accent-pressed;
+    -fx-effect: none;
+}
+
+#corpus-export-btn:disabled {
+    -fx-opacity: 0.45;
+}
+
 .button.ghost-button {
     -fx-background-color: transparent;
     -fx-text-fill: sb-accent;
@@ -1052,10 +1274,12 @@
     -fx-text-fill: sb-text;
     -fx-font-size: 1.308em;
     -fx-font-weight: bold;
+    -fx-letter-spacing: 0.06em;
 }
 
 .quick-card-title .text {
     -fx-fill: sb-text;
+    -fx-letter-spacing: 0.06em;
 }
 
 .quick-card-desc {
@@ -1667,44 +1891,7 @@
  * Parent + .text mirror; hex tweaked slightly brighter than base tokens for readability on black.
  */
 
-/* ---- Parent paint (propagates through LabeledSkin / ToggleButtonSkin) ---- */
-#sb-shell-root.theme-default .nav-toggle {
-    -fx-text-fill: rgba(255, 255, 255, 0.9);
-    -fx-opacity: 1;
-}
-
-#sb-shell-root.theme-default .nav-toggle:hover,
-#sb-shell-root.theme-default .nav-toggle:armed {
-    -fx-text-fill: #5eead4;
-}
-
-#sb-shell-root.theme-default .nav-toggle:selected,
-#sb-shell-root.theme-default .nav-toggle:selected:hover {
-    -fx-text-fill: #bfdbfe;
-}
-
-#sb-shell-root.theme-default .sidebar-brand {
-    -fx-text-fill: #fafafa;
-}
-
-#sb-shell-root.theme-default .sidebar-mark-badge {
-    -fx-text-fill: #93c5fd;
-}
-
-#sb-shell-root.theme-default .sidebar-tagline,
-#sb-shell-root.sb-dark-ui .sidebar-tagline {
-    -fx-text-fill: rgba(255, 255, 255, 0.92);
-}
-
-#sb-shell-root.theme-default .sidebar-section-label,
-#sb-shell-root.sb-dark-ui .sidebar-section-label {
-    -fx-text-fill: rgba(255, 255, 255, 0.92);
-}
-
-#sb-shell-root.theme-default .sidebar-footer-label,
-#sb-shell-root.sb-dark-ui .sidebar-footer-label {
-    -fx-text-fill: rgba(255, 255, 255, 0.92);
-}
+/* Sidebar chrome for dark palettes: #sb-shell-root.sb-dark-ui .sidebar-* near top of file (tokens). */
 
 #sb-shell-root.theme-default .header-title {
     -fx-text-fill: #fafafa;
@@ -1900,6 +2087,55 @@
     -fx-background-color: #e4e4e7;
 }
 
+/* Settings page: light "paper" dropdowns + dark text on dark shell — stable default, matches Modena legibility. */
+#sb-shell-root.sb-dark-ui .combo-box.combo-styled.settings-pref-combo > .list-cell {
+    -fx-text-fill: #18181b;
+    -fx-background-color: transparent;
+}
+
+#sb-shell-root.sb-dark-ui .combo-box.combo-styled.settings-pref-combo .combo-box-base {
+    -fx-background-color: #f4f4f5;
+    -fx-border-color: #d4d4d8;
+}
+
+#sb-shell-root.sb-dark-ui .combo-box.combo-styled.settings-pref-combo .combo-box-base > .list-cell {
+    -fx-background-color: #f4f4f5;
+    -fx-text-fill: #18181b;
+}
+
+#sb-shell-root.sb-dark-ui .combo-box.combo-styled.settings-pref-combo:hover .combo-box-base {
+    -fx-background-color: #e4e4e7;
+}
+
+#sb-shell-root.sb-dark-ui .combo-box.combo-styled.settings-pref-combo:hover .combo-box-base > .list-cell {
+    -fx-background-color: #e4e4e7;
+    -fx-text-fill: #18181b;
+}
+
+#sb-shell-root.sb-dark-ui .combo-box.combo-styled.settings-pref-combo:focused .combo-box-base {
+    -fx-background-color: #e4e4e7;
+}
+
+#sb-shell-root.sb-dark-ui .combo-box.combo-styled.settings-pref-combo:focused .combo-box-base > .list-cell {
+    -fx-background-color: #e4e4e7;
+    -fx-text-fill: #18181b;
+}
+
+#sb-shell-root.sb-dark-ui .combo-box.combo-styled.settings-pref-combo .arrow-button {
+    -fx-background-color: #e4e4e7;
+    -fx-border-color: #d4d4d8;
+}
+
+#sb-shell-root.sb-dark-ui .combo-box.combo-styled.settings-pref-combo:hover .arrow-button,
+#sb-shell-root.sb-dark-ui .combo-box.combo-styled.settings-pref-combo:focused .arrow-button,
+#sb-shell-root.sb-dark-ui .combo-box.combo-styled.settings-pref-combo:showing .arrow-button {
+    -fx-background-color: #d4d4d8;
+}
+
+#sb-shell-root.sb-dark-ui .combo-box.combo-styled.settings-pref-combo .arrow {
+    -fx-background-color: #52525b;
+}
+
 #sb-shell-root.theme-default .table-view.table-clean .table-cell,
 #sb-shell-root.theme-default .table-view.table-clean .table-row-cell .table-cell,
 #sb-shell-root.sb-dark-ui .table-view.table-clean .table-cell,
@@ -1956,45 +2192,9 @@
 }
 
 /* ---- Leaf .text fills (backup if skin still paints Text separately) ---- */
-#sb-shell-root.theme-default .nav-toggle .text {
-    -fx-fill: rgba(255, 255, 255, 0.9);
-}
-
-#sb-shell-root.theme-default .nav-toggle:hover .text,
-#sb-shell-root.theme-default .nav-toggle:armed .text {
-    -fx-fill: #5eead4;
-}
-
-#sb-shell-root.theme-default .nav-toggle:selected .text,
-#sb-shell-root.theme-default .nav-toggle:selected:hover .text {
-    -fx-fill: #bfdbfe;
-}
-
-#sb-shell-root.theme-default .sidebar-brand .text {
-    -fx-fill: #fafafa;
-}
-
-#sb-shell-root.theme-default .sidebar-mark-badge .text {
-    -fx-fill: #93c5fd;
-}
-
-#sb-shell-root.theme-default .sidebar-tagline .text,
-#sb-shell-root.sb-dark-ui .sidebar-tagline .text {
-    -fx-fill: rgba(255, 255, 255, 0.92);
-}
-
-#sb-shell-root.theme-default .sidebar-section-label .text,
-#sb-shell-root.sb-dark-ui .sidebar-section-label .text {
-    -fx-fill: rgba(255, 255, 255, 0.92);
-}
-
-#sb-shell-root.theme-default .sidebar-footer-label .text,
-#sb-shell-root.sb-dark-ui .sidebar-footer-label .text {
-    -fx-fill: rgba(255, 255, 255, 0.92);
-}
-
 #sb-shell-root.theme-default .header-title .text {
     -fx-fill: #fafafa;
+    -fx-letter-spacing: 0.08em;
 }
 
 #sb-shell-root.theme-default .header-sub .text {
@@ -2029,6 +2229,7 @@
 #sb-shell-root.sb-dark-ui .section-heading-hero .text,
 #sb-shell-root.sb-dark-ui .section-heading .text {
     -fx-fill: #ffffff;
+    -fx-letter-spacing: 0.08em;
 }
 
 #sb-shell-root.theme-default .section-lead .text,
@@ -2076,22 +2277,27 @@
 
 #sb-shell-root.theme-default .quick-card-title .text {
     -fx-fill: #fafafa;
+    -fx-letter-spacing: 0.06em;
 }
 
 #sb-shell-root.theme-default .quick-card-accent-import .quick-card-title .text {
     -fx-fill: #93c5fd;
+    -fx-letter-spacing: 0.06em;
 }
 
 #sb-shell-root.theme-default .quick-card-accent-generate .quick-card-title .text {
     -fx-fill: #a5b4fc;
+    -fx-letter-spacing: 0.06em;
 }
 
 #sb-shell-root.theme-default .quick-card-accent-compose .quick-card-title .text {
     -fx-fill: #2dd4bf;
+    -fx-letter-spacing: 0.06em;
 }
 
 #sb-shell-root.theme-default .quick-card-accent-reports .quick-card-title .text {
     -fx-fill: #fb923c;
+    -fx-letter-spacing: 0.06em;
 }
 
 #sb-shell-root.theme-default .quick-card-desc .text {
@@ -2138,6 +2344,10 @@
 #sb-shell-root.sb-dark-ui .combo-box.combo-styled > .list-cell .text,
 #sb-shell-root.sb-dark-ui .combo-box.combo-styled .combo-box-base > .list-cell .text {
     -fx-fill: #fafafa;
+}
+
+#sb-shell-root.sb-dark-ui .combo-box.combo-styled.settings-pref-combo .combo-box-base > .list-cell .text {
+    -fx-fill: #18181b;
 }
 
 #sb-shell-root.theme-default .table-view.table-clean .table-cell .text,

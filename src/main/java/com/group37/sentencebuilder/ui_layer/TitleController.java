@@ -142,8 +142,14 @@ public class TitleController {
         String user = usernameField.getText();
         String pass = passwordField.getText();
 
-        if (Database.canConfigConnect(user, pass))
+        if (Database.canConfigConnect(user, pass)) {
             runPreloadThenLaunch();
+        } else {
+            statusLabel.setText(
+                    "Could not connect to MySQL. Ensure the server is running on localhost:3306, "
+                            + "the SentenceBuilder database exists (see README / SentenceBuilderDatabase.sql), "
+                            + "and username/password match your MySQL account.");
+        }
     }
 
     /**

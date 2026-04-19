@@ -132,17 +132,17 @@
  * spacing so titles vs body stay balanced without glyphs bunching. Root size is set per font-stack above.
  */
 .root.font-metrics-relaxed {
-    -fx-letter-spacing: 0.022em;
+    -fx-letter-spacing: 0.045em;
 }
 
 /* Monospace: a touch more tracking than generic relaxed (same root node carries both classes). */
 .root.font-stack-consolas.font-metrics-relaxed {
-    -fx-letter-spacing: 0.028em;
+    -fx-letter-spacing: 0.05em;
 }
 
 .root.font-metrics-relaxed .section-heading,
 .root.font-metrics-relaxed .section-heading-hero {
-    -fx-letter-spacing: 0.035em;
+    -fx-letter-spacing: 0.08em;
 }
 
 .root.font-metrics-relaxed .section-eyebrow {
@@ -150,7 +150,7 @@
 }
 
 .root.font-metrics-relaxed .header-title {
-    -fx-letter-spacing: 0.025em;
+    -fx-letter-spacing: 0.08em;
 }
 
 .root.font-metrics-relaxed .header-sub {
@@ -174,16 +174,16 @@
 .root.font-metrics-relaxed .quick-card-title,
 .root.font-metrics-relaxed .card-title,
 .root.font-metrics-relaxed .about-title {
-    -fx-letter-spacing: 0.02em;
+    -fx-letter-spacing: 0.06em;
 }
 
 .root.font-metrics-relaxed .nav-toggle {
-    -fx-letter-spacing: 0.015em;
+    -fx-letter-spacing: 0.065em;
     -fx-padding: 8 10 8 10;
 }
 
 .root.font-metrics-relaxed .sidebar-brand {
-    -fx-letter-spacing: 0.01em;
+    -fx-letter-spacing: 0.05em;
 }
 
 .root.font-metrics-relaxed .sidebar-tagline,
