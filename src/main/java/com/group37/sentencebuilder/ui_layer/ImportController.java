@@ -29,6 +29,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.paint.Color;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import javafx.concurrent.Task;
@@ -119,6 +120,16 @@ public class ImportController implements ApplicationPage, DatabasePage {
         importProgress.setProgress(0);
         importStatusLabel.setText("No import running.");
 
+        applyRoundedClip(importTable, 12);
+    }
+
+    private static void applyRoundedClip(TableView<?> table, double radius) {
+        Rectangle clip = new Rectangle();
+        clip.widthProperty().bind(table.widthProperty());
+        clip.heightProperty().bind(table.heightProperty());
+        clip.setArcWidth(radius * 2);
+        clip.setArcHeight(radius * 2);
+        table.setClip(clip);
     }
 
     @FXML
