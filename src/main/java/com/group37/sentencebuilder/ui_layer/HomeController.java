@@ -24,7 +24,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
@@ -265,7 +264,7 @@ public class HomeController implements ApplicationPage, DatabasePage {
     }
 
     @FXML
-    private void onQuickImport(MouseEvent e) {
+    private void onQuickImport() {
         navigator.accept(ViewKey.IMPORT);
     }
 

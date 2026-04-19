@@ -17,8 +17,8 @@
       styleClass="page-root settings-page-root" spacing="20" maxWidth="Infinity">
 
     <VBox styleClass="page-section-panel content-card-elevated settings-hero-panel" spacing="10" maxWidth="Infinity">
-        <Label text="Settings &amp; About" styleClass="section-heading section-heading-hero"/>
-        <Label styleClass="section-lead settings-hero-lead" wrapText="true" maxWidth="Infinity"
+        <Label fx:id="settingsHeroTitle" text="Settings &amp; About" styleClass="section-heading section-heading-hero"/>
+        <Label fx:id="settingsHeroLead" styleClass="section-lead settings-hero-lead" wrapText="true" maxWidth="Infinity"
                text="Tune how Sentence Builder looks and feels. Appearance is saved app-wide. Sign out when you are done on a shared machine."/>
     </VBox>
 
@@ -35,8 +35,8 @@
             <HBox styleClass="settings-card-header" alignment="CENTER_LEFT" spacing="12">
                 <Label text="◐" styleClass="settings-card-icon" minWidth="40" alignment="CENTER"/>
                 <VBox spacing="4">
-                    <Label text="Appearance" styleClass="card-title settings-card-title"/>
-                    <Label text="Theme, typeface, and reading size" styleClass="card-subtitle card-subtitle-muted" wrapText="true"/>
+                    <Label fx:id="settingsAppearanceTitle" text="Appearance" styleClass="card-title settings-card-title"/>
+                    <Label fx:id="settingsAppearanceSub" text="Theme, typeface, and reading size" styleClass="card-subtitle card-subtitle-muted" wrapText="true"/>
                 </VBox>
             </HBox>
             <Separator styleClass="settings-sep"/>
@@ -63,8 +63,8 @@
             <HBox styleClass="settings-card-header" alignment="CENTER_LEFT" spacing="12">
                 <Label text="ⓘ" styleClass="settings-card-icon" minWidth="40" alignment="CENTER"/>
                 <VBox spacing="4">
-                    <Label text="About" styleClass="card-title settings-card-title"/>
-                    <Label text="Project, team, and stack" styleClass="card-subtitle card-subtitle-muted" wrapText="true"/>
+                    <Label fx:id="settingsAboutTitle" text="About" styleClass="card-title settings-card-title"/>
+                    <Label fx:id="settingsAboutSub" text="Project, team, and stack" styleClass="card-subtitle card-subtitle-muted" wrapText="true"/>
                 </VBox>
             </HBox>
             <Separator styleClass="settings-sep"/>
@@ -98,7 +98,7 @@
     <HBox styleClass="page-section-panel content-card-elevated settings-session-panel" alignment="CENTER_LEFT" spacing="24" maxWidth="Infinity">
         <VBox spacing="6" HBox.hgrow="ALWAYS">
             <Label text="Session" styleClass="card-title"/>
-            <Label styleClass="card-subtitle card-subtitle-muted" wrapText="true"
+            <Label fx:id="sessionSubtitle" styleClass="card-subtitle card-subtitle-muted" wrapText="true"
                    text="Return to the login screen. Your theme preferences stay on this device."/>
         </VBox>
         <Region HBox.hgrow="NEVER"/>

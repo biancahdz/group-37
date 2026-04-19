@@ -38,8 +38,14 @@ public class SettingsController implements ApplicationPage {
     @FXML
     private ComboBox<FontSizePreset> fontSizeCombo;
 
-    @FXML
-    private Pane settingsPageRoot;
+    @FXML private Pane settingsPageRoot;
+    @FXML private javafx.scene.control.Label settingsHeroTitle;
+    @FXML private javafx.scene.control.Label settingsHeroLead;
+    @FXML private javafx.scene.control.Label settingsAppearanceTitle;
+    @FXML private javafx.scene.control.Label settingsAppearanceSub;
+    @FXML private javafx.scene.control.Label settingsAboutTitle;
+    @FXML private javafx.scene.control.Label settingsAboutSub;
+    @FXML private javafx.scene.control.Label sessionSubtitle;
 
     @FXML
     private Hyperlink contactMailHyperlink;
@@ -142,49 +148,65 @@ public class SettingsController implements ApplicationPage {
     }
 
     /**
-     * Mirrors {@link HomeController} / shell chrome: Modena can ignore stylesheet fills for Labels on the
-     * dark palette; inline {@code -fx-text-fill} keeps PROJECT, headings, and about text readable.
+     * Mirrors {@link HomeController}: uses a recursive walk AND direct fx:id references with
+     * triple-deferred styling so labels survive any post-render CSS reapplication.
      */
     private void applySettingsInlineText() {
         if (settingsPageRoot == null) {
             return;
         }
-        boolean darkChrome = UiPreferences.get().isResolvedDarkSurface();
+        boolean dark = UiPreferences.get().isResolvedDarkSurface();
+        walkSettingsLabels(settingsPageRoot, dark);
 
-        for (Node n : settingsPageRoot.lookupAll(".section-eyebrow")) {
-            if (!(n instanceof Labeled lab)) {
-                continue;
-            }
-            if (!darkChrome) {
-                lab.setTextFill(null);
-                lab.setStyle(null);
-                continue;
-            }
-            if (lab.getStyleClass().contains("section-eyebrow-primary")) {
-                DarkSurfaceText.forceLabeledFill(lab, Color.WHITE);
-            } else {
-                DarkSurfaceText.forceLabeledFill(lab, Color.color(1, 1, 1, 0.95));
-            }
-        }
-
-        applyLabeledClass(darkChrome, ".section-heading", "#ffffff");
-        applyLabeledClass(darkChrome, ".section-lead", "#e4e4e7");
-        applyLabeledClass(darkChrome, ".card-title", "#fafafa");
-        applyLabeledClass(darkChrome, ".about-title", "#fafafa");
-        applyLabeledClass(darkChrome, ".about-body", "#b4b4bc");
+        // Direct fx:id styling — same triple-deferred approach that fixed WORKSPACES.
+        applyDirectLabels(dark);
+        Platform.runLater(() -> applyDirectLabels(dark));
+        Platform.runLater(() -> Platform.runLater(() -> applyDirectLabels(dark)));
     }
 
-    private void applyLabeledClass(boolean darkChrome, String cssClass, String fillWhenDark) {
-        for (Node n : settingsPageRoot.lookupAll(cssClass)) {
-            if (!(n instanceof Labeled lab)) {
-                continue;
-            }
-            if (!darkChrome) {
-                lab.setStyle(null);
-            } else {
-                lab.setStyle("-fx-text-fill: " + fillWhenDark + ";");
+    private void applyDirectLabels(boolean dark) {
+        setLabelStyle(settingsHeroTitle,       dark ? "-fx-text-fill: #ffffff;" : null);
+        setLabelStyle(settingsHeroLead,        dark ? "-fx-text-fill: #e4e4e7;" : null);
+        setLabelStyle(settingsAppearanceTitle, dark ? "-fx-text-fill: #fafafa;" : null);
+        setLabelStyle(settingsAppearanceSub,   dark ? "-fx-text-fill: #b4b4bc;" : null);
+        setLabelStyle(settingsAboutTitle,      dark ? "-fx-text-fill: #fafafa;" : null);
+        setLabelStyle(settingsAboutSub,        dark ? "-fx-text-fill: #b4b4bc;" : null);
+        setLabelStyle(sessionSubtitle,         dark ? "-fx-text-fill: #c8c8ce;" : null);
+    }
+
+    private static void setLabelStyle(javafx.scene.control.Label lab, String style) {
+        if (lab != null) lab.setStyle(style);
+    }
+
+    private void walkSettingsLabels(Node node, boolean dark) {
+        if (node instanceof Labeled lab) {
+            Color color = resolveSettingsLabelColor(lab, dark);
+            if (color != null) {
+                DarkSurfaceText.forceLabeledFill(lab, color);
+            } else if (!dark) {
+                DarkSurfaceText.clearForcedLabeledPaint(lab);
             }
         }
+        if (node instanceof javafx.scene.Parent parent) {
+            for (Node child : parent.getChildrenUnmodifiable()) {
+                walkSettingsLabels(child, dark);
+            }
+        }
+    }
+
+    private static Color resolveSettingsLabelColor(Labeled lab, boolean dark) {
+        if (!dark) return null;
+        java.util.List<String> cls = lab.getStyleClass();
+        if (cls.contains("section-heading"))    return Color.web("#ffffff");
+        if (cls.contains("section-lead"))       return Color.web("#e4e4e7");
+        if (cls.contains("card-title"))         return Color.web("#fafafa");
+        if (cls.contains("card-subtitle"))      return Color.web("#b4b4bc");
+        if (cls.contains("field-label"))        return Color.web("#e4e4e7");
+        if (cls.contains("about-title"))        return Color.web("#fafafa");
+        if (cls.contains("about-body"))         return Color.web("#b4b4bc");
+        if (cls.contains("section-eyebrow"))    return Color.web("#ffffff");
+        if (cls.contains("settings-card-icon")) return Color.web("#ffffff");
+        return null;
     }
 
     /**
@@ -216,6 +238,8 @@ public class SettingsController implements ApplicationPage {
     @Override
     public void onPageEnter() {
         applySettingsPageChrome();
+        Platform.runLater(this::applySettingsPageChrome);
+        Platform.runLater(() -> Platform.runLater(this::applySettingsPageChrome));
     }
 
     @Override
