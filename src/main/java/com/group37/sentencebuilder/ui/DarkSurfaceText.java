@@ -6,12 +6,17 @@ import javafx.scene.control.Labeled;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
-import java.util.Set;
-
 /**
- * JavaFX Modena often paints {@link Labeled} text via a child {@link Text} node whose fill does not
- * reliably track stylesheet or {@link Labeled#setTextFill}; this forces both the property and the leaf
- * shape so tertiary labels stay readable on near-black surfaces.
+ * Forces text color on {@link Labeled} nodes where Modena's LabeledSkin ignores stylesheet fills.
+ *
+ * Uses only inline {@code setStyle} — never {@code setFill}/{@code unbind} — so that
+ * {@code clearForcedLabeledPaint} can simply call {@code setStyle(null)} and let the CSS
+ * cascade restore the correct palette color without any transparent-text side effects.
+ *
+ * The single deferred retry in {@code forceLabeledFill} handles the common case where the
+ * Label's skin (and its inner Text node) does not yet exist during FXML initialize. It guards
+ * itself by checking that the label's inline style hasn't been cleared (i.e. the theme hasn't
+ * already switched back to light), so it never overwrites a light-mode clear.
  */
 public final class DarkSurfaceText {
 
@@ -22,17 +27,27 @@ public final class DarkSurfaceText {
         if (labeled == null || color == null) {
             return;
         }
+        String css = colorToCss(color);
+        String textFill = "-fx-fill: " + css + ";";
+        String labelStyle = "-fx-text-fill: " + css + "; -fx-opacity: 1;";
         labeled.setTextFill(color);
-        labeled.setStyle("-fx-text-fill: " + colorToCss(color) + "; -fx-opacity: 1;");
-        paintTextChild(labeled, color);
-        Platform.runLater(() -> paintTextChild(labeled, color));
-        Platform.runLater(() -> Platform.runLater(() -> paintTextChild(labeled, color)));
+        labeled.setStyle(labelStyle);
+        applyTextChildStyle(labeled, textFill);
+        // Retry once after the next pulse in case the skin/Text node didn't exist yet.
+        // The guard ensures this no-ops if clearForcedLabeledPaint has already been called.
+        Platform.runLater(() -> {
+            String current = labeled.getStyle();
+            if (current != null && !current.isEmpty()) {
+                applyTextChildStyle(labeled, textFill);
+            }
+        });
     }
 
     /**
-     * Clears programmatic fills so stylesheet / palette tokens apply again (e.g. light mode after dark).
-     * Uses the same deferred passes as {@link #forceLabeledFill} so stale {@code paintTextChild} runs from
-     * a previous theme cannot repaint white after this clear (sidebar invisible in light mode).
+     * Removes all inline fills so the CSS palette takes over automatically.
+     * No deferred calls — inline styles are removed immediately and CSS re-applies on the
+     * next pulse without any race against a queued forceLabeledFill retry (the retry guards
+     * itself by checking the label's style).
      */
     public static void clearForcedLabeledPaint(Labeled labeled) {
         if (labeled == null) {
@@ -40,44 +55,18 @@ public final class DarkSurfaceText {
         }
         labeled.setTextFill(null);
         labeled.setStyle(null);
-        clearTextChildFills(labeled);
-        Platform.runLater(() -> clearTextChildFills(labeled));
-        Platform.runLater(() -> Platform.runLater(() -> clearTextChildFills(labeled)));
+        applyTextChildStyle(labeled, null);
     }
 
-    private static void clearTextChildFills(Labeled labeled) {
+    private static void applyTextChildStyle(Labeled labeled, String style) {
         for (Node n : labeled.lookupAll(".text")) {
             if (n instanceof Text t) {
-                if (t.fillProperty().isBound()) t.fillProperty().unbind();
-                t.setStyle(null);
-                t.setFill(null);
+                t.setStyle(style);
             }
         }
         Node n = labeled.lookup(".text");
         if (n instanceof Text t) {
-            if (t.fillProperty().isBound()) t.fillProperty().unbind();
-            t.setStyle(null);
-            t.setFill(null);
-        }
-    }
-
-    private static void paintTextChild(Labeled labeled, Color color) {
-        String cssColor = colorToCss(color);
-        Set<Node> nodes = labeled.lookupAll(".text");
-        for (Node n : nodes) {
-            if (n instanceof Text t) {
-                if (t.fillProperty().isBound()) t.fillProperty().unbind();
-                t.setFill(color);
-                t.setStyle("-fx-fill: " + cssColor + ";");
-            }
-        }
-        if (nodes.isEmpty()) {
-            Node n = labeled.lookup(".text");
-            if (n instanceof Text t) {
-                if (t.fillProperty().isBound()) t.fillProperty().unbind();
-                t.setFill(color);
-                t.setStyle("-fx-fill: " + cssColor + ";");
-            }
+            t.setStyle(style);
         }
     }
 

@@ -157,25 +157,6 @@ public class SettingsController implements ApplicationPage {
         }
         boolean dark = UiPreferences.get().isResolvedDarkSurface();
         walkSettingsLabels(settingsPageRoot, dark);
-
-        // Direct fx:id styling — same triple-deferred approach that fixed WORKSPACES.
-        applyDirectLabels(dark);
-        Platform.runLater(() -> applyDirectLabels(dark));
-        Platform.runLater(() -> Platform.runLater(() -> applyDirectLabels(dark)));
-    }
-
-    private void applyDirectLabels(boolean dark) {
-        setLabelStyle(settingsHeroTitle,       dark ? "-fx-text-fill: #ffffff;" : null);
-        setLabelStyle(settingsHeroLead,        dark ? "-fx-text-fill: #e4e4e7;" : null);
-        setLabelStyle(settingsAppearanceTitle, dark ? "-fx-text-fill: #fafafa;" : null);
-        setLabelStyle(settingsAppearanceSub,   dark ? "-fx-text-fill: #b4b4bc;" : null);
-        setLabelStyle(settingsAboutTitle,      dark ? "-fx-text-fill: #fafafa;" : null);
-        setLabelStyle(settingsAboutSub,        dark ? "-fx-text-fill: #b4b4bc;" : null);
-        setLabelStyle(sessionSubtitle,         dark ? "-fx-text-fill: #c8c8ce;" : null);
-    }
-
-    private static void setLabelStyle(javafx.scene.control.Label lab, String style) {
-        if (lab != null) lab.setStyle(style);
     }
 
     private void walkSettingsLabels(Node node, boolean dark) {
@@ -183,7 +164,7 @@ public class SettingsController implements ApplicationPage {
             Color color = resolveSettingsLabelColor(lab, dark);
             if (color != null) {
                 DarkSurfaceText.forceLabeledFill(lab, color);
-            } else if (!dark) {
+            } else if (!dark && lab.getStyle() != null && !lab.getStyle().isEmpty()) {
                 DarkSurfaceText.clearForcedLabeledPaint(lab);
             }
         }
