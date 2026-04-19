@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 /** Reports table UI with client-side filters. */
 public class ReportsController implements ApplicationPage {
@@ -77,6 +78,17 @@ public class ReportsController implements ApplicationPage {
         colAlgorithm.setCellValueFactory(c -> c.getValue().algorithmProperty());
         colWhen.setCellValueFactory(c -> c.getValue().generatedAtProperty());
         colPreview.setCellValueFactory(c -> c.getValue().previewProperty());
+
+        applyRoundedClip(reportTable, 12);
+    }
+
+    private static void applyRoundedClip(TableView<?> table, double radius) {
+        Rectangle clip = new Rectangle();
+        clip.widthProperty().bind(table.widthProperty());
+        clip.heightProperty().bind(table.heightProperty());
+        clip.setArcWidth(radius * 2);
+        clip.setArcHeight(radius * 2);
+        table.setClip(clip);
     }
 
     private void updateFilter(FilteredList<ReportRow> filtered) {
