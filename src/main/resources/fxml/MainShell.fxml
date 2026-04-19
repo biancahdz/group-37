@@ -17,9 +17,9 @@
     <left>
         <VBox styleClass="sidebar" prefWidth="252" minWidth="252" maxWidth="252" spacing="2">
             <HBox styleClass="sidebar-mark" alignment="CENTER_LEFT" spacing="12">
-                <Label text="SB" styleClass="sidebar-mark-badge" minWidth="36" alignment="CENTER"/>
+                <Label fx:id="sidebarMarkBadge" text="SB" styleClass="sidebar-mark-badge" minWidth="36" alignment="CENTER"/>
                 <VBox spacing="3">
-                    <Label text="Sentence Builder" styleClass="sidebar-brand"/>
+                    <Label fx:id="sidebarBrandLabel" text="Sentence Builder" styleClass="sidebar-brand"/>
                     <Label fx:id="sidebarTagline" text="Corpus · Generate · Report" styleClass="sidebar-tagline"/>
                 </VBox>
             </HBox>
@@ -39,11 +39,6 @@
             <Label text="REFERENCE" styleClass="sidebar-section-label"/>
             <ToggleButton fx:id="navHelp" text="Help" toggleGroup="$navGroup" styleClass="nav-toggle" maxWidth="Infinity"/>
             <VBox VBox.vgrow="ALWAYS"/>
-            <VBox styleClass="sidebar-footer">
-                <Label fx:id="shellFooterLabel" styleClass="sidebar-footer-label"
-                       text="Frontend shell — connect services when backend is ready."
-                       wrapText="true"/>
-            </VBox>
         </VBox>
     </left>
     <center>
@@ -55,9 +50,6 @@
                         <Label styleClass="header-sub" text="Sentence Builder · Senior Design · Group 37"/>
                     </VBox>
                     <HBox HBox.hgrow="ALWAYS"/>
-                    <VBox styleClass="header-meta" alignment="CENTER_RIGHT">
-                        <Label styleClass="header-pill" text="Preview build"/>
-                    </VBox>
                 </HBox>
             </top>
             <center>

@@ -66,13 +66,16 @@ public class MainShellController {
     private Label headerTitle;
 
     @FXML
+    private Label sidebarMarkBadge;
+
+    @FXML
+    private Label sidebarBrandLabel;
+
+    @FXML
     private Label sidebarTagline;
 
     @FXML
     private Label workspaceSectionLabel;
-
-    @FXML
-    private Label shellFooterLabel;
 
     @FXML
     private ToggleGroup navGroup;
@@ -128,7 +131,6 @@ public class MainShellController {
             applyShellChromeInlineText();
             applyWorkspaceEyebrowInlineText();
         });
-        navGroup.selectedToggleProperty().addListener((o, a, b) -> applyShellChromeInlineText());
         try {
             Platform.getPreferences().colorSchemeProperty().addListener((o, a, b) -> {
                 applyShellChromeInlineText();
@@ -152,50 +154,16 @@ public class MainShellController {
     }
 
     /**
-     * Modena can paint ToggleButton / Label text darker than our CSS on dark palettes. Inline
-     * {@code -fx-text-fill} wins over user-agent styles so inactive nav + chrome labels stay readable.
+     * Sidebar chrome (brand row, nav toggles, footer) is styled only from CSS on {@code #sb-shell-root}.
+     * Do <strong>not</strong> call {@link DarkSurfaceText#clearForcedLabeledPaint} on sidebar nodes: nav
+     * toggles and labels are not {@link DarkSurfaceText#forceLabeledFill}'d from Java here, and clearing
+     * child {@code Text} fills breaks painting for the whole sidebar until hover (JavaFX).
+     * <p>
+     * After theme / scene attach, one {@link javafx.scene.Node#applyCss()} on the shell root reapplies tokens.
      */
     private void applyShellChromeInlineText() {
-        boolean dark = UiPreferences.get().isResolvedDarkSurface();
-
-        ToggleButton[] nav = {
-                navHome, navImport, navGenerate, navAutocomplete, navReports, navCorpusStats, navSettings
-        };
-        if (!dark) {
-            for (ToggleButton b : nav) {
-                b.setTextFill(null);
-                b.setStyle(null);
-            }
-            if (sidebarTagline != null) {
-                sidebarTagline.setTextFill(null);
-                sidebarTagline.setStyle(null);
-            }
-            if (workspaceSectionLabel != null) {
-                workspaceSectionLabel.setTextFill(null);
-                workspaceSectionLabel.setStyle(null);
-            }
-            if (shellFooterLabel != null) {
-                shellFooterLabel.setTextFill(null);
-                shellFooterLabel.setStyle(null);
-            }
-            return;
-        }
-
-        for (ToggleButton b : nav) {
-            if (b.isSelected()) {
-                DarkSurfaceText.forceLabeledFill(b, Color.web("#bfdbfe"));
-            } else {
-                DarkSurfaceText.forceLabeledFill(b, Color.color(1, 1, 1, 0.92));
-            }
-        }
-        if (sidebarTagline != null) {
-            DarkSurfaceText.forceLabeledFill(sidebarTagline, Color.color(1, 1, 1, 0.92));
-        }
-        if (workspaceSectionLabel != null) {
-            DarkSurfaceText.forceLabeledFill(workspaceSectionLabel, Color.color(1, 1, 1, 0.92));
-        }
-        if (shellFooterLabel != null) {
-            DarkSurfaceText.forceLabeledFill(shellFooterLabel, Color.color(1, 1, 1, 0.92));
+        if (shellRoot != null) {
+            shellRoot.applyCss();
         }
     }
 
@@ -214,8 +182,8 @@ public class MainShellController {
                 continue;
             }
             if (!dark) {
-                lab.setTextFill(null);
-                lab.setStyle(null);
+                DarkSurfaceText.clearForcedLabeledPaint(lab);
+                lab.applyCss();
                 continue;
             }
             DarkSurfaceText.forceLabeledFill(lab, eyebrowColorForAccentClass(lab));
@@ -323,6 +291,7 @@ public class MainShellController {
 
         applyWorkspaceEyebrowInlineText();
         Platform.runLater(this::applyWorkspaceEyebrowInlineText);
+        /* Nav selection listener already runs applyShellChromeInlineText; do not clear brand labels again here. */
 
         currentController = ctrl;
 
