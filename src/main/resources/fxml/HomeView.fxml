@@ -17,7 +17,7 @@
     <VBox styleClass="page-section-panel home-intro-panel" spacing="8" maxWidth="Infinity">
         <Label fx:id="homeSectionEyebrow" text="OVERVIEW" styleClass="section-eyebrow section-eyebrow-primary"/>
         <Label fx:id="homeSectionTitle" text="Dashboard" styleClass="section-heading section-heading-hero"/>
-        <Label styleClass="section-lead home-intro-lead" wrapText="true" maxWidth="Infinity"
+        <Label fx:id="introLead" styleClass="section-lead home-intro-lead" wrapText="true" maxWidth="Infinity"
                text="Import sources, run generators, and review output from one place. Use the workspace buttons below to open each area."/>
     </VBox>
 
@@ -27,19 +27,19 @@
                 <Label fx:id="txtCount"
                        text="0"
                        styleClass="stat-tile-value"/>
-                <Label text="TEXT SOURCES" styleClass="stat-tile-label"/>
+                <Label fx:id="labelTxtSources" text="TEXT SOURCES" styleClass="stat-tile-label"/>
             </VBox>
             <VBox styleClass="stat-tile stat-tile-violet" HBox.hgrow="ALWAYS">
                 <Label fx:id="sentenceCount"
                        text="0"
                        styleClass="stat-tile-value"/>
-                <Label text="SENTENCES" styleClass="stat-tile-label"/>
+                <Label fx:id="labelSentences" text="SENTENCES" styleClass="stat-tile-label"/>
             </VBox>
         </HBox>
     </VBox>
 
     <VBox styleClass="page-section-panel home-shortcuts-panel" spacing="16" maxWidth="Infinity">
-        <Label text="WORKSPACES" styleClass="section-eyebrow section-eyebrow-teal"/>
+        <Label fx:id="labelWorkspaces" text="WORKSPACES" styleClass="section-eyebrow section-eyebrow-teal"/>
         <GridPane styleClass="home-quick-grid" hgap="16" vgap="16" maxWidth="Infinity">
             <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS" minWidth="160" prefWidth="260"/>
@@ -63,9 +63,9 @@
                         <StackPane styleClass="quick-card-icon-wrap quick-icon-import">
                             <Label text="↓" styleClass="quick-card-icon"/>
                         </StackPane>
-                        <Label text="Import" styleClass="quick-card-title"/>
-                        <Label text="Add and parse plain-text corpus files." styleClass="quick-card-desc" wrapText="true"/>
-                        <Label text="Open →" styleClass="quick-card-cta"/>
+                        <Label fx:id="titleImport" text="Import" styleClass="quick-card-title"/>
+                        <Label fx:id="descImport" text="Add and parse plain-text corpus files." styleClass="quick-card-desc" wrapText="true"/>
+                        <Label fx:id="ctaImport" text="Open →" styleClass="quick-card-cta"/>
                     </VBox>
                 </graphic>
             </Button>
@@ -80,9 +80,9 @@
                         <StackPane styleClass="quick-card-icon-wrap quick-icon-generate">
                             <Label text="✦" styleClass="quick-card-icon"/>
                         </StackPane>
-                        <Label text="Generate" styleClass="quick-card-title"/>
-                        <Label text="Compose sentences from corpus models." styleClass="quick-card-desc" wrapText="true"/>
-                        <Label text="Open →" styleClass="quick-card-cta"/>
+                        <Label fx:id="titleGenerate" text="Generate" styleClass="quick-card-title"/>
+                        <Label fx:id="descGenerate" text="Compose sentences from corpus models." styleClass="quick-card-desc" wrapText="true"/>
+                        <Label fx:id="ctaGenerate" text="Open →" styleClass="quick-card-cta"/>
                     </VBox>
                 </graphic>
             </Button>
@@ -97,9 +97,9 @@
                         <StackPane styleClass="quick-card-icon-wrap quick-icon-compose">
                             <Label text="⌁" styleClass="quick-card-icon"/>
                         </StackPane>
-                        <Label text="Auto-complete" styleClass="quick-card-title"/>
-                        <Label text="Word suggestions as you type." styleClass="quick-card-desc" wrapText="true"/>
-                        <Label text="Open →" styleClass="quick-card-cta"/>
+                        <Label fx:id="titleAutocomplete" text="Auto-complete" styleClass="quick-card-title"/>
+                        <Label fx:id="descAutocomplete" text="Word suggestions as you type." styleClass="quick-card-desc" wrapText="true"/>
+                        <Label fx:id="ctaAutocomplete" text="Open →" styleClass="quick-card-cta"/>
                     </VBox>
                 </graphic>
             </Button>
@@ -114,9 +114,9 @@
                         <StackPane styleClass="quick-card-icon-wrap quick-icon-reports">
                             <Label text="≡" styleClass="quick-card-icon"/>
                         </StackPane>
-                        <Label text="Reports" styleClass="quick-card-title"/>
-                        <Label text="History with sortable columns and filters." styleClass="quick-card-desc" wrapText="true"/>
-                        <Label text="Open →" styleClass="quick-card-cta"/>
+                        <Label fx:id="titleReports" text="Reports" styleClass="quick-card-title"/>
+                        <Label fx:id="descReports" text="History with sortable columns and filters." styleClass="quick-card-desc" wrapText="true"/>
+                        <Label fx:id="ctaReports" text="Open →" styleClass="quick-card-cta"/>
                     </VBox>
                 </graphic>
             </Button>
@@ -134,10 +134,10 @@
                             <Label text="%%" styleClass="quick-card-icon"/>
                         </StackPane>
                         <VBox spacing="4" HBox.hgrow="ALWAYS" maxWidth="Infinity">
-                            <Label text="Word analytics" styleClass="quick-card-title"/>
-                            <Label text="Top words, pairs, and per-file totals. Scope by corpus or import."
+                            <Label fx:id="titleCorpusStats" text="Word analytics" styleClass="quick-card-title"/>
+                            <Label fx:id="descCorpusStats" text="Top words, pairs, and per-file totals. Scope by corpus or import."
                                    styleClass="quick-card-desc" wrapText="true"/>
-                            <Label text="Open →" styleClass="quick-card-cta"/>
+                            <Label fx:id="ctaCorpusStats" text="Open →" styleClass="quick-card-cta"/>
                         </VBox>
                     </HBox>
                 </graphic>

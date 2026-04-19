@@ -49,24 +49,26 @@ public final class DarkSurfaceText {
         for (Node n : labeled.lookupAll(".text")) {
             if (n instanceof Text t) {
                 if (t.fillProperty().isBound()) t.fillProperty().unbind();
-                t.setFill(null);
                 t.setStyle(null);
+                t.setFill(null);
             }
         }
         Node n = labeled.lookup(".text");
         if (n instanceof Text t) {
             if (t.fillProperty().isBound()) t.fillProperty().unbind();
-            t.setFill(null);
             t.setStyle(null);
+            t.setFill(null);
         }
     }
 
     private static void paintTextChild(Labeled labeled, Color color) {
+        String cssColor = colorToCss(color);
         Set<Node> nodes = labeled.lookupAll(".text");
         for (Node n : nodes) {
             if (n instanceof Text t) {
                 if (t.fillProperty().isBound()) t.fillProperty().unbind();
                 t.setFill(color);
+                t.setStyle("-fx-fill: " + cssColor + ";");
             }
         }
         if (nodes.isEmpty()) {
@@ -74,6 +76,7 @@ public final class DarkSurfaceText {
             if (n instanceof Text t) {
                 if (t.fillProperty().isBound()) t.fillProperty().unbind();
                 t.setFill(color);
+                t.setStyle("-fx-fill: " + cssColor + ";");
             }
         }
     }

@@ -196,7 +196,7 @@ public class MainShellController {
             return Color.web("#ffffff");
         }
         if (lab.getStyleClass().contains("section-eyebrow-teal")) {
-            return Color.web("#99f6e4");
+            return Color.WHITE;
         }
         if (lab.getStyleClass().contains("section-eyebrow-violet")) {
             return Color.web("#e9d5ff");

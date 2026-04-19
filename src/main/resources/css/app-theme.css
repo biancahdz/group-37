@@ -674,11 +674,37 @@
 }
 
 .section-eyebrow-teal {
-    -fx-text-fill: sb-eyebrow-teal;
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
 }
 
 .section-eyebrow-teal .text {
+    -fx-fill: #ffffff;
+}
+
+/* Restore palette color in light themes where white-on-light would be invisible */
+.root.theme-light .section-eyebrow-teal,
+.root.theme-pastel .section-eyebrow-teal,
+.root.theme-warm .section-eyebrow-teal {
+    -fx-text-fill: sb-eyebrow-teal;
+}
+
+.root.theme-light .section-eyebrow-teal .text,
+.root.theme-pastel .section-eyebrow-teal .text,
+.root.theme-warm .section-eyebrow-teal .text {
     -fx-fill: sb-eyebrow-teal;
+}
+
+.root.theme-light .stat-tile-label,
+.root.theme-pastel .stat-tile-label,
+.root.theme-warm .stat-tile-label {
+    -fx-text-fill: sb-text-muted;
+}
+
+.root.theme-light .stat-tile-label .text,
+.root.theme-pastel .stat-tile-label .text,
+.root.theme-warm .stat-tile-label .text {
+    -fx-fill: sb-text-muted;
 }
 
 .section-eyebrow-violet {
@@ -1007,14 +1033,14 @@
 }
 
 .stat-tile-label {
-    -fx-text-fill: sb-text-muted;
+    -fx-text-fill: #ffffff;
     -fx-font-size: 0.846em;
     -fx-font-weight: bold;
     -fx-letter-spacing: 0.06em;
 }
 
 .stat-tile-label .text {
-    -fx-fill: sb-text-muted;
+    -fx-fill: #ffffff;
 }
 
 /* ---- Buttons ---- */
@@ -1439,11 +1465,11 @@
 }
 
 #sb-shell-root.sb-dark-ui .quick-card-desc {
-    -fx-text-fill: #a1a1aa;
+    -fx-text-fill: #e4e4e7;
 }
 
 #sb-shell-root.sb-dark-ui .quick-card-desc .text {
-    -fx-fill: #a1a1aa;
+    -fx-fill: #e4e4e7;
 }
 
 /* ---- Inputs ---- */
@@ -1998,9 +2024,6 @@
     -fx-text-fill: #a5b4fc;
 }
 
-#sb-shell-root.theme-default .stat-tile-label {
-    -fx-text-fill: rgba(255, 255, 255, 0.8);
-}
 
 #sb-shell-root.theme-default .quick-card-title {
     -fx-text-fill: #fafafa;
@@ -2295,9 +2318,6 @@
     -fx-fill: #a5b4fc;
 }
 
-#sb-shell-root.theme-default .stat-tile-label .text {
-    -fx-fill: rgba(255, 255, 255, 0.8);
-}
 
 #sb-shell-root.theme-default .quick-card-title .text {
     -fx-fill: #fafafa;
