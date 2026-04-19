@@ -7,77 +7,78 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:id="helpPageRoot"
       fx:controller="com.group37.sentencebuilder.ui_layer.HelpController"
       styleClass="page-root help-page-root" spacing="18" maxWidth="Infinity">
 
     <VBox styleClass="page-section-panel help-intro-panel" spacing="8" maxWidth="Infinity">
-        <Label text="GUIDE" styleClass="section-eyebrow section-eyebrow-amber"/>
-        <Label text="Help" styleClass="section-heading section-heading-hero"/>
-        <Label styleClass="section-lead help-intro-lead" wrapText="true" maxWidth="Infinity"
+        <Label fx:id="helpEyebrow" text="GUIDE" styleClass="section-eyebrow section-eyebrow-amber"/>
+        <Label fx:id="helpHeroTitle" text="Help" styleClass="section-heading section-heading-hero"/>
+        <Label fx:id="helpHeroLead" styleClass="section-lead help-intro-lead" wrapText="true" maxWidth="Infinity"
                text="Use the sidebar to move between areas. This page summarizes what each screen is for and how to get unstuck."/>
     </VBox>
 
     <VBox spacing="16" styleClass="content-card" maxWidth="Infinity">
         <Label text="Navigation" styleClass="card-title"/>
-        <Label styleClass="card-subtitle card-subtitle-muted" wrapText="true" maxWidth="Infinity"
+        <Label fx:id="subNavigation" styleClass="card-subtitle card-subtitle-muted" wrapText="true" maxWidth="Infinity"
                text="Pick a section in the left sidebar. Your choice stays highlighted. The bar at the top shows which page is open. From Home you can also jump using the workspace tiles."/>
     </VBox>
 
     <VBox spacing="16" styleClass="content-card content-card-elevated" maxWidth="Infinity">
         <Label text="First launch &amp; empty database" styleClass="card-title"/>
-        <Label styleClass="card-subtitle card-subtitle-muted" wrapText="true" maxWidth="Infinity"
+        <Label fx:id="subFirstLaunch" styleClass="card-subtitle card-subtitle-muted" wrapText="true" maxWidth="Infinity"
                text="After you sign in (or when the app auto-starts with a saved DB config), if there are no imported text files yet, the app imports bundled sample .txt files from resources/defaults so generate and analytics have data. You can add your own files later on Import."/>
     </VBox>
 
     <VBox spacing="16" styleClass="content-card" maxWidth="Infinity">
         <Label text="Home" styleClass="card-title"/>
-        <Label styleClass="card-subtitle card-subtitle-muted" wrapText="true" maxWidth="Infinity"
+        <Label fx:id="subHome" styleClass="card-subtitle card-subtitle-muted" wrapText="true" maxWidth="Infinity"
                text="Overview of the app plus live counts for text sources and sentences (when the database is available). Workspace buttons open the same pages as the sidebar."/>
     </VBox>
 
     <VBox spacing="16" styleClass="content-card" maxWidth="Infinity">
         <Label text="Import" styleClass="card-title"/>
-        <Label styleClass="card-subtitle card-subtitle-muted" wrapText="true" maxWidth="Infinity"
+        <Label fx:id="subImport" styleClass="card-subtitle card-subtitle-muted" wrapText="true" maxWidth="Infinity"
                text="Choose a .txt file, then run Import. Progress is shown on the bar; when the job finishes, the history table refreshes. Corpus data is stored in your configured MySQL database."/>
     </VBox>
 
     <VBox spacing="16" styleClass="content-card content-card-elevated" maxWidth="Infinity">
         <Label text="Sentence generator" styleClass="card-title"/>
-        <Label styleClass="card-subtitle card-subtitle-muted" wrapText="true" maxWidth="Infinity"
+        <Label fx:id="subGenerator" styleClass="card-subtitle card-subtitle-muted" wrapText="true" maxWidth="Infinity"
                text="Optional starting word plus an algorithm (Markov variants, random walk, beam search). Press Generate to fill the output area from the logic layer."/>
     </VBox>
 
     <VBox spacing="16" styleClass="content-card" maxWidth="Infinity">
         <Label text="Auto-complete" styleClass="card-title"/>
-        <Label styleClass="card-subtitle card-subtitle-muted" wrapText="true" maxWidth="Infinity"
+        <Label fx:id="subAutocomplete" styleClass="card-subtitle card-subtitle-muted" wrapText="true" maxWidth="Infinity"
                text="Type in the composer field; suggestion chips load from the database. Click a chip to insert the word. After a space, suggestions can follow the last completed word."/>
     </VBox>
 
     <VBox spacing="16" styleClass="content-card content-card-elevated" maxWidth="Infinity">
         <Label text="Reports" styleClass="card-title"/>
-        <Label styleClass="card-subtitle card-subtitle-muted" wrapText="true" maxWidth="Infinity"
+        <Label fx:id="subReports" styleClass="card-subtitle card-subtitle-muted" wrapText="true" maxWidth="Infinity"
                text="Browse generated rows in the table. Use the algorithm and date filters and click column headers to sort. Widen the Preview column if text is truncated."/>
     </VBox>
 
     <VBox spacing="16" styleClass="content-card" maxWidth="Infinity">
         <Label text="Word analytics" styleClass="card-title"/>
-        <Label styleClass="card-subtitle card-subtitle-muted" wrapText="true" maxWidth="Infinity"
+        <Label fx:id="subWordAnalytics" styleClass="card-subtitle card-subtitle-muted" wrapText="true" maxWidth="Infinity"
                text="Explore top words, bigrams, and per-file stats. The scope control limits tables to the whole corpus or a single import when that data exists."/>
     </VBox>
 
     <VBox spacing="16" styleClass="content-card content-card-elevated" maxWidth="Infinity">
         <Label text="Settings &amp; About" styleClass="card-title"/>
-        <Label styleClass="card-subtitle card-subtitle-muted" wrapText="true" maxWidth="Infinity"
+        <Label fx:id="subSettings" styleClass="card-subtitle card-subtitle-muted" wrapText="true" maxWidth="Infinity"
                text="Change theme, font family, and reading size; preferences apply across the app. Log out returns to the login screen on shared machines. Team and stack details are on the same page."/>
     </VBox>
 
     <VBox spacing="12" styleClass="page-section-panel help-tip-panel" maxWidth="Infinity">
         <Label text="If something fails" styleClass="card-title"/>
         <Separator styleClass="section-divider"/>
-        <Label styleClass="card-subtitle card-subtitle-muted" wrapText="true" maxWidth="Infinity"
+        <Label fx:id="subTipBody" styleClass="card-subtitle card-subtitle-muted" wrapText="true" maxWidth="Infinity"
                text="Confirm MySQL is running and connection settings match your environment. Re-import text if schema or migrations changed. For import or suggestion errors, check the status line on that screen."/>
         <HBox spacing="6" alignment="CENTER_LEFT" maxWidth="Infinity">
-            <Label text="Questions:" styleClass="card-subtitle card-subtitle-muted"/>
+            <Label fx:id="subTipQuestions" text="Questions:" styleClass="card-subtitle card-subtitle-muted"/>
             <Hyperlink fx:id="supportMailHyperlink" onAction="#onSupportMailClicked" styleClass="help-mail-link"/>
         </HBox>
     </VBox>
