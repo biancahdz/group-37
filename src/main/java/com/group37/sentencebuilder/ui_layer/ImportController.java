@@ -1,14 +1,3 @@
-/**
- * File: 
- * Description: 
- *
- * Author: 
- * Created: 
- * Last Modified: 2026-03-27
- *
- * Version: 1.0
- */
-
 package com.group37.sentencebuilder.ui_layer;
 
 import com.group37.sentencebuilder.ui_layer.model.ImportHistoryRow;
@@ -19,10 +8,8 @@ import com.group37.sentencebuilder.ui_layer.DatabasePage;
 
 import com.group37.sentencebuilder.data_layer.Database;
 
-import com.group37.sentencebuilder.ui.DarkSurfaceText;
-import com.group37.sentencebuilder.ui.UiPreferences;
+import com.group37.sentencebuilder.ui.LabelThemeRegistry;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -39,11 +26,12 @@ import java.io.File;
 /** Import screen — choose a text file and import into the corpus. */
 public class ImportController implements ApplicationPage, DatabasePage {
 
+    private final LabelThemeRegistry labelTheme = new LabelThemeRegistry();
+
     private Database database;
 
     @Override
-    public void setDatabase(Database database)
-    {
+    public void setDatabase(Database database) {
         this.database = database;
     }
 
@@ -80,33 +68,16 @@ public class ImportController implements ApplicationPage, DatabasePage {
     private File stagedFile;
 
     @Override
-    public void onPageEnter()
-    {
-        if (database.connect())
-        {
+    public void onPageEnter() {
+        if (database.connect()) {
             importTable.setItems(database.getTxtHistory());
             database.disconnect();
         }
-        applyImportEyebrowContrast();
-    }
-
-    /** Backup to shell chrome: forces leaf {@code Text} fill after layout / DB work. */
-    private void applyImportEyebrowContrast() {
-        if (sectionEyebrowLabel == null) {
-            return;
-        }
-        if (!UiPreferences.get().isResolvedDarkSurface()) {
-            sectionEyebrowLabel.setTextFill(null);
-            sectionEyebrowLabel.setStyle(null);
-            return;
-        }
-        DarkSurfaceText.forceLabeledFill(sectionEyebrowLabel, Color.WHITE);
-        Platform.runLater(() -> DarkSurfaceText.forceLabeledFill(sectionEyebrowLabel, Color.WHITE));
+        labelTheme.apply();
     }
 
     @Override
-    public void onPageLeave()
-    {
+    public void onPageLeave() {
     }
 
     @FXML
@@ -121,6 +92,8 @@ public class ImportController implements ApplicationPage, DatabasePage {
         importStatusLabel.setText("No import running.");
 
         applyRoundedClip(importTable, 12);
+
+        labelTheme.add(sectionEyebrowLabel, Color.WHITE);
     }
 
     private static void applyRoundedClip(TableView<?> table, double radius) {

@@ -1,11 +1,9 @@
 package com.group37.sentencebuilder.ui_layer;
 
-import com.group37.sentencebuilder.ui.DarkSurfaceText;
-import com.group37.sentencebuilder.ui.UiPreferences;
+import com.group37.sentencebuilder.ui.LabelThemeRegistry;
 
 import com.group37.sentencebuilder.ui_layer.model.ReportRow;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -20,6 +18,8 @@ import javafx.scene.shape.Rectangle;
 
 /** Reports table UI with client-side filters. */
 public class ReportsController implements ApplicationPage {
+
+    private final LabelThemeRegistry labelTheme = new LabelThemeRegistry();
 
     @FXML
     private ComboBox<String> algorithmFilter;
@@ -63,7 +63,7 @@ public class ReportsController implements ApplicationPage {
                 new ReportRow("1040", "Markov chain (bigram)", "Mar 18, 2026 · 8:12 AM",
                         "Words gathered like rain along the edge of the paragraph…"),
                 new ReportRow("1039", "Weighted next-word", "Mar 17, 2026 · 3:30 PM",
-                        "Tomorrow’s draft leaned against today’s doubts…")
+                        "Tomorrow's draft leaned against today's doubts…")
         );
 
         FilteredList<ReportRow> filtered = new FilteredList<>(master, r -> true);
@@ -80,6 +80,8 @@ public class ReportsController implements ApplicationPage {
         colPreview.setCellValueFactory(c -> c.getValue().previewProperty());
 
         applyRoundedClip(reportTable, 12);
+
+        labelTheme.add(sectionEyebrowLabel, Color.WHITE);
     }
 
     private static void applyRoundedClip(TableView<?> table, double radius) {
@@ -97,31 +99,16 @@ public class ReportsController implements ApplicationPage {
             if (algo != null && !algo.equals("All algorithms") && !row.getAlgorithm().equals(algo)) {
                 return false;
             }
-            // Date filter applied client-side to the rows currently in the table
             return true;
         });
     }
 
     @Override
     public void onPageEnter() {
-        applyReportsDarkChrome();
+        labelTheme.apply();
     }
 
     @Override
     public void onPageLeave() {
-    }
-
-    private void applyReportsDarkChrome() {
-        if (!UiPreferences.get().isResolvedDarkSurface()) {
-            if (sectionEyebrowLabel != null) {
-                sectionEyebrowLabel.setTextFill(null);
-                sectionEyebrowLabel.setStyle(null);
-            }
-            return;
-        }
-        if (sectionEyebrowLabel != null) {
-            DarkSurfaceText.forceLabeledFill(sectionEyebrowLabel, Color.WHITE);
-            Platform.runLater(() -> DarkSurfaceText.forceLabeledFill(sectionEyebrowLabel, Color.WHITE));
-        }
     }
 }

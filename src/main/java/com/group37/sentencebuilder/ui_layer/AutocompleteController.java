@@ -13,8 +13,7 @@ package com.group37.sentencebuilder.ui_layer;
 
 import com.group37.sentencebuilder.data_layer.Database;
 
-import com.group37.sentencebuilder.ui.DarkSurfaceText;
-import com.group37.sentencebuilder.ui.UiPreferences;
+import com.group37.sentencebuilder.ui.LabelThemeRegistry;
 
 import com.group37.sentencebuilder.ui_layer.ApplicationPage;
 import com.group37.sentencebuilder.ui_layer.DatabasePage;
@@ -33,6 +32,8 @@ import javafx.scene.paint.Color;
 /** Auto-complete screen — suggestion chips from corpus word data. */
 public class AutocompleteController implements ApplicationPage, DatabasePage {
 
+    private final LabelThemeRegistry labelTheme = new LabelThemeRegistry();
+
     private Database database;
 
     @FXML
@@ -50,6 +51,7 @@ public class AutocompleteController implements ApplicationPage, DatabasePage {
     @FXML
     private void initialize() {
         prefixField.textProperty().addListener((obs, o, n) -> refreshSuggestions(n));
+        labelTheme.add(sectionEyebrowLabel, Color.WHITE);
     }
 
     private void refreshSuggestions(String raw) {
@@ -152,33 +154,10 @@ public class AutocompleteController implements ApplicationPage, DatabasePage {
     }
 
     @Override
-    public void onPageEnter()
-    {
-        applyAutocompleteDarkChrome();
-
+    public void onPageEnter() {
+        labelTheme.apply();
         database.connect();
-
         refreshSuggestions(prefixField.getText());
-    }
-
-    /** Matches Import/Generate: shell CSS alone leaves small-caps eyebrow + prompt too dim on black. */
-    private void applyAutocompleteDarkChrome() {
-        if (!UiPreferences.get().isResolvedDarkSurface()) {
-            if (sectionEyebrowLabel != null) {
-                sectionEyebrowLabel.setTextFill(null);
-                sectionEyebrowLabel.setStyle(null);
-            }
-            return;
-        }
-        if (sectionEyebrowLabel != null) {
-            DarkSurfaceText.forceLabeledFill(sectionEyebrowLabel, Color.WHITE);
-            Platform.runLater(() -> DarkSurfaceText.forceLabeledFill(sectionEyebrowLabel, Color.WHITE));
-        }
-        Platform.runLater(() -> {
-            if (prefixField != null) {
-                prefixField.setStyle("-fx-prompt-text-fill: #e4e4e7;");
-            }
-        });
     }
 
     @Override

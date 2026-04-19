@@ -13,10 +13,8 @@ package com.group37.sentencebuilder.ui_layer;
 
 import com.group37.sentencebuilder.logic_layer.GeneratorLogic;
 
-import com.group37.sentencebuilder.ui.DarkSurfaceText;
-import com.group37.sentencebuilder.ui.UiPreferences;
+import com.group37.sentencebuilder.ui.LabelThemeRegistry;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -65,6 +63,8 @@ public class GenerateController implements ApplicationPage {
     @FXML
     private Label sectionEyebrowLabel;
 
+    private final LabelThemeRegistry labelTheme = new LabelThemeRegistry();
+
     @FXML
     private void initialize() {
         algorithmCombo.getItems().setAll(
@@ -77,38 +77,16 @@ public class GenerateController implements ApplicationPage {
         outputArea.setText(
                 "Generated sentences will appear here!"
         );
+        labelTheme.add(sectionEyebrowLabel, Color.WHITE);
     }
 
     @Override
     public void onPageEnter() {
-        applyGenerateDarkChrome();
+        labelTheme.apply();
     }
 
     @Override
     public void onPageLeave() {
-    }
-
-    /** Same pattern as Import: Modena + cascade can leave eyebrow/prompts too dim on black. */
-    private void applyGenerateDarkChrome() {
-        if (!UiPreferences.get().isResolvedDarkSurface()) {
-            if (sectionEyebrowLabel != null) {
-                sectionEyebrowLabel.setTextFill(null);
-                sectionEyebrowLabel.setStyle(null);
-            }
-            return;
-        }
-        if (sectionEyebrowLabel != null) {
-            DarkSurfaceText.forceLabeledFill(sectionEyebrowLabel, Color.WHITE);
-            Platform.runLater(() -> DarkSurfaceText.forceLabeledFill(sectionEyebrowLabel, Color.WHITE));
-        }
-        Platform.runLater(() -> {
-            if (startWordField != null) {
-                startWordField.setStyle("-fx-prompt-text-fill: #e4e4e7;");
-            }
-            if (outputArea != null) {
-                outputArea.setStyle("-fx-prompt-text-fill: #e4e4e7;");
-            }
-        });
     }
 
     @FXML

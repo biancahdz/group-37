@@ -3,7 +3,7 @@ package com.group37.sentencebuilder.ui_layer;
 import com.group37.sentencebuilder.ui.AppFont;
 import com.group37.sentencebuilder.ui.AppTheme;
 import com.group37.sentencebuilder.ui.FontSizePreset;
-import com.group37.sentencebuilder.ui.DarkSurfaceText;
+import com.group37.sentencebuilder.ui.LabelThemeRegistry;
 import com.group37.sentencebuilder.ui.UiPreferences;
 
 import javafx.application.Platform;
@@ -13,7 +13,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Labeled;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -26,6 +25,8 @@ import java.util.function.Function;
  * {@code sb-*} CSS lookups from the main scene root.
  */
 public class SettingsController implements ApplicationPage {
+
+    private final LabelThemeRegistry labelTheme = new LabelThemeRegistry();
 
     private Runnable onLogout;
 
@@ -113,10 +114,19 @@ public class SettingsController implements ApplicationPage {
             }
         });
 
+        // Register each label once; apply() handles dark ↔ light switching.
+        labelTheme
+                .add(settingsHeroTitle,       Color.web("#ffffff"))
+                .add(settingsHeroLead,        Color.web("#e4e4e7"))
+                .add(settingsAppearanceTitle, Color.web("#fafafa"))
+                .add(settingsAppearanceSub,   Color.web("#b4b4bc"))
+                .add(settingsAboutTitle,      Color.web("#fafafa"))
+                .add(settingsAboutSub,        Color.web("#b4b4bc"))
+                .add(sessionSubtitle,         Color.web("#b4b4bc"));
+
         prefs.themeProperty().addListener((o, a, b) -> {
             attachThemedPopupCells();
             applySettingsPageChrome();
-            /* Skin/button cell may not exist until next pulse after factory swap; repaint combo chrome again. */
             Platform.runLater(this::applySettingsPageChrome);
         });
         try {
@@ -142,52 +152,20 @@ public class SettingsController implements ApplicationPage {
     }
 
     private void applySettingsPageChrome() {
-        applySettingsInlineText();
+        labelTheme.apply();
         paintComboSubstructure();
         Platform.runLater(this::paintComboSubstructure);
     }
 
-    /**
-     * Mirrors {@link HomeController}: uses a recursive walk AND direct fx:id references with
-     * triple-deferred styling so labels survive any post-render CSS reapplication.
-     */
-    private void applySettingsInlineText() {
-        if (settingsPageRoot == null) {
-            return;
-        }
-        boolean dark = UiPreferences.get().isResolvedDarkSurface();
-        walkSettingsLabels(settingsPageRoot, dark);
+    @Override
+    public void onPageEnter() {
+        applySettingsPageChrome();
+        Platform.runLater(this::applySettingsPageChrome);
+        Platform.runLater(() -> Platform.runLater(this::applySettingsPageChrome));
     }
 
-    private void walkSettingsLabels(Node node, boolean dark) {
-        if (node instanceof Labeled lab) {
-            Color color = resolveSettingsLabelColor(lab, dark);
-            if (color != null) {
-                DarkSurfaceText.forceLabeledFill(lab, color);
-            } else if (!dark && lab.getStyle() != null && !lab.getStyle().isEmpty()) {
-                DarkSurfaceText.clearForcedLabeledPaint(lab);
-            }
-        }
-        if (node instanceof javafx.scene.Parent parent) {
-            for (Node child : parent.getChildrenUnmodifiable()) {
-                walkSettingsLabels(child, dark);
-            }
-        }
-    }
-
-    private static Color resolveSettingsLabelColor(Labeled lab, boolean dark) {
-        if (!dark) return null;
-        java.util.List<String> cls = lab.getStyleClass();
-        if (cls.contains("section-heading"))    return Color.web("#ffffff");
-        if (cls.contains("section-lead"))       return Color.web("#e4e4e7");
-        if (cls.contains("card-title"))         return Color.web("#fafafa");
-        if (cls.contains("card-subtitle"))      return Color.web("#b4b4bc");
-        if (cls.contains("field-label"))        return Color.web("#e4e4e7");
-        if (cls.contains("about-title"))        return Color.web("#fafafa");
-        if (cls.contains("about-body"))         return Color.web("#b4b4bc");
-        if (cls.contains("section-eyebrow"))    return Color.web("#ffffff");
-        if (cls.contains("settings-card-icon")) return Color.web("#ffffff");
-        return null;
+    @Override
+    public void onPageLeave() {
     }
 
     /**
@@ -214,17 +192,6 @@ public class SettingsController implements ApplicationPage {
                 n.setStyle(null);
             }
         }
-    }
-
-    @Override
-    public void onPageEnter() {
-        applySettingsPageChrome();
-        Platform.runLater(this::applySettingsPageChrome);
-        Platform.runLater(() -> Platform.runLater(this::applySettingsPageChrome));
-    }
-
-    @Override
-    public void onPageLeave() {
     }
 
     private void attachThemedPopupCells() {

@@ -30,7 +30,6 @@ public final class DarkSurfaceText {
         String css = colorToCss(color);
         String textFill = "-fx-fill: " + css + ";";
         String labelStyle = "-fx-text-fill: " + css + "; -fx-opacity: 1;";
-        labeled.setTextFill(color);
         labeled.setStyle(labelStyle);
         applyTextChildStyle(labeled, textFill);
         // Retry once after the next pulse in case the skin/Text node didn't exist yet.
@@ -53,7 +52,6 @@ public final class DarkSurfaceText {
         if (labeled == null) {
             return;
         }
-        labeled.setTextFill(null);
         labeled.setStyle(null);
         applyTextChildStyle(labeled, null);
     }
