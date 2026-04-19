@@ -21,6 +21,7 @@ import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.input.MouseEvent;
@@ -48,6 +49,12 @@ public class HomeController implements ApplicationPage, DatabasePage {
 
     @FXML
     private Pane pageRoot;
+
+    @FXML private Button cardImport;
+    @FXML private Button cardGenerate;
+    @FXML private Button cardAutocomplete;
+    @FXML private Button cardReports;
+    @FXML private Button cardCorpusStats;
 
     @FXML
     private Label homeSectionEyebrow;
@@ -108,7 +115,28 @@ public class HomeController implements ApplicationPage, DatabasePage {
             }
         }
 
+        applyCardDarkBackground(darkChrome);
         applyHomeHeroLabels(darkChrome);
+    }
+
+    private void applyCardDarkBackground(boolean darkChrome) {
+        Button[] cards = { cardImport, cardGenerate, cardAutocomplete, cardReports, cardCorpusStats };
+        for (Button card : cards) {
+            if (card == null) continue;
+            if (!darkChrome) {
+                card.setStyle(null);
+                card.setOnMouseEntered(null);
+                card.setOnMouseExited(null);
+                card.setOnMousePressed(null);
+                card.setOnMouseReleased(null);
+            } else {
+                card.setStyle("-fx-background-color: #1e1e24;");
+                card.setOnMouseEntered(e -> card.setStyle("-fx-background-color: #26262d;"));
+                card.setOnMouseExited(e  -> card.setStyle("-fx-background-color: #1e1e24;"));
+                card.setOnMousePressed(e -> card.setStyle("-fx-background-color: #2c2c34;"));
+                card.setOnMouseReleased(e -> card.setStyle("-fx-background-color: #26262d;"));
+            }
+        }
     }
 
     /** Eyebrow + hero titles: {@link Label#setTextFill} reaches LabeledSkin reliably; CSS alone can lose to Modena. */

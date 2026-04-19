@@ -52,7 +52,7 @@
                 <RowConstraints minHeight="176" prefHeight="176" maxHeight="176" vgrow="NEVER"/>
             </rowConstraints>
 
-            <Button mnemonicParsing="false" text=""
+            <Button fx:id="cardImport" mnemonicParsing="false" text=""
                     styleClass="quick-card quick-card-accent-import quick-nav-button"
                     onAction="#onQuickImport"
                     maxWidth="Infinity" maxHeight="Infinity"
@@ -69,7 +69,7 @@
                     </VBox>
                 </graphic>
             </Button>
-            <Button mnemonicParsing="false" text=""
+            <Button fx:id="cardGenerate" mnemonicParsing="false" text=""
                     styleClass="quick-card quick-card-accent-generate quick-nav-button"
                     onAction="#onQuickGenerate"
                     maxWidth="Infinity" maxHeight="Infinity"
@@ -86,7 +86,7 @@
                     </VBox>
                 </graphic>
             </Button>
-            <Button mnemonicParsing="false" text=""
+            <Button fx:id="cardAutocomplete" mnemonicParsing="false" text=""
                     styleClass="quick-card quick-card-accent-compose quick-nav-button"
                     onAction="#onQuickAutocomplete"
                     maxWidth="Infinity" maxHeight="Infinity"
@@ -103,7 +103,7 @@
                     </VBox>
                 </graphic>
             </Button>
-            <Button mnemonicParsing="false" text=""
+            <Button fx:id="cardReports" mnemonicParsing="false" text=""
                     styleClass="quick-card quick-card-accent-reports quick-nav-button"
                     onAction="#onQuickReports"
                     maxWidth="Infinity" maxHeight="Infinity"
@@ -121,7 +121,7 @@
                 </graphic>
             </Button>
 
-            <Button mnemonicParsing="false" text=""
+            <Button fx:id="cardCorpusStats" mnemonicParsing="false" text=""
                     styleClass="quick-card quick-card-accent-compose quick-nav-button"
                     onAction="#onQuickCorpusStats"
                     maxWidth="Infinity" maxHeight="Infinity"

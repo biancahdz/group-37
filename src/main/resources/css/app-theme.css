@@ -1422,6 +1422,30 @@
     -fx-text-fill: sb-text-secondary;
 }
 
+/*
+ * Dark mode card fix — Modena Button skin overrides sb-surface with its own white background.
+ * Force dark gray cards with ID-level specificity so they read against the near-black shell.
+ */
+#sb-shell-root.sb-dark-ui .quick-card {
+    -fx-background-color: #1e1e24;
+}
+
+#sb-shell-root.sb-dark-ui .quick-card:hover {
+    -fx-background-color: #26262d;
+}
+
+#sb-shell-root.sb-dark-ui .quick-card:pressed {
+    -fx-background-color: #2c2c34;
+}
+
+#sb-shell-root.sb-dark-ui .quick-card-desc {
+    -fx-text-fill: #a1a1aa;
+}
+
+#sb-shell-root.sb-dark-ui .quick-card-desc .text {
+    -fx-fill: #a1a1aa;
+}
+
 /* ---- Inputs ---- */
 .text-field {
     -fx-background-color: sb-input;
