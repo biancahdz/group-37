@@ -22,6 +22,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.shape.Rectangle;
 
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
@@ -144,6 +145,10 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         colFileWords.setCellValueFactory(c -> c.getValue().wordsProperty());
         colFileImported.setCellValueFactory(c -> c.getValue().importedProperty());
 
+        applyRoundedClip(wordTable, 12);
+        applyRoundedClip(bigramTable, 12);
+        applyRoundedClip(fileTable, 12);
+
         sourceCombo.valueProperty().addListener((o, prev, cur) -> {
             if (cur != null) {
                 applySnapshot(cur);
@@ -151,6 +156,15 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         });
 
         exportButton.setOnAction(e -> onExportRequested());
+    }
+
+    private static void applyRoundedClip(TableView<?> table, double radius) {
+        Rectangle clip = new Rectangle();
+        clip.widthProperty().bind(table.widthProperty());
+        clip.heightProperty().bind(table.heightProperty());
+        clip.setArcWidth(radius * 2);
+        clip.setArcHeight(radius * 2);
+        table.setClip(clip);
     }
 
     /** Placeholder for backend export (e.g. CSV); use {@link #sourceCombo} scope when implementing. */
