@@ -24,12 +24,23 @@ public final class DarkSurfaceText {
     }
 
     public static void forceLabeledFill(Labeled labeled, Color color) {
+        forceLabeledFill(labeled, color, null);
+    }
+
+    /**
+     * Like {@link #forceLabeledFill(Labeled, Color)} but prepends {@code baseStyle} to the inline
+     * style (e.g. {@code "-fx-font-size: 26px; -fx-font-weight: bold;"}).  The base properties
+     * survive both dark and light passes so CSS-resistant labels (e.g. inside Button graphics)
+     * always get the correct size/weight without relying on stylesheet cascade.
+     */
+    public static void forceLabeledFill(Labeled labeled, Color color, String baseStyle) {
         if (labeled == null || color == null) {
             return;
         }
         String css = colorToCss(color);
         String textFill = "-fx-fill: " + css + ";";
-        String labelStyle = "-fx-text-fill: " + css + "; -fx-opacity: 1;";
+        String prefix = (baseStyle != null && !baseStyle.isBlank()) ? baseStyle.stripTrailing() + " " : "";
+        String labelStyle = prefix + "-fx-text-fill: " + css + "; -fx-opacity: 1;";
         labeled.setStyle(labelStyle);
         applyTextChildStyle(labeled, textFill);
         // Retry once after the next pulse in case the skin/Text node didn't exist yet.
@@ -49,10 +60,19 @@ public final class DarkSurfaceText {
      * itself by checking the label's style).
      */
     public static void clearForcedLabeledPaint(Labeled labeled) {
+        clearForcedLabeledPaint(labeled, null);
+    }
+
+    /**
+     * Like {@link #clearForcedLabeledPaint(Labeled)} but keeps {@code keepStyle} as the inline
+     * style so that base properties (font-size, font-weight) are preserved in light mode even
+     * though text-fill is handed back to the CSS cascade.
+     */
+    public static void clearForcedLabeledPaint(Labeled labeled, String keepStyle) {
         if (labeled == null) {
             return;
         }
-        labeled.setStyle(null);
+        labeled.setStyle(keepStyle);
         applyTextChildStyle(labeled, null);
     }
 

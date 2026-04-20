@@ -840,11 +840,11 @@
 
 /* Compact workspace tiles: smaller footprint on the dashboard grid */
 .home-shortcuts-panel .quick-card {
-    -fx-padding: 14 16 12 16;
+    -fx-padding: 18 20 16 20;
     -fx-background-radius: 12;
     -fx-border-radius: 12;
     -fx-border-width: 4 1.5 1.5 4;
-    -fx-spacing: 10;
+    -fx-spacing: 12;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.12), 12, 0.2, 0, 3);
 }
 
@@ -855,18 +855,18 @@
 }
 
 .home-shortcuts-panel .quick-card-title {
-    -fx-font-size: 1.077em;
+    -fx-font-size: 26px;
 }
 
 .home-shortcuts-panel .quick-card-desc {
-    -fx-font-size: 0.885em;
+    -fx-font-size: 15px;
     -fx-padding: 0;
     /* Two-line slot so titles and CTAs line up across the 2×2 grid */
     -fx-min-height: 44;
 }
 
 .home-shortcuts-panel .quick-card-cta {
-    -fx-font-size: 0.808em;
+    -fx-font-size: 14px;
     -fx-padding: 6 12 6 12;
     -fx-background-radius: 8;
     -fx-border-radius: 8;

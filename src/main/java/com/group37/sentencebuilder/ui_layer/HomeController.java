@@ -72,23 +72,27 @@ public class HomeController implements ApplicationPage, DatabasePage {
             });
         }
 
+        String titleStyle = "-fx-font-size: 26px; -fx-font-weight: bold;";
+        String descStyle  = "-fx-font-size: 15px;";
+
         // Register each label once; apply() handles dark ↔ light switching.
+        // title/desc use baseStyle so font-size is set via inline style (bypasses Button-graphic CSS boundary).
         labelTheme
                 .add(introLead,          Color.WHITE)
                 .add(labelTxtSources,    Color.WHITE)
                 .add(labelSentences,     Color.WHITE)
                 .add(homeSectionEyebrow, Color.WHITE)
                 .add(homeSectionTitle,   Color.WHITE)
-                .add(titleImport,        Color.WHITE)
-                .add(titleGenerate,      Color.WHITE)
-                .add(titleAutocomplete,  Color.WHITE)
-                .add(titleReports,       Color.WHITE)
-                .add(titleCorpusStats,   Color.WHITE)
-                .add(descImport,         Color.WHITE)
-                .add(descGenerate,       Color.WHITE)
-                .add(descAutocomplete,   Color.WHITE)
-                .add(descReports,        Color.WHITE)
-                .add(descCorpusStats,    Color.WHITE)
+                .add(titleImport,        Color.WHITE, titleStyle)
+                .add(titleGenerate,      Color.WHITE, titleStyle)
+                .add(titleAutocomplete,  Color.WHITE, titleStyle)
+                .add(titleReports,       Color.WHITE, titleStyle)
+                .add(titleCorpusStats,   Color.WHITE, titleStyle)
+                .add(descImport,         Color.WHITE, descStyle)
+                .add(descGenerate,       Color.WHITE, descStyle)
+                .add(descAutocomplete,   Color.WHITE, descStyle)
+                .add(descReports,        Color.WHITE, descStyle)
+                .add(descCorpusStats,    Color.WHITE, descStyle)
                 .add(ctaImport,       () -> Color.web(ctaFillForAccentParent(ctaImport)))
                 .add(ctaGenerate,     () -> Color.web(ctaFillForAccentParent(ctaGenerate)))
                 .add(ctaAutocomplete, () -> Color.web(ctaFillForAccentParent(ctaAutocomplete)))
