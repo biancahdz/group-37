@@ -9,7 +9,7 @@ import java.net.URI;
  */
 public final class Mailto {
 
-    public static final String SUPPORT_EMAIL = "sentencebuildersupoor@gmail.com";
+    public static final String SUPPORT_EMAIL = "sentencebuildersupport@gmail.com";
 
     private Mailto() {
     }
