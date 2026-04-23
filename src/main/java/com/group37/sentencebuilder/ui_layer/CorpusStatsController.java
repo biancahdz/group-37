@@ -781,7 +781,7 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
             series.getData().add(new XYChart.Data<>(row.getWord(), parseCount(row.getCount())));
         }
         topWordsChart.getData().add(series);
-        decorateSeries(series, "Word count", "#2563eb");
+        decorateSeries(series, "Word count", themeHex("accent"));
     }
 
     private void updateTopPairsChart() {
@@ -797,7 +797,7 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
             series.getData().add(new XYChart.Data<>(pairLabel, parseCount(row.getComboCount())));
         }
         topPairsChart.getData().add(series);
-        decorateSeries(series, "Pair count", "#7c3aed");
+        decorateSeries(series, "Pair count", themeHex("violet"));
     }
 
     private void updateFileCompareChart(String scopeKey) {
@@ -835,9 +835,9 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         fileCompareChart.getData().add(wordsSeries);
         fileCompareChart.getData().add(uniqueSeries);
         fileCompareChart.getData().add(topPairSeries);
-        decorateSeries(wordsSeries, "Words", "#0f766e");
-        decorateSeries(uniqueSeries, "Unique words", "#4f46e5");
-        decorateSeries(topPairSeries, "Top pair count", "#16a34a");
+        decorateSeries(wordsSeries, "Words", themeHex("accent"));
+        decorateSeries(uniqueSeries, "Unique words", themeHex("violet"));
+        decorateSeries(topPairSeries, "Top pair count", themeHex("teal"));
     }
 
     private static String simplifyCompareLabel(String comboLabel, String fallbackFileName) {
@@ -846,6 +846,47 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         }
         int idx = comboLabel.indexOf(" · ");
         return idx > 0 ? comboLabel.substring(0, idx) : comboLabel;
+    }
+
+    private String themeHex(String role) {
+        return switch (UiPreferences.get().resolvedPaletteClass()) {
+            case "theme-light", "theme-system" -> switch (role) {
+                case "violet" -> "#4f46e5"; case "teal" -> "#0f766e"; default -> "#1d4ed8";
+            };
+            case "theme-christmas" -> switch (role) {
+                case "violet" -> "#c084fc"; case "teal" -> "#2dd4bf"; default -> "#6A161C";
+            };
+            case "theme-thanksgiving" -> switch (role) {
+                case "violet" -> "#6B7050"; case "teal" -> "#6B7050"; default -> "#B34E22";
+            };
+            case "theme-rainbow" -> switch (role) {
+                case "violet" -> "#22d3ee"; case "teal" -> "#4ade80"; default -> "#f472b6";
+            };
+            case "theme-luna" -> switch (role) {
+                case "violet" -> "#9a8cff"; case "teal" -> "#77e4f2"; default -> "#54acbf";
+            };
+            case "theme-neon-noir" -> switch (role) {
+                case "violet" -> "#411e3a"; case "teal" -> "#17364f"; default -> "#09dbc7";
+            };
+            case "theme-fairy-lights" -> switch (role) {
+                case "violet" -> "#9f99d1"; case "teal" -> "#9fd6cf"; default -> "#86bada";
+            };
+            case "theme-deep-ink" -> switch (role) {
+                case "violet" -> "#c68d5d"; case "teal" -> "#7baacb"; default -> "#27606c";
+            };
+            case "theme-emerald-light" -> switch (role) {
+                case "violet" -> "#1c434a"; case "teal" -> "#6dabc3"; default -> "#057569";
+            };
+            case "theme-trapped-rainbow" -> switch (role) {
+                case "violet" -> "#dbaad7"; case "teal" -> "#86bada"; default -> "#9f99d1";
+            };
+            case "theme-invert-system" -> switch (role) {
+                case "violet" -> "#c084fc"; case "teal" -> "#5eead4"; default -> "#fde047";
+            };
+            default -> switch (role) {
+                case "violet" -> "#818cf8"; case "teal" -> "#2dd4bf"; default -> "#60a5fa";
+            };
+        };
     }
 
     private void decorateSeries(XYChart.Series<String, Number> series, String metric, String barColorHex) {
@@ -928,15 +969,15 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         });
     }
 
-    private static String[] legendPaletteFor(BarChart<String, Number> chart) {
+    private String[] legendPaletteFor(BarChart<String, Number> chart) {
         if (chart == null || chart.getId() == null) {
-            return new String[] {"#2563eb", "#7c3aed", "#0f766e"};
+            return new String[] {themeHex("accent"), themeHex("violet"), themeHex("teal")};
         }
         return switch (chart.getId()) {
-            case "topWordsChart" -> new String[] {"#2563eb"};
-            case "topPairsChart" -> new String[] {"#7c3aed"};
-            case "fileCompareChart" -> new String[] {"#0f766e", "#4f46e5", "#16a34a"};
-            default -> new String[] {"#2563eb", "#7c3aed", "#0f766e"};
+            case "topWordsChart"   -> new String[] {themeHex("accent")};
+            case "topPairsChart"   -> new String[] {themeHex("violet")};
+            case "fileCompareChart" -> new String[] {themeHex("accent"), themeHex("violet"), themeHex("teal")};
+            default -> new String[] {themeHex("accent"), themeHex("violet"), themeHex("teal")};
         };
     }
 

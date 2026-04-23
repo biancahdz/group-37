@@ -820,26 +820,78 @@
     -fx-text-fill: sb-text-secondary;
 }
 
-/* More saturated bars for visibility in both light/dark themes */
-.corpus-chart-words .default-color0.chart-bar {
-    -fx-bar-fill: sb-accent;
-}
+/* Bar fills — explicit per-theme hex so values don't rely on CSS variable lookup in chart context */
 
-.corpus-chart-pairs .default-color0.chart-bar {
-    -fx-bar-fill: sb-violet;
-}
+/* accent bars (words color0, files color0) */
+#sb-shell-root.theme-default      .corpus-chart-words .default-color0.chart-bar,
+#sb-shell-root.theme-default      .corpus-chart-files .default-color0.chart-bar { -fx-background-color: #60a5fa; }
+#sb-shell-root.theme-light        .corpus-chart-words .default-color0.chart-bar,
+#sb-shell-root.theme-light        .corpus-chart-files .default-color0.chart-bar { -fx-background-color: #1d4ed8; }
+#sb-shell-root.theme-system       .corpus-chart-words .default-color0.chart-bar,
+#sb-shell-root.theme-system       .corpus-chart-files .default-color0.chart-bar { -fx-background-color: #1d4ed8; }
+#sb-shell-root.theme-christmas    .corpus-chart-words .default-color0.chart-bar,
+#sb-shell-root.theme-christmas    .corpus-chart-files .default-color0.chart-bar { -fx-background-color: #6A161C; }
+#sb-shell-root.theme-thanksgiving .corpus-chart-words .default-color0.chart-bar,
+#sb-shell-root.theme-thanksgiving .corpus-chart-files .default-color0.chart-bar { -fx-background-color: #B34E22; }
+#sb-shell-root.theme-rainbow      .corpus-chart-words .default-color0.chart-bar,
+#sb-shell-root.theme-rainbow      .corpus-chart-files .default-color0.chart-bar { -fx-background-color: #f472b6; }
+#sb-shell-root.theme-luna         .corpus-chart-words .default-color0.chart-bar,
+#sb-shell-root.theme-luna         .corpus-chart-files .default-color0.chart-bar { -fx-background-color: #54acbf; }
+#sb-shell-root.theme-neon-noir    .corpus-chart-words .default-color0.chart-bar,
+#sb-shell-root.theme-neon-noir    .corpus-chart-files .default-color0.chart-bar { -fx-background-color: #09dbc7; }
+#sb-shell-root.theme-fairy-lights .corpus-chart-words .default-color0.chart-bar,
+#sb-shell-root.theme-fairy-lights .corpus-chart-files .default-color0.chart-bar { -fx-background-color: #86bada; }
+#sb-shell-root.theme-deep-ink     .corpus-chart-words .default-color0.chart-bar,
+#sb-shell-root.theme-deep-ink     .corpus-chart-files .default-color0.chart-bar { -fx-background-color: #27606c; }
+#sb-shell-root.theme-emerald-light .corpus-chart-words .default-color0.chart-bar,
+#sb-shell-root.theme-emerald-light .corpus-chart-files .default-color0.chart-bar { -fx-background-color: #057569; }
+#sb-shell-root.theme-trapped-rainbow .corpus-chart-words .default-color0.chart-bar,
+#sb-shell-root.theme-trapped-rainbow .corpus-chart-files .default-color0.chart-bar { -fx-background-color: #9f99d1; }
+#sb-shell-root.theme-invert-system .corpus-chart-words .default-color0.chart-bar,
+#sb-shell-root.theme-invert-system .corpus-chart-files .default-color0.chart-bar { -fx-background-color: #fde047; }
 
-.corpus-chart-files .default-color0.chart-bar {
-    -fx-bar-fill: sb-accent;
-}
+/* violet bars (pairs color0, files color1) */
+#sb-shell-root.theme-default      .corpus-chart-pairs .default-color0.chart-bar,
+#sb-shell-root.theme-default      .corpus-chart-files .default-color1.chart-bar { -fx-background-color: #818cf8; }
+#sb-shell-root.theme-light        .corpus-chart-pairs .default-color0.chart-bar,
+#sb-shell-root.theme-light        .corpus-chart-files .default-color1.chart-bar { -fx-background-color: #4f46e5; }
+#sb-shell-root.theme-system       .corpus-chart-pairs .default-color0.chart-bar,
+#sb-shell-root.theme-system       .corpus-chart-files .default-color1.chart-bar { -fx-background-color: #4f46e5; }
+#sb-shell-root.theme-christmas    .corpus-chart-pairs .default-color0.chart-bar,
+#sb-shell-root.theme-christmas    .corpus-chart-files .default-color1.chart-bar { -fx-background-color: #c084fc; }
+#sb-shell-root.theme-thanksgiving .corpus-chart-pairs .default-color0.chart-bar,
+#sb-shell-root.theme-thanksgiving .corpus-chart-files .default-color1.chart-bar { -fx-background-color: #6B7050; }
+#sb-shell-root.theme-rainbow      .corpus-chart-pairs .default-color0.chart-bar,
+#sb-shell-root.theme-rainbow      .corpus-chart-files .default-color1.chart-bar { -fx-background-color: #22d3ee; }
+#sb-shell-root.theme-luna         .corpus-chart-pairs .default-color0.chart-bar,
+#sb-shell-root.theme-luna         .corpus-chart-files .default-color1.chart-bar { -fx-background-color: #9a8cff; }
+#sb-shell-root.theme-neon-noir    .corpus-chart-pairs .default-color0.chart-bar,
+#sb-shell-root.theme-neon-noir    .corpus-chart-files .default-color1.chart-bar { -fx-background-color: #411e3a; }
+#sb-shell-root.theme-fairy-lights .corpus-chart-pairs .default-color0.chart-bar,
+#sb-shell-root.theme-fairy-lights .corpus-chart-files .default-color1.chart-bar { -fx-background-color: #9f99d1; }
+#sb-shell-root.theme-deep-ink     .corpus-chart-pairs .default-color0.chart-bar,
+#sb-shell-root.theme-deep-ink     .corpus-chart-files .default-color1.chart-bar { -fx-background-color: #c68d5d; }
+#sb-shell-root.theme-emerald-light .corpus-chart-pairs .default-color0.chart-bar,
+#sb-shell-root.theme-emerald-light .corpus-chart-files .default-color1.chart-bar { -fx-background-color: #1c434a; }
+#sb-shell-root.theme-trapped-rainbow .corpus-chart-pairs .default-color0.chart-bar,
+#sb-shell-root.theme-trapped-rainbow .corpus-chart-files .default-color1.chart-bar { -fx-background-color: #dbaad7; }
+#sb-shell-root.theme-invert-system .corpus-chart-pairs .default-color0.chart-bar,
+#sb-shell-root.theme-invert-system .corpus-chart-files .default-color1.chart-bar { -fx-background-color: #c084fc; }
 
-.corpus-chart-files .default-color1.chart-bar {
-    -fx-bar-fill: sb-violet;
-}
-
-.corpus-chart-files .default-color2.chart-bar {
-    -fx-bar-fill: sb-teal;
-}
+/* teal bars (files color2) */
+#sb-shell-root.theme-default      .corpus-chart-files .default-color2.chart-bar { -fx-background-color: #2dd4bf; }
+#sb-shell-root.theme-light        .corpus-chart-files .default-color2.chart-bar { -fx-background-color: #0f766e; }
+#sb-shell-root.theme-system       .corpus-chart-files .default-color2.chart-bar { -fx-background-color: #0f766e; }
+#sb-shell-root.theme-christmas    .corpus-chart-files .default-color2.chart-bar { -fx-background-color: #2dd4bf; }
+#sb-shell-root.theme-thanksgiving .corpus-chart-files .default-color2.chart-bar { -fx-background-color: #6B7050; }
+#sb-shell-root.theme-rainbow      .corpus-chart-files .default-color2.chart-bar { -fx-background-color: #4ade80; }
+#sb-shell-root.theme-luna         .corpus-chart-files .default-color2.chart-bar { -fx-background-color: #77e4f2; }
+#sb-shell-root.theme-neon-noir    .corpus-chart-files .default-color2.chart-bar { -fx-background-color: #17364f; }
+#sb-shell-root.theme-fairy-lights .corpus-chart-files .default-color2.chart-bar { -fx-background-color: #9fd6cf; }
+#sb-shell-root.theme-deep-ink     .corpus-chart-files .default-color2.chart-bar { -fx-background-color: #7baacb; }
+#sb-shell-root.theme-emerald-light .corpus-chart-files .default-color2.chart-bar { -fx-background-color: #6dabc3; }
+#sb-shell-root.theme-trapped-rainbow .corpus-chart-files .default-color2.chart-bar { -fx-background-color: #86bada; }
+#sb-shell-root.theme-invert-system .corpus-chart-files .default-color2.chart-bar { -fx-background-color: #5eead4; }
 
 /* High-specificity overrides so chart text stays readable across theme classes */
 #sb-shell-root .corpus-analytics-tabs .tab {

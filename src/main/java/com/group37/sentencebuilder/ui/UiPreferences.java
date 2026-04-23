@@ -133,6 +133,10 @@ public final class UiPreferences {
      * True when chrome should use dark-surface text fixes. Prefer the shell’s {@code sb-dark-ui} /
      * {@code sb-light-ui} when attached so this matches CSS after {@link #applyShellStyles()}.
      */
+    public String resolvedPaletteClass() {
+        return getTheme().resolvedPaletteStyleClass(currentColorScheme());
+    }
+
     public boolean isResolvedDarkSurface() {
         if (shellRoot != null) {
             if (shellRoot.getStyleClass().contains("sb-dark-ui")) {
