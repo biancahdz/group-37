@@ -15,18 +15,26 @@ import com.group37.sentencebuilder.ui_layer.model.WordFrequencyRow;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.paint.Color;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.FileChooser;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -169,8 +177,158 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         table.setClip(clip);
     }
 
-    /** Placeholder for backend export (e.g. CSV); use {@link #sourceCombo} scope when implementing. */
     private void onExportRequested() {
+        ChoiceDialog<String> formatDialog = new ChoiceDialog<>("TXT", Arrays.asList("TXT", "CSV"));
+        formatDialog.setTitle("Export word analytics");
+        formatDialog.setHeaderText("Choose export format");
+        formatDialog.setContentText("Format:");
+
+        Optional<String> selected = formatDialog.showAndWait();
+        if (selected.isEmpty()) {
+            return;
+        }
+
+        String format = selected.get();
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Save analytics export");
+        String scope = sourceCombo.getValue() == null ? "analytics" : sourceCombo.getValue().replaceAll("[^A-Za-z0-9._-]+", "_");
+        String extension = format.equals("CSV") ? ".csv" : ".txt";
+        chooser.setInitialFileName("word-analytics-" + scope + extension);
+        chooser.getExtensionFilters().setAll(
+                new FileChooser.ExtensionFilter(format + " file", "*" + extension)
+        );
+
+        File target = chooser.showSaveDialog(exportButton.getScene().getWindow());
+        if (target == null) {
+            return;
+        }
+
+        String out = format.equals("CSV") ? buildCsvExport() : buildTxtExport();
+        try {
+            Files.writeString(target.toPath(), out, StandardCharsets.UTF_8);
+            Alert ok = new Alert(Alert.AlertType.INFORMATION);
+            ok.setTitle("Export complete");
+            ok.setHeaderText("Saved analytics export");
+            ok.setContentText(target.getAbsolutePath());
+            ok.showAndWait();
+        } catch (IOException ex) {
+            Alert fail = new Alert(Alert.AlertType.ERROR);
+            fail.setTitle("Export failed");
+            fail.setHeaderText("Could not write export file");
+            fail.setContentText(ex.getMessage());
+            fail.showAndWait();
+        }
+    }
+
+    private String buildTxtExport() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("WORD ANALYTICS EXPORT\n");
+        sb.append("Scope: ").append(sourceCombo.getValue() == null ? "—" : sourceCombo.getValue()).append('\n');
+        sb.append("Hint: ").append(scopeHintLabel.getText() == null ? "" : scopeHintLabel.getText()).append('\n');
+        sb.append('\n');
+        sb.append("SUMMARY CHIPS\n");
+        sb.append("- Unique words: ").append(chipUniqueWords.getText()).append('\n');
+        sb.append("- Total tokens: ").append(chipTotalTokens.getText()).append('\n');
+        sb.append("- Top pair count: ").append(chipTopCombo.getText()).append('\n');
+        sb.append('\n');
+
+        sb.append("HIGHEST WORD COUNTS\n");
+        sb.append("No.\tWord\tCount\n");
+        for (WordFrequencyRow row : wordTable.getItems()) {
+            sb.append(row.rankProperty().get()).append('\t')
+                    .append(row.getWord()).append('\t')
+                    .append(row.getCount()).append('\n');
+        }
+        sb.append('\n');
+
+        sb.append("STRONGEST WORD PAIRS\n");
+        sb.append("No.\tFirst\tNext\tPair Count\n");
+        for (BigramRow row : bigramTable.getItems()) {
+            sb.append(row.rankProperty().get()).append('\t')
+                    .append(row.getFirstWord()).append('\t')
+                    .append(row.getSecondWord()).append('\t')
+                    .append(row.getComboCount()).append('\n');
+        }
+        sb.append('\n');
+
+        sb.append("PER-FILE BREAKDOWN\n");
+        sb.append("Subtitle: ").append(fileTableSubtitle.getText() == null ? "" : fileTableSubtitle.getText()).append('\n');
+        sb.append("File\tSentences\tWords\tImported\n");
+        if (fileTable.getItems().isEmpty()) {
+            sb.append("(No rows in current scope)\n");
+        } else {
+            for (FileCorpusStatRow row : fileTable.getItems()) {
+                sb.append(row.fileNameProperty().get()).append('\t')
+                        .append(row.sentencesProperty().get()).append('\t')
+                        .append(row.wordsProperty().get()).append('\t')
+                        .append(row.importedProperty().get()).append('\n');
+            }
+        }
+        return sb.toString();
+    }
+
+    private String buildCsvExport() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Section,Field,Value\n");
+        sb.append(csv("Summary", "Scope", sourceCombo.getValue() == null ? "—" : sourceCombo.getValue()));
+        sb.append(csv("Summary", "Hint", scopeHintLabel.getText()));
+        sb.append(csv("Summary", "Unique words", chipUniqueWords.getText()));
+        sb.append(csv("Summary", "Total tokens", chipTotalTokens.getText()));
+        sb.append(csv("Summary", "Top pair count", chipTopCombo.getText()));
+        sb.append('\n');
+
+        sb.append("Word Counts,No.,Word,Count\n");
+        if (wordTable.getItems().isEmpty()) {
+            sb.append("Word Counts,(none),,\n");
+        } else {
+            for (WordFrequencyRow row : wordTable.getItems()) {
+                sb.append(csvLine("Word Counts", row.rankProperty().get(), row.getWord(), row.getCount()));
+            }
+        }
+        sb.append('\n');
+
+        sb.append("Word Pairs,No.,First,Next,Pair Count\n");
+        if (bigramTable.getItems().isEmpty()) {
+            sb.append("Word Pairs,(none),,,\n");
+        } else {
+            for (BigramRow row : bigramTable.getItems()) {
+                sb.append(csvLine("Word Pairs", row.rankProperty().get(), row.getFirstWord(), row.getSecondWord(), row.getComboCount()));
+            }
+        }
+        sb.append('\n');
+
+        sb.append("Per-file Breakdown,File,Sentences,Words,Imported\n");
+        if (fileTable.getItems().isEmpty()) {
+            sb.append("Per-file Breakdown,(none),,,\n");
+        } else {
+            for (FileCorpusStatRow row : fileTable.getItems()) {
+                sb.append(csvLine("Per-file Breakdown",
+                        row.fileNameProperty().get(),
+                        row.sentencesProperty().get(),
+                        row.wordsProperty().get(),
+                        row.importedProperty().get()));
+            }
+        }
+        return sb.toString();
+    }
+
+    private static String csv(String section, String field, String value) {
+        return csvLine(section, field, value);
+    }
+
+    private static String csvLine(String... values) {
+        StringBuilder line = new StringBuilder();
+        for (int i = 0; i < values.length; i++) {
+            if (i > 0) {
+                line.append(',');
+            }
+            line.append('"');
+            String value = values[i] == null ? "" : values[i];
+            line.append(value.replace("\"", "\"\""));
+            line.append('"');
+        }
+        line.append('\n');
+        return line.toString();
     }
 
     @Override
