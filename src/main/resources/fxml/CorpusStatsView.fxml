@@ -59,11 +59,13 @@
         <VBox.margin><Insets top="28"/></VBox.margin>
         <HBox styleClass="tab-toggle-pill" spacing="0">
             <ToggleButton fx:id="tablesButton" mnemonicParsing="false" text="Tables"
-                          selected="true" styleClass="toggle-pill-btn toggle-pill-left">
+                          selected="true" styleClass="toggle-pill-btn toggle-pill-left"
+                          minHeight="40" prefHeight="40">
                 <toggleGroup><ToggleGroup fx:id="tabToggleGroup"/></toggleGroup>
             </ToggleButton>
             <ToggleButton fx:id="chartsButton" mnemonicParsing="false" text="Charts"
-                          styleClass="toggle-pill-btn toggle-pill-right">
+                          styleClass="toggle-pill-btn toggle-pill-right"
+                          minHeight="40" prefHeight="40">
                 <toggleGroup><fx:reference source="tabToggleGroup"/></toggleGroup>
             </ToggleButton>
         </HBox>

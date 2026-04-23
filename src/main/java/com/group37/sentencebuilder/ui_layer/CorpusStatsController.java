@@ -432,9 +432,9 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
                         + "-fx-text-fill: #888888; -fx-effect: null;";
 
         tablesButton.setStyle((onCharts ? inactive : active)
-                + " -fx-background-radius: 999 0 0 999;");
+                + " -fx-background-radius: 10 0 0 10;");
         chartsButton.setStyle((onCharts ? active : inactive)
-                + " -fx-background-radius: 0 999 999 0;");
+                + " -fx-background-radius: 0 10 10 0;");
     }
 
     private String buildCsvExport() {
