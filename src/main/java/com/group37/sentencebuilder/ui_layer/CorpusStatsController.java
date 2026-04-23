@@ -20,6 +20,8 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
@@ -82,6 +84,12 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
 
     @FXML
     private Button compareFilesButton;
+
+    @FXML
+    private ToggleButton tablesButton;
+
+    @FXML
+    private ToggleButton chartsButton;
 
     @FXML
     private Label sectionEyebrowLabel;
@@ -214,6 +222,19 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
 
         exportButton.setOnAction(e -> onExportRequested());
         compareFilesButton.setOnAction(e -> onCompareFilesRequested());
+
+        tablesButton.setOnAction(e -> analyticsTabPane.getSelectionModel().selectFirst());
+        chartsButton.setOnAction(e -> analyticsTabPane.getSelectionModel().select(chartsTab));
+        analyticsTabPane.getSelectionModel().selectedItemProperty().addListener((o, prev, cur) -> updateTabToggle());
+        updateTabToggle();
+
+        Platform.runLater(() -> {
+            javafx.scene.Node headerArea = analyticsTabPane.lookup(".tab-header-area");
+            if (headerArea != null) {
+                headerArea.setVisible(false);
+                headerArea.setManaged(false);
+            }
+        });
 
         topWordsChart.setCategoryGap(16);
         topWordsChart.setBarGap(4);
@@ -398,6 +419,22 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         if (analyticsTabPane != null && chartsTab != null) {
             analyticsTabPane.getSelectionModel().select(chartsTab);
         }
+    }
+
+    private void updateTabToggle() {
+        boolean onCharts = analyticsTabPane.getSelectionModel().getSelectedItem() == chartsTab;
+        tablesButton.setSelected(!onCharts);
+        chartsButton.setSelected(onCharts);
+
+        String active   = "-fx-background-color: white; -fx-background-insets: 0; "
+                        + "-fx-text-fill: #111111; -fx-effect: null;";
+        String inactive = "-fx-background-color: transparent; -fx-background-insets: 0; "
+                        + "-fx-text-fill: #888888; -fx-effect: null;";
+
+        tablesButton.setStyle((onCharts ? inactive : active)
+                + " -fx-background-radius: 999 0 0 999;");
+        chartsButton.setStyle((onCharts ? active : inactive)
+                + " -fx-background-radius: 0 999 999 0;");
     }
 
     private String buildCsvExport() {
