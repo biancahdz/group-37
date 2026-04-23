@@ -652,6 +652,277 @@
     -fx-padding: 4 0 0 0;
 }
 
+/* ---- Word analytics tabs + charts ---- */
+.corpus-analytics-tabs {
+    -fx-background-color: transparent;
+    -fx-padding: 10 10 12 10;
+}
+
+.corpus-analytics-tabs > .tab-header-area {
+    -fx-padding: 0 0 12 0;
+}
+
+.corpus-analytics-tabs > .tab-header-area .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.corpus-analytics-tabs .tab {
+    -fx-background-color: sb-surface-muted;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: sb-border-subtle;
+    -fx-padding: 6 14 6 14;
+}
+
+.corpus-analytics-tabs .tab:selected {
+    -fx-background-color: sb-accent-soft;
+    -fx-border-color: sb-accent-border;
+}
+
+.corpus-analytics-tabs .tab .tab-label {
+    -fx-text-fill: sb-text-secondary;
+    -fx-font-weight: bold;
+}
+
+.corpus-analytics-tabs .tab:selected .tab-label {
+    -fx-text-fill: sb-accent;
+}
+
+.corpus-analytics-tabs > .tab-content-area {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.chart-tab-content .chart-card {
+    -fx-background-color: sb-surface;
+    -fx-border-color: sb-border;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 12 14 14 14;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.12), 14, 0.2, 0, 3);
+}
+
+.corpus-chart {
+    -fx-background-color: sb-surface-muted;
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+}
+
+.corpus-chart .chart-plot-background {
+    -fx-background-color: sb-surface;
+    -fx-background-radius: 8;
+}
+
+.corpus-chart .chart-vertical-grid-lines,
+.corpus-chart .chart-horizontal-grid-lines {
+    -fx-stroke: sb-border-subtle;
+    -fx-stroke-width: 1;
+}
+
+.corpus-chart .axis {
+    -fx-tick-label-fill: sb-text;
+}
+
+.corpus-chart .axis .axis-label {
+    -fx-text-fill: sb-text-secondary;
+    -fx-font-weight: bold;
+}
+
+.corpus-chart .axis .tick-label {
+    -fx-fill: sb-text;
+}
+
+.corpus-chart .chart-title {
+    -fx-text-fill: sb-text;
+}
+
+.corpus-chart .chart-legend,
+.corpus-chart .chart-legend-item,
+.corpus-chart .chart-legend-item-symbol {
+    -fx-background-color: transparent;
+}
+
+.corpus-chart .chart-legend-item {
+    -fx-text-fill: sb-text-secondary;
+}
+
+/* More saturated bars for visibility in both light/dark themes */
+.corpus-chart-words .default-color0.chart-bar {
+    -fx-bar-fill: sb-accent;
+}
+
+.corpus-chart-pairs .default-color0.chart-bar {
+    -fx-bar-fill: sb-violet;
+}
+
+.corpus-chart-files .default-color0.chart-bar {
+    -fx-bar-fill: sb-accent;
+}
+
+.corpus-chart-files .default-color1.chart-bar {
+    -fx-bar-fill: sb-violet;
+}
+
+.corpus-chart-files .default-color2.chart-bar {
+    -fx-bar-fill: sb-teal;
+}
+
+/* High-specificity overrides so chart text stays readable across theme classes */
+#sb-shell-root .corpus-analytics-tabs .tab {
+    -fx-background-color: rgba(127, 127, 127, 0.16);
+    -fx-border-color: rgba(127, 127, 127, 0.35);
+}
+
+#sb-shell-root .corpus-analytics-tabs .tab:selected {
+    -fx-background-color: sb-accent-soft;
+    -fx-border-color: sb-accent-border;
+}
+
+#sb-shell-root .corpus-analytics-tabs .tab .tab-label {
+    -fx-text-fill: sb-text;
+    -fx-font-size: 1em;
+    -fx-font-weight: bold;
+}
+
+#sb-shell-root .corpus-analytics-tabs .tab:selected .tab-label {
+    -fx-text-fill: sb-accent;
+}
+
+#sb-shell-root .chart-tab-content .chart-card {
+    -fx-background-color: sb-surface;
+    -fx-border-color: sb-border-subtle;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.09), 10, 0.16, 0, 2);
+}
+
+#sb-shell-root .corpus-chart {
+    -fx-background-color: sb-surface;
+    -fx-background-radius: 10;
+    -fx-padding: 8;
+}
+
+#sb-shell-root .corpus-chart .chart-content {
+    -fx-padding: 10;
+}
+
+#sb-shell-root .corpus-chart .chart-plot-background {
+    -fx-background-color: sb-surface-muted;
+    -fx-background-radius: 8;
+}
+
+#sb-shell-root .corpus-chart .chart-vertical-grid-lines {
+    -fx-stroke: transparent;
+}
+
+#sb-shell-root .corpus-chart .chart-horizontal-grid-lines {
+    -fx-stroke: rgba(127, 127, 127, 0.34);
+    -fx-stroke-width: 1.05;
+}
+
+#sb-shell-root .corpus-chart .axis {
+    -fx-tick-label-fill: sb-text;
+    -fx-tick-label-font-size: 0.98em;
+}
+
+#sb-shell-root .corpus-chart .axis .axis-label {
+    -fx-text-fill: sb-text;
+    -fx-font-size: 1.04em;
+    -fx-font-weight: bold;
+}
+
+#sb-shell-root .corpus-chart .axis .tick-label {
+    -fx-fill: sb-text;
+}
+
+#sb-shell-root .corpus-chart .chart-legend-item {
+    -fx-text-fill: sb-text;
+    -fx-font-size: 0.95em;
+}
+
+/* Dark shell fallback: force bright labels even if theme tokens are muted */
+#sb-shell-root.sb-dark-ui .corpus-chart .axis,
+#sb-shell-root.sb-dark-ui .corpus-chart .axis .axis-label,
+#sb-shell-root.sb-dark-ui .corpus-chart .axis .tick-label,
+#sb-shell-root.sb-dark-ui .corpus-chart .chart-legend-item {
+    -fx-tick-label-fill: #f4f4f5;
+    -fx-text-fill: #f4f4f5;
+    -fx-fill: #f4f4f5;
+}
+
+#sb-shell-root.sb-dark-ui .corpus-chart .chart-plot-background {
+    -fx-background-color: #27272a;
+}
+
+#sb-shell-root.sb-dark-ui .corpus-chart .chart-horizontal-grid-lines {
+    -fx-stroke: rgba(244, 244, 245, 0.24);
+}
+
+/* Explicit per-theme chart contrast mapping */
+#sb-shell-root.theme-default .corpus-chart .axis,
+#sb-shell-root.theme-default .corpus-chart .axis .axis-label,
+#sb-shell-root.theme-default .corpus-chart .axis .tick-label,
+#sb-shell-root.theme-default .corpus-chart .chart-legend-item,
+#sb-shell-root.theme-rainbow .corpus-chart .axis,
+#sb-shell-root.theme-rainbow .corpus-chart .axis .axis-label,
+#sb-shell-root.theme-rainbow .corpus-chart .axis .tick-label,
+#sb-shell-root.theme-rainbow .corpus-chart .chart-legend-item,
+#sb-shell-root.theme-christmas .corpus-chart .axis,
+#sb-shell-root.theme-christmas .corpus-chart .axis .axis-label,
+#sb-shell-root.theme-christmas .corpus-chart .axis .tick-label,
+#sb-shell-root.theme-christmas .corpus-chart .chart-legend-item,
+#sb-shell-root.theme-invert-system .corpus-chart .axis,
+#sb-shell-root.theme-invert-system .corpus-chart .axis .axis-label,
+#sb-shell-root.theme-invert-system .corpus-chart .axis .tick-label,
+#sb-shell-root.theme-invert-system .corpus-chart .chart-legend-item,
+#sb-shell-root.theme-luna .corpus-chart .axis,
+#sb-shell-root.theme-luna .corpus-chart .axis .axis-label,
+#sb-shell-root.theme-luna .corpus-chart .axis .tick-label,
+#sb-shell-root.theme-luna .corpus-chart .chart-legend-item,
+#sb-shell-root.theme-neon-noir .corpus-chart .axis,
+#sb-shell-root.theme-neon-noir .corpus-chart .axis .axis-label,
+#sb-shell-root.theme-neon-noir .corpus-chart .axis .tick-label,
+#sb-shell-root.theme-neon-noir .corpus-chart .chart-legend-item,
+#sb-shell-root.theme-deep-ink .corpus-chart .axis,
+#sb-shell-root.theme-deep-ink .corpus-chart .axis .axis-label,
+#sb-shell-root.theme-deep-ink .corpus-chart .axis .tick-label,
+#sb-shell-root.theme-deep-ink .corpus-chart .chart-legend-item {
+    -fx-tick-label-fill: #f8fafc;
+    -fx-text-fill: #f8fafc;
+    -fx-fill: #f8fafc;
+}
+
+#sb-shell-root.theme-light .corpus-chart .axis,
+#sb-shell-root.theme-light .corpus-chart .axis .axis-label,
+#sb-shell-root.theme-light .corpus-chart .axis .tick-label,
+#sb-shell-root.theme-light .corpus-chart .chart-legend-item,
+#sb-shell-root.theme-system .corpus-chart .axis,
+#sb-shell-root.theme-system .corpus-chart .axis .axis-label,
+#sb-shell-root.theme-system .corpus-chart .axis .tick-label,
+#sb-shell-root.theme-system .corpus-chart .chart-legend-item,
+#sb-shell-root.theme-thanksgiving .corpus-chart .axis,
+#sb-shell-root.theme-thanksgiving .corpus-chart .axis .axis-label,
+#sb-shell-root.theme-thanksgiving .corpus-chart .axis .tick-label,
+#sb-shell-root.theme-thanksgiving .corpus-chart .chart-legend-item,
+#sb-shell-root.theme-fairy-lights .corpus-chart .axis,
+#sb-shell-root.theme-fairy-lights .corpus-chart .axis .axis-label,
+#sb-shell-root.theme-fairy-lights .corpus-chart .axis .tick-label,
+#sb-shell-root.theme-fairy-lights .corpus-chart .chart-legend-item,
+#sb-shell-root.theme-emerald-light .corpus-chart .axis,
+#sb-shell-root.theme-emerald-light .corpus-chart .axis .axis-label,
+#sb-shell-root.theme-emerald-light .corpus-chart .axis .tick-label,
+#sb-shell-root.theme-emerald-light .corpus-chart .chart-legend-item,
+#sb-shell-root.theme-trapped-rainbow .corpus-chart .axis,
+#sb-shell-root.theme-trapped-rainbow .corpus-chart .axis .axis-label,
+#sb-shell-root.theme-trapped-rainbow .corpus-chart .axis .tick-label,
+#sb-shell-root.theme-trapped-rainbow .corpus-chart .chart-legend-item {
+    -fx-tick-label-fill: #111827;
+    -fx-text-fill: #111827;
+    -fx-fill: #111827;
+}
+
 /* ---- Typography ---- */
 .section-eyebrow {
     -fx-text-fill: sb-eyebrow-neutral;

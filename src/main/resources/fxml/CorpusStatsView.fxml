@@ -4,8 +4,13 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
@@ -18,18 +23,18 @@
            text='Top words and pairs from MySQL. All imported files shows corpus-wide ranks plus a per-file grid; each other entry scopes tables to that import (run migration + re-import if your DB predates per-file tables).'/>
 
     <VBox spacing="16" styleClass="content-card">
-        <HBox alignment="CENTER_LEFT" spacing="20">
-            <VBox spacing="6" HBox.hgrow="NEVER" alignment="TOP_LEFT">
+        <HBox alignment="CENTER_LEFT" spacing="12">
+            <VBox spacing="6" HBox.hgrow="ALWAYS" alignment="TOP_LEFT">
                 <Label text="Analyze" styleClass="field-label"/>
                 <HBox alignment="CENTER_LEFT" spacing="12" fillHeight="false">
-                    <ComboBox fx:id="sourceCombo" prefWidth="320" minHeight="40" prefHeight="40"
+                    <ComboBox fx:id="sourceCombo" prefWidth="360" minHeight="40" prefHeight="40"
                               styleClass="combo-box combo-styled"/>
+                    <Button fx:id="compareFilesButton" mnemonicParsing="false" text="Compare files"
+                            styleClass="secondary-button" minHeight="40" prefHeight="40"/>
                     <Button fx:id="exportButton" id="corpus-export-btn" mnemonicParsing="false" text="Export"
                             styleClass="primary-button" minHeight="40" prefHeight="40"/>
                 </HBox>
             </VBox>
-            <HBox HBox.hgrow="ALWAYS" minWidth="12"/>
-            <Label fx:id="scopeHintLabel" styleClass="pill-label" wrapText="true" maxWidth="420"/>
         </HBox>
 
         <HBox styleClass="corpus-stat-strip" spacing="14" alignment="CENTER_LEFT">
@@ -48,51 +53,106 @@
         </HBox>
     </VBox>
 
-    <VBox spacing="14" styleClass="content-card content-card-elevated" VBox.vgrow="ALWAYS">
-        <VBox.margin>
-            <Insets top="24"/>
-        </VBox.margin>
-        <Label text="Highest word counts" styleClass="card-title"/>
-        <Label text="Ranked by occurrences in the selected scope." styleClass="card-subtitle"/>
-        <TableView fx:id="wordTable" styleClass="table-clean" VBox.vgrow="ALWAYS" minHeight="200" prefHeight="240">
-            <columns>
-                <TableColumn fx:id="colWordRank" text="No." prefWidth="56"/>
-                <TableColumn fx:id="colWord" text="WORD" prefWidth="220" minWidth="120"/>
-                <TableColumn fx:id="colWordCount" text="COUNT" prefWidth="120"/>
-            </columns>
-        </TableView>
-    </VBox>
+    <TabPane fx:id="analyticsTabPane" tabClosingPolicy="UNAVAILABLE"
+             styleClass="content-card content-card-elevated corpus-analytics-tabs" VBox.vgrow="ALWAYS">
+        <tabs>
+            <Tab text="Tables">
+                <content>
+                    <VBox spacing="18" maxWidth="Infinity">
+                        <VBox spacing="14" styleClass="content-card content-card-elevated" VBox.vgrow="ALWAYS">
+                            <Label text="Highest word counts" styleClass="card-title"/>
+                            <Label text="Ranked by occurrences in the selected scope." styleClass="card-subtitle"/>
+                            <TableView fx:id="wordTable" styleClass="table-clean" VBox.vgrow="ALWAYS" minHeight="200" prefHeight="240">
+                                <columns>
+                                    <TableColumn fx:id="colWordRank" text="No." prefWidth="56"/>
+                                    <TableColumn fx:id="colWord" text="WORD" prefWidth="220" minWidth="120"/>
+                                    <TableColumn fx:id="colWordCount" text="COUNT" prefWidth="120"/>
+                                </columns>
+                            </TableView>
+                        </VBox>
 
-    <VBox spacing="14" styleClass="content-card content-card-elevated" VBox.vgrow="ALWAYS">
-        <VBox.margin>
-            <Insets top="20"/>
-        </VBox.margin>
-        <Label text="Strongest word pairs" styleClass="card-title"/>
-        <Label text="Co-occurrence counts for next-word transitions." styleClass="card-subtitle"/>
-        <TableView fx:id="bigramTable" styleClass="table-clean" VBox.vgrow="ALWAYS" minHeight="200" prefHeight="260">
-            <columns>
-                <TableColumn fx:id="colBiRank" text="No." prefWidth="56"/>
-                <TableColumn fx:id="colBiFirst" text="FIRST" prefWidth="180" minWidth="100"/>
-                <TableColumn fx:id="colBiSecond" text="NEXT" prefWidth="180" minWidth="100"/>
-                <TableColumn fx:id="colBiCount" text="PAIR COUNT" prefWidth="130"/>
-            </columns>
-        </TableView>
-    </VBox>
+                        <VBox spacing="14" styleClass="content-card content-card-elevated" VBox.vgrow="ALWAYS">
+                            <Label text="Strongest word pairs" styleClass="card-title"/>
+                            <Label text="Co-occurrence counts for next-word transitions." styleClass="card-subtitle"/>
+                            <TableView fx:id="bigramTable" styleClass="table-clean" VBox.vgrow="ALWAYS" minHeight="200" prefHeight="260">
+                                <columns>
+                                    <TableColumn fx:id="colBiRank" text="No." prefWidth="56"/>
+                                    <TableColumn fx:id="colBiFirst" text="FIRST" prefWidth="180" minWidth="100"/>
+                                    <TableColumn fx:id="colBiSecond" text="NEXT" prefWidth="180" minWidth="100"/>
+                                    <TableColumn fx:id="colBiCount" text="PAIR COUNT" prefWidth="130"/>
+                                </columns>
+                            </TableView>
+                        </VBox>
 
-    <VBox spacing="14" styleClass="content-card content-card-elevated" VBox.vgrow="SOMETIMES">
-        <VBox.margin>
-            <Insets top="20"/>
-        </VBox.margin>
-        <Label text="Per-file breakdown" styleClass="card-title"/>
-        <Label fx:id="fileTableSubtitle" wrapText="true"
-               text="Shown when aggregating all imports." styleClass="card-subtitle"/>
-        <TableView fx:id="fileTable" styleClass="table-clean" minHeight="160" prefHeight="200">
-            <columns>
-                <TableColumn fx:id="colFileName" text="FILE" prefWidth="280" minWidth="160"/>
-                <TableColumn fx:id="colFileSentences" text="SENTENCES" prefWidth="120"/>
-                <TableColumn fx:id="colFileWords" text="WORDS" prefWidth="120"/>
-                <TableColumn fx:id="colFileImported" text="IMPORTED" prefWidth="200"/>
-            </columns>
-        </TableView>
-    </VBox>
+                        <VBox spacing="14" styleClass="content-card content-card-elevated" VBox.vgrow="SOMETIMES">
+                            <Label text="Per-file breakdown" styleClass="card-title"/>
+                            <Label fx:id="fileTableSubtitle" wrapText="true"
+                                   text="Shown when aggregating all imports." styleClass="card-subtitle"/>
+                            <TableView fx:id="fileTable" styleClass="table-clean" minHeight="160" prefHeight="200">
+                                <columns>
+                                    <TableColumn fx:id="colFileName" text="FILE" prefWidth="280" minWidth="160"/>
+                                    <TableColumn fx:id="colFileSentences" text="SENTENCES" prefWidth="120"/>
+                                    <TableColumn fx:id="colFileWords" text="WORDS" prefWidth="120"/>
+                                    <TableColumn fx:id="colFileUniqueWords" text="UNIQUE WORDS" prefWidth="130"/>
+                                    <TableColumn fx:id="colFileTopPairCount" text="TOP PAIR COUNT" prefWidth="140"/>
+                                    <TableColumn fx:id="colFileImported" text="IMPORTED" prefWidth="200"/>
+                                </columns>
+                            </TableView>
+                        </VBox>
+                    </VBox>
+                </content>
+            </Tab>
+
+            <Tab fx:id="chartsTab" text="Charts">
+                <content>
+                    <VBox spacing="18" maxWidth="Infinity" styleClass="chart-tab-content">
+                        <VBox spacing="10" styleClass="content-card content-card-elevated chart-card">
+                            <Label text="Top words (chart)" styleClass="card-title"/>
+                            <Label text="Top 10 words by count in the selected scope." styleClass="card-subtitle"/>
+                            <BarChart fx:id="topWordsChart" animated="false" legendVisible="false"
+                                      styleClass="corpus-chart corpus-chart-words"
+                                      minHeight="280" prefHeight="320">
+                                <xAxis>
+                                    <CategoryAxis label="Word"/>
+                                </xAxis>
+                                <yAxis>
+                                    <NumberAxis label="Count"/>
+                                </yAxis>
+                            </BarChart>
+                        </VBox>
+
+                        <VBox spacing="10" styleClass="content-card content-card-elevated chart-card">
+                            <Label text="Top word pairs (chart)" styleClass="card-title"/>
+                            <Label text="Top 10 next-word transitions in the selected scope." styleClass="card-subtitle"/>
+                            <BarChart fx:id="topPairsChart" animated="false" legendVisible="false"
+                                      styleClass="corpus-chart corpus-chart-pairs"
+                                      minHeight="280" prefHeight="320">
+                                <xAxis>
+                                    <CategoryAxis label="Pair"/>
+                                </xAxis>
+                                <yAxis>
+                                    <NumberAxis label="Pair count"/>
+                                </yAxis>
+                            </BarChart>
+                        </VBox>
+
+                        <VBox spacing="10" styleClass="content-card content-card-elevated chart-card">
+                            <Label text="Per-file compare (chart)" styleClass="card-title"/>
+                            <Label fx:id="fileCompareSubtitle" text="Words vs unique words across imported files." styleClass="card-subtitle" wrapText="true"/>
+                            <BarChart fx:id="fileCompareChart" animated="false"
+                                      styleClass="corpus-chart corpus-chart-files"
+                                      minHeight="300" prefHeight="340">
+                                <xAxis>
+                                    <CategoryAxis label="File"/>
+                                </xAxis>
+                                <yAxis>
+                                    <NumberAxis label="Count"/>
+                                </yAxis>
+                            </BarChart>
+                        </VBox>
+                    </VBox>
+                </content>
+            </Tab>
+        </tabs>
+    </TabPane>
 </VBox>
