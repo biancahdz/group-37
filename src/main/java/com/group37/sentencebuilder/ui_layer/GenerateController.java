@@ -4,7 +4,7 @@
  *
  * Author: 
  * Created: 
- * Last Modified: 2026-03-25
+ * Last Modified: 2026-04-23
  *
  * Version: 1.0
  */
@@ -15,12 +15,17 @@ import com.group37.sentencebuilder.logic_layer.GeneratorLogic;
 
 import com.group37.sentencebuilder.ui.LabelThemeRegistry;
 
+import com.group37.sentencebuilder.data_layer.Database;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import java.util.Optional;
 
 /** Sentence generator screen — runs corpus-backed generation algorithms. */
 public class GenerateController implements ApplicationPage {
@@ -94,6 +99,31 @@ public class GenerateController implements ApplicationPage {
         String word = startWordField.getText() != null ? startWordField.getText().trim() : "";
         Algorithm algo = Algorithm.fromString(algorithmCombo.getSelectionModel().getSelectedItem());
         
+        //check if word exists in db
+        if(!word.isEmpty()) {
+          Database db = Database.getDatabase();
+          db.connect();
+
+        if(!db.isWord(word)) {
+          Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+          alert.setTitle("Word not found");
+          alert.setHeaderText("\"" + word + "\" is not in the database.");
+          alert.setContentText("Would you like to add it?");
+
+       Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+              db.addWord(word);
+                outputArea.setText("\"" + word + "\" has been added to the database!");
+                db.disconnect();
+                return; // stop no combos for word
+             } else {
+                outputArea.setText("Word not found.");
+                db.disconnect();
+                return;
+              }
+          }
+          db.disconnect();
+       }
         switch (algo)
         {
             case MARKOV -> outputArea.setText(GeneratorLogic.markov(word, 15));
