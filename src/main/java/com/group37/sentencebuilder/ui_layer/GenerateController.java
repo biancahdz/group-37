@@ -16,7 +16,8 @@ import com.group37.sentencebuilder.logic_layer.GeneratorLogic;
 import com.group37.sentencebuilder.ui.LabelThemeRegistry;
 
 import com.group37.sentencebuilder.data_layer.Database;
-
+import java.util.List;
+import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -113,7 +114,8 @@ public class GenerateController implements ApplicationPage {
        Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
               db.addWord(word);
-                outputArea.setText("\"" + word + "\" has been added to the database!");
+                outputArea.setText("\"" + word + "\" has been added to the database!\n\n" +
+                  		  "Type a sentence containing \"" + word + "\" in the textbox above, then click \"Add Sentence to Database\".");
                 db.disconnect();
                 return; // stop no combos for word
              } else {
@@ -132,4 +134,35 @@ public class GenerateController implements ApplicationPage {
             case BEAM -> outputArea.setText(GeneratorLogic.beam(word, 15, 15));
         }
     }
+    
+    @FXML
+    private void onAddSentence() {
+        String sentence = outputArea.getText().trim();
+        
+        if(sentence.isBlank() || sentence.equals("Generated sentences will appear here!")) {
+        outputArea.setText("Please enter a sentence in the output area first.");
+        return;
+    }
+
+    String[] rawWords = sentence.split("\\s+");
+    List<String> words = new ArrayList<>();
+    for (String w : rawWords) {
+        String cleaned = w.replaceAll("[^A-Za-z]", "").toLowerCase();
+        if (!cleaned.isBlank()) words.add(cleaned);
+    }
+
+    Database db = Database.getDatabase();
+    db.connect();
+    db.addWords(words);
+    for (int i = 0; i < words.size() - 1; i++) {
+        Integer firstID = db.getWordID(words.get(i));
+        Integer secondID = db.getWordID(words.get(i + 1));
+        if (firstID != null && secondID != null) {
+            db.addCombo(firstID, secondID);
+        }
+    }
+    db.disconnect();
+    outputArea.setText("Sentence added to the database! Words and combos are now available for generation.");
+  }
+
 }

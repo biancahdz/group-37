@@ -30,6 +30,7 @@
         </VBox>
         <HBox spacing="12">
             <Button text="Generate" onAction="#onGenerate" styleClass="primary-button"/>
+	    <Button text="Add Sentence to Database" onAction="#onAddSentence" styleClass="primary-button"/>
         </HBox>
     </VBox>
 
