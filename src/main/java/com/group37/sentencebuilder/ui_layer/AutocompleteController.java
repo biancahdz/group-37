@@ -28,6 +28,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
+import javafx.scene.control.Button;
 
 /** Auto-complete screen — suggestion chips from corpus word data. */
 public class AutocompleteController implements ApplicationPage, DatabasePage {
@@ -47,6 +48,9 @@ public class AutocompleteController implements ApplicationPage, DatabasePage {
 
     @FXML
     private Label sectionEyebrowLabel;
+   
+    @FXML
+    private Button addWordButton;
 
     @FXML
     private void initialize() {
@@ -171,4 +175,18 @@ public class AutocompleteController implements ApplicationPage, DatabasePage {
     {
         this.database = database;
     }
+    
+    @FXML 
+    private void onAddWord() {
+         String[] parts = prefixField.getText().trim().toLowerCase().split("\\s+");
+         if (parts.length == 0) return;
+         String word = parts[parts.length - 1];
+
+         if(!word.isBlank()) {
+           database.addWord(word);
+	   refreshSuggestions(prefixField.getText());
+	   Platform.runLater(() ->
+              hintLabel.setText("\"" + word + "\" has been added to the database!"));
+            }
+       } 
 }
