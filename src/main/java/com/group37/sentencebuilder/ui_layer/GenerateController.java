@@ -4,8 +4,14 @@
  *  File:    .java
  *  Author:  
  *
+<<<<<<< HEAD
+ * Author: 
+ * Created: 
+ * Last Modified: 2026-04-23
+=======
  *  Description:
  *      <description>
+>>>>>>> e7bf186e87f812c7a590603cc03362008e66742e
  *
  *  Version: 1.0
  *  Created: 
@@ -23,6 +29,9 @@ import com.group37.sentencebuilder.logic_layer.GeneratorLogic;
 
 import com.group37.sentencebuilder.ui.LabelThemeRegistry;
 
+import com.group37.sentencebuilder.data_layer.Database;
+import java.util.List;
+import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -127,4 +136,6 @@ public class GenerateController implements ApplicationPage {
         GeneratorLogic.addReport(algorithm, text);
         outputArea.setText(text);
     }
+   
+
 }
