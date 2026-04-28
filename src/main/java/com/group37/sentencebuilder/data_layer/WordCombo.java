@@ -1,12 +1,20 @@
 /**
- * File: word.java
- * Description: Object to hold the data of a word object.
+ * ------------------------------------------------------------
+ *  Project: Sentence Builder
+ *  File:    WordCombo.java
+ *  Author:  Cortland Kimzey
  *
- * Author: Cortland Kimzey
+ *  Description:
+ *      Object to hold the data of a word combo object.
+ *
+ *  Version: 1.0
  * Created: 2026-03-25
  * Last Modified: 2026-03-25
  *
- * Version: 1.0
+ *  Responsibilities:
+ *      - <responsibilities 1>
+ *      - <responsibilities 2>
+ * ------------------------------------------------------------
  */
 
 package com.group37.sentencebuilder.data_layer;

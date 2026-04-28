@@ -1,3 +1,22 @@
+/**
+ * ------------------------------------------------------------
+ *  Project: Sentence Builder
+ *  File:    .java
+ *  Author:  
+ *
+ *  Description:
+ *      <description>
+ *
+ *  Version: 1.0
+ *  Created: 
+ *  Last Modified: 
+ *
+ *  Responsibilities:
+ *      - <responsibilities 1>
+ *      - <responsibilities 2>
+ * ------------------------------------------------------------
+ */
+
 package com.group37.sentencebuilder.ui_layer;
 
 import java.awt.Desktop;

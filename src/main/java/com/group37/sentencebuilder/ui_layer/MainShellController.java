@@ -1,12 +1,20 @@
 /**
- * File: MainShellController.java
- * Description: 
+ * ------------------------------------------------------------
+ *  Project: Sentence Builder
+ *  File:    .java
+ *  Author:  
  *
- * Author: 
- * Created: 
- * Last Modified: 2026-03-27
+ *  Description:
+ *      <description>
  *
- * Version: 1.0
+ *  Version: 1.0
+ *  Created: 
+ *  Last Modified: 
+ *
+ *  Responsibilities:
+ *      - <responsibilities 1>
+ *      - <responsibilities 2>
+ * ------------------------------------------------------------
  */
 
 package com.group37.sentencebuilder.ui_layer;

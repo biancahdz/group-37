@@ -1,12 +1,20 @@
 /**
- * File: 
- * Description: 
+ * ------------------------------------------------------------
+ *  Project: Sentence Builder
+ *  File:    .java
+ *  Author:  
  *
- * Author: 
- * Created: 
- * Last Modified: 2026-03-25
+ *  Description:
+ *      <description>
  *
- * Version: 1.0
+ *  Version: 1.0
+ *  Created: 
+ *  Last Modified: 
+ *
+ *  Responsibilities:
+ *      - <responsibilities 1>
+ *      - <responsibilities 2>
+ * ------------------------------------------------------------
  */
 
 package com.group37.sentencebuilder.ui_layer;
@@ -93,13 +101,30 @@ public class GenerateController implements ApplicationPage {
     private void onGenerate() {
         String word = startWordField.getText() != null ? startWordField.getText().trim() : "";
         Algorithm algo = Algorithm.fromString(algorithmCombo.getSelectionModel().getSelectedItem());
+        String text = "";
+        String algorithm = "";
         
         switch (algo)
         {
-            case MARKOV -> outputArea.setText(GeneratorLogic.markov(word, 15));
-            case RANDOM -> outputArea.setText(GeneratorLogic.random(word, 15));
-            case GREEDY -> outputArea.setText(GeneratorLogic.greedy(word));
-            case BEAM -> outputArea.setText(GeneratorLogic.beam(word, 15, 15));
+            case MARKOV -> {
+                text = GeneratorLogic.markov(word, 15);
+                algorithm = "Stochastic Markov chain";
+            }
+            case RANDOM -> {
+                text = GeneratorLogic.random(word, 15);
+                algorithm = "Random walk with seed";
+            }
+            case GREEDY -> {
+                text = GeneratorLogic.greedy(word);
+                algorithm = "Greedy Markov chain";
+            }
+            case BEAM -> {
+                text = GeneratorLogic.beam(word, 15, 15);
+                algorithm = "Beam Search with Scoring";
+            }
         }
+
+        GeneratorLogic.addReport(algorithm, text);
+        outputArea.setText(text);
     }
 }

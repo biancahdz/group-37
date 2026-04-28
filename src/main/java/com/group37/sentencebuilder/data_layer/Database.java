@@ -1,17 +1,26 @@
 /**
- * File: Database.java
- * Description: Creates and maintains the connection to the database.
+ * ------------------------------------------------------------
+ *  Project: Sentence Builder
+ *  File:    Database.java
+ *  Author:  Cortland Kimzey
  *
- * Author: 
- * Created: 2026-03-15
- * Last Modified: 2026-03-16
+ *  Description:
+ *      Creates and maintains the connection to the database.
  *
- * Version: 1.0
+ *  Version: 1.0
+ *  Created: 2026-03-15
+ *  Last Modified: 2026-03-16
+ *
+ *  Responsibilities:
+ *      - <responsibilities 1>
+ *      - <responsibilities 2>
+ * ------------------------------------------------------------
  */
 
 package com.group37.sentencebuilder.data_layer;
 
 import com.group37.sentencebuilder.ui_layer.model.ImportHistoryRow;
+import com.group37.sentencebuilder.ui_layer.model.ReportRow;
 
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
@@ -537,6 +546,20 @@ public class Database
         }
     }
 
+    public boolean setReport(String algorithm, String text) {
+        String sql = "INSERT INTO reports (algorithmName, sentence) VALUES (?, ?)";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, algorithm);
+            stmt.setString(2, text);
+            stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     /**
      * Creates a {@code txt} row at the start of import so per-file analytics can attach {@code txtID}.
      * Call {@link #finishTxtImport(int, int, int)} after processing all sentences.
@@ -716,6 +739,26 @@ public class Database
 
                 while (rs.next()) {
                     rows.add(new ImportHistoryRow(rs.getString("txtName"), rs.getString("dateAdded"), rs.getInt("numSentences"), rs.getInt("numWords"), "Complete"));
+                }
+
+                return rows;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ObservableList<ReportRow> getReports()
+    {
+        String sql = "SELECT reportID, algorithmName, dateAdded, sentence FROM reports";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                ObservableList<ReportRow> rows = FXCollections.observableArrayList();
+
+                while (rs.next()) {
+                    rows.add(new ReportRow(String.valueOf(rs.getInt("reportID")), rs.getString("algorithmName"), rs.getString("dateAdded"), rs.getString("sentence")));
                 }
 
                 return rows;

@@ -71,5 +71,13 @@ CREATE TABLE txt_nextword (
     FOREIGN KEY (nextWordID) REFERENCES words(wordID)
 ) ENGINE=InnoDB;
 
+CREATE TABLE reports (
+    reportID INT NOT NULL AUTO_INCREMENT,
+    algorithmName VARCHAR(64) NOT NULL,
+    dateAdded DATETIME DEFAULT CURRENT_TIMESTAMP,
+    sentence VARCHAR(256) NOT NULL,
+    PRIMARY KEY (reportID)
+) ENGINE=InnoDB;
+
 INSERT INTO words (word, wordID) VALUES ("<START>", 1);
 INSERT INTO words (word, wordID) VALUES ("<END>", 2);

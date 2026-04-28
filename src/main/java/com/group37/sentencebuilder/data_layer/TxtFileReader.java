@@ -1,12 +1,20 @@
 /**
- * File: TxtFileReader.java
- * Description: 
+ * ------------------------------------------------------------
+ *  Project: Sentence Builder
+ *  File:    TxtFileReader.java
+ *  Author:  
  *
- * Author: 
- * Created: 2026-03-15
- * Last Modified: 2026-03-16
+ *  Description:
+ *      <description>
  *
- * Version: 1.0
+ *  Version: 1.0
+ *  Created: 2026-03-15
+ *  Last Modified: 2026-03-16
+ *
+ *  Responsibilities:
+ *      - <responsibilities 1>
+ *      - <responsibilities 2>
+ * ------------------------------------------------------------
  */
 
 package com.group37.sentencebuilder.data_layer;

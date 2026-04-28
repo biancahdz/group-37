@@ -1,4 +1,23 @@
 /**
+ * ------------------------------------------------------------
+ *  Project: Sentence Builder
+ *  File:    .java
+ *  Author:  
+ *
+ *  Description:
+ *      <description>
+ *
+ *  Version: 1.0
+ *  Created: 
+ *  Last Modified: 
+ *
+ *  Responsibilities:
+ *      - <responsibilities 1>
+ *      - <responsibilities 2>
+ * ------------------------------------------------------------
+ */
+
+/**
  * File: TitleController.java
  * Description: Controls the title/login screen. On successful login,
  *              preloads the database with default text files if empty,

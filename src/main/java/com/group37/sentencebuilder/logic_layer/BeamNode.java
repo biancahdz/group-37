@@ -1,12 +1,20 @@
 /**
- * File: BeamNode.java
- * Description: 
+ * ------------------------------------------------------------
+ *  Project: Sentence Builder
+ *  File:    BeamNode.java
+ *  Author:  Cortland Kimzey
  *
- * Author: Cortland Kimzey
- * Created: 2026-03-25
- * Last Modified: 2026-03-25
+ *  Description:
+ *      <description>
  *
- * Version: 1.0
+ *  Version: 1.0
+ *  Created: 2026-03-25
+ *  Last Modified: 2026-03-25
+ *
+ *  Responsibilities:
+ *      - <responsibilities 1>
+ *      - <responsibilities 2>
+ * ------------------------------------------------------------
  */
 
 package com.group37.sentencebuilder.logic_layer;
