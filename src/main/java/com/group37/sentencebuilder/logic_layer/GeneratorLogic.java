@@ -1,12 +1,20 @@
 /**
- * File: GeneratorLogic.java
- * Description: 
+ * ------------------------------------------------------------
+ *  Project: Sentence Builder
+ *  File:    GeneratorLogic.java
+ *  Author:  Cortland Kimzey
  *
- * Author: Cortland KImzey
- * Created: 2026-03-16
- * Last Modified: 2026-03-16
+ *  Description:
+ *      <description>
  *
- * Version: 1.0
+ *  Version: 1.0
+ *  Created: 2026-03-16
+ *  Last Modified: 2026-03-16
+ *
+ *  Responsibilities:
+ *      - <responsibilities 1>
+ *      - <responsibilities 2>
+ * ------------------------------------------------------------
  */
 
 package com.group37.sentencebuilder.logic_layer;
@@ -252,5 +260,18 @@ public class GeneratorLogic
         }
 
         return bestCombos.size() - 1;
+    }
+
+    public static boolean addReport(String algorithm, String text)
+    {
+        if (database.connect())
+        {
+            database.setReport(algorithm, text);
+
+            database.disconnect();
+
+            return true;
+        }
+        return false;
     }
 }

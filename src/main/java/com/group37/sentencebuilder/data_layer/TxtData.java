@@ -1,12 +1,20 @@
 /**
- * File: TxtData.java
- * Description: Holds txt data for processing.
+ * ------------------------------------------------------------
+ *  Project: Sentence Builder
+ *  File:    TxtData.java
+ *  Author:  Cortland Kimzey
  *
- * Author: Cortland Kimzey
- * Created: 2026-03-15
- * Last Modified: 2026-03-16
+ *  Description:
+ *      Holds txt data for processing.
  *
- * Version: 1.0
+ *  Version: 1.0
+ *  Created: 2026-03-15
+ *  Last Modified: 2026-03-16
+ *
+ *  Responsibilities:
+ *      - <responsibilities 1>
+ *      - <responsibilities 2>
+ * ------------------------------------------------------------
  */
 
 package com.group37.sentencebuilder.data_layer;

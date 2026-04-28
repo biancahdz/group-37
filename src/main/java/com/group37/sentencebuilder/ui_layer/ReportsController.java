@@ -1,8 +1,31 @@
+/**
+ * ------------------------------------------------------------
+ *  Project: Sentence Builder
+ *  File:    ReportsController.java
+ *  Author:  Cortland Kimzey
+ *
+ *  Description:
+ *      <description>
+ *
+ *  Version: 1.0
+ *  Created: 2026-03-26
+ *  Last Modified: 2026-03-24
+ *
+ *  Responsibilities:
+ *      - <responsibilities 1>
+ *      - <responsibilities 2>
+ * ------------------------------------------------------------
+ */
+
 package com.group37.sentencebuilder.ui_layer;
 
 import com.group37.sentencebuilder.ui.LabelThemeRegistry;
 
 import com.group37.sentencebuilder.ui_layer.model.ReportRow;
+
+import com.group37.sentencebuilder.data_layer.Database;
+import com.group37.sentencebuilder.ui_layer.ApplicationPage;
+import com.group37.sentencebuilder.ui_layer.DatabasePage;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,9 +40,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /** Reports table UI with client-side filters. */
-public class ReportsController implements ApplicationPage {
+public class ReportsController implements ApplicationPage, DatabasePage {
 
     private final LabelThemeRegistry labelTheme = new LabelThemeRegistry();
+
+    private Database database;
 
     @FXML
     private ComboBox<String> algorithmFilter;
@@ -49,30 +74,11 @@ public class ReportsController implements ApplicationPage {
 
     @FXML
     private void initialize() {
-        algorithmFilter.getItems().setAll("All algorithms", "Markov chain (bigram)", "Weighted next-word");
+        algorithmFilter.getItems().setAll("All algorithms", "Stochastic Markov chain", "Greedy Markov chain", "Random walk with seed", "Beam Search with Scoring");
         algorithmFilter.getSelectionModel().selectFirst();
 
         dateFilter.getItems().setAll("Any time", "Last 7 days", "Last 30 days");
         dateFilter.getSelectionModel().selectFirst();
-
-        master = FXCollections.observableArrayList(
-                new ReportRow("1042", "Markov chain (bigram)", "Mar 20, 2026 · 11:02 AM",
-                        "The library waited, patient and full of quiet promises…"),
-                new ReportRow("1041", "Weighted next-word", "Mar 19, 2026 · 6:45 PM",
-                        "She opened the notebook and the sentence began on its own…"),
-                new ReportRow("1040", "Markov chain (bigram)", "Mar 18, 2026 · 8:12 AM",
-                        "Words gathered like rain along the edge of the paragraph…"),
-                new ReportRow("1039", "Weighted next-word", "Mar 17, 2026 · 3:30 PM",
-                        "Tomorrow's draft leaned against today's doubts…")
-        );
-
-        FilteredList<ReportRow> filtered = new FilteredList<>(master, r -> true);
-        algorithmFilter.valueProperty().addListener((o, oldV, newV) -> updateFilter(filtered));
-        dateFilter.valueProperty().addListener((o, oldV, newV) -> updateFilter(filtered));
-
-        SortedList<ReportRow> sorted = new SortedList<>(filtered);
-        sorted.comparatorProperty().bind(reportTable.comparatorProperty());
-        reportTable.setItems(sorted);
 
         colId.setCellValueFactory(c -> c.getValue().idProperty());
         colAlgorithm.setCellValueFactory(c -> c.getValue().algorithmProperty());
@@ -106,9 +112,26 @@ public class ReportsController implements ApplicationPage {
     @Override
     public void onPageEnter() {
         labelTheme.apply();
+        database.connect();
+
+        master = database.getReports();
+        FilteredList<ReportRow> filtered = new FilteredList<>(master, r -> true);
+        algorithmFilter.valueProperty().addListener((o, oldV, newV) -> updateFilter(filtered));
+        dateFilter.valueProperty().addListener((o, oldV, newV) -> updateFilter(filtered));
+
+        SortedList<ReportRow> sorted = new SortedList<>(filtered);
+        sorted.comparatorProperty().bind(reportTable.comparatorProperty());
+        reportTable.setItems(sorted);
     }
 
     @Override
     public void onPageLeave() {
+        database.disconnect();
+    }
+
+    @Override
+    public void setDatabase(Database database)
+    {
+        this.database = database;
     }
 }

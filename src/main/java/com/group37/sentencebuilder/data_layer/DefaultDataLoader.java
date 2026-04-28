@@ -1,4 +1,23 @@
 /**
+ * ------------------------------------------------------------
+ *  Project: Sentence Builder
+ *  File:    .java
+ *  Author:  
+ *
+ *  Description:
+ *      <description>
+ *
+ *  Version: 1.0
+ *  Created: 
+ *  Last Modified: 
+ *
+ *  Responsibilities:
+ *      - <responsibilities 1>
+ *      - <responsibilities 2>
+ * ------------------------------------------------------------
+ */
+
+/**
  * File: DefaultDataLoader.java
  * Description: Preloads the database with bundled default text files on first
  *              login if the database is empty. Executes a pre-built SQL dump

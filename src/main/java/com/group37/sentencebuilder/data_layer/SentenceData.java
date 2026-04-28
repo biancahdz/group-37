@@ -1,12 +1,20 @@
 /**
- * File: SentenceData.java
- * Description: Holds Sentence data for processing.
+ * ------------------------------------------------------------
+ *  Project: Sentence Builder
+ *  File:    SentenceData.java
+ *  Author:  
  *
- * Author: Cortland Kimzey
- * Created: 2026-03-15
- * Last Modified: 2026-03-16
+ *  Description:
+ *      Holds Sentence data for processing.
  *
- * Version: 1.0
+ *  Version: 1.0
+ *  Created: 2026-03-15
+ *  Last Modified: 2026-03-16 
+ *
+ *  Responsibilities:
+ *      - <responsibilities 1>
+ *      - <responsibilities 2>
+ * ------------------------------------------------------------
  */
 
 package com.group37.sentencebuilder.data_layer;
