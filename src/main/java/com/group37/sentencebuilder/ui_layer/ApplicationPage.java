@@ -12,8 +12,8 @@
  *  Last Modified: 2026-03-24
  *
  *  Responsibilities:
- *      - <responsibilities 1>
- *      - <responsibilities 2>
+ *      - Creates functions to be overwritten by the page using them
+ *      - Allows the page to perform actions when entered and left
  * ------------------------------------------------------------
  */
 
@@ -34,9 +34,6 @@ public interface ApplicationPage {
 
 
     /**
-     * Function: <FunctionName>
-     * Performs <short description of what the function does>.
-     * 
      * Author: Cortland Kimzey
      * Description: 
      *      <description>

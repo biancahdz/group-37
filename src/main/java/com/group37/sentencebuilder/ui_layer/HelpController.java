@@ -51,6 +51,14 @@ public class HelpController implements ApplicationPage {
     @FXML private javafx.scene.control.Label subTipQuestions;
     @FXML private Hyperlink supportMailHyperlink;
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @FXML
     private void initialize() {
         supportMailHyperlink.setText(Mailto.SUPPORT_EMAIL);
@@ -70,11 +78,27 @@ public class HelpController implements ApplicationPage {
         Platform.runLater(this::applyHelpChrome);
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @FXML
     private void onSupportMailClicked() {
         Mailto.openSupportInbox();
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @Override
     public void onPageEnter() {
         applyHelpChrome();
@@ -82,10 +106,26 @@ public class HelpController implements ApplicationPage {
         Platform.runLater(() -> Platform.runLater(this::applyHelpChrome));
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @Override
     public void onPageLeave() {
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void applyHelpChrome() {
         boolean dark = UiPreferences.get().isResolvedDarkSurface();
 
@@ -103,6 +143,14 @@ public class HelpController implements ApplicationPage {
         Platform.runLater(() -> Platform.runLater(() -> applyDirectHeroLabels(dark)));
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void applyDirectHeroLabels(boolean dark) {
         String w = dark ? "-fx-text-fill: #ffffff;" : null;
         javafx.scene.control.Label[] all = {
@@ -116,6 +164,14 @@ public class HelpController implements ApplicationPage {
         }
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private static void walkHelpLabels(Node node, boolean dark) {
         if (node instanceof Labeled lab) {
             lab.setStyle(resolveHelpLabelStyle(lab, dark));
@@ -127,6 +183,14 @@ public class HelpController implements ApplicationPage {
         }
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private static String resolveHelpLabelStyle(Labeled lab, boolean dark) {
         if (!dark) return null;
         java.util.List<String> cls = lab.getStyleClass();

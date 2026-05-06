@@ -43,12 +43,28 @@ public final class TxtOnDiskAnalytics {
     private TxtOnDiskAnalytics() {
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public record ScanResult(
             List<Database.TopWordEntry> topWords,
             List<Database.TopBigramEntry> topBigrams,
             Database.CorpusAggregate aggregate) {
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public static Optional<File> locate(String txtName) {
         if (txtName == null || txtName.isBlank()) {
             return Optional.empty();
@@ -65,7 +81,13 @@ public final class TxtOnDiskAnalytics {
         return Optional.empty();
     }
 
+
     /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
      * @return empty if the file is not found or cannot be read
      */
     public static Optional<ScanResult> scan(String txtName, int limit) {
@@ -80,6 +102,14 @@ public final class TxtOnDiskAnalytics {
         }
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     static ScanResult scanFile(File file, int limit) throws IOException {
         StringBuilder sb = new StringBuilder();
         try (Scanner sc = new Scanner(file, StandardCharsets.UTF_8)) {
@@ -128,7 +158,14 @@ public final class TxtOnDiskAnalytics {
                 new Database.CorpusAggregate(unique, totalTokens, maxPair));
     }
 
-    /** Same regex split as {@link TxtFileReader#getSentences(StringBuilder)}. */
+    /**
+     * Author: 
+     * Description: 
+     *      Same regex split as {@link TxtFileReader#getSentences(StringBuilder)}.
+     * 
+     * @param input description
+     * @return result description
+     */
     static List<String> splitSentences(String fullText) {
         String regex = "(?<=[.!?][\"',]?)(?=\\s+|$)";
         String[] raw = fullText.trim().split(regex);
@@ -141,7 +178,14 @@ public final class TxtOnDiskAnalytics {
         return sentences;
     }
 
-    /** Same cleaning as {@link TxtFileReader} import loop. */
+    /**
+     * Author: 
+     * Description: 
+     *      Same cleaning as {@link TxtFileReader} import loop.
+     * 
+     * @param input description
+     * @return result description
+     */
     static List<String> tokenizeSentence(String sentence) {
         String[] rawWords = sentence.split("\\s+");
         List<String> words = new ArrayList<>();

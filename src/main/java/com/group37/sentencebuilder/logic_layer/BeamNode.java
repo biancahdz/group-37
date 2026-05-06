@@ -26,11 +26,27 @@ public class BeamNode {
     List<Integer> wordIDs;
     double score;
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public BeamNode(List<Integer> wordIDs, double score) {
         this.wordIDs = wordIDs;
         this.score = score;
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public int getLastID() {
         return wordIDs.get(wordIDs.size() - 1);
     }

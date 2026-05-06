@@ -20,7 +20,10 @@
 package com.group37.sentencebuilder.ui_layer;
 
 /**
- * Identifiers for main shell views (UI navigation only).
+ * Author: 
+ * Description: 
+ *      Identifiers for main shell views (UI navigation only).
+ * 
  */
 public enum ViewKey {
     HOME,

@@ -2,7 +2,7 @@
  * ------------------------------------------------------------
  *  Project: Sentence Builder
  *  File:    ReportsController.java
- *  Author:  Cortland Kimzey
+ *  Author:  Huy Nong, Cortland Kimzey
  *
  *  Description:
  *      <description>
@@ -72,6 +72,14 @@ public class ReportsController implements ApplicationPage, DatabasePage {
 
     private ObservableList<ReportRow> master;
 
+    /**
+     * Author: Huy Nong
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @FXML
     private void initialize() {
         algorithmFilter.getItems().setAll("All algorithms", "Stochastic Markov chain", "Greedy Markov chain", "Random walk with seed", "Beam Search with Scoring");
@@ -90,6 +98,14 @@ public class ReportsController implements ApplicationPage, DatabasePage {
         labelTheme.add(sectionEyebrowLabel, Color.WHITE);
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private static void applyRoundedClip(TableView<?> table, double radius) {
         Rectangle clip = new Rectangle();
         clip.widthProperty().bind(table.widthProperty());
@@ -99,6 +115,14 @@ public class ReportsController implements ApplicationPage, DatabasePage {
         table.setClip(clip);
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void updateFilter(FilteredList<ReportRow> filtered) {
         String algo = algorithmFilter.getSelectionModel().getSelectedItem();
         filtered.setPredicate(row -> {
@@ -109,6 +133,14 @@ public class ReportsController implements ApplicationPage, DatabasePage {
         });
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @Override
     public void onPageEnter() {
         labelTheme.apply();
@@ -124,11 +156,27 @@ public class ReportsController implements ApplicationPage, DatabasePage {
         reportTable.setItems(sorted);
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @Override
     public void onPageLeave() {
         database.disconnect();
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @Override
     public void setDatabase(Database database)
     {

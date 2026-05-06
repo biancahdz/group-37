@@ -211,6 +211,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     /** Selected combo labels to include in file comparison charts. */
     private final Set<String> selectedCompareLabels = new LinkedHashSet<>();
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @FXML
     private void initialize() {
         colWordRank.setCellValueFactory(c -> c.getValue().rankProperty());
@@ -273,6 +281,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         labelTheme.add(sectionEyebrowLabel, Color.WHITE);
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private static void applyRoundedClip(TableView<?> table, double radius) {
         Rectangle clip = new Rectangle();
         clip.widthProperty().bind(table.widthProperty());
@@ -282,6 +298,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         table.setClip(clip);
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void onExportRequested() {
         ChoiceDialog<String> formatDialog = new ChoiceDialog<>("TXT", Arrays.asList("TXT", "CSV"));
         formatDialog.setTitle("Export word analytics");
@@ -325,6 +349,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         }
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private String buildTxtExport() {
         StringBuilder sb = new StringBuilder();
         sb.append("WORD ANALYTICS EXPORT\n");
@@ -376,6 +408,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         return sb.toString();
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void onCompareFilesRequested() {
         if (fileByComboLabel.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -440,6 +480,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         }
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void updateTabToggle() {
         boolean onCharts = analyticsTabPane.getSelectionModel().getSelectedItem() == chartsTab;
         tablesButton.setSelected(!onCharts);
@@ -456,6 +504,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
                 + " -fx-background-radius: 0 10 10 0;");
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private String buildCsvExport() {
         StringBuilder sb = new StringBuilder();
         sb.append("Section,Field,Value\n");
@@ -505,10 +561,26 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         return sb.toString();
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private static String csv(String section, String field, String value) {
         return csvLine(section, field, value);
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private static String csvLine(String... values) {
         StringBuilder line = new StringBuilder();
         for (int i = 0; i < values.length; i++) {
@@ -524,21 +596,53 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         return line.toString();
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @Override
     public void setDatabase(Database db) {
         this.database = db;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @Override
     public void onPageEnter() {
         labelTheme.apply();
         reloadFromDatabase();
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @Override
     public void onPageLeave() {
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void reloadFromDatabase() {
         String previous = sourceCombo.getValue();
 
@@ -600,6 +704,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         }
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void showDisconnectedState() {
         aggregate = new CorpusAggregate(0, 0, 0);
         cachedWords = List.of();
@@ -623,6 +735,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         fileCompareSubtitle.setText("No data to chart while disconnected.");
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void applySnapshot(String key) {
         if (key == null) {
             return;
@@ -729,6 +849,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         refreshCharts(key);
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void renderPerFileTables(
             List<TopWordEntry> words,
             List<TopBigramEntry> bigrams,
@@ -757,6 +885,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         }
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void clearPerFileTables(String txtName) {
         setScopeHint(
                 "Could not find \"" + txtName + "\" on disk (try Txt Files/" + txtName
@@ -768,6 +904,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         bigramTable.setItems(FXCollections.observableArrayList());
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void finishSingleFileScope() {
         fileTable.setVisible(false);
         fileTable.setManaged(false);
@@ -775,6 +919,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         fileTableSubtitle.setText("Select \"" + ALL_SOURCES + "\" to compare every file side by side.");
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void refreshCharts(String scopeKey) {
         updateTopWordsChart();
         updateTopPairsChart();
@@ -782,12 +934,28 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         applyChartTheme();
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void clearCharts() {
         topWordsChart.getData().clear();
         topPairsChart.getData().clear();
         fileCompareChart.getData().clear();
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void updateTopWordsChart() {
         topWordsChart.getData().clear();
         XYChart.Series<String, Number> series = new XYChart.Series<>();
@@ -803,6 +971,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         decorateSeries(series, "Word count", themeHex("accent"));
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void updateTopPairsChart() {
         topPairsChart.getData().clear();
         XYChart.Series<String, Number> series = new XYChart.Series<>();
@@ -819,6 +995,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         decorateSeries(series, "Pair count", themeHex("violet"));
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void updateFileCompareChart(String scopeKey) {
         fileCompareChart.getData().clear();
         XYChart.Series<String, Number> wordsSeries = new XYChart.Series<>();
@@ -859,6 +1043,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         decorateSeries(topPairSeries, "Top pair count", themeHex("teal"));
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private static String simplifyCompareLabel(String comboLabel, String fallbackFileName) {
         if (fallbackFileName != null && !fallbackFileName.isBlank()) {
             return fallbackFileName;
@@ -867,6 +1059,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         return idx > 0 ? comboLabel.substring(0, idx) : comboLabel;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private String themeHex(String role) {
         return switch (UiPreferences.get().resolvedPaletteClass()) {
             case "theme-light", "theme-system" -> switch (role) {
@@ -908,6 +1108,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         };
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void decorateSeries(XYChart.Series<String, Number> series, String metric, String barColorHex) {
         for (XYChart.Data<String, Number> data : series.getData()) {
             int exact = data.getYValue().intValue();
@@ -929,6 +1137,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         }
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void applyChartTheme() {
         boolean dark = UiPreferences.get().isResolvedDarkSurface();
         String textHex = dark ? "#f8fafc" : "#111827";
@@ -988,6 +1204,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         });
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private String[] legendPaletteFor(BarChart<String, Number> chart) {
         if (chart == null || chart.getId() == null) {
             return new String[] {themeHex("accent"), themeHex("violet"), themeHex("teal")};
@@ -1000,6 +1224,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         };
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private static Tooltip buildChartTooltip(String text) {
         Tooltip t = new Tooltip(text);
         t.setShowDelay(Duration.millis(90));
@@ -1016,6 +1248,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         return t;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private static LegendTheme legendThemeFor(com.group37.sentencebuilder.ui.AppTheme theme) {
         if (theme == null) {
             return LegendTheme.dark();
@@ -1037,6 +1277,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         };
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private record LegendTheme(String textHex, String backgroundHex, String borderHex, String textShadowHex) {
         private static LegendTheme dark() {
             return new LegendTheme("#f8fafc", "rgba(15,23,42,0.94)", "rgba(148,163,184,0.45)", "rgba(2,6,23,0.72)");
@@ -1047,6 +1295,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         }
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private List<String> getEffectiveCompareLabels() {
         if (fileByComboLabel.isEmpty()) {
             return List.of();
@@ -1063,6 +1319,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         return new ArrayList<>(fileByComboLabel.keySet());
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void appendCompareSelectionTxt(StringBuilder sb) {
         List<String> labels = getEffectiveCompareLabels();
         sb.append("SELECTED FILE COMPARISON\n");
@@ -1081,6 +1345,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         }
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void appendCompareSelectionCsv(StringBuilder sb) {
         List<String> labels = getEffectiveCompareLabels();
         sb.append("Selected Comparison,Selection count,").append(labels.size()).append('\n');
@@ -1099,15 +1371,39 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         }
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void setScopeHint(String text) {
         // Kept for export context now that the textbox is removed from the UI.
         this.lastScopeHint = text == null ? "" : text;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private String getScopeHintText() {
         return lastScopeHint == null ? "" : lastScopeHint;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private static int parseCount(String raw) {
         if (raw == null || raw.isBlank() || "—".equals(raw)) {
             return 0;
@@ -1119,6 +1415,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
         }
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private static String formatImported(java.sql.Timestamp ts) {
         if (ts == null) {
             return "—";

@@ -1,17 +1,15 @@
 /**
  * ------------------------------------------------------------
  *  Project: Sentence Builder
- *  File:    .java
- *  Author:  
+ *  File:    GenerateController.java
+ *  Author:  Huy Nong, Cortland Kimzey
  *
-<<<<<<< HEAD
  * Author: 
  * Created: 
  * Last Modified: 2026-04-23
-=======
+ *
  *  Description:
  *      <description>
->>>>>>> e7bf186e87f812c7a590603cc03362008e66742e
  *
  *  Version: 1.0
  *  Created: 
@@ -42,6 +40,14 @@ import javafx.scene.paint.Color;
 /** Sentence generator screen — runs corpus-backed generation algorithms. */
 public class GenerateController implements ApplicationPage {
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     enum Algorithm {
         MARKOV("Stochastic Markov chain"),
         GREEDY("Greedy Markov chain"),
@@ -82,6 +88,14 @@ public class GenerateController implements ApplicationPage {
 
     private final LabelThemeRegistry labelTheme = new LabelThemeRegistry();
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @FXML
     private void initialize() {
         algorithmCombo.getItems().setAll(
@@ -97,15 +111,39 @@ public class GenerateController implements ApplicationPage {
         labelTheme.add(sectionEyebrowLabel, Color.WHITE);
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @Override
     public void onPageEnter() {
         labelTheme.apply();
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @Override
     public void onPageLeave() {
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @FXML
     private void onGenerate() {
         String word = startWordField.getText() != null ? startWordField.getText().trim() : "";
@@ -136,6 +174,4 @@ public class GenerateController implements ApplicationPage {
         GeneratorLogic.addReport(algorithm, text);
         outputArea.setText(text);
     }
-   
-
 }

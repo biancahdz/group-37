@@ -5,7 +5,7 @@
  *  Author:  Cortland Kimzey
  *
  *  Description:
- *      <description>
+ *      This holds all the algorithms used to generate sentences
  *
  *  Version: 1.0
  *  Created: 2026-03-16
@@ -34,6 +34,15 @@ public class GeneratorLogic
     private static Database database = Database.getDatabase();
     private static Random rand = new Random();
 
+
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public static String greedy(String firstWord)
     {
         if (database.connect())
@@ -68,6 +77,15 @@ public class GeneratorLogic
         return "Could Not Connect to Database";
     }
 
+
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public static String random(String firstWord, int x)
     {
         if (database.connect())
@@ -106,6 +124,14 @@ public class GeneratorLogic
         return "Could Not Connect to Database";
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public static String markov(String firstWord, int x)
     {
         if (database.connect())
@@ -144,6 +170,14 @@ public class GeneratorLogic
         return "Could Not Connect to Database";
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public static String beam(String firstWord, int n, int k)
     {
         if (!database.connect())
@@ -241,6 +275,14 @@ public class GeneratorLogic
         return sentence.toString();
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private static int probIndex(List<WordCombo> bestCombos)
     {
         int totalCount = 0;
@@ -262,6 +304,14 @@ public class GeneratorLogic
         return bestCombos.size() - 1;
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public static boolean addReport(String algorithm, String text)
     {
         if (database.connect())

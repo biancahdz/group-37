@@ -31,6 +31,14 @@ public class ImportHistoryRow {
     private final StringProperty words;
     private final StringProperty status;
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public ImportHistoryRow(String fileName, String importedAt, int sentences, int words, String status) {
         this.fileName = new SimpleStringProperty(fileName);
         this.importedAt = new SimpleStringProperty(importedAt);
@@ -39,42 +47,122 @@ public class ImportHistoryRow {
         this.status = new SimpleStringProperty(status);
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public String getFileName() {
         return fileName.get();
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public StringProperty fileNameProperty() {
         return fileName;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public String getImportedAt() {
         return importedAt.get();
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public StringProperty importedAtProperty() {
         return importedAt;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public String getSentences() {
         return sentences.get();
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public StringProperty sentencesProperty() {
         return sentences;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public String getWords() {
         return words.get();
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public StringProperty wordsProperty() {
         return words;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public String getStatus() {
         return status.get();
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public StringProperty statusProperty() {
         return status;
     }

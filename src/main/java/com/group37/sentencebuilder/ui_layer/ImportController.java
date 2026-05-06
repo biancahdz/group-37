@@ -1,8 +1,8 @@
 /**
  * ------------------------------------------------------------
  *  Project: Sentence Builder
- *  File:    .java
- *  Author:  
+ *  File:    ImportController.java
+ *  Author:  Huy Nong, Cortland Kimzey
  *
  *  Description:
  *      <description>
@@ -49,6 +49,14 @@ public class ImportController implements ApplicationPage, DatabasePage {
 
     private Database database;
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @Override
     public void setDatabase(Database database) {
         this.database = database;
@@ -86,6 +94,14 @@ public class ImportController implements ApplicationPage, DatabasePage {
 
     private File stagedFile;
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @Override
     public void onPageEnter() {
         if (database.connect()) {
@@ -95,10 +111,26 @@ public class ImportController implements ApplicationPage, DatabasePage {
         labelTheme.apply();
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @Override
     public void onPageLeave() {
     }
 
+    /**
+     * Author: Huy Nong
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @FXML
     private void initialize() {
         colFile.setCellValueFactory(c -> c.getValue().fileNameProperty());
@@ -115,6 +147,14 @@ public class ImportController implements ApplicationPage, DatabasePage {
         labelTheme.add(sectionEyebrowLabel, Color.WHITE);
     }
 
+    /**
+     * Author: Huy Nong
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private static void applyRoundedClip(TableView<?> table, double radius) {
         Rectangle clip = new Rectangle();
         clip.widthProperty().bind(table.widthProperty());
@@ -124,6 +164,14 @@ public class ImportController implements ApplicationPage, DatabasePage {
         table.setClip(clip);
     }
 
+    /**
+     * Author: Huy Nong
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @FXML
     private void onChooseFile() {
         FileChooser chooser = new FileChooser();
@@ -138,6 +186,14 @@ public class ImportController implements ApplicationPage, DatabasePage {
         }
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @FXML
     private void onImport() {
         if (stagedFile == null) {

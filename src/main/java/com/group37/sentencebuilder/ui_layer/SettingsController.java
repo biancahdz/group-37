@@ -72,10 +72,26 @@ public class SettingsController implements ApplicationPage {
 
     private final InvalidationListener settingsChromeRefresh = obs -> applySettingsPageChrome();
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public void setOnLogout(Runnable onLogout) {
         this.onLogout = onLogout;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @FXML
     private void onLogoutClicked() {
         if (onLogout != null) {
@@ -83,11 +99,27 @@ public class SettingsController implements ApplicationPage {
         }
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @FXML
     private void onContactMailClicked() {
         Mailto.openSupportInbox();
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @FXML
     private void initialize() {
         contactMailHyperlink.setText(Mailto.SUPPORT_EMAIL);

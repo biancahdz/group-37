@@ -32,6 +32,14 @@ public class FileCorpusStatRow {
     private final StringProperty topPairCount;
     private final StringProperty imported;
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public FileCorpusStatRow(
             String fileName,
             String sentences,
@@ -47,26 +55,74 @@ public class FileCorpusStatRow {
         this.imported = new SimpleStringProperty(imported);
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public StringProperty fileNameProperty() {
         return fileName;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public StringProperty sentencesProperty() {
         return sentences;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public StringProperty wordsProperty() {
         return words;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public StringProperty uniqueWordsProperty() {
         return uniqueWords;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public StringProperty topPairCountProperty() {
         return topPairCount;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public StringProperty importedProperty() {
         return imported;
     }

@@ -1,8 +1,8 @@
 /**
  * ------------------------------------------------------------
  *  Project: Sentence Builder
- *  File:    .java
- *  Author:  
+ *  File:    TitleController.java
+ *  Author:  Cortland Kimzey, Amrita Thapa
  *
  *  Description:
  *      <description>
@@ -23,7 +23,7 @@
  *              preloads the database with default text files if empty,
  *              then transitions to the main shell.
  *
- * Author: Cortland Kimzey
+ * Author: Cortland Kimzey, Amrita Thapa
  * Created: 2026-03-26
  * Last Modified: 2026-03-26 - Cortland Kimzey
  *                2026-04-09 - Amrita Thapa: Added runPreloadThenLaunch()
@@ -66,6 +66,14 @@ public class TitleController {
      */
     private static volatile boolean nextShowLoginOnly;
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public static void setNextShowLoginOnly(boolean value) {
         nextShowLoginOnly = value;
     }
@@ -78,11 +86,27 @@ public class TitleController {
 
     private Runnable onLoginSuccess;
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public void setOnLoginSuccess(Runnable r)
     {
         this.onLoginSuccess = r;
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @FXML
     private void initialize()
     {
@@ -98,6 +122,14 @@ public class TitleController {
         }
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void loginLaunchAnimation()
     {
         PauseTransition pause1 = new PauseTransition(Duration.millis(600));
@@ -128,6 +160,14 @@ public class TitleController {
         seq.play();
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void launchAnimation()
     {
         PauseTransition pause1 = new PauseTransition(Duration.millis(600));
@@ -155,6 +195,14 @@ public class TitleController {
         seq.play();
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @FXML
     private void onLogin()
     {
@@ -172,9 +220,14 @@ public class TitleController {
     }
 
     /**
-     * Checks if the database is empty; if so, runs all default-file preload
-     * tasks sequentially on a background thread, then fires onLoginSuccess
-     * on the JavaFX thread when done.
+     * Author: Amrita Thapa
+     * Description: 
+     *      Checks if the database is empty; if so, runs all default-file preload
+     *      tasks sequentially on a background thread, then fires onLoginSuccess
+     *         on the JavaFX thread when done.
+     * 
+     * @param input description
+     * @return result description
      */
     private void runPreloadThenLaunch() {
         Thread thread = new Thread(() -> {

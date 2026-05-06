@@ -2,7 +2,8 @@
  * ------------------------------------------------------------
  *  Project: Sentence Builder
  *  File:    Database.java
- *  Author:  Cortland Kimzey
+ *  Author:  Cortland Kimzey, Amrita Thapa
+ *  Designed By: Cortland Kimzey
  *
  *  Description:
  *      Creates and maintains the connection to the database.
@@ -59,6 +60,14 @@ public class Database
     private String password = null;
     private String dbName = DEFAULT_DATABASE_NAME;
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public String getUsername() { return this.username; }
     public String getPassword() { return this.password; }
     // Returns the active connection. Used by DefaultDataLoader to execute batch SQL.
@@ -66,17 +75,41 @@ public class Database
         return this.conn;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public Database(String username, String password, String dbName) {
         this.username = username;
         this.password = password;
         this.dbName = dbName;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private static String jdbcUrl(String databaseName) {
         return "jdbc:mysql://" + JDBC_HOST + ":" + JDBC_PORT + "/" + databaseName
                 + "?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public boolean connect() {
         try {
             this.conn = DriverManager.getConnection(jdbcUrl(dbName), username, password);
@@ -86,6 +119,14 @@ public class Database
         }
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public boolean disconnect() {
         if (this.conn != null) {
             try {
@@ -98,6 +139,14 @@ public class Database
         return false;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public boolean isWord(String word) {
         String sql = "SELECT EXISTS (SELECT 1 FROM words WHERE word = ?)";
 
@@ -117,6 +166,14 @@ public class Database
         return false;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public boolean addWord(String word) {
         String sql = "INSERT INTO words (word, wordCount) VALUES (?, 1) " +
                      "ON DUPLICATE KEY UPDATE wordCount = wordCount + 1";
@@ -131,6 +188,14 @@ public class Database
         }
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public boolean addWords(List<String> words)
     {
         if (words == null || words.isEmpty()) return false;
@@ -163,6 +228,14 @@ public class Database
         }
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public String getWord(int wordID) {
         String sql = "SELECT word FROM words WHERE wordID = ?";
 
@@ -181,6 +254,14 @@ public class Database
         return null;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public Word getWordObj(int wordID)
     {
         String sql = "SELECT word wordCount FROM words WHERE wordID = ?";
@@ -200,6 +281,14 @@ public class Database
         return null;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public Integer getWordID(String word) {
         String sql = "SELECT wordID FROM words WHERE word = ?";
 
@@ -217,6 +306,14 @@ public class Database
         return null;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public Map<String, Integer> getWordIDs(List<String> words)
     {
         Map<String, Integer> result = new HashMap<>();
@@ -252,6 +349,14 @@ public class Database
         return result;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public Integer getWordCount(String word) {
         String sql = "SELECT wordCount FROM words WHERE word = ?";
 
@@ -269,6 +374,14 @@ public class Database
         return null;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public Integer getWordCount(int wordID) {
         String sql = "SELECT wordCount FROM words WHERE wordID = ?";
 
@@ -286,6 +399,14 @@ public class Database
         return null;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public boolean addSentence(int firstWordID, int lastWordID)
     {
         String sql = "INSERT INTO sentence (firstWordID, lastWordID, sentenceCount) VALUES (?, ?, 1) " +
@@ -302,28 +423,14 @@ public class Database
         }
     }
 
-    public SentenceData getSentence(int sentenceID)
-    {
-        String sql = "SELECT firstWordID lastWordID sentenceCount FROM sentence WHERE sentenceID = ?";
-        
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, sentenceID);
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return new SentenceData(
-                        rs.getInt("firstWordID"),
-                        rs.getInt("lastWordID"),
-                        rs.getInt("sentenceCount")
-                    );
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public boolean addCombo(int firstID, int nextID) {
         String sql = "INSERT INTO nextWord (wordID, nextWordID, comboCount) VALUES (?, ?, 1) " +
                      "ON DUPLICATE KEY UPDATE comboCount = comboCount + 1";
@@ -339,6 +446,14 @@ public class Database
         }
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public boolean addCombos(List<int[]> combos)
     {
         if (combos == null || combos.isEmpty()) return false;
@@ -381,6 +496,14 @@ public class Database
         }
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public Integer getComboCount(int firstID, int nextID) {
         String sql = "SELECT comboCount FROM nextWord WHERE wordID = ? AND nextWordID = ?";
         
@@ -399,6 +522,14 @@ public class Database
         return null;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public Integer getBestCombo(int wordID, boolean first) {
         String sql = null;
         if(first)
@@ -423,6 +554,14 @@ public class Database
         return null;
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public List<Integer> getXBest(int wordID, int x) {
         String sql = "SELECT nextWordID FROM nextWord WHERE wordID = ? ORDER BY comboCount DESC Limit ?";
 
@@ -445,6 +584,14 @@ public class Database
         return null;
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public List<WordCombo> getXBestCombos(Word word, int x) {
         String sql = "SELECT nextWordID, comboCount FROM nextWord WHERE wordID = ? ORDER BY comboCount DESC Limit ?";
 
@@ -467,6 +614,14 @@ public class Database
         return null;
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public List<String> getXBestWords(int wordID, int x) {
         String sql = 
             "SELECT w.word " +
@@ -496,6 +651,14 @@ public class Database
         return new ArrayList<>();
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public List<String> autoComplete(String word, int x) {
         String sql =   "SELECT word FROM words WHERE word LIKE CONCAT(?, '%') ORDER BY wordCount DESC LIMIT ?";
 
@@ -518,6 +681,14 @@ public class Database
         return null;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public boolean setTxt(String FileName) {
         String sql = "INSERT INTO txt (txtName) VALUES (?) ";
         
@@ -531,6 +702,14 @@ public class Database
         }
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public boolean setTxt(String FileName, int numSentences, int numWords) {
         String sql = "INSERT INTO txt (txtName, numSentences, numWords) VALUES (?, ?, ?)";
         
@@ -546,6 +725,14 @@ public class Database
         }
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public boolean setReport(String algorithm, String text) {
         String sql = "INSERT INTO reports (algorithmName, sentence) VALUES (?, ?)";
 
@@ -561,8 +748,13 @@ public class Database
     }
 
     /**
-     * Creates a {@code txt} row at the start of import so per-file analytics can attach {@code txtID}.
-     * Call {@link #finishTxtImport(int, int, int)} after processing all sentences.
+     * Author: 
+     * Description: 
+     *      Creates a {@code txt} row at the start of import so per-file analytics can attach {@code txtID}.
+     *      Call {@link #finishTxtImport(int, int, int)} after processing all sentences.
+     * 
+     * @param input description
+     * @return result description
      */
     public int startTxtImport(String fileName) {
         if (!hasConnection(conn)) {
@@ -583,6 +775,14 @@ public class Database
         return -1;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public boolean finishTxtImport(int txtId, int numSentences, int numWords) {
         if (!hasConnection(conn) || txtId <= 0) {
             return false;
@@ -599,7 +799,14 @@ public class Database
         }
     }
 
-    /** Adds token counts for one sentence into {@code txt_word} (after global {@link #addWords}). */
+    /**
+     * Author: 
+     * Description: 
+     *      Adds token counts for one sentence into {@code txt_word} (after global {@link #addWords}).
+     * 
+     * @param input description
+     * @return result description
+     */
     public boolean addTxtWordOccurrences(int txtId, List<String> words) {
         if (!hasConnection(conn) || txtId <= 0 || words == null || words.isEmpty()) {
             return true;
@@ -632,7 +839,14 @@ public class Database
         }
     }
 
-    /** Adds adjacent-word pair counts for one sentence into {@code txt_nextword}. */
+    /**
+     * Author: 
+     * Description: 
+     *      Adds adjacent-word pair counts for one sentence into {@code txt_nextword}.
+     * 
+     * @param input description
+     * @return result description
+     */
     public boolean addTxtCombosForTxt(int txtId, List<int[]> combos) {
         if (!hasConnection(conn) || txtId <= 0 || combos == null || combos.isEmpty()) {
             return true;
@@ -672,6 +886,14 @@ public class Database
         }
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public int getTxtCount() {
         if (conn == null) {
             return 0;
@@ -690,6 +912,14 @@ public class Database
         return 0;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public int getTxtSentenceCount() {
         if (conn == null) {
             return 0;
@@ -708,27 +938,14 @@ public class Database
         return 0;
     }
 
-    public TxtData getTxt(String FileName) {
-        String sql = "SELECT txtID numSentences FROM txt WHERE txtName = ?";
-        
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, FileName);
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return new TxtData(
-                        rs.getInt("txtID"),
-                        FileName,
-                        rs.getInt("numSentences")
-                    );
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public ObservableList<ImportHistoryRow> getTxtHistory()
     {
         String sql = "SELECT txtID, txtName, numSentences, numWords, dateAdded FROM txt";
@@ -749,6 +966,14 @@ public class Database
         return null;
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public ObservableList<ReportRow> getReports()
     {
         String sql = "SELECT reportID, algorithmName, dateAdded, sentence FROM reports";
@@ -779,6 +1004,14 @@ public class Database
 
     public record CorpusAggregate(long uniqueWordTypes, long totalTokens, long topBigramCount) {}
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private static boolean hasConnection(Connection c) {
         try {
             return c != null && !c.isClosed();
@@ -788,7 +1021,12 @@ public class Database
     }
 
     /**
-     * Imported files for scope dropdown and per-file table, newest first.
+     * Author: 
+     * Description: 
+     *      Imported files for scope dropdown and per-file table, newest first.
+     * 
+     * @param input description
+     * @return result description
      */
     public List<TxtFileSummary> listTxtFileSummaries() {
         List<TxtFileSummary> out = new ArrayList<>();
@@ -821,7 +1059,12 @@ public class Database
     }
 
     /**
-     * Most frequent word types (excluding generator sentinel tokens).
+     * Author: 
+     * Description: 
+     *      Most frequent word types (excluding generator sentinel tokens).
+     * 
+     * @param input description
+     * @return result description
      */
     public List<TopWordEntry> fetchTopWords(int limit) {
         List<TopWordEntry> out = new ArrayList<>();
@@ -844,7 +1087,12 @@ public class Database
     }
 
     /**
-     * Strongest next-word transitions (excluding pairs involving sentinel tokens).
+     * Author: 
+     * Description: 
+     *      Strongest next-word transitions (excluding pairs involving sentinel tokens).
+     * 
+     * @param input description
+     * @return result description
      */
     public List<TopBigramEntry> fetchTopBigrams(int limit) {
         List<TopBigramEntry> out = new ArrayList<>();
@@ -871,7 +1119,12 @@ public class Database
     }
 
     /**
-     * Corpus-wide headline metrics for the analytics chips.
+     * Author: 
+     * Description: 
+     *      Corpus-wide headline metrics for the analytics chips.
+     * 
+     * @param input description
+     * @return result description
      */
     public CorpusAggregate fetchCorpusAggregate() {
         if (!hasConnection(conn)) {
@@ -896,7 +1149,12 @@ public class Database
     }
 
     /**
-     * Per-file top words (requires {@code txt_word}; populated on import).
+     * Author: 
+     * Description: 
+     *      Per-file top words (requires {@code txt_word}; populated on import).
+     * 
+     * @param input description
+     * @return result description
      */
     public List<TopWordEntry> fetchTopWordsForTxt(int txtId, int limit) {
         List<TopWordEntry> out = new ArrayList<>();
@@ -922,7 +1180,12 @@ public class Database
     }
 
     /**
-     * Per-file top bigrams (requires {@code txt_nextword}; populated on import).
+     * Author: 
+     * Description: 
+     *      Per-file top bigrams (requires {@code txt_nextword}; populated on import).
+     * 
+     * @param input description
+     * @return result description
      */
     public List<TopBigramEntry> fetchTopBigramsForTxt(int txtId, int limit) {
         List<TopBigramEntry> out = new ArrayList<>();
@@ -949,7 +1212,14 @@ public class Database
         return out;
     }
 
-    /** Headline metrics for one import row. */
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public CorpusAggregate fetchCorpusAggregateForTxt(int txtId) {
         if (!hasConnection(conn) || txtId <= 0) {
             return new CorpusAggregate(0, 0, 0);
@@ -978,6 +1248,14 @@ public class Database
         return new CorpusAggregate(0, 0, 0);
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public void dumpDatabase() throws Exception
     {
         String[] command = {
@@ -1010,6 +1288,14 @@ public class Database
         process.waitFor();
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public static Database getDatabase() {
         String user = "root";
         String pass = "hold";
@@ -1024,6 +1310,14 @@ public class Database
         return new Database(user, pass, DEFAULT_DATABASE_NAME);
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public static boolean canConnect()
     {
         String user;
@@ -1044,6 +1338,15 @@ public class Database
         }
     }
 
+
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public static boolean canConfigConnect(String user, String pass)
     {
         try (Connection connection = DriverManager.getConnection(jdbcUrl(DEFAULT_DATABASE_NAME), user, pass)) {

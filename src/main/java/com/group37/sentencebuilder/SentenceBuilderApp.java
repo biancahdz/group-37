@@ -34,6 +34,14 @@ public class SentenceBuilderApp extends Application {
     private static final double MIN_WIDTH = 1024;
     private static final double MIN_HEIGHT = 640;
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @Override
     public void start(Stage stage) throws IOException {
         stage.setTitle("Sentence Builder");
@@ -47,6 +55,14 @@ public class SentenceBuilderApp extends Application {
 
     /**
      * @param afterLogout if true, skip auto-launch when the DB is reachable so the user sees login again
+     */
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
      */
     private void showTitleView(Stage stage, boolean afterLogout) throws IOException {
         if (afterLogout) {

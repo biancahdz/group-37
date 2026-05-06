@@ -2,7 +2,7 @@
  * ------------------------------------------------------------
  *  Project: Sentence Builder
  *  File:    .java
- *  Author:  
+ *  Author:  Huy Nong, Cortland Kimzey, Bianca Hernandez
  *
  *  Description:
  *      <description>
@@ -60,12 +60,28 @@ public class AutocompleteController implements ApplicationPage, DatabasePage {
     @FXML
     private Button addWordButton;
 
+    /**
+     * Author: Huy Nong
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @FXML
     private void initialize() {
         prefixField.textProperty().addListener((obs, o, n) -> refreshSuggestions(n));
         labelTheme.add(sectionEyebrowLabel, Color.WHITE);
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void refreshSuggestions(String raw) {
 
         suggestionsPane.getChildren().clear();
@@ -165,6 +181,14 @@ public class AutocompleteController implements ApplicationPage, DatabasePage {
         thread.start();
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @Override
     public void onPageEnter() {
         labelTheme.apply();
@@ -172,18 +196,42 @@ public class AutocompleteController implements ApplicationPage, DatabasePage {
         refreshSuggestions(prefixField.getText());
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @Override
     public void onPageLeave()
     {
         database.disconnect();
     }
 
+    /**
+     * Author: Cortland Kimzey
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @Override
     public void setDatabase(Database database)
     {
         this.database = database;
     }
     
+    /**
+     * Author: Bianca Hernandez
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @FXML 
     private void onAddWord() {
          String[] parts = prefixField.getText().trim().toLowerCase().split("\\s+");

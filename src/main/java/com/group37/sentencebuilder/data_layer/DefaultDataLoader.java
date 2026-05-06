@@ -1,35 +1,25 @@
 /**
  * ------------------------------------------------------------
  *  Project: Sentence Builder
- *  File:    .java
- *  Author:  
+ *  File:    DefaultDataLoader.java
+ *  Author:  Amrita Thapa
  *
  *  Description:
- *      <description>
+ *      Preloads the database with bundled default text files on first
+ *      login if the database is empty. Executes a pre-built SQL dump
+ *      instead of parsing raw text files, making first-time setup
+ *      significantly faster. Also ensures the database schema is
+ *      correct on every login, rebuilding it from the bundled schema
+ *      file if any required tables are missing.
  *
  *  Version: 1.0
- *  Created: 
- *  Last Modified: 
+ *  Created: 2026-04-09
+ *  Last Modified: 2026-04-10
  *
  *  Responsibilities:
  *      - <responsibilities 1>
  *      - <responsibilities 2>
  * ------------------------------------------------------------
- */
-
-/**
- * File: DefaultDataLoader.java
- * Description: Preloads the database with bundled default text files on first
- *              login if the database is empty. Executes a pre-built SQL dump
- *              instead of parsing raw text files, making first-time setup
- *              significantly faster. Also ensures the database schema is
- *              correct on every login, rebuilding it from the bundled schema
- *              file if any required tables are missing.
- *
- * Author: Amrita Thapa
- * Created: 2026-04-09
- * Last Modified: 2026-04-10
- *
  */
 
 package com.group37.sentencebuilder.data_layer;

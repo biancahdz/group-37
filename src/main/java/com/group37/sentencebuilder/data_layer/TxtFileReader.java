@@ -2,7 +2,7 @@
  * ------------------------------------------------------------
  *  Project: Sentence Builder
  *  File:    TxtFileReader.java
- *  Author:  
+ *  Author:  Bianca Hernandez
  *
  *  Description:
  *      <description>
@@ -38,16 +38,40 @@ public class TxtFileReader
     private File txtFile;
     private Database database = Database.getDatabase();
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public TxtFileReader(File file, String displayName) {
         this.fileName = displayName;
         this.txtFile = file;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public TxtFileReader(File file) {
         this.fileName = file.getName();
         this.txtFile = file;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private List<String> getSentences(StringBuilder sb)
     {
         String regex = "(?<=[.!?][\"',]?)(?=\\s+|$)";
@@ -64,12 +88,28 @@ public class TxtFileReader
         return sentences;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private boolean addWords(List<String> words) {
         if(!database.addWords(words))
             return false;
         return true;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private boolean addSentence(List<String> words) {
 
         int firstID = database.getWordID(words.get(0));
@@ -84,6 +124,14 @@ public class TxtFileReader
         return true;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private boolean addCombo(List<String> words)
     {
         if (words == null || words.size() < 2) return false;
@@ -104,6 +152,14 @@ public class TxtFileReader
         return database.addCombos(combos);
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private List<int[]> adjacentPairs(List<String> words) {
         if (words == null || words.size() < 2) {
             return Collections.emptyList();
@@ -120,6 +176,14 @@ public class TxtFileReader
         return pairs;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public Task<Void> createTask() {
         return new Task<>() {
             @Override

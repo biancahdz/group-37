@@ -30,6 +30,14 @@ public class ReportRow {
     private final StringProperty generatedAt;
     private final StringProperty preview;
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public ReportRow(String id, String algorithm, String generatedAt, String preview) {
         this.id = new SimpleStringProperty(id);
         this.algorithm = new SimpleStringProperty(algorithm);
@@ -37,34 +45,98 @@ public class ReportRow {
         this.preview = new SimpleStringProperty(preview);
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public String getId() {
         return id.get();
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public StringProperty idProperty() {
         return id;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public String getAlgorithm() {
         return algorithm.get();
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public StringProperty algorithmProperty() {
         return algorithm;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public String getGeneratedAt() {
         return generatedAt.get();
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public StringProperty generatedAtProperty() {
         return generatedAt;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public String getPreview() {
         return preview.get();
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public StringProperty previewProperty() {
         return preview;
     }

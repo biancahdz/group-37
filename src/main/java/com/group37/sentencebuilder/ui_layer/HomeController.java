@@ -75,6 +75,14 @@ public class HomeController implements ApplicationPage, DatabasePage {
 
     private final InvalidationListener dashboardChromeRefresh = obs -> applyDashboardInlineText();
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @FXML
     private void initialize() {
         UiPreferences prefs = UiPreferences.get();
@@ -121,6 +129,14 @@ public class HomeController implements ApplicationPage, DatabasePage {
         Platform.runLater(this::applyDashboardInlineText);
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void applyDashboardInlineText() {
         if (pageRoot == null) {
             return;
@@ -141,6 +157,14 @@ public class HomeController implements ApplicationPage, DatabasePage {
         Platform.runLater(() -> Platform.runLater(() -> { if (labelWorkspaces != null) labelWorkspaces.setStyle(workspacesStyle); }));
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void applyStatTileLabels(Node node, boolean darkChrome) {
         if (node instanceof Label lab) {
             boolean isStat   = lab.getStyleClass().contains("stat-tile-label");
@@ -156,6 +180,14 @@ public class HomeController implements ApplicationPage, DatabasePage {
         }
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void applyCardDarkBackground(boolean darkChrome) {
         Button[] cards = { cardImport, cardGenerate, cardAutocomplete, cardReports, cardCorpusStats };
         for (Button card : cards) {
@@ -176,6 +208,14 @@ public class HomeController implements ApplicationPage, DatabasePage {
         }
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private static String ctaFillForAccentParent(Labeled cta) {
         for (Node x = cta.getParent(); x != null; x = x.getParent()) {
             for (String c : x.getStyleClass()) {
@@ -192,6 +232,14 @@ public class HomeController implements ApplicationPage, DatabasePage {
         return "#e4e4e7";
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private static ColorScheme currentColorScheme() {
         try {
             return Platform.getPreferences().getColorScheme();
@@ -206,6 +254,14 @@ public class HomeController implements ApplicationPage, DatabasePage {
     @FXML private void onQuickReports()     { navigator.accept(ViewKey.REPORTS); }
     @FXML private void onQuickCorpusStats() { navigator.accept(ViewKey.CORPUS_STATS); }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @Override
     public void onPageEnter() {
         applyDashboardInlineText();
@@ -229,10 +285,26 @@ public class HomeController implements ApplicationPage, DatabasePage {
         }
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @Override
     public void onPageLeave() {
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @Override
     public void setDatabase(Database database) {
         this.database = database;

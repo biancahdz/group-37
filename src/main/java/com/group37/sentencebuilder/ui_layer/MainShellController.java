@@ -117,6 +117,14 @@ public class MainShellController {
     /** Suppresses nav toggle listeners while we sync the sidebar programmatically. */
     private boolean suppressNavToggleCallbacks;
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     @FXML
     private void initialize() {
         shellRoot.setId("sb-shell-root");
@@ -169,6 +177,14 @@ public class MainShellController {
      * <p>
      * After theme / scene attach, one {@link javafx.scene.Node#applyCss()} on the shell root reapplies tokens.
      */
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void applyShellChromeInlineText() {
         if (shellRoot != null) {
             shellRoot.applyCss();
@@ -179,6 +195,14 @@ public class MainShellController {
      * Same issue as sidebar chrome: on dark palettes, stylesheet fills for page section eyebrows
      * (DATA IN, GENERATE, …) can render too dark. {@link Labeled#setTextFill} reaches LabeledSkin
      * more reliably than {@code -fx-text-fill} alone (see {@link HomeController#applyHomeHeroLabels}).
+     */
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
      */
     private void applyWorkspaceEyebrowInlineText() {
         if (contentHost == null) {
@@ -198,6 +222,14 @@ public class MainShellController {
         }
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     /** Maximum contrast on #000 / #18181b; primary eyebrow is white so small-caps stay readable. */
     private static Color eyebrowColorForAccentClass(Labeled lab) {
         if (lab.getStyleClass().contains("section-eyebrow-primary")) {
@@ -215,6 +247,14 @@ public class MainShellController {
         return Color.color(1, 1, 1, 0.95);
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     /**
      * Make mouse-wheel / trackpad scrolling work across the full workspace area,
      * not just when the cursor is over the inner content node.
@@ -236,6 +276,14 @@ public class MainShellController {
     }
 
     /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
+    /**
      * A {@link ToggleGroup} clears the selected toggle when the user clicks it again.
      * Keep one workspace always selected so the sidebar highlight never disappears.
      */
@@ -253,17 +301,41 @@ public class MainShellController {
         });
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     /** Wired from {@link com.group37.sentencebuilder.SentenceBuilderApp} to return to the login scene. */
     public void setOnLogout(Runnable onLogout) {
         this.onLogout = onLogout;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public void requestLogout() {
         if (onLogout != null) {
             onLogout.run();
         }
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void wireNav(ToggleButton button, ViewKey key) {
         button.setUserData(key);
         button.selectedProperty().addListener((obs, was, isNow) -> {
@@ -276,6 +348,14 @@ public class MainShellController {
         });
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     /** Used by Home quick actions to change the main view. */
     public void showView(ViewKey key) {
         if (currentController instanceof ApplicationPage oldPage)
@@ -311,6 +391,14 @@ public class MainShellController {
         }
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private void selectNav(ViewKey key) {
         for (Toggle t : navGroup.getToggles()) {
             if (t.getUserData() == key) {
@@ -322,6 +410,14 @@ public class MainShellController {
         }
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private static String titleFor(ViewKey key) {
         return switch (key) {
             case HOME -> "Home";
@@ -335,6 +431,14 @@ public class MainShellController {
         };
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     private Parent loadView(ViewKey key) {
         String resource = switch (key) {
             case HOME -> "/fxml/HomeView.fxml";

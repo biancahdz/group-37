@@ -12,8 +12,7 @@
  *  Last Modified: 2026-03-27
  *
  *  Responsibilities:
- *      - <responsibilities 1>
- *      - <responsibilities 2>
+ *      - Allow a page to create a database object
  * ------------------------------------------------------------
  */
 

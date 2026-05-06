@@ -29,28 +29,76 @@ public class WordFrequencyRow {
     private final StringProperty word;
     private final StringProperty count;
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public WordFrequencyRow(String rank, String word, String count) {
         this.rank = new SimpleStringProperty(rank);
         this.word = new SimpleStringProperty(word);
         this.count = new SimpleStringProperty(count);
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public StringProperty rankProperty() {
         return rank;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public StringProperty wordProperty() {
         return word;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public StringProperty countProperty() {
         return count;
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public String getWord() {
         return word.get();
     }
 
+    /**
+     * Author: 
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public String getCount() {
         return count.get();
     }
