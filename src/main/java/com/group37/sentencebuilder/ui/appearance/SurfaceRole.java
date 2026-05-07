@@ -1,7 +1,28 @@
+/**
+ * ------------------------------------------------------------
+ *  Project: Sentence Builder
+ *  File:    SurfaceRole.java
+ *  Author:  Sebastian Sarinana
+ *
+ *  Description:
+ *      Enum documenting the semantic surface roles used in the application UI.
+ *      Each entry maps a role name to the CSS style classes that implement it,
+ *      providing a single reference for FXML and CSS authors.
+ *
+ *  Version: 1.0
+ *  Created: 2026-03-27
+ *  Last Modified: 2026-03-27
+ *
+ *  Responsibilities:
+ *      - Document all surface roles and their corresponding CSS class names
+ *      - Provide intent descriptions for panels, cards, tiles, and buttons
+ * ------------------------------------------------------------
+ */
+
 package com.group37.sentencebuilder.ui.appearance;
 
-/**
- * Semantic surfaces: rounded panels and buttons share theme tokens ({@link ThemePaletteKeys}) but use
+/*
+ * Semantic surfaces: rounded panels and buttons share theme tokens (ThemePaletteKeys) but use
  * different geometry and elevation. Use these class names in FXML/CSS so theme changes propagate consistently.
  */
 public enum SurfaceRole {

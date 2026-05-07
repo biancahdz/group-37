@@ -1,8 +1,29 @@
+/**
+ * ------------------------------------------------------------
+ *  Project: Sentence Builder
+ *  File:    TypographyRole.java
+ *  Author:  Sebastian Sarinana
+ *
+ *  Description:
+ *      Enum documenting the text hierarchy roles used across the application UI.
+ *      Each entry maps a semantic role to the CSS style classes that implement it
+ *      and includes an intent description for developers.
+ *
+ *  Version: 1.0
+ *  Created: 2026-03-27
+ *  Last Modified: 2026-03-27
+ *
+ *  Responsibilities:
+ *      - Document all typography roles and their CSS style class names
+ *      - Provide intent descriptions covering size, weight, and color role
+ * ------------------------------------------------------------
+ */
+
 package com.group37.sentencebuilder.ui.appearance;
 
-/**
- * Maps the original UI’s text hierarchy to style classes in {@code app-theme.css}.
- * Each role has a distinct size/weight/color intent; ratios are expressed in {@code em} on the shell root.
+/*
+ * Maps the original UI’s text hierarchy to style classes in app-theme.css.
+ * Each role has a distinct size/weight/color intent; ratios are expressed in em on the shell root.
  */
 public enum TypographyRole {
 
@@ -18,7 +39,7 @@ public enum TypographyRole {
     /** Standard section heading (smaller than hero). */
     SECTION_HEADING("section-heading", "Section title · ~2em · primary text color"),
 
-    /** Intro paragraph under the title — uses {@link ThemePaletteKeys#TEXT_LEAD} for contrast vs title. */
+    /* Intro paragraph under the title — uses ThemePaletteKeys.TEXT_LEAD for contrast vs title. */
     SECTION_LEAD("section-lead", "Lead body · relaxed line rhythm · lead color token"),
 
     /** Card / panel title inside a content block. */
@@ -65,12 +86,12 @@ public enum TypographyRole {
         this.intent = intent;
     }
 
-    /** Space-separated JavaFX {@code styleClass} names to apply to a {@code Labeled} node. */
+    /* Space-separated JavaFX styleClass names to apply to a Labeled node. */
     public String styleClasses() {
         return styleClasses;
     }
 
-    /** Human-readable description of hierarchy and contrast role. */
+    /* Human-readable description of hierarchy and contrast role. */
     public String intent() {
         return intent;
     }

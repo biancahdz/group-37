@@ -1,15 +1,35 @@
+/**
+ * ------------------------------------------------------------
+ *  Project: Sentence Builder
+ *  File:    AppTheme.java
+ *  Author:  Sebastian Sarinana
+ *
+ *  Description:
+ *      Enum defining all color themes available in the application.
+ *      Handles OS color scheme resolution for SYSTEM and INVERT_SYSTEM modes
+ *      and provides per-theme ComboBox popup row colors.
+ *
+ *  Version: 1.0
+ *  Created: 2026-03-27
+ *  Last Modified: 2026-04-10
+ *
+ *  Responsibilities:
+ *      - Define all color theme options and their CSS palette class names
+ *      - Resolve the correct palette class based on the OS color scheme
+ *      - Supply background and text hex colors for ComboBox popup rows per theme
+ * ------------------------------------------------------------
+ */
+
 package com.group37.sentencebuilder.ui;
 
 import javafx.application.ColorScheme;
 
-/**
- * UI color themes. The combo shows {@link #getDisplayLabel()} (e.g. "Light mode", "Dark").
- *
- * <p>Contrast for shell chrome, table headers, and page eyebrows is driven by {@code sb-chrome-*},
- * {@code sb-table-header-*}, and {@code sb-eyebrow-*} tokens defined per theme in {@code theme-palettes.css}.</p>
- *
- * <p>{@link #SYSTEM} maps to the OS light/dark appearance via JavaFX {@link ColorScheme} (same signal as the
- * OS “appearance” setting — not a separate clock). {@link #INVERT_SYSTEM} inverts that pairing.</p>
+/*
+ * UI color themes. The combo shows getDisplayLabel() (e.g. “Light mode”, “Dark”).
+ * Contrast for shell chrome, table headers, and page eyebrows is driven by sb-chrome-*,
+ * sb-table-header-*, and sb-eyebrow-* tokens defined per theme in theme-palettes.css.
+ * SYSTEM maps to the OS light/dark appearance via JavaFX ColorScheme (same signal as the
+ * OS “appearance” setting — not a separate clock). INVERT_SYSTEM inverts that pairing.
  */
 public enum AppTheme {
     DEFAULT("Dark", "theme-default"),
@@ -45,9 +65,9 @@ public enum AppTheme {
         return styleClass;
     }
 
-    /**
-     * CSS palette class actually applied on the scene root. For {@link #SYSTEM} and {@link #INVERT_SYSTEM},
-     * this follows (or inverts) the OS {@link ColorScheme} instead of using a fixed stylesheet block.
+    /*
+     * CSS palette class actually applied on the scene root. For SYSTEM and INVERT_SYSTEM,
+     * this follows (or inverts) the OS ColorScheme instead of using a fixed stylesheet block.
      */
     public String resolvedPaletteStyleClass(ColorScheme systemScheme) {
         ColorScheme s = systemScheme != null ? systemScheme : ColorScheme.LIGHT;
@@ -59,9 +79,7 @@ public enum AppTheme {
         };
     }
 
-    /**
-     * Concrete theme used for ComboBox popup row colors (same rules as {@link #resolvedPaletteStyleClass}).
-     */
+    /* Concrete theme used for ComboBox popup row colors (same rules as resolvedPaletteStyleClass). */
     public AppTheme resolvedForChrome(ColorScheme systemScheme) {
         ColorScheme s = systemScheme != null ? systemScheme : ColorScheme.LIGHT;
         boolean dark = s == ColorScheme.DARK;
@@ -72,8 +90,8 @@ public enum AppTheme {
         };
     }
 
-    /**
-     * ComboBox popup list rows are rendered in a separate scene that does not inherit {@code sb-*} CSS
+    /*
+     * ComboBox popup list rows are rendered in a separate scene that does not inherit sb-* CSS
      * lookups from the main shell — use these hex colors for normal (non-selected) rows.
      */
     public String comboPopupRowBgHex() {

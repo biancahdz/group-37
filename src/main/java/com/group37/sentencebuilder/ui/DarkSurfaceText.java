@@ -1,3 +1,25 @@
+/**
+ * ------------------------------------------------------------
+ *  Project: Sentence Builder
+ *  File:    DarkSurfaceText.java
+ *  Author:  Sebastian Sarinana
+ *
+ *  Description:
+ *      Utility class that forces text fill on Labeled nodes where Modena's
+ *      LabeledSkin ignores stylesheet fills on dark surfaces. Uses only inline
+ *      setStyle so that clearForcedLabeledPaint can restore the CSS cascade cleanly.
+ *
+ *  Version: 1.0
+ *  Created: 2026-04-10
+ *  Last Modified: 2026-04-20
+ *
+ *  Responsibilities:
+ *      - Force inline text fill on Labeled nodes for dark palette compatibility
+ *      - Clear forced fills to restore CSS cascade in light mode
+ *      - Apply fills to inner Text nodes of LabeledSkin via deferred retry
+ * ------------------------------------------------------------
+ */
+
 package com.group37.sentencebuilder.ui;
 
 import javafx.application.Platform;
@@ -6,17 +28,15 @@ import javafx.scene.control.Labeled;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
-/**
- * Forces text color on {@link Labeled} nodes where Modena's LabeledSkin ignores stylesheet fills.
- *
- * Uses only inline {@code setStyle} — never {@code setFill}/{@code unbind} — so that
- * {@code clearForcedLabeledPaint} can simply call {@code setStyle(null)} and let the CSS
- * cascade restore the correct palette color without any transparent-text side effects.
- *
- * The single deferred retry in {@code forceLabeledFill} handles the common case where the
- * Label's skin (and its inner Text node) does not yet exist during FXML initialize. It guards
- * itself by checking that the label's inline style hasn't been cleared (i.e. the theme hasn't
- * already switched back to light), so it never overwrites a light-mode clear.
+/*
+ * Forces text color on Labeled nodes where Modena's LabeledSkin ignores stylesheet fills.
+ * Uses only inline setStyle — never setFill/unbind — so that clearForcedLabeledPaint can
+ * simply call setStyle(null) and let the CSS cascade restore the correct palette color
+ * without any transparent-text side effects.
+ * The single deferred retry in forceLabeledFill handles the common case where the Label's
+ * skin (and its inner Text node) does not yet exist during FXML initialize. It guards
+ * itself by checking that the label's inline style hasn't been cleared (i.e. the theme
+ * hasn't already switched back to light), so it never overwrites a light-mode clear.
  */
 public final class DarkSurfaceText {
 
@@ -27,11 +47,11 @@ public final class DarkSurfaceText {
         forceLabeledFill(labeled, color, null);
     }
 
-    /**
-     * Like {@link #forceLabeledFill(Labeled, Color)} but prepends {@code baseStyle} to the inline
-     * style (e.g. {@code "-fx-font-size: 26px; -fx-font-weight: bold;"}).  The base properties
-     * survive both dark and light passes so CSS-resistant labels (e.g. inside Button graphics)
-     * always get the correct size/weight without relying on stylesheet cascade.
+    /*
+     * Like forceLabeledFill(Labeled, Color) but prepends baseStyle to the inline style
+     * (e.g. "-fx-font-size: 26px; -fx-font-weight: bold;"). The base properties survive both
+     * dark and light passes so CSS-resistant labels (e.g. inside Button graphics) always get
+     * the correct size/weight without relying on stylesheet cascade.
      */
     public static void forceLabeledFill(Labeled labeled, Color color, String baseStyle) {
         if (labeled == null || color == null) {
@@ -53,7 +73,7 @@ public final class DarkSurfaceText {
         });
     }
 
-    /**
+    /*
      * Removes all inline fills so the CSS palette takes over automatically.
      * No deferred calls — inline styles are removed immediately and CSS re-applies on the
      * next pulse without any race against a queued forceLabeledFill retry (the retry guards
@@ -63,10 +83,10 @@ public final class DarkSurfaceText {
         clearForcedLabeledPaint(labeled, null);
     }
 
-    /**
-     * Like {@link #clearForcedLabeledPaint(Labeled)} but keeps {@code keepStyle} as the inline
-     * style so that base properties (font-size, font-weight) are preserved in light mode even
-     * though text-fill is handed back to the CSS cascade.
+    /*
+     * Like clearForcedLabeledPaint(Labeled) but keeps keepStyle as the inline style so that
+     * base properties (font-size, font-weight) are preserved in light mode even though
+     * text-fill is handed back to the CSS cascade.
      */
     public static void clearForcedLabeledPaint(Labeled labeled, String keepStyle) {
         if (labeled == null) {

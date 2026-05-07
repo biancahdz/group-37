@@ -1,3 +1,25 @@
+/**
+ * ------------------------------------------------------------
+ *  Project: Sentence Builder
+ *  File:    SettingsController.java
+ *  Author:  Huy Nong, Sebastian Sarinana
+ *
+ *  Description:
+ *      Original settings page controller. Binds theme, font, and font size
+ *      combo boxes to UiPreferences and applies themed popup row colors for
+ *      ComboBox lists that do not inherit main scene CSS.
+ *
+ *  Version: 1.0
+ *  Created: 2026-03-22
+ *  Last Modified: 2026-03-27
+ *
+ *  Responsibilities:
+ *      - Bind theme, font, and font size combos to UiPreferences
+ *      - Apply per-theme popup row background and text colors in ComboBox lists
+ *      - Listen to theme changes and refresh popup cell factories
+ * ------------------------------------------------------------
+ */
+
 package com.group37.sentencebuilder.ui;
 
 import javafx.collections.FXCollections;
@@ -7,10 +29,10 @@ import javafx.scene.control.ListCell;
 
 import java.util.function.Function;
 
-/**
- * Settings: binds theme, font, and font size to {@link UiPreferences} — one place drives the whole shell.
- * ComboBox popup lists use explicit row colors per {@link AppTheme} because popup scenes do not inherit
- * {@code sb-*} CSS lookups from the main scene root.
+/*
+ * Settings: binds theme, font, and font size to UiPreferences — one place drives the whole shell.
+ * ComboBox popup lists use explicit row colors per AppTheme because popup scenes do not inherit
+ * sb-* CSS lookups from the main scene root.
  */
 public class SettingsController {
 
@@ -27,19 +49,23 @@ public class SettingsController {
     private void initialize() {
         UiPreferences prefs = UiPreferences.get();
 
+        // Populate combo with all theme options and set the current active theme
         themeCombo.setItems(FXCollections.observableArrayList(AppTheme.values()));
         themeCombo.setValue(prefs.getTheme());
+        // User picks a theme → push into UiPreferences so the whole shell updates
         themeCombo.valueProperty().addListener((obs, o, n) -> {
             if (n != null) {
                 prefs.setTheme(n);
             }
         });
+        // Theme changed externally (e.g. another controller) → keep this combo in sync
         prefs.themeProperty().addListener((obs, o, n) -> {
             if (n != null && themeCombo.getValue() != n) {
                 themeCombo.setValue(n);
             }
         });
 
+        // Same bidirectional pattern for font family
         fontCombo.setItems(FXCollections.observableArrayList(AppFont.values()));
         fontCombo.setValue(prefs.getFont());
         fontCombo.valueProperty().addListener((obs, o, n) -> {
@@ -53,6 +79,7 @@ public class SettingsController {
             }
         });
 
+        // Same bidirectional pattern for font size preset
         fontSizeCombo.setItems(FXCollections.observableArrayList(FontSizePreset.values()));
         fontSizeCombo.setValue(prefs.getFontSize());
         fontSizeCombo.valueProperty().addListener((obs, o, n) -> {
@@ -66,10 +93,12 @@ public class SettingsController {
             }
         });
 
+        // Re-apply popup row colors whenever the theme changes, then apply once immediately at startup
         prefs.themeProperty().addListener((o, a, b) -> attachThemedPopupCells());
         attachThemedPopupCells();
     }
 
+    // Replace all three combo cell factories so their popup rows use colors matching the active theme
     private void attachThemedPopupCells() {
         themeCombo.setCellFactory(lv -> themedCell(AppTheme::toString));
         themeCombo.setButtonCell(themedButtonCell(AppTheme::toString));
@@ -81,6 +110,7 @@ public class SettingsController {
         fontSizeCombo.setButtonCell(themedButtonCell(FontSizePreset::toString));
     }
 
+    // Drop-down list cell: applies theme-matched background/text color and re-applies on selection change
     private <T> ListCell<T> themedCell(Function<T, String> label) {
         return new ListCell<>() {
             @Override
@@ -95,6 +125,7 @@ public class SettingsController {
                 applyPopupRowStyle(this);
             }
 
+            // Called when the row gains or loses the selection highlight — refresh colors to match
             @Override
             public void updateSelected(boolean selected) {
                 super.updateSelected(selected);
@@ -103,6 +134,7 @@ public class SettingsController {
         };
     }
 
+    // The closed button cell only shows the selected label text — no row color needed here
     private <T> ListCell<T> themedButtonCell(Function<T, String> label) {
         return new ListCell<>() {
             @Override
@@ -117,12 +149,17 @@ public class SettingsController {
         };
     }
 
+    /*
+     * Popup rows live in a separate JavaFX scene and don't inherit CSS variables from the main shell,
+     * so we apply inline styles using per-theme hex values from AppTheme instead of CSS lookups.
+     */
     private void applyPopupRowStyle(ListCell<?> cell) {
         if (cell.isEmpty()) {
             cell.setStyle(null);
             return;
         }
         if (cell.isSelected()) {
+            // Selected row always uses high-contrast black/white regardless of theme
             cell.setStyle("-fx-background-color: #000000; -fx-text-fill: #ffffff;");
         } else {
             AppTheme t = UiPreferences.get().getTheme();
