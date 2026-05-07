@@ -5,24 +5,22 @@
  *  Author:  Sebastian Sarinana
  *
  *  Description:
- *      Enum defining the font stack options available in the application shell.
- *      Each entry maps a display label to a CSS style class applied on the scene root.
+ *      Enum defining available font stacks; each entry maps a display label to a CSS style class on the scene root.
  *
  *  Version: 1.0
  *  Created: 2026-03-27
  *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
- *      - Define all available font stacks for the application
- *      - Provide CSS style class names used to apply fonts on the shell root
- *      - Provide display labels shown in the Settings font combo box
+ *      - Define all font stack options and their CSS style class names
+ *      - Provide display labels and metrics classes used by the Settings UI and shell
  * ------------------------------------------------------------
  */
 
 package com.group37.sentencebuilder.ui_layer.theming;
 
 /**
- * Font stacks applied on the app root. {@link #DEFAULT} matches the UI stack; the combo shows {@link #getDisplayLabel()}
+ * Font stacks applied on the app shell root. DEFAULT matches the UI stack; the combo shows getDisplayLabel()
  * (e.g. "System UI"), not a placeholder name.
  */
 public enum AppFont {
@@ -41,24 +39,50 @@ public enum AppFont {
     private final String displayLabel;
     private final String styleClass;
 
+    /**
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Constructs an AppFont entry with its display label and CSS style class.
+     *
+     * @param displayLabel human-readable name shown in the Settings combo box
+     * @param styleClass CSS class applied on the shell root to activate this font stack
+     */
     AppFont(String displayLabel, String styleClass) {
         this.displayLabel = displayLabel;
         this.styleClass = styleClass;
     }
 
+    /**
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Returns the human-readable font name shown in the Settings combo box.
+     *
+     * @return display label string
+     */
     public String getDisplayLabel() {
         return displayLabel;
     }
 
+    /**
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Returns the CSS style class applied on the shell root to activate this font stack.
+     *
+     * @return CSS style class string
+     */
     public String getStyleClass() {
         return styleClass;
     }
 
     /**
-     * Extra layout class on the scene root so letter-spacing and line spacing match dense faces (Consolas, many serifs).
-     * Normalized root font-size for each size preset is set per {@link #getStyleClass()} in {@code theme-palettes.css}
-     * ({@code .root.font-stack-*.fs-*}) so switching fonts stays a similar visual size; this class only adds tracking.
-     * Paired CSS: {@code font-metrics-default} vs {@code font-metrics-relaxed}.
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Returns an extra layout class for the scene root so letter-spacing and line spacing
+     *      match dense faces such as Consolas and serif fonts. Normalized root font-size for each
+     *      size preset is set per getStyleClass() in theme-palettes.css so switching fonts stays
+     *      a similar visual size; this class only adds tracking.
+     *
+     * @return "font-metrics-relaxed" for dense faces, "font-metrics-default" otherwise
      */
     public String getMetricsStyleClass() {
         return switch (this) {
@@ -67,6 +91,13 @@ public enum AppFont {
         };
     }
 
+    /**
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Returns the display label as the string representation of this enum constant.
+     *
+     * @return display label string
+     */
     @Override
     public String toString() {
         return displayLabel;

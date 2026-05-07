@@ -5,18 +5,15 @@
  *  Author:  Sebastian Sarinana
  *
  *  Description:
- *      Registry that maps Labeled nodes to their dark-mode fill colors.
- *      Controllers register labels once in initialize() and call apply() on
- *      page enter and theme change to switch between dark and light fills.
+ *      Registry that maps Labeled nodes to dark-mode fill colors; apply() is called on page enter and theme change.
  *
  *  Version: 1.0
  *  Created: 2026-04-19
  *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
- *      - Register Labeled nodes with fixed or computed dark-mode colors
- *      - Apply dark fills or restore CSS cascade on theme change
- *      - Encapsulate DarkSurfaceText logic so controllers stay clean
+ *      - Register Labeled nodes with fixed or computed dark-mode colors for theme-aware styling
+ *      - Apply or clear inline fills via DarkSurfaceText so controllers stay decoupled from it
  * ------------------------------------------------------------
  */
 
@@ -31,27 +28,39 @@ import java.util.List;
 import java.util.function.Supplier;
 
 /**
- * Maps labeled nodes to their dark-mode fill colors.
- *
- * Register labels once in FXML {@code initialize()} via {@link #add}, then call
- * {@link #apply} in {@code onPageEnter()} and from theme-change listeners.
- *
- * Controllers never import {@link DarkSurfaceText} directly; the theme-switching
- * logic is encapsulated here.
+ * Maps Labeled nodes to their dark-mode fill colors. Register labels once in FXML initialize()
+ * via add(), then call apply() in onPageEnter() and from theme-change listeners.
+ * Controllers never import DarkSurfaceText directly — the switching logic is encapsulated here.
  */
 public final class LabelThemeRegistry {
 
     private final List<Entry> entries = new ArrayList<>();
 
-    /** Register a label with a fixed dark-mode color. Returns {@code this} for chaining. */
+    /**
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Registers a label with a fixed dark-mode color. Delegates to the three-argument
+     *      overload with no base style.
+     *
+     * @param label the Labeled node to register
+     * @param darkColor the fill color to apply in dark mode
+     * @return this registry instance for chaining
+     */
     public LabelThemeRegistry add(Labeled label, Color darkColor) {
         return add(label, darkColor, (String) null);
     }
 
     /**
-     * Register a label with a fixed dark-mode color and a base inline style that is preserved in
-     * both dark and light modes (e.g. {@code "-fx-font-size: 26px; -fx-font-weight: bold;"}).
-     * Use this for labels inside Button graphics where stylesheet selectors may not cascade.
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Registers a label with a fixed dark-mode color and a base inline style that is
+     *      preserved in both dark and light modes (e.g. "-fx-font-size: 26px; -fx-font-weight: bold;").
+     *      Use this for labels inside Button graphics where stylesheet selectors may not cascade.
+     *
+     * @param label the Labeled node to register
+     * @param darkColor the fill color to apply in dark mode
+     * @param baseStyle inline style to preserve in both modes; null to omit
+     * @return this registry instance for chaining
      */
     public LabelThemeRegistry add(Labeled label, Color darkColor, String baseStyle) {
         if (label != null && darkColor != null) {
@@ -61,14 +70,30 @@ public final class LabelThemeRegistry {
     }
 
     /**
-     * Register a label whose dark-mode color is computed at apply time.
-     * Use this when the color depends on context that may change (e.g. accent class of a parent).
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Registers a label whose dark-mode color is computed at apply time. Use this when
+     *      the color depends on context that may change (e.g. the accent class of a parent).
+     *
+     * @param label the Labeled node to register
+     * @param darkColorFn supplier that returns the fill color at apply time
+     * @return this registry instance for chaining
      */
     public LabelThemeRegistry add(Labeled label, Supplier<Color> darkColorFn) {
         return add(label, darkColorFn, null);
     }
 
-    /** Like {@link #add(Labeled, Supplier, String)} but with a base inline style. */
+    /**
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Registers a label with a computed dark-mode color and a base inline style preserved
+     *      in both dark and light modes.
+     *
+     * @param label the Labeled node to register
+     * @param darkColorFn supplier that returns the fill color at apply time
+     * @param baseStyle inline style to preserve in both modes; null to omit
+     * @return this registry instance for chaining
+     */
     public LabelThemeRegistry add(Labeled label, Supplier<Color> darkColorFn, String baseStyle) {
         if (label != null && darkColorFn != null) {
             entries.add(new Entry(label, darkColorFn, baseStyle));
@@ -77,14 +102,23 @@ public final class LabelThemeRegistry {
     }
 
     /**
-     * Apply theme colors for every registered label now, and again after the next layout pulse.
-     * The deferred pass handles labels whose skin node was not yet built on the first call.
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Applies theme colors for every registered label now, and again after the next
+     *      layout pulse. The deferred pass handles labels whose skin node was not yet built
+     *      on the first call.
      */
     public void apply() {
         applyNow();
         Platform.runLater(this::applyNow);
     }
 
+    /**
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Iterates all registered entries and either forces dark fills or clears them
+     *      based on the current resolved surface brightness from UiPreferences.
+     */
     private void applyNow() {
         boolean dark = UiPreferences.get().isResolvedDarkSurface();
         for (Entry e : entries) {
