@@ -19,11 +19,11 @@
 
 package com.group37.sentencebuilder.ui_layer;
 
-import com.group37.sentencebuilder.ui.AppFont;
-import com.group37.sentencebuilder.ui.AppTheme;
-import com.group37.sentencebuilder.ui.FontSizePreset;
-import com.group37.sentencebuilder.ui.LabelThemeRegistry;
-import com.group37.sentencebuilder.ui.UiPreferences;
+import com.group37.sentencebuilder.ui_layer.theming.AppFont;
+import com.group37.sentencebuilder.ui_layer.theming.AppTheme;
+import com.group37.sentencebuilder.ui_layer.theming.FontSizePreset;
+import com.group37.sentencebuilder.ui_layer.theming.LabelThemeRegistry;
+import com.group37.sentencebuilder.ui_layer.theming.UiPreferences;
 
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;

@@ -11,7 +11,7 @@
 
 package com.group37.sentencebuilder;
 
-import com.group37.sentencebuilder.ui.UiPreferences;
+import com.group37.sentencebuilder.ui_layer.theming.UiPreferences;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

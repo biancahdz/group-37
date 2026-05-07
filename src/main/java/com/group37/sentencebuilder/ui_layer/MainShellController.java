@@ -21,8 +21,8 @@ package com.group37.sentencebuilder.ui_layer;
 
 import com.group37.sentencebuilder.data_layer.Database;
 
-import com.group37.sentencebuilder.ui.DarkSurfaceText;
-import com.group37.sentencebuilder.ui.UiPreferences;
+import com.group37.sentencebuilder.ui_layer.theming.DarkSurfaceText;
+import com.group37.sentencebuilder.ui_layer.theming.UiPreferences;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;

@@ -25,8 +25,9 @@ import com.group37.sentencebuilder.data_layer.TxtOnDiskAnalytics;
 import com.group37.sentencebuilder.data_layer.Database.TopBigramEntry;
 import com.group37.sentencebuilder.data_layer.Database.TopWordEntry;
 import com.group37.sentencebuilder.data_layer.Database.TxtFileSummary;
-import com.group37.sentencebuilder.ui.UiPreferences;
-import com.group37.sentencebuilder.ui.LabelThemeRegistry;
+import com.group37.sentencebuilder.ui_layer.theming.AppTheme;
+import com.group37.sentencebuilder.ui_layer.theming.UiPreferences;
+import com.group37.sentencebuilder.ui_layer.theming.LabelThemeRegistry;
 
 import com.group37.sentencebuilder.ui_layer.model.BigramRow;
 import com.group37.sentencebuilder.ui_layer.model.FileCorpusStatRow;
@@ -1256,7 +1257,7 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
      * @param input description
      * @return result description
      */
-    private static LegendTheme legendThemeFor(com.group37.sentencebuilder.ui.AppTheme theme) {
+    private static LegendTheme legendThemeFor(AppTheme theme) {
         if (theme == null) {
             return LegendTheme.dark();
         }

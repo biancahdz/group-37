@@ -25,7 +25,7 @@ package com.group37.sentencebuilder.ui_layer;
 
 import com.group37.sentencebuilder.logic_layer.GeneratorLogic;
 
-import com.group37.sentencebuilder.ui.LabelThemeRegistry;
+import com.group37.sentencebuilder.ui_layer.theming.LabelThemeRegistry;
 
 import com.group37.sentencebuilder.data_layer.Database;
 import java.util.List;

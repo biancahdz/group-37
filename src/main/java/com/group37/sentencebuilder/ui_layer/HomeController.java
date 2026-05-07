@@ -21,8 +21,8 @@ package com.group37.sentencebuilder.ui_layer;
 
 import com.group37.sentencebuilder.data_layer.Database;
 
-import com.group37.sentencebuilder.ui.LabelThemeRegistry;
-import com.group37.sentencebuilder.ui.UiPreferences;
+import com.group37.sentencebuilder.ui_layer.theming.LabelThemeRegistry;
+import com.group37.sentencebuilder.ui_layer.theming.UiPreferences;
 
 import javafx.application.ColorScheme;
 import javafx.application.Platform;
