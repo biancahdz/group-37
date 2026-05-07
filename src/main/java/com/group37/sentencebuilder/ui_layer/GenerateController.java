@@ -5,7 +5,7 @@
  *  Author:  Huy Nong, Cortland Kimzey
  *
  *  Description:
- *      Sentence generator controller. Configures algorithm selection and triggers corpus-backed generation through {@link GeneratorLogic}.
+ *      Sentence generator controller. Configures algorithm selection and triggers corpus-backed generation through GeneratorLogic.
  *
  *  Version: 1.0
  *  Created: 2026-05-07
@@ -35,11 +35,9 @@ public class GenerateController implements ApplicationPage {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Enumerates the sentence generation algorithms available in the generator UI,
+     *      each paired with a display label used in the ComboBox.
      */
     enum Algorithm {
         MARKOV("Stochastic Markov chain"),
@@ -83,11 +81,9 @@ public class GenerateController implements ApplicationPage {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Populates the algorithm combo with available options, selects the first by default,
+     *      sets the output placeholder text, and registers the eyebrow label for dark-mode styling.
      */
     @FXML
     private void initialize() {
@@ -106,11 +102,8 @@ public class GenerateController implements ApplicationPage {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Applies theme-aware label styling when the generator page becomes visible.
      */
     @Override
     public void onPageEnter() {
@@ -119,11 +112,8 @@ public class GenerateController implements ApplicationPage {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      No cleanup required when leaving the generator page.
      */
     @Override
     public void onPageLeave() {
@@ -131,11 +121,9 @@ public class GenerateController implements ApplicationPage {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Reads the start word and selected algorithm from the UI, runs the corresponding
+     *      generation logic, saves a report record, and displays the result in the output area.
      */
     @FXML
     private void onGenerate() {

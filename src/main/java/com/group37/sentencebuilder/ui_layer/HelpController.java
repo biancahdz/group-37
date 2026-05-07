@@ -54,7 +54,8 @@ public class HelpController implements ApplicationPage {
     /**
      * Author: Sebastian Sarinana, Cortland Kimzey, Huy Nong
      * Description:
-     *      Initializes the Help page chrome and wires theme listeners so label styling stays readable.
+     *      Sets the support hyperlink text, registers theme and OS color-scheme listeners
+     *      to reapply chrome on change, and defers an initial chrome pass to after layout.
      */
     @FXML
     private void initialize() {
@@ -78,7 +79,8 @@ public class HelpController implements ApplicationPage {
     /**
      * Author: Sebastian Sarinana, Cortland Kimzey, Huy Nong
      * Description:
-     *      Opens the support email action from the help page.
+     *      Opens the system default mail client addressed to the support inbox when
+     *      the contact hyperlink is clicked.
      */
     @FXML
     private void onSupportMailClicked() {
@@ -88,7 +90,8 @@ public class HelpController implements ApplicationPage {
     /**
      * Author: Sebastian Sarinana, Cortland Kimzey, Huy Nong
      * Description:
-     *      Called when the Help page becomes active; refreshes chrome styling immediately and on the next UI pulses.
+     *      Reapplies help page chrome immediately and on deferred layout pulses to ensure
+     *      all labels render correctly in the current light or dark theme.
      */
     @Override
     public void onPageEnter() {
@@ -100,7 +103,7 @@ public class HelpController implements ApplicationPage {
     /**
      * Author: Sebastian Sarinana, Cortland Kimzey, Huy Nong
      * Description:
-     *      Called when leaving the Help page. No cleanup required for this view.
+     *      No cleanup required when leaving the help page.
      */
     @Override
     public void onPageLeave() {
@@ -109,7 +112,9 @@ public class HelpController implements ApplicationPage {
     /**
      * Author: Sebastian Sarinana, Cortland Kimzey, Huy Nong
      * Description:
-     *      Applies dark-surface text styling across the help page so static documentation remains readable.
+     *      Walks the help page scene graph to style all labeled nodes, then directly
+     *      applies fills to named hero and section labels with deferred retries for
+     *      labels that may not yet have their skin built.
      */
     private void applyHelpChrome() {
         boolean dark = UiPreferences.get().isResolvedDarkSurface();
@@ -131,9 +136,10 @@ public class HelpController implements ApplicationPage {
     /**
      * Author: Sebastian Sarinana, Cortland Kimzey, Huy Nong
      * Description:
-     *      Applies text fill directly to the hero/section labels that are injected via FXML ids.
+     *      Directly sets inline text-fill on all named hero and section labels based on
+     *      the dark flag, bypassing CSS cascade issues with dark-surface palettes.
      *
-     * @param dark true when dark-surface styling should be enforced
+     * @param dark true if the current surface palette is dark
      */
     private void applyDirectHeroLabels(boolean dark) {
         String w = dark ? "-fx-text-fill: #ffffff;" : null;
@@ -151,10 +157,11 @@ public class HelpController implements ApplicationPage {
     /**
      * Author: Sebastian Sarinana, Cortland Kimzey, Huy Nong
      * Description:
-     *      Walks the scene graph and applies resolved label styling to all labeled nodes.
+     *      Recursively walks the scene graph from the given node and applies inline fill
+     *      styles to every Labeled node based on its style classes and the dark flag.
      *
-     * @param node starting node to traverse
-     * @param dark true when dark-surface styling should be enforced
+     * @param node the root node to walk
+     * @param dark true if the current surface palette is dark
      */
     private static void walkHelpLabels(Node node, boolean dark) {
         if (node instanceof Labeled lab) {
@@ -170,11 +177,12 @@ public class HelpController implements ApplicationPage {
     /**
      * Author: Sebastian Sarinana, Cortland Kimzey, Huy Nong
      * Description:
-     *      Determines a text style override for Help-page labels when dark mode is active.
+     *      Returns the appropriate inline style string for a help page label based on its
+     *      CSS class and the dark flag; returns null to let the CSS cascade handle light mode.
      *
-     * @param lab label node being styled
-     * @param dark true when dark-surface styling should be enforced
-     * @return an inline style string, or null to leave styling unchanged
+     * @param lab the Labeled node whose style classes determine the fill
+     * @param dark true if the current surface palette is dark
+     * @return inline style string or null
      */
     private static String resolveHelpLabelStyle(Labeled lab, boolean dark) {
         if (!dark) return null;

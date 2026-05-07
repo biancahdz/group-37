@@ -12,7 +12,7 @@
  *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
- *      - Bind UI controls to {@link UiPreferences} for theme/font settings
+ *      - Bind UI controls to UiPreferences for theme/font settings
  *      - Apply chrome styling so labels remain legible in light/dark modes
  * ------------------------------------------------------------
  */
@@ -38,11 +38,7 @@ import javafx.scene.paint.Color;
 
 import java.util.function.Function;
 
-/**
- * Settings: binds theme, font, and font size to {@link UiPreferences}.
- * ComboBox popup lists use explicit row colors per {@link AppTheme} because popup scenes do not inherit
- * {@code sb-*} CSS lookups from the main scene root.
- */
+/** Settings: binds theme, font, and font size to UiPreferences. Popup rows use explicit colors because popup scenes do not inherit sb-* CSS lookups from the main scene root. */
 public class SettingsController implements ApplicationPage {
 
     private final LabelThemeRegistry labelTheme = new LabelThemeRegistry();
@@ -73,24 +69,20 @@ public class SettingsController implements ApplicationPage {
     private final InvalidationListener settingsChromeRefresh = obs -> applySettingsPageChrome();
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Cortland Kimzey
+     * Description:
+     *      Registers the logout callback that is invoked when the user clicks the logout button.
+     *
+     * @param onLogout runnable to execute on logout
      */
     public void setOnLogout(Runnable onLogout) {
         this.onLogout = onLogout;
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Cortland Kimzey
+     * Description:
+     *      Fires the registered logout callback when the logout button is activated.
      */
     @FXML
     private void onLogoutClicked() {
@@ -100,12 +92,10 @@ public class SettingsController implements ApplicationPage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Opens the system default mail client addressed to the support inbox when the
+     *      contact hyperlink is activated.
      */
     @FXML
     private void onContactMailClicked() {
@@ -113,12 +103,11 @@ public class SettingsController implements ApplicationPage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Populates the theme, font, and font-size combos with bidirectional bindings to
+     *      UiPreferences, registers all hero and section labels for dark-mode styling, attaches
+     *      themed popup cells, and registers OS color-scheme and scene listeners for auto-refresh.
      */
     @FXML
     private void initialize() {
@@ -202,12 +191,24 @@ public class SettingsController implements ApplicationPage {
         Platform.runLater(this::applySettingsPageChrome);
     }
 
+    /**
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Applies label theme fills and repaints the combo substructure immediately and
+     *      after the next layout pulse to handle deferred skin construction.
+     */
     private void applySettingsPageChrome() {
         labelTheme.apply();
         paintComboSubstructure();
         Platform.runLater(this::paintComboSubstructure);
     }
 
+    /**
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Applies settings page chrome on enter and defers two additional passes to ensure
+     *      all styled nodes are rendered correctly after layout completes.
+     */
     @Override
     public void onPageEnter() {
         applySettingsPageChrome();
@@ -215,14 +216,21 @@ public class SettingsController implements ApplicationPage {
         Platform.runLater(() -> Platform.runLater(this::applySettingsPageChrome));
     }
 
+    /**
+     * Author: Sebastian Sarinana
+     * Description:
+     *      No cleanup required when leaving the settings page.
+     */
     @Override
     public void onPageLeave() {
     }
 
     /**
-     * Settings preference combos use {@code settings-pref-combo} + CSS only: light field and dark text on
-     * {@code sb-dark-ui} (readable, stable across theme toggles). Do not paint inline dark chrome here —
-     * that fought stylesheets and caused muddy initial text vs. white-on-light after System ↔ Invert.
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Clears all inline styles on each preference combo and its skin nodes, then calls
+     *      applyCss() so the settings-pref-combo stylesheet rules own the appearance in both
+     *      light and dark modes without inline-style interference.
      */
     private void paintComboSubstructure() {
         for (ComboBox<?> combo : new ComboBox<?>[] { themeCombo, fontCombo, fontSizeCombo }) {
@@ -235,6 +243,14 @@ public class SettingsController implements ApplicationPage {
         }
     }
 
+    /**
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Clears inline styles from the combo box itself and its key internal skin nodes
+     *      so the CSS cascade can apply palette-correct colors without interference.
+     *
+     * @param combo the ComboBox whose skin nodes should be cleared
+     */
     private static void clearComboSkinStyles(ComboBox<?> combo) {
         combo.setStyle(null);
         for (String sel : new String[] { ".combo-box-base", ".list-cell", ".arrow-button", ".arrow" }) {
@@ -245,6 +261,12 @@ public class SettingsController implements ApplicationPage {
         }
     }
 
+    /**
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Sets themed cell factories and button cells on all preference combos so popup
+     *      rows render with palette-correct colors independent of the main scene CSS root.
+     */
     private void attachThemedPopupCells() {
         themeCombo.setCellFactory(lv -> themedCell(AppTheme::toString));
         themeCombo.setButtonCell(themedButtonCell(AppTheme::toString));
@@ -256,6 +278,15 @@ public class SettingsController implements ApplicationPage {
         fontSizeCombo.setButtonCell(themedButtonCell(FontSizePreset::toString));
     }
 
+    /**
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Returns a ListCell that displays items using the given label function and applies
+     *      popup row styling on every update and selection change.
+     *
+     * @param label function mapping a combo item to its display string
+     * @return a themed ListCell for use as a popup row
+     */
     private <T> ListCell<T> themedCell(Function<T, String> label) {
         return new ListCell<>() {
             @Override
@@ -279,9 +310,13 @@ public class SettingsController implements ApplicationPage {
     }
 
     /**
-     * Closed combo value: no inline styles — {@code settings-pref-combo} rules in {@code app-theme.css}
-     * own text on both {@code sb-light-ui} and {@code sb-dark-ui}. Popup rows use {@link #themedCell} +
-     * {@link #applyPopupRowStyle}.
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Returns a ListCell used as the closed combo button cell. Clears inline styles so
+     *      the settings-pref-combo CSS rules own the text color in both light and dark modes.
+     *
+     * @param label function mapping a combo item to its display string
+     * @return a ListCell for use as the combo button cell
      */
     private <T> ListCell<T> themedButtonCell(Function<T, String> label) {
         return new ListCell<>() {
@@ -299,6 +334,14 @@ public class SettingsController implements ApplicationPage {
         };
     }
 
+    /**
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Applies inline background and text-fill styles to a popup list cell based on
+     *      whether it is selected or unselected, reading the active theme for unselected colors.
+     *
+     * @param cell the ListCell to style
+     */
     private void applyPopupRowStyle(ListCell<?> cell) {
         if (cell.isEmpty()) {
             cell.setStyle(null);

@@ -17,26 +17,6 @@
  * ------------------------------------------------------------
  */
 
-/**
- * File: TitleController.java
- * Description: Controls the title/login screen. On successful login,
- *              preloads the database with default text files if empty,
- *              then transitions to the main shell.
- *
- * Author: Cortland Kimzey, Amrita Thapa
- * Created: 2026-03-26
- * Last Modified: 2026-03-26 - Cortland Kimzey
- *                2026-04-09 - Amrita Thapa: Added runPreloadThenLaunch()
- *                             to trigger default database preloading on
- *                             login if the database is empty before
- *                             transitioning to the main shell.
- *                2026-04-10 - Amrita Thapa: Updated runPreloadThenLaunch()
- *                             to call ensureSchema() on every login to
- *                             automatically rebuild the database if the
- *                             schema is missing or outdated.
- *
- */
-
 package com.group37.sentencebuilder.ui_layer;
 
 import com.group37.sentencebuilder.data_layer.Database;
@@ -59,17 +39,17 @@ public class TitleController {
 
     /**
      * When true, the next FXML load shows the login panel instead of auto-entering the main shell
-     * (used after logout while {@link Database#canConnect()} is still true).
+     * (used after logout while Database.canConnect() is still true).
      */
     private static volatile boolean nextShowLoginOnly;
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Cortland Kimzey
+     * Description:
+     *      Sets a one-shot flag so the next FXML load shows the login panel even when
+     *      the database is already configured (used after logout).
+     *
+     * @param value true to force the login panel on next load
      */
     public static void setNextShowLoginOnly(boolean value) {
         nextShowLoginOnly = value;
@@ -84,12 +64,12 @@ public class TitleController {
     private Runnable onLoginSuccess;
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Cortland Kimzey
+     * Description:
+     *      Registers the callback to invoke on the JavaFX thread after a successful login
+     *      or auto-connect sequence completes.
+     *
+     * @param r runnable to execute when the login or auto-connect flow finishes
      */
     public void setOnLoginSuccess(Runnable r)
     {
@@ -98,11 +78,9 @@ public class TitleController {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Decides whether to auto-launch into the main shell or show the login form
+     *      based on whether the database is reachable and the loginOnly flag.
      */
     @FXML
     private void initialize()
@@ -121,11 +99,9 @@ public class TitleController {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Plays the title fade-in, a brief pause, a slide upward, and the login panel
+     *      fade-in as a sequential animation shown when DB credentials are not yet configured.
      */
     private void loginLaunchAnimation()
     {
@@ -159,11 +135,9 @@ public class TitleController {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Plays the title fade-in, a brief pause, and a slide-off animation when the
+     *      database is already reachable, then invokes the preload-and-launch flow on completion.
      */
     private void launchAnimation()
     {
@@ -194,11 +168,9 @@ public class TitleController {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Validates the credentials entered in the login form against the database and
+     *      triggers the preload-and-launch flow on success, or shows an error message on failure.
      */
     @FXML
     private void onLogin()
@@ -218,13 +190,10 @@ public class TitleController {
 
     /**
      * Author: Amrita Thapa
-     * Description: 
-     *      Checks if the database is empty; if so, runs all default-file preload
-     *      tasks sequentially on a background thread, then fires onLoginSuccess
-     *         on the JavaFX thread when done.
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Ensures the schema exists, then checks if the database is empty. If empty, runs
+     *      all default-file preload tasks on a background thread, then fires onLoginSuccess
+     *      on the JavaFX thread when done.
      */
     private void runPreloadThenLaunch() {
         Thread thread = new Thread(() -> {

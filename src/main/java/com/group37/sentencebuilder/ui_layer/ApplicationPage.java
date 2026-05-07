@@ -9,7 +9,7 @@
  *
  *  Version: 1.0
  *  Created: 2026-03-26
- *  Last Modified: 2026-03-24
+ *  Last Modified: 2026-03-26
  *
  *  Responsibilities:
  *      - Creates functions to be overwritten by the page using them

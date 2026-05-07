@@ -46,6 +46,13 @@ public class HomeController implements ApplicationPage, DatabasePage {
 
     private Consumer<ViewKey> navigator = k -> { };
 
+    /**
+     * Author: Cortland Kimzey
+     * Description:
+     *      Registers the navigation callback used by workspace card clicks to switch pages.
+     *
+     * @param navigator consumer that accepts a ViewKey to navigate to that page
+     */
     public void setNavigator(Consumer<ViewKey> navigator) {
         this.navigator = navigator != null ? navigator : k -> { };
     }
@@ -76,12 +83,11 @@ public class HomeController implements ApplicationPage, DatabasePage {
     private final InvalidationListener dashboardChromeRefresh = obs -> applyDashboardInlineText();
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Registers theme and OS color-scheme listeners for automatic chrome refresh, wires
+     *      a scene-attach listener for deferred initial styling, and registers all card and
+     *      hero labels with the label theme registry for dark/light mode switching.
      */
     @FXML
     private void initialize() {
@@ -130,12 +136,10 @@ public class HomeController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Applies theme-aware inline text fills to all registered labels, stat tiles, and
+     *      workspace cards, and sets card hover/press handlers appropriate for dark or light mode.
      */
     private void applyDashboardInlineText() {
         if (pageRoot == null) {
@@ -159,12 +163,13 @@ public class HomeController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Recursively walks the given node and applies white fill to stat-tile-label and
+     *      section-eyebrow-teal nodes in dark mode, or clears fills in light mode.
+     *
+     * @param node the root node to walk
+     * @param darkChrome true if the current surface palette is dark
      */
     private void applyStatTileLabels(Node node, boolean darkChrome) {
         if (node instanceof Label lab) {
@@ -182,12 +187,12 @@ public class HomeController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Sets inline background and hover/press styles on workspace card buttons for dark
+     *      mode; clears all inline styles and mouse handlers in light mode so CSS takes over.
+     *
+     * @param darkChrome true if the current surface palette is dark
      */
     private void applyCardDarkBackground(boolean darkChrome) {
         Button[] cards = { cardImport, cardGenerate, cardAutocomplete, cardReports, cardCorpusStats };
@@ -210,12 +215,13 @@ public class HomeController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Walks up the scene graph from the CTA label to find the closest ancestor with a
+     *      quick-card-accent-* class and returns the appropriate light fill hex for dark mode.
+     *
+     * @param cta the call-to-action label whose accent color is resolved from its parent card
+     * @return hex fill color string for dark mode
      */
     private static String ctaFillForAccentParent(Labeled cta) {
         for (Node x = cta.getParent(); x != null; x = x.getParent()) {
@@ -234,12 +240,12 @@ public class HomeController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Returns the current OS color scheme from JavaFX platform preferences,
+     *      falling back to LIGHT if the platform does not support it.
+     *
+     * @return current ColorScheme, never null
      */
     private static ColorScheme currentColorScheme() {
         try {
@@ -249,6 +255,11 @@ public class HomeController implements ApplicationPage, DatabasePage {
         }
     }
 
+    /**
+     * Author: Huy Nong
+     * Description:
+     *      Workspace card click handlers; each delegates to the navigator to switch pages.
+     */
     @FXML private void onQuickImport()      { navigator.accept(ViewKey.IMPORT); }
     @FXML private void onQuickGenerate()    { navigator.accept(ViewKey.GENERATE); }
     @FXML private void onQuickAutocomplete(){ navigator.accept(ViewKey.AUTOCOMPLETE); }
@@ -256,12 +267,10 @@ public class HomeController implements ApplicationPage, DatabasePage {
     @FXML private void onQuickCorpusStats() { navigator.accept(ViewKey.CORPUS_STATS); }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Cortland Kimzey
+     * Description:
+     *      Applies dashboard chrome immediately and after layout, then queries the database
+     *      for corpus counts and displays them in the stat tiles.
      */
     @Override
     public void onPageEnter() {
@@ -287,24 +296,20 @@ public class HomeController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Cortland Kimzey
+     * Description:
+     *      No cleanup required when leaving the home page.
      */
     @Override
     public void onPageLeave() {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Cortland Kimzey
+     * Description:
+     *      Stores the injected Database instance used to load corpus count metrics on page enter.
+     *
+     * @param database the shared database connection wrapper
      */
     @Override
     public void setDatabase(Database database) {

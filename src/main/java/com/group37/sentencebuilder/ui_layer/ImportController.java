@@ -13,7 +13,7 @@
  *
  *  Responsibilities:
  *      - Drive file selection and import progress UI state
- *      - Invoke {@link TxtFileReader} / {@link Database} import logic and refresh history table rows
+ *      - Invoke TxtFileReader / Database import logic and refresh history table rows
  * ------------------------------------------------------------
  */
 
@@ -51,11 +51,10 @@ public class ImportController implements ApplicationPage, DatabasePage {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Stores the injected Database instance for use during import operations.
+     *
+     * @param database the shared database connection wrapper
      */
     @Override
     public void setDatabase(Database database) {
@@ -96,11 +95,9 @@ public class ImportController implements ApplicationPage, DatabasePage {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Connects to the database, loads the import history into the table, then
+     *      disconnects and refreshes theme-aware label styling.
      */
     @Override
     public void onPageEnter() {
@@ -113,11 +110,8 @@ public class ImportController implements ApplicationPage, DatabasePage {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      No cleanup required when leaving the import page.
      */
     @Override
     public void onPageLeave() {
@@ -125,11 +119,10 @@ public class ImportController implements ApplicationPage, DatabasePage {
 
     /**
      * Author: Huy Nong
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Binds table column value factories, resets the progress bar, sets the
+     *      initial status text, applies a rounded clip to the table, and registers
+     *      the eyebrow label for dark-mode styling.
      */
     @FXML
     private void initialize() {
@@ -149,11 +142,12 @@ public class ImportController implements ApplicationPage, DatabasePage {
 
     /**
      * Author: Huy Nong
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Clips the given TableView to rounded corners by binding a Rectangle clip
+     *      to the table's width and height properties.
+     *
+     * @param table the TableView to clip
+     * @param radius corner arc radius in pixels
      */
     private static void applyRoundedClip(TableView<?> table, double radius) {
         Rectangle clip = new Rectangle();
@@ -166,11 +160,9 @@ public class ImportController implements ApplicationPage, DatabasePage {
 
     /**
      * Author: Huy Nong
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Opens a file chooser filtered to .txt files; if the user selects a file,
+     *      stages it and updates the file label and status text.
      */
     @FXML
     private void onChooseFile() {
@@ -188,11 +180,9 @@ public class ImportController implements ApplicationPage, DatabasePage {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Reads the staged file, creates a background import task, binds the progress bar
+     *      to task progress, and refreshes the history table on success.
      */
     @FXML
     private void onImport() {

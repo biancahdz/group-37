@@ -128,7 +128,7 @@ public class BigramRow {
     /**
      * Author: Huy Nong
      * Description:
-     *      Returns a short label for charts, e.g. {@code of → the}.
+     *      Returns a short label for charts, e.g. "of → the".
      *
      * @return pair label
      */

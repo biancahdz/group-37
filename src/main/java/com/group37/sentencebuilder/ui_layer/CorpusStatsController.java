@@ -12,7 +12,7 @@
  *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
- *      - Query analytics aggregates/rankings from {@link Database} and render tables/charts
+ *      - Query analytics aggregates/rankings from Database and render tables/charts
  *      - Support switching scope between all sources and a selected imported file
  * ------------------------------------------------------------
  */
@@ -81,8 +81,8 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * Word analytics backed by {@link Database}. Dropdown switches scope; per-file word/pair tables
- * use {@code txt_word} / {@code txt_nextword} when those rows exist for an import.
+ * Word analytics backed by Database. Dropdown switches scope; per-file word/pair tables
+ * use txt_word / txt_nextword when those rows exist for an import.
  */
 public class CorpusStatsController implements ApplicationPage, DatabasePage {
 
@@ -204,20 +204,19 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     private List<FileCorpusStatRow> cachedFileRows = List.of();
     private String lastScopeHint = "";
 
-    /** Combo label ({@code name · imported}) → row (includes {@code txtID} for per-file queries). */
+    /** Combo label (name · imported) → row (includes txtID for per-file queries). */
     private final Map<String, TxtFileSummary> fileByComboLabel = new LinkedHashMap<>();
-    /** Combo label ({@code name · imported}) → rendered comparison row for tables/charts. */
+    /** Combo label (name · imported) → rendered comparison row for tables/charts. */
     private final Map<String, FileCorpusStatRow> fileRowByComboLabel = new LinkedHashMap<>();
     /** Selected combo labels to include in file comparison charts. */
     private final Set<String> selectedCompareLabels = new LinkedHashSet<>();
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana
+     * Description:
+     *      JavaFX lifecycle initializer. Binds all table column cell-value factories, wires
+     *      source-combo, export, compare, and tab-toggle listeners, configures bar-chart gaps
+     *      and axis rotation, and applies the initial chart theme.
      */
     @FXML
     private void initialize() {
@@ -282,12 +281,12 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Applies a rounded-rectangle clip to a TableView so its corners match the UI card style.
+     *
+     * @param table  the TableView to clip
+     * @param radius the corner arc radius in pixels
      */
     private static void applyRoundedClip(TableView<?> table, double radius) {
         Rectangle clip = new Rectangle();
@@ -299,12 +298,11 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Cortland Kimzey
+     * Description:
+     *      Prompts the user to choose a TXT or CSV export format and a save path, then writes
+     *      the current analytics snapshot (summary chips, word table, bigram table, per-file
+     *      breakdown, and compare selection) to disk and confirms with an alert.
      */
     private void onExportRequested() {
         ChoiceDialog<String> formatDialog = new ChoiceDialog<>("TXT", Arrays.asList("TXT", "CSV"));
@@ -350,12 +348,13 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Cortland Kimzey
+     * Description:
+     *      Builds a plain-text representation of the current analytics view, including the scope
+     *      hint, summary chips, word-count table, bigram table, per-file breakdown, and the
+     *      selected file comparison section.
+     *
+     * @return a formatted multi-line string ready to be written to a .txt export file
      */
     private String buildTxtExport() {
         StringBuilder sb = new StringBuilder();
@@ -409,12 +408,11 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Cortland Kimzey
+     * Description:
+     *      Opens a multi-select checkbox dialog listing all imported files and updates the set of
+     *      labels used in the file-comparison bar chart. Navigates to the charts tab on confirm
+     *      and warns the user if no files are selected.
      */
     private void onCompareFilesRequested() {
         if (fileByComboLabel.isEmpty()) {
@@ -481,12 +479,10 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Synchronizes the Tables/Charts toggle-button pair with the currently selected tab,
+     *      applying active and inactive inline styles so only the selected button appears highlighted.
      */
     private void updateTabToggle() {
         boolean onCharts = analyticsTabPane.getSelectionModel().getSelectedItem() == chartsTab;
@@ -505,12 +501,13 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Cortland Kimzey
+     * Description:
+     *      Builds a CSV representation of the current analytics view, including scope metadata,
+     *      summary chips, word-count table, bigram table, per-file breakdown, and the selected
+     *      file comparison section.
+     *
+     * @return a CSV-formatted string ready to be written to a .csv export file
      */
     private String buildCsvExport() {
         StringBuilder sb = new StringBuilder();
@@ -562,24 +559,27 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Cortland Kimzey
+     * Description:
+     *      Convenience shorthand for csvLine with exactly three values (section, field, value).
+     *
+     * @param section the CSV section label
+     * @param field the field name within the section
+     * @param value the field value to export
+     * @return a single CSV-formatted line string
      */
     private static String csv(String section, String field, String value) {
         return csvLine(section, field, value);
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Cortland Kimzey
+     * Description:
+     *      Formats an arbitrary number of values as a single double-quoted CSV line, escaping
+     *      embedded double-quotes with the standard two-quote sequence.
+     *
+     * @param values the field values to quote and join
+     * @return a newline-terminated CSV line string
      */
     private static String csvLine(String... values) {
         StringBuilder line = new StringBuilder();
@@ -597,12 +597,11 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Cortland Kimzey
+     * Description:
+     *      Stores the injected Database instance for use during analytics data loads.
+     *
+     * @param db the shared database connection wrapper
      */
     @Override
     public void setDatabase(Database db) {
@@ -610,12 +609,10 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Cortland Kimzey
+     * Description:
+     *      Applies theme-aware label styling and triggers a full database reload to refresh
+     *      corpus analytics when the word analytics page becomes active.
      */
     @Override
     public void onPageEnter() {
@@ -624,24 +621,19 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Cortland Kimzey
+     * Description:
+     *      No cleanup required when leaving the word analytics page.
      */
     @Override
     public void onPageLeave() {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Connects to the database, fetches corpus aggregates, top words, top bigrams, and
+     *      per-file summaries, populates the source combo, and triggers an initial snapshot render.
      */
     private void reloadFromDatabase() {
         String previous = sourceCombo.getValue();
@@ -705,12 +697,10 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Resets all cached data and UI controls to an empty disconnected state and shows
+     *      an error hint when the database cannot be reached.
      */
     private void showDisconnectedState() {
         aggregate = new CorpusAggregate(0, 0, 0);
@@ -736,12 +726,13 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Populates tables, chips, and charts for the selected source scope. When the scope is
+     *      "All imported files" uses cached corpus data; for a specific file, prefers an on-disk
+     *      scan then falls back to per-file database rows.
+     *
+     * @param key the combo label identifying the scope to display
      */
     private void applySnapshot(String key) {
         if (key == null) {
@@ -850,12 +841,15 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Converts per-file word and bigram entry lists into ranked table rows, updates
+     *      the word and bigram tables, and refreshes the summary chip values.
+     *
+     * @param words the top word entries for the selected file
+     * @param bigrams the top bigram entries for the selected file
+     * @param localAgg the corpus aggregate for the selected file
+     * @param meta the file summary record for fallback total token count
      */
     private void renderPerFileTables(
             List<TopWordEntry> words,
@@ -886,12 +880,12 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Clears word and bigram tables and resets chips to "—" when neither the on-disk file
+     *      nor per-file database rows are available, and stores a descriptive scope hint.
+     *
+     * @param txtName the name of the file that could not be found on disk or in the database
      */
     private void clearPerFileTables(String txtName) {
         setScopeHint(
@@ -905,12 +899,10 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Hides and empties the per-file breakdown table and updates its subtitle to prompt
+     *      switching to "All imported files" for side-by-side comparison.
      */
     private void finishSingleFileScope() {
         fileTable.setVisible(false);
@@ -920,12 +912,12 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Rebuilds all three bar charts (top words, top pairs, file comparison) for the current
+     *      scope and reapplies the active chart theme colors.
+     *
+     * @param scopeKey the currently selected source combo label
      */
     private void refreshCharts(String scopeKey) {
         updateTopWordsChart();
@@ -935,12 +927,9 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Removes all data series from all three bar charts, leaving them empty.
      */
     private void clearCharts() {
         topWordsChart.getData().clear();
@@ -949,12 +938,10 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Populates the top-words bar chart with up to 10 entries from the current word table,
+     *      then decorates each bar with the accent theme color and a hover tooltip.
      */
     private void updateTopWordsChart() {
         topWordsChart.getData().clear();
@@ -972,12 +959,10 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Populates the top-pairs bar chart with up to 10 bigram entries from the bigram table,
+     *      labeling each bar as "first → second" and decorating with the violet theme color.
      */
     private void updateTopPairsChart() {
         topPairsChart.getData().clear();
@@ -996,12 +981,13 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Builds three grouped series (words, unique words, top pair count) for the file comparison
+     *      chart. Uses the effective compare-label selection when multiple files are available,
+     *      or falls back to showing the current scope file only.
+     *
+     * @param scopeKey the currently selected source combo label, used for single-file fallback
      */
     private void updateFileCompareChart(String scopeKey) {
         fileCompareChart.getData().clear();
@@ -1044,12 +1030,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Returns a short display label for a chart axis by using the file name if available,
+     *      or stripping the import timestamp suffix from the combo label.
+     *
+     * @param comboLabel the full combo label including the import timestamp
+     * @param fallbackFileName the file name to prefer if non-blank
+     * @return a shortened label suitable for chart axes
      */
     private static String simplifyCompareLabel(String comboLabel, String fallbackFileName) {
         if (fallbackFileName != null && !fallbackFileName.isBlank()) {
@@ -1060,12 +1048,13 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Returns a hex color string for the given role ("accent", "violet", "teal") appropriate
+     *      for the currently active theme palette, ensuring readable bar colors in each theme.
+     *
+     * @param role the semantic color role to resolve
+     * @return hex color string for the active theme and role
      */
     private String themeHex(String role) {
         return switch (UiPreferences.get().resolvedPaletteClass()) {
@@ -1109,12 +1098,14 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Sets the inline bar-fill style and installs a hover tooltip on every bar node in the
+     *      series; defers to a property listener for bars whose scene node is not yet built.
+     *
+     * @param series the chart series whose bar nodes to style
+     * @param metric the label shown in the tooltip beside the count value
+     * @param barColorHex hex color string to apply as the bar fill
      */
     private void decorateSeries(XYChart.Series<String, Number> series, String metric, String barColorHex) {
         for (XYChart.Data<String, Number> data : series.getData()) {
@@ -1138,12 +1129,10 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Applies theme-aware inline styles to all chart axes, legend items, legend symbols, and
+     *      tick labels across all three bar charts, running the legend pass after the next layout pulse.
      */
     private void applyChartTheme() {
         boolean dark = UiPreferences.get().isResolvedDarkSurface();
@@ -1205,12 +1194,13 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Returns the array of theme hex colors to apply to the legend symbols for the given
+     *      bar chart, matched by the chart's fx:id.
+     *
+     * @param chart the bar chart whose legend symbol palette is needed
+     * @return ordered hex color array matching the chart's series count
      */
     private String[] legendPaletteFor(BarChart<String, Number> chart) {
         if (chart == null || chart.getId() == null) {
@@ -1225,12 +1215,13 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Creates a styled dark-background tooltip for bar chart hover with short show/hide
+     *      delays and rounded border styling.
+     *
+     * @param text the tooltip body text to display
+     * @return the configured Tooltip instance
      */
     private static Tooltip buildChartTooltip(String text) {
         Tooltip t = new Tooltip(text);
@@ -1249,12 +1240,13 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Maps the active AppTheme to a LegendTheme holding the chart legend background,
+     *      border, text, and shadow colors appropriate for dark or light palettes.
+     *
+     * @param theme the active AppTheme; null defaults to dark legend styling
+     * @return the LegendTheme for the given theme
      */
     private static LegendTheme legendThemeFor(AppTheme theme) {
         if (theme == null) {
@@ -1278,12 +1270,10 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Holds the four chart legend style tokens (text, background, border, text shadow) as a
+     *      data record, with dark() and light() factory methods for the two palette families.
      */
     private record LegendTheme(String textHex, String backgroundHex, String borderHex, String textShadowHex) {
         private static LegendTheme dark() {
@@ -1296,12 +1286,12 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Cortland Kimzey
+     * Description:
+     *      Returns the active file comparison label list, filtered to only labels still present in
+     *      fileByComboLabel. Falls back to all known file labels if the selection is empty.
+     *
+     * @return ordered list of combo labels to include in the file comparison chart
      */
     private List<String> getEffectiveCompareLabels() {
         if (fileByComboLabel.isEmpty()) {
@@ -1320,12 +1310,12 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Cortland Kimzey
+     * Description:
+     *      Appends a TXT-formatted section listing the effective file comparison selection with
+     *      per-file word, unique word, top pair count, and sentence columns.
+     *
+     * @param sb the StringBuilder to append the comparison section to
      */
     private void appendCompareSelectionTxt(StringBuilder sb) {
         List<String> labels = getEffectiveCompareLabels();
@@ -1346,12 +1336,12 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Cortland Kimzey
+     * Description:
+     *      Appends a CSV-formatted section listing the effective file comparison selection with
+     *      per-file word, unique word, top pair count, and sentence columns.
+     *
+     * @param sb the StringBuilder to append the comparison section to
      */
     private void appendCompareSelectionCsv(StringBuilder sb) {
         List<String> labels = getEffectiveCompareLabels();
@@ -1372,12 +1362,11 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Stores the scope hint text used in TXT/CSV export output to describe the active data context.
+     *
+     * @param text the hint string to store; null is treated as an empty string
      */
     private void setScopeHint(String text) {
         // Kept for export context now that the textbox is removed from the UI.
@@ -1385,24 +1374,24 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the stored scope hint string, or an empty string if none has been set.
+     *
+     * @return current scope hint text, never null
      */
     private String getScopeHintText() {
         return lastScopeHint == null ? "" : lastScopeHint;
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Parses a locale-formatted number string (e.g. "1,234") to an integer, stripping all
+     *      non-digit characters. Returns 0 for null, blank, or dash values.
+     *
+     * @param raw the formatted count string from a table cell or chip label
+     * @return parsed integer count, or 0 if the input is not a valid number
      */
     private static int parseCount(String raw) {
         if (raw == null || raw.isBlank() || "—".equals(raw)) {
@@ -1416,12 +1405,13 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Formats a SQL Timestamp as a human-readable import date string using the local time zone.
+     *      Returns "—" if the timestamp is null.
+     *
+     * @param ts the import timestamp from the database record
+     * @return formatted date string or "—" if null
      */
     private static String formatImported(java.sql.Timestamp ts) {
         if (ts == null) {

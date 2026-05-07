@@ -59,11 +59,9 @@ public class AutocompleteController implements ApplicationPage, DatabasePage {
 
     /**
      * Author: Huy Nong
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Attaches a text-change listener to the prefix field to trigger live suggestion
+     *      refresh, and registers the eyebrow label for dark-mode styling.
      */
     @FXML
     private void initialize() {
@@ -73,11 +71,11 @@ public class AutocompleteController implements ApplicationPage, DatabasePage {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Queries the database on a background thread for words matching the current prefix
+     *      and populates the suggestion chip pane with clickable word labels.
+     *
+     * @param raw the current text field value used to derive the active prefix
      */
     private void refreshSuggestions(String raw) {
 
@@ -175,11 +173,9 @@ public class AutocompleteController implements ApplicationPage, DatabasePage {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Connects to the database, applies theme-aware label styling, and triggers
+     *      an initial suggestion refresh for the current prefix field value.
      */
     @Override
     public void onPageEnter() {
@@ -190,11 +186,8 @@ public class AutocompleteController implements ApplicationPage, DatabasePage {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Disconnects from the database when the autocomplete page is hidden.
      */
     @Override
     public void onPageLeave()
@@ -204,11 +197,10 @@ public class AutocompleteController implements ApplicationPage, DatabasePage {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Stores the injected Database instance used for word queries and autocomplete lookups.
+     *
+     * @param database the shared database connection wrapper
      */
     @Override
     public void setDatabase(Database database)
@@ -218,13 +210,11 @@ public class AutocompleteController implements ApplicationPage, DatabasePage {
     
     /**
      * Author: Bianca Hernandez
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Extracts the last word from the prefix field and adds it to the database,
+     *      then refreshes suggestions and shows a confirmation hint.
      */
-    @FXML 
+    @FXML
     private void onAddWord() {
          String[] parts = prefixField.getText().trim().toLowerCase().split("\\s+");
          if (parts.length == 0) return;
