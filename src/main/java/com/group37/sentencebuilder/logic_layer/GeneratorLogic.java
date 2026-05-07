@@ -9,11 +9,11 @@
  *
  *  Version: 1.0
  *  Created: 2026-03-16
- *  Last Modified: 2026-03-16
+ *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
- *      - <responsibilities 1>
- *      - <responsibilities 2>
+ *      - Hold the logic used to generate a sentence
+ *      - Return a sentence using a specific algorithm
  * ------------------------------------------------------------
  */
 
@@ -38,10 +38,11 @@ public class GeneratorLogic
     /**
      * Author: Cortland Kimzey
      * Description: 
-     *      <description>
+     *      This is the Greedy Markov Chain algorithm, it takes the current word in the sentence and check the database for 
+     *      the word combinations using the current word and always grabs the next word with the highest count of combinations
      * 
-     * @param input description
-     * @return result description
+     * @param firstWord the first word used to create the sentence and if empty we will choose the best word from the database
+     * @return sentence generate with words and word combinations from the database using the greedy markov chain algorithm
      */
     public static String greedy(String firstWord)
     {
@@ -81,10 +82,12 @@ public class GeneratorLogic
     /**
      * Author: Cortland Kimzey
      * Description: 
-     *      <description>
+     *      This is the Random walk from seed algorithm, it uses the current word (the seed) and grabs the top x word
+     *      combinations from the database. It then randomly grabs a word from the top x options and uses it as the next word
      * 
-     * @param input description
-     * @return result description
+     * @param firstWord the first word used to create the sentence and if empty if choose on of x words that could start a sentence
+     * @param x the number of words to grab from the database to randomly choose from
+     * @return the random sentence generated using the random walk from seed algorithm
      */
     public static String random(String firstWord, int x)
     {
@@ -127,10 +130,12 @@ public class GeneratorLogic
     /**
      * Author: Cortland Kimzey
      * Description: 
-     *      <description>
+     *      This is the Stochastic Markov Chain Algorithm. It uses a probability map of the top x word combinations
+     *      and randomly selects a the next word. This continues until it randomly chooses a combination that ends the sentence.
      * 
-     * @param input description
-     * @return result description
+     * @param firstWord the first word used to create the sentence and if empty if choose one of x words that could start a sentence
+     * @param x the number of words to grab from the database to randomly choose from
+     * @return the random sentence generated using the Stochastic Markov Chain Algorithm
      */
     public static String markov(String firstWord, int x)
     {
@@ -173,10 +178,15 @@ public class GeneratorLogic
     /**
      * Author: Cortland Kimzey
      * Description: 
-     *      <description>
+     *      This algorithm was created vibe coding with copilot. This is the beam search algorithm, at each step of the sentence
+     *      the algorithm explores sentences of up to n depth. It grabs the k most likely word combinations based on the combination count
+     *      It then keeps k of the top sentences of the highest combo count. The algorithm ends with the highest Scoring
+     *      completed sentence.
      * 
-     * @param input description
-     * @return result description
+     * @param firstWord the first word used to create the sentence and if empty the algorithm runs from the start word classifier.
+     * @param n the depth of each sentence to keep track of
+     * @param k the number of sentences to keep track of
+     * @return the sentence generated using the beam search algorithm
      */
     public static String beam(String firstWord, int n, int k)
     {
@@ -278,10 +288,12 @@ public class GeneratorLogic
     /**
      * Author: Cortland Kimzey
      * Description: 
-     *      <description>
+     *      This creates a probability map using the individual count of each combo in the list and the
+     *      total count of all individual counts summed. It then used the probability map to randomly choose
+     *      the index of a word in the list.
      * 
-     * @param input description
-     * @return result description
+     * @param bestCombos a list of word combinations from the database
+     * @return the index of the randomly chosen word.
      */
     private static int probIndex(List<WordCombo> bestCombos)
     {
@@ -307,10 +319,12 @@ public class GeneratorLogic
     /**
      * Author: Cortland Kimzey
      * Description: 
-     *      <description>
+     *      This is used to add to the reports table in the database. It is given the algorithm used to create the sentence
+     *      and the sentence that was generated. It adds it to the table with the time created.
      * 
-     * @param input description
-     * @return result description
+     * @param algorithm the name of the algorithm used to generate the sentence
+     * @param text the sentence generated using the algorithm
+     * @return true if the report was added, otherwise false
      */
     public static boolean addReport(String algorithm, String text)
     {
