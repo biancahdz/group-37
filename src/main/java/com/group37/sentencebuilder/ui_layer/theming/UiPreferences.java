@@ -1,3 +1,25 @@
+/**
+ * ------------------------------------------------------------
+ *  Project: Sentence Builder
+ *  File:    UiPreferences.java
+ *  Author:  Sebastian Sarinana
+ *
+ *  Description:
+ *      Singleton managing the active theme, font stack, and font size for the
+ *      application shell. Updating any property reapplies CSS style classes on
+ *      the shell root so the entire UI reflects the change immediately.
+ *
+ *  Version: 1.0
+ *  Created: 2026-03-27
+ *  Last Modified: 2026-05-07
+ *
+ *  Responsibilities:
+ *      - Hold and expose theme, font, and font size as JavaFX properties
+ *      - Reapply shell style classes whenever a preference changes
+ *      - Track OS color scheme changes for SYSTEM and INVERT_SYSTEM themes
+ * ------------------------------------------------------------
+ */
+
 package com.group37.sentencebuilder.ui_layer.theming;
 
 import javafx.application.ColorScheme;

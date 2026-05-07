@@ -1,3 +1,25 @@
+/**
+ * ------------------------------------------------------------
+ *  Project: Sentence Builder
+ *  File:    DarkSurfaceText.java
+ *  Author:  Sebastian Sarinana
+ *
+ *  Description:
+ *      Utility class that forces text fill on Labeled nodes where Modena's
+ *      LabeledSkin ignores stylesheet fills on dark surfaces. Uses only inline
+ *      setStyle so that clearForcedLabeledPaint can restore the CSS cascade cleanly.
+ *
+ *  Version: 1.0
+ *  Created: 2026-04-10
+ *  Last Modified: 2026-05-07
+ *
+ *  Responsibilities:
+ *      - Force inline text fill on Labeled nodes for dark palette compatibility
+ *      - Clear forced fills to restore CSS cascade in light mode
+ *      - Apply fills to inner Text nodes of LabeledSkin via deferred retry
+ * ------------------------------------------------------------
+ */
+
 package com.group37.sentencebuilder.ui_layer.theming;
 
 import javafx.application.Platform;

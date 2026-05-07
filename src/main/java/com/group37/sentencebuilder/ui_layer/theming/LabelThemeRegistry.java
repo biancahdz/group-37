@@ -1,3 +1,25 @@
+/**
+ * ------------------------------------------------------------
+ *  Project: Sentence Builder
+ *  File:    LabelThemeRegistry.java
+ *  Author:  Sebastian Sarinana
+ *
+ *  Description:
+ *      Registry that maps Labeled nodes to their dark-mode fill colors.
+ *      Controllers register labels once in initialize() and call apply() on
+ *      page enter and theme change to switch between dark and light fills.
+ *
+ *  Version: 1.0
+ *  Created: 2026-04-19
+ *  Last Modified: 2026-05-07
+ *
+ *  Responsibilities:
+ *      - Register Labeled nodes with fixed or computed dark-mode colors
+ *      - Apply dark fills or restore CSS cascade on theme change
+ *      - Encapsulate DarkSurfaceText logic so controllers stay clean
+ * ------------------------------------------------------------
+ */
+
 package com.group37.sentencebuilder.ui_layer.theming;
 
 import javafx.application.Platform;

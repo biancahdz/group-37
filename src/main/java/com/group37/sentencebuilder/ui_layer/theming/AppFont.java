@@ -1,3 +1,24 @@
+/**
+ * ------------------------------------------------------------
+ *  Project: Sentence Builder
+ *  File:    AppFont.java
+ *  Author:  Sebastian Sarinana
+ *
+ *  Description:
+ *      Enum defining the font stack options available in the application shell.
+ *      Each entry maps a display label to a CSS style class applied on the scene root.
+ *
+ *  Version: 1.0
+ *  Created: 2026-03-27
+ *  Last Modified: 2026-05-07
+ *
+ *  Responsibilities:
+ *      - Define all available font stacks for the application
+ *      - Provide CSS style class names used to apply fonts on the shell root
+ *      - Provide display labels shown in the Settings font combo box
+ * ------------------------------------------------------------
+ */
+
 package com.group37.sentencebuilder.ui_layer.theming;
 
 /**

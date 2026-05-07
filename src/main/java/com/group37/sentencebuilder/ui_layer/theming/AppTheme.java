@@ -1,3 +1,25 @@
+/**
+ * ------------------------------------------------------------
+ *  Project: Sentence Builder
+ *  File:    AppTheme.java
+ *  Author:  Sebastian Sarinana
+ *
+ *  Description:
+ *      Enum defining all color themes available in the application.
+ *      Handles OS color scheme resolution for SYSTEM and INVERT_SYSTEM modes
+ *      and provides per-theme ComboBox popup row colors.
+ *
+ *  Version: 1.0
+ *  Created: 2026-03-27
+ *  Last Modified: 2026-05-07
+ *
+ *  Responsibilities:
+ *      - Define all color theme options and their CSS palette class names
+ *      - Resolve the correct palette class based on the OS color scheme
+ *      - Supply background and text hex colors for ComboBox popup rows per theme
+ * ------------------------------------------------------------
+ */
+
 package com.group37.sentencebuilder.ui_layer.theming;
 
 import javafx.application.ColorScheme;
