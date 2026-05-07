@@ -5,15 +5,18 @@
  *  Author:  Cortland Kimzey
  *
  *  Description:
- *      <description>
+ *      The object was vibe coded with copilot.
+ *      It holds the partial sentences used in the beam search algorithm.
+ *      Stores the list of word IDs and the total log-probability score of the sequence.
+ *      
  *
  *  Version: 1.0
  *  Created: 2026-03-25
- *  Last Modified: 2026-03-25
+ *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
- *      - <responsibilities 1>
- *      - <responsibilities 2>
+ *      - Holds a list of words IDs for the beam search algorithm
+ *      - Tracks the log-probability score of the partial sentence
  * ------------------------------------------------------------
  */
 
@@ -29,10 +32,11 @@ public class BeamNode {
     /**
      * Author: Cortland Kimzey
      * Description: 
-     *      <description>
+     *      Creates a partial sentence node for the beam seach algorithm. It keeps a list of the
+     *      word IDs in the sentence as well as the log-probability score of the sequence.
      * 
-     * @param input description
-     * @return result description
+     * @param wordIDs the list of word Ids used to create the partial sentence
+     * @param score the total log-probability score of the sequence
      */
     public BeamNode(List<Integer> wordIDs, double score) {
         this.wordIDs = wordIDs;
@@ -42,10 +46,9 @@ public class BeamNode {
     /**
      * Author: Cortland Kimzey
      * Description: 
-     *      <description>
+     *      Grabs the last word in the stored partial sentence.
      * 
-     * @param input description
-     * @return result description
+     * @return the last word ID in the word list
      */
     public int getLastID() {
         return wordIDs.get(wordIDs.size() - 1);
