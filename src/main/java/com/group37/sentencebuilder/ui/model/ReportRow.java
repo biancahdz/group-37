@@ -2,7 +2,7 @@
  * ------------------------------------------------------------
  *  Project: Sentence Builder
  *  File:    ReportRow.java
- *  Author:  Cort
+ *  Author:  Cortland Kimzey
  *
  *  Description:
  *      Table row model for the original ui ReportsController. Holds mock
@@ -11,7 +11,7 @@
  *
  *  Version: 1.0
  *  Created: 2026-03-22
- *  Last Modified: 2026-03-22
+ *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
  *      - Store report ID, algorithm name, generation timestamp, and sentence preview
