@@ -31,35 +31,28 @@ public final class Mailto {
     public static final String SUPPORT_EMAIL = "sentencebuildersupport@gmail.com";
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong, Cortland Kimzey
+     * Description:
+     *      Utility class (no instances). Use {@link #openSupportInbox()} or {@link #open(String)}.
      */
     private Mailto() {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong, Cortland Kimzey
+     * Description:
+     *      Opens the user's default mail client addressed to the configured support email.
      */
     public static void openSupportInbox() {
         open(SUPPORT_EMAIL);
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
+     * Author: Huy Nong, Cortland Kimzey
+     * Description:
+     *      Opens the user's default mail client for the given email address.
+     *
      * @param address recipient local-part@domain (no {@code mailto:} prefix)
-     * @return result description
      */
     public static void open(String address) {
         if (address == null || address.isBlank()) {

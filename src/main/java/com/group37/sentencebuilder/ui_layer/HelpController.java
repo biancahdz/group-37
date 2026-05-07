@@ -52,12 +52,9 @@ public class HelpController implements ApplicationPage {
     @FXML private Hyperlink supportMailHyperlink;
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana, Cortland Kimzey, Huy Nong
+     * Description:
+     *      Initializes the Help page chrome and wires theme listeners so label styling stays readable.
      */
     @FXML
     private void initialize() {
@@ -79,12 +76,9 @@ public class HelpController implements ApplicationPage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana, Cortland Kimzey, Huy Nong
+     * Description:
+     *      Opens the support email action from the help page.
      */
     @FXML
     private void onSupportMailClicked() {
@@ -92,12 +86,9 @@ public class HelpController implements ApplicationPage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana, Cortland Kimzey, Huy Nong
+     * Description:
+     *      Called when the Help page becomes active; refreshes chrome styling immediately and on the next UI pulses.
      */
     @Override
     public void onPageEnter() {
@@ -107,24 +98,18 @@ public class HelpController implements ApplicationPage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana, Cortland Kimzey, Huy Nong
+     * Description:
+     *      Called when leaving the Help page. No cleanup required for this view.
      */
     @Override
     public void onPageLeave() {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana, Cortland Kimzey, Huy Nong
+     * Description:
+     *      Applies dark-surface text styling across the help page so static documentation remains readable.
      */
     private void applyHelpChrome() {
         boolean dark = UiPreferences.get().isResolvedDarkSurface();
@@ -144,12 +129,11 @@ public class HelpController implements ApplicationPage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana, Cortland Kimzey, Huy Nong
+     * Description:
+     *      Applies text fill directly to the hero/section labels that are injected via FXML ids.
+     *
+     * @param dark true when dark-surface styling should be enforced
      */
     private void applyDirectHeroLabels(boolean dark) {
         String w = dark ? "-fx-text-fill: #ffffff;" : null;
@@ -165,12 +149,12 @@ public class HelpController implements ApplicationPage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana, Cortland Kimzey, Huy Nong
+     * Description:
+     *      Walks the scene graph and applies resolved label styling to all labeled nodes.
+     *
+     * @param node starting node to traverse
+     * @param dark true when dark-surface styling should be enforced
      */
     private static void walkHelpLabels(Node node, boolean dark) {
         if (node instanceof Labeled lab) {
@@ -184,12 +168,13 @@ public class HelpController implements ApplicationPage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana, Cortland Kimzey, Huy Nong
+     * Description:
+     *      Determines a text style override for Help-page labels when dark mode is active.
+     *
+     * @param lab label node being styled
+     * @param dark true when dark-surface styling should be enforced
+     * @return an inline style string, or null to leave styling unchanged
      */
     private static String resolveHelpLabelStyle(Labeled lab, boolean dark) {
         if (!dark) return null;

@@ -1,19 +1,20 @@
 /**
  * ------------------------------------------------------------
  *  Project: Sentence Builder
- *  File:    .java
- *  Author:  
+ *  File:    TxtOnDiskAnalytics.java
+ *  Author:  Cortland Kimzey, Huy Nong
  *
  *  Description:
- *      <description>
+ *      Computes per-file word and bigram statistics by scanning a `.txt` on disk.
+ *      Used by Word Analytics as an offline-first path when per-import DB tables are missing.
  *
  *  Version: 1.0
- *  Created: 
- *  Last Modified: 
+ *  Created: 2026-05-06
+ *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
- *      - <responsibilities 1>
- *      - <responsibilities 2>
+ *      - Locate a target `.txt` under `Txt Files/` or by direct path
+ *      - Tokenize sentences and compute top words, top bigrams, and headline aggregates
  * ------------------------------------------------------------
  */
 
@@ -44,12 +45,9 @@ public final class TxtOnDiskAnalytics {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Cortland Kimzey, Huy Nong
+     * Description:
+     *      Value object returned by {@link #scan(String, int)} containing ranked tables and aggregate metrics.
      */
     public record ScanResult(
             List<Database.TopWordEntry> topWords,
