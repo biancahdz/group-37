@@ -2,7 +2,7 @@
  * ------------------------------------------------------------
  *  Project: Sentence Builder
  *  File:    TxtOnDiskAnalytics.java
- *  Author:  Cortland Kimzey, Huy Nong
+ *  Author:  Huy Nong
  *
  *  Description:
  *      Computes per-file word and bigram statistics by scanning a `.txt` on disk.
@@ -45,7 +45,7 @@ public final class TxtOnDiskAnalytics {
     }
 
     /**
-     * Author: Cortland Kimzey, Huy Nong
+     * Author: Huy Nong
      * Description:
      *      Value object returned by {@link #scan(String, int)} containing ranked tables and aggregate metrics.
      */
