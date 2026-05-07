@@ -1,19 +1,19 @@
 /**
  * ------------------------------------------------------------
  *  Project: Sentence Builder
- *  File:    .java
- *  Author:  
+ *  File:    CorpusStatsController.java
+ *  Author:  Sebastian Sarinana, Huy Nong, Cortland Kimzey
  *
  *  Description:
- *      <description>
+ *      Word analytics controller. Displays corpus-wide and per-file word/bigram rankings, summary chips, and charts.
  *
  *  Version: 1.0
- *  Created: 
- *  Last Modified: 
+ *  Created: 2026-05-07
+ *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
- *      - <responsibilities 1>
- *      - <responsibilities 2>
+ *      - Query analytics aggregates/rankings from {@link Database} and render tables/charts
+ *      - Support switching scope between all sources and a selected imported file
  * ------------------------------------------------------------
  */
 
@@ -41,7 +41,6 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;

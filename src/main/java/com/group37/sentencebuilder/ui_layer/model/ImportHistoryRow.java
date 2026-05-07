@@ -1,19 +1,19 @@
 /**
  * ------------------------------------------------------------
  *  Project: Sentence Builder
- *  File:    .java
- *  Author:  
+ *  File:    ImportHistoryRow.java
+ *  Author:  Huy Nong
  *
  *  Description:
- *      <description>
+ *      JavaFX TableView row model for the Import history table (file name, import time, counts, status).
  *
  *  Version: 1.0
- *  Created: 
- *  Last Modified: 
+ *  Created: 2026-05-06
+ *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
- *      - <responsibilities 1>
- *      - <responsibilities 2>
+ *      - Store import history values as JavaFX properties for binding
+ *      - Provide getters and property accessors used by the import UI
  * ------------------------------------------------------------
  */
 
@@ -32,12 +32,15 @@ public class ImportHistoryRow {
     private final StringProperty status;
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Constructs a table row representing one import event and its summary counts.
+     *
+     * @param fileName file name displayed in the table
+     * @param importedAt formatted import timestamp
+     * @param sentences sentence count for the import
+     * @param words token count for the import
+     * @param status import status label
      */
     public ImportHistoryRow(String fileName, String importedAt, int sentences, int words, String status) {
         this.fileName = new SimpleStringProperty(fileName);
@@ -48,120 +51,110 @@ public class ImportHistoryRow {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the current file name value for convenience (non-property access).
+     *
+     * @return file name string
      */
     public String getFileName() {
         return fileName.get();
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the JavaFX property for the file name.
+     *
+     * @return file-name property
      */
     public StringProperty fileNameProperty() {
         return fileName;
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the current import timestamp label for convenience (non-property access).
+     *
+     * @return imported-at string
      */
     public String getImportedAt() {
         return importedAt.get();
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the JavaFX property for the import timestamp label.
+     *
+     * @return imported-at property
      */
     public StringProperty importedAtProperty() {
         return importedAt;
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the current sentence count label for convenience (non-property access).
+     *
+     * @return sentences string
      */
     public String getSentences() {
         return sentences.get();
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the JavaFX property for the sentence count label.
+     *
+     * @return sentences property
      */
     public StringProperty sentencesProperty() {
         return sentences;
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the current token count label for convenience (non-property access).
+     *
+     * @return words string
      */
     public String getWords() {
         return words.get();
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the JavaFX property for the token count label.
+     *
+     * @return words property
      */
     public StringProperty wordsProperty() {
         return words;
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the current status label for convenience (non-property access).
+     *
+     * @return status string
      */
     public String getStatus() {
         return status.get();
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the JavaFX property for the status label.
+     *
+     * @return status property
      */
     public StringProperty statusProperty() {
         return status;

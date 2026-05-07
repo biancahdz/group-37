@@ -5,15 +5,15 @@
  *  Author:  Huy Nong, Cortland Kimzey
  *
  *  Description:
- *      <description>
+ *      Reports page controller. Displays generated-sentence reports and supports client-side filtering/sorting.
  *
  *  Version: 1.0
  *  Created: 2026-03-26
  *  Last Modified: 2026-03-24
  *
  *  Responsibilities:
- *      - <responsibilities 1>
- *      - <responsibilities 2>
+ *      - Populate and bind the reports TableView to {@link ReportRow} properties
+ *      - Apply filter selections and keep the table sorted for quick review
  * ------------------------------------------------------------
  */
 
@@ -24,10 +24,7 @@ import com.group37.sentencebuilder.ui_layer.theming.LabelThemeRegistry;
 import com.group37.sentencebuilder.ui_layer.model.ReportRow;
 
 import com.group37.sentencebuilder.data_layer.Database;
-import com.group37.sentencebuilder.ui_layer.ApplicationPage;
-import com.group37.sentencebuilder.ui_layer.DatabasePage;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;

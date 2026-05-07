@@ -1,19 +1,19 @@
 /**
  * ------------------------------------------------------------
  *  Project: Sentence Builder
- *  File:    .java
- *  Author:  
+ *  File:    MainShellController.java
+ *  Author:  Sebastian Sarinana, Huy Nong, Cortland Kimzey
  *
  *  Description:
- *      <description>
+ *      Main application shell controller: manages sidebar navigation and loads/swaps the active page view.
  *
  *  Version: 1.0
- *  Created: 
- *  Last Modified: 
+ *  Created: 2026-05-07
+ *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
- *      - <responsibilities 1>
- *      - <responsibilities 2>
+ *      - Handle navigation events and update the selected workspace state
+ *      - Load FXML pages and route lifecycle callbacks (enter/leave) to controllers
  * ------------------------------------------------------------
  */
 

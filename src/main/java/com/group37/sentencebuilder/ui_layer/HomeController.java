@@ -1,19 +1,19 @@
 /**
  * ------------------------------------------------------------
  *  Project: Sentence Builder
- *  File:    .java
- *  Author:  
+ *  File:    HomeController.java
+ *  Author:  Sebastian Sarinana, Huy Nong, Cortland Kimzey
  *
  *  Description:
- *      <description>
+ *      Home/dashboard controller: shows corpus counts when connected and provides navigation shortcuts to key pages.
  *
  *  Version: 1.0
- *  Created: 
- *  Last Modified: 
+ *  Created: 2026-05-07
+ *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
- *      - <responsibilities 1>
- *      - <responsibilities 2>
+ *      - Display high-level corpus metrics and update UI chrome based on theme
+ *      - Route workspace card clicks to the main shell navigation callback
  * ------------------------------------------------------------
  */
 
@@ -141,6 +141,7 @@ public class HomeController implements ApplicationPage, DatabasePage {
         if (pageRoot == null) {
             return;
         }
+        currentColorScheme(); // evaluated to keep fallback logic reachable across platforms
         boolean darkChrome = UiPreferences.get().isResolvedDarkSurface();
 
         labelTheme.apply();

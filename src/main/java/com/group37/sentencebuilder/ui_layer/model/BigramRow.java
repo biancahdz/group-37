@@ -1,19 +1,20 @@
 /**
  * ------------------------------------------------------------
  *  Project: Sentence Builder
- *  File:    .java
- *  Author:  
+ *  File:    BigramRow.java
+ *  Author:  Huy Nong
  *
  *  Description:
- *      <description>
+ *      JavaFX TableView row model for the Word Analytics “top bigrams” table
+ *      (rank, first word, second word, count).
  *
  *  Version: 1.0
- *  Created: 
- *  Last Modified: 
+ *  Created: 2026-05-06
+ *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
- *      - <responsibilities 1>
- *      - <responsibilities 2>
+ *      - Store bigram values as JavaFX properties for binding
+ *      - Provide a display-friendly label for charts and tables
  * ------------------------------------------------------------
  */
 
@@ -31,12 +32,14 @@ public class BigramRow {
     private final StringProperty comboCount;
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Constructs a table row representing one ranked bigram and its occurrence count.
+     *
+     * @param rank display rank (e.g., "1")
+     * @param firstWord first token in the pair
+     * @param secondWord second token in the pair
+     * @param comboCount formatted pair count
      */
     public BigramRow(String rank, String firstWord, String secondWord, String comboCount) {
         this.rank = new SimpleStringProperty(rank);
@@ -46,96 +49,88 @@ public class BigramRow {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the JavaFX property for the displayed rank.
+     *
+     * @return rank property
      */
     public StringProperty rankProperty() {
         return rank;
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the JavaFX property for the first word in the pair.
+     *
+     * @return first-word property
      */
     public StringProperty firstWordProperty() {
         return firstWord;
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the JavaFX property for the second word in the pair.
+     *
+     * @return second-word property
      */
     public StringProperty secondWordProperty() {
         return secondWord;
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the JavaFX property for the displayed count of the pair.
+     *
+     * @return combo-count property
      */
     public StringProperty comboCountProperty() {
         return comboCount;
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the current first-word value for convenience (non-property access).
+     *
+     * @return first word string
      */
     public String getFirstWord() {
         return firstWord.get();
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the current second-word value for convenience (non-property access).
+     *
+     * @return second word string
      */
     public String getSecondWord() {
         return secondWord.get();
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the current pair-count value for convenience (non-property access).
+     *
+     * @return combo count string
      */
     public String getComboCount() {
         return comboCount.get();
     }
 
     /**
-     * Author: 
-     * Description: 
-     *       Short label for charts, e.g. {@code of → the}.
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns a short label for charts, e.g. {@code of → the}.
+     *
+     * @return pair label
      */
     public String getPairLabel() {
         return getFirstWord() + " → " + getSecondWord();

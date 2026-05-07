@@ -5,15 +5,15 @@
  *  Author:  Huy Nong, Cortland Kimzey
  *
  *  Description:
- *      <description>
+ *      Import screen controller for selecting a `.txt` file, running import into the database, and showing import history.
  *
  *  Version: 1.0
- *  Created: 
- *  Last Modified: 
+ *  Created: 2026-05-07
+ *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
- *      - <responsibilities 1>
- *      - <responsibilities 2>
+ *      - Drive file selection and import progress UI state
+ *      - Invoke {@link TxtFileReader} / {@link Database} import logic and refresh history table rows
  * ------------------------------------------------------------
  */
 

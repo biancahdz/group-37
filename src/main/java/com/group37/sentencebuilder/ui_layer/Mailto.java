@@ -1,19 +1,19 @@
 /**
  * ------------------------------------------------------------
  *  Project: Sentence Builder
- *  File:    .java
- *  Author:  
+ *  File:    Mailto.java
+ *  Author:  Huy Nong, Cortland Kimzey
  *
  *  Description:
- *      <description>
+ *      Utility for opening the system default mail client to a support email address using a {@code mailto:} URI.
  *
  *  Version: 1.0
- *  Created: 
- *  Last Modified: 
+ *  Created: 2026-05-06
+ *  Last Modified: 2026-05-06
  *
  *  Responsibilities:
- *      - <responsibilities 1>
- *      - <responsibilities 2>
+ *      - Provide a single support email constant used across the UI
+ *      - Open the OS mail handler safely when available
  * ------------------------------------------------------------
  */
 

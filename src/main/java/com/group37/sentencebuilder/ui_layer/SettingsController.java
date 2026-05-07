@@ -1,19 +1,19 @@
 /**
  * ------------------------------------------------------------
  *  Project: Sentence Builder
- *  File:    .java
- *  Author:  
+ *  File:    SettingsController.java
+ *  Author:  Sebastian Sarinana, Cortland Kimzey, Huy Nong
  *
  *  Description:
- *      <description>
+ *      Settings screen controller for appearance preferences (theme, font, font size) and support links.
  *
  *  Version: 1.0
- *  Created: 
- *  Last Modified: 
+ *  Created: 2026-05-07
+ *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
- *      - <responsibilities 1>
- *      - <responsibilities 2>
+ *      - Bind UI controls to {@link UiPreferences} for theme/font settings
+ *      - Apply chrome styling so labels remain legible in light/dark modes
  * ------------------------------------------------------------
  */
 

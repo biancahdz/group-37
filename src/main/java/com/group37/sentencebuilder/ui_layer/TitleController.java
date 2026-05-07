@@ -5,15 +5,15 @@
  *  Author:  Cortland Kimzey, Amrita Thapa
  *
  *  Description:
- *      <description>
+ *      Title/login screen controller. Connects to the database, optionally preloads defaults, then launches the main shell.
  *
  *  Version: 1.0
- *  Created: 
- *  Last Modified: 
+ *  Created: 2026-05-06
+ *  Last Modified: 2026-05-06
  *
  *  Responsibilities:
- *      - <responsibilities 1>
- *      - <responsibilities 2>
+ *      - Validate DB configuration and handle login/auto-login flow
+ *      - Trigger default-corpus preload when needed, then transition to the main shell
  * ------------------------------------------------------------
  */
 
@@ -39,8 +39,6 @@
 
 package com.group37.sentencebuilder.ui_layer;
 
-import java.util.List;
-
 import com.group37.sentencebuilder.data_layer.Database;
 import com.group37.sentencebuilder.data_layer.DefaultDataLoader;
 
@@ -50,7 +48,6 @@ import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;

@@ -4,20 +4,16 @@
  *  File:    GenerateController.java
  *  Author:  Huy Nong, Cortland Kimzey
  *
- * Author: 
- * Created: 
- * Last Modified: 2026-04-23
- *
  *  Description:
- *      <description>
+ *      Sentence generator controller. Configures algorithm selection and triggers corpus-backed generation through {@link GeneratorLogic}.
  *
  *  Version: 1.0
- *  Created: 
- *  Last Modified: 
+ *  Created: 2026-05-07
+ *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
- *      - <responsibilities 1>
- *      - <responsibilities 2>
+ *      - Collect generator inputs (start word, algorithm) and display generated output
+ *      - Coordinate UI state with backend generation logic and (optionally) database availability
  * ------------------------------------------------------------
  */
 
@@ -27,9 +23,6 @@ import com.group37.sentencebuilder.logic_layer.GeneratorLogic;
 
 import com.group37.sentencebuilder.ui_layer.theming.LabelThemeRegistry;
 
-import com.group37.sentencebuilder.data_layer.Database;
-import java.util.List;
-import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;

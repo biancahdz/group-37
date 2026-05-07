@@ -5,7 +5,7 @@
  *  Author:  Cortland Kimzey
  *
  *  Description:
- *      <description>
+ *      Contract for controllers that require a {@link Database} instance from the application shell.
  *
  *  Version: 1.0
  *  Created: 2026-03-26
@@ -26,10 +26,9 @@ public interface DatabasePage
     /**
      * Author: Cortland Kimzey
      * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     *      Injects the active {@link Database} instance so the page can query or mutate corpus data.
+     *
+     * @param db active database connection wrapper
      */
     public void setDatabase(Database db);
     

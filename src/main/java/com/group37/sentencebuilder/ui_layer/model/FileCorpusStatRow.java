@@ -1,19 +1,20 @@
 /**
  * ------------------------------------------------------------
  *  Project: Sentence Builder
- *  File:    .java
- *  Author:  
+ *  File:    FileCorpusStatRow.java
+ *  Author:  Huy Nong
  *
  *  Description:
- *      <description>
+ *      JavaFX TableView row model representing per-file corpus summary metrics
+ *      (sentences, tokens, unique words, top pair count, import time).
  *
  *  Version: 1.0
- *  Created: 
- *  Last Modified: 
+ *  Created: 2026-05-06
+ *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
- *      - <responsibilities 1>
- *      - <responsibilities 2>
+ *      - Store per-file summary metrics as JavaFX properties for binding
+ *      - Provide property accessors used by the analytics UI controller
  * ------------------------------------------------------------
  */
 
@@ -33,12 +34,16 @@ public class FileCorpusStatRow {
     private final StringProperty imported;
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Constructs a per-file summary row for the analytics file table.
+     *
+     * @param fileName file name / label
+     * @param sentences formatted sentence count
+     * @param words formatted token count
+     * @param uniqueWords formatted unique-word count (or placeholder)
+     * @param topPairCount formatted top-bigram count (or placeholder)
+     * @param imported formatted import timestamp
      */
     public FileCorpusStatRow(
             String fileName,
@@ -56,72 +61,66 @@ public class FileCorpusStatRow {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the JavaFX property for the file name.
+     *
+     * @return file-name property
      */
     public StringProperty fileNameProperty() {
         return fileName;
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the JavaFX property for the formatted sentence count.
+     *
+     * @return sentences property
      */
     public StringProperty sentencesProperty() {
         return sentences;
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the JavaFX property for the formatted token count.
+     *
+     * @return words property
      */
     public StringProperty wordsProperty() {
         return words;
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the JavaFX property for the formatted unique-word count.
+     *
+     * @return unique-words property
      */
     public StringProperty uniqueWordsProperty() {
         return uniqueWords;
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the JavaFX property for the formatted top-pair count.
+     *
+     * @return top-pair-count property
      */
     public StringProperty topPairCountProperty() {
         return topPairCount;
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the JavaFX property for the import timestamp string.
+     *
+     * @return imported-at property
      */
     public StringProperty importedProperty() {
         return imported;

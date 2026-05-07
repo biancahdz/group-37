@@ -1,19 +1,19 @@
 /**
  * ------------------------------------------------------------
  *  Project: Sentence Builder
- *  File:    .java
+ *  File:    AutocompleteController.java
  *  Author:  Huy Nong, Cortland Kimzey, Bianca Hernandez
  *
  *  Description:
- *      <description>
+ *      Autocomplete screen controller. Suggests words from the corpus based on the current prefix and allows adding words.
  *
  *  Version: 1.0
- *  Created: 
- *  Last Modified: 
+ *  Created: 2026-05-07
+ *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
- *      - <responsibilities 1>
- *      - <responsibilities 2>
+ *      - Query and display prefix-matched word suggestions from the database
+ *      - Provide UI actions for updating the suggestions list and adding new words
  * ------------------------------------------------------------
  */
 
@@ -22,9 +22,6 @@ package com.group37.sentencebuilder.ui_layer;
 import com.group37.sentencebuilder.data_layer.Database;
 
 import com.group37.sentencebuilder.ui_layer.theming.LabelThemeRegistry;
-
-import com.group37.sentencebuilder.ui_layer.ApplicationPage;
-import com.group37.sentencebuilder.ui_layer.DatabasePage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,17 +91,12 @@ public class AutocompleteController implements ApplicationPage, DatabasePage {
         String[] parts = trimmed.isEmpty() ? new String[0] : trimmed.split("\\s+");
 
         String currentWord = "";
-        String previousWord = "";
 
         if (parts.length > 0) {
             currentWord = parts[parts.length - 1];
         }
-        if (parts.length > 1) {
-            previousWord = parts[parts.length - 2];
-        }
 
         String finalCurrentWord = currentWord;
-        String finalPreviousWord = previousWord;
 
         Task<List<String>> task = new Task<>() {
             @Override

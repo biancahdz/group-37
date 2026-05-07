@@ -1,19 +1,19 @@
 /**
  * ------------------------------------------------------------
  *  Project: Sentence Builder
- *  File:    .java
- *  Author:  
+ *  File:    HelpController.java
+ *  Author:  Sebastian Sarinana, Cortland Kimzey, Huy Nong
  *
  *  Description:
- *      <description>
+ *      Controller for the static Help page; applies theme-aware label styling and opens the support email link.
  *
  *  Version: 1.0
- *  Created: 
- *  Last Modified: 
+ *  Created: 2026-05-07
+ *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
- *      - <responsibilities 1>
- *      - <responsibilities 2>
+ *      - Apply help-page chrome styling for readability in light/dark modes
+ *      - Handle the “Contact support” mailto action
  * ------------------------------------------------------------
  */
 
