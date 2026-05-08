@@ -11,7 +11,7 @@
  *
  *  Version: 1.0
  *  Created: 2026-03-22
- *  Last Modified: 2026-05-07
+ *  Last Modified: 2026-03-27
  *
  *  Responsibilities:
  *      - Wire sidebar toggle buttons to content view swapping

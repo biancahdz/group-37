@@ -8,7 +8,7 @@
  *      JavaFX TableView row model for the Word Analytics “top words” table (rank, word, count).
  *
  *  Version: 1.0
- *  Created: 2026-03-31
+ *  Created: 2026-05-06
  *  Last Modified: 2026-05-07
  *
  *  Responsibilities:

@@ -11,7 +11,7 @@
  *
  *  Version: 1.0
  *  Created: 2026-04-19
- *  Last Modified: 2026-05-07
+ *  Last Modified: 2026-04-20
  *
  *  Responsibilities:
  *      - Register Labeled nodes with fixed or computed dark-mode colors

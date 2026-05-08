@@ -2,13 +2,13 @@
  * ------------------------------------------------------------
  *  Project: Sentence Builder
  *  File:    MainShellController.java
- *  Author:  Sebastian Sarinana, Huy Nong
+ *  Author:  Sebastian Sarinana, Huy Nong, Cortland Kimzey
  *
  *  Description:
  *      Main application shell controller: manages sidebar navigation and loads/swaps the active page view.
  *
  *  Version: 1.0
- *  Created: 2026-03-22
+ *  Created: 2026-05-07
  *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
@@ -254,7 +254,7 @@ public class MainShellController {
     }
 
     /**
-     * Author: Sebastian Sarinana
+     * Author: Cortland Kimzey
      * Description:
      *      Listens on the nav toggle group and re-selects the previous toggle when the
      *      user clicks the active button, ensuring the sidebar always has one selection.
@@ -274,7 +274,7 @@ public class MainShellController {
     }
 
     /**
-     * Author: Sebastian Sarinana
+     * Author: Cortland Kimzey
      * Description:
      *      Registers the logout callback wired by SentenceBuilderApp to return to the login scene.
      *
@@ -285,7 +285,7 @@ public class MainShellController {
     }
 
     /**
-     * Author: Sebastian Sarinana
+     * Author: Cortland Kimzey
      * Description:
      *      Fires the registered logout callback if one is present, triggering the transition
      *      back to the login scene.
@@ -297,7 +297,7 @@ public class MainShellController {
     }
 
     /**
-     * Author: Sebastian Sarinana
+     * Author: Cortland Kimzey
      * Description:
      *      Attaches the ViewKey as user data on the button and registers a selection listener
      *      that calls showView when the toggle is activated.
@@ -318,7 +318,7 @@ public class MainShellController {
     }
 
     /**
-     * Author: Sebastian Sarinana
+     * Author: Cortland Kimzey
      * Description:
      *      Loads or retrieves the cached view for the given key, swaps it into the content
      *      host, calls page lifecycle callbacks, updates the header title, and syncs the
@@ -361,7 +361,7 @@ public class MainShellController {
     }
 
     /**
-     * Author: Sebastian Sarinana
+     * Author: Cortland Kimzey
      * Description:
      *      Finds the toggle in the nav group whose user data matches the given key and
      *      selects it if not already selected.
@@ -380,7 +380,7 @@ public class MainShellController {
     }
 
     /**
-     * Author: Sebastian Sarinana
+     * Author: Cortland Kimzey
      * Description:
      *      Maps a ViewKey to the display string shown in the workspace header title bar.
      *
@@ -401,7 +401,7 @@ public class MainShellController {
     }
 
     /**
-     * Author: Sebastian Sarinana
+     * Author: Cortland Kimzey
      * Description:
      *      Loads the FXML for the given key, injects dependencies into the controller
      *      (navigator for HomeController, database for DatabasePage, logout for SettingsController),

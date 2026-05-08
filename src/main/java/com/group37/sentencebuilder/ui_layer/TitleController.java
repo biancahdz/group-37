@@ -2,14 +2,14 @@
  * ------------------------------------------------------------
  *  Project: Sentence Builder
  *  File:    TitleController.java
- *  Author:  Sebastian Sarinana, Amrita Thapa
+ *  Author:  Cortland Kimzey, Amrita Thapa
  *
  *  Description:
  *      Title/login screen controller. Connects to the database, optionally preloads defaults, then launches the main shell.
  *
  *  Version: 1.0
- *  Created: 2026-03-31
- *  Last Modified: 2026-05-07
+ *  Created: 2026-03-26
+ *  Last Modified: 2026-05-06
  *
  *  Responsibilities:
  *      - Validate DB configuration and handle login/auto-login flow
@@ -44,7 +44,7 @@ public class TitleController {
     private static volatile boolean nextShowLoginOnly;
 
     /**
-     * Author: Sebastian Sarinana
+     * Author: Cortland Kimzey
      * Description:
      *      Sets a one-shot flag so the next FXML load shows the login panel even when
      *      the database is already configured (used after logout).
@@ -64,7 +64,7 @@ public class TitleController {
     private Runnable onLoginSuccess;
 
     /**
-     * Author: Sebastian Sarinana
+     * Author: Cortland Kimzey
      * Description:
      *      Registers the callback to invoke on the JavaFX thread after a successful login
      *      or auto-connect sequence completes.
@@ -77,7 +77,7 @@ public class TitleController {
     }
 
     /**
-     * Author: Sebastian Sarinana
+     * Author: Cortland Kimzey
      * Description:
      *      Decides whether to auto-launch into the main shell or show the login form
      *      based on whether the database is reachable and the loginOnly flag.
@@ -98,7 +98,7 @@ public class TitleController {
     }
 
     /**
-     * Author: Sebastian Sarinana
+     * Author: Cortland Kimzey
      * Description:
      *      Animation Vibe Coded with Copilot.
      *      Plays the title fade-in, a brief pause, a slide upward, and the login panel
@@ -135,7 +135,7 @@ public class TitleController {
     }
 
     /**
-     * Author: Sebastian Sarinana
+     * Author: Cortland Kimzey
      * Description:
      *      Animation Vibe Coded with Copilot.
      *      Plays the title fade-in, a brief pause, and a slide-off animation when the
@@ -169,7 +169,7 @@ public class TitleController {
     }
 
     /**
-     * Author: Sebastian Sarinana
+     * Author: Cortland Kimzey
      * Description:
      *      Validates the credentials entered in the login form against the database and
      *      triggers the preload-and-launch flow on success, or shows an error message on failure.

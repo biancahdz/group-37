@@ -2,7 +2,7 @@
  * ------------------------------------------------------------
  *  Project: Sentence Builder
  *  File:    ImportController.java
- *  Author:  Huy Nong, Sebastian Sarinana
+ *  Author:  Huy Nong, Cortland Kimzey
  *
  *  Description:
  *      Controls the import page of the UI. Allows the user to upload files
@@ -11,7 +11,7 @@
  *      of all the files that have been uploaded.
  *
  *  Version: 1.0
- *  Created: 2026-03-22
+ *  Created: 2026-03-21
  *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
@@ -26,6 +26,9 @@ package com.group37.sentencebuilder.ui_layer;
 
 import com.group37.sentencebuilder.ui_layer.model.ImportHistoryRow;
 import com.group37.sentencebuilder.data_layer.TxtFileReader;
+
+import com.group37.sentencebuilder.ui_layer.ApplicationPage;
+import com.group37.sentencebuilder.ui_layer.DatabasePage;
 
 import com.group37.sentencebuilder.data_layer.Database;
 
@@ -52,7 +55,7 @@ public class ImportController implements ApplicationPage, DatabasePage {
     private Database database;
 
     /**
-     * Author: Sebastian Sarinana
+     * Author: Cortland Kimzey
      * Description:
      *      Stores the injected Database instance for use during import operations.
      *
@@ -96,7 +99,7 @@ public class ImportController implements ApplicationPage, DatabasePage {
     private File stagedFile;
 
     /**
-     * Author: Sebastian Sarinana
+     * Author: Cortland Kimzey
      * Description:
      *      Connects to the database, loads the import history into the table, then
      *      disconnects and refreshes theme-aware label styling.
@@ -111,7 +114,7 @@ public class ImportController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: Sebastian Sarinana
+     * Author: Cortland Kimzey
      * Description:
      *      No cleanup required when leaving the import page.
      */
@@ -181,7 +184,7 @@ public class ImportController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: Sebastian Sarinana
+     * Author: Cortland Kimzey
      * Description:
      *      Reads the staged file, creates a background import task, binds the progress bar
      *      to task progress, and refreshes the history table on success.

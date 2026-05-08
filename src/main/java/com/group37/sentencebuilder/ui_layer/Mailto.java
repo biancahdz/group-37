@@ -8,8 +8,8 @@
  *      Utility for opening the system default mail client to a support email address using a mailto: URI.
  *
  *  Version: 1.0
- *  Created: 2026-04-10
- *  Last Modified: 2026-05-07
+ *  Created: 2026-03-21
+ *  Last Modified: 2026-05-06
  *
  *  Responsibilities:
  *      - Provide a single support email constant used across the UI

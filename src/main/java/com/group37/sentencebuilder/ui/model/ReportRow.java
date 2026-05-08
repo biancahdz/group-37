@@ -2,7 +2,7 @@
  * ------------------------------------------------------------
  *  Project: Sentence Builder
  *  File:    ReportRow.java
- *  Author:  Sebastian Sarinana
+ *  Author:  Cortland Kimzey
  *
  *  Description:
  *      Table row model for the original ui ReportsController. Holds mock
