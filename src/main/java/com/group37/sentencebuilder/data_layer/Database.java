@@ -2,7 +2,7 @@
  * ------------------------------------------------------------
  *  Project: Sentence Builder
  *  File:    Database.java
- *  Author:  Cortland Kimzey, Amrita Thapa
+ *  Author:  Cortland Kimzey, Amrita Thapa, Bianca Hernandez
  *  Designed By: Cortland Kimzey
  *
  *  Description:
@@ -61,7 +61,7 @@ public class Database
     private String dbName = DEFAULT_DATABASE_NAME;
 
     /**
-     * Author: 
+     * Author: Amrita Thapa
      * Description: 
      *      <description>
      * 
@@ -69,14 +69,31 @@ public class Database
      * @return result description
      */
     public String getUsername() { return this.username; }
+
+    /**
+     * Author: Amrita Thapa
+     * Description: 
+     *      <description>
+     * 
+     * @param input description
+     * @return result description
+     */
     public String getPassword() { return this.password; }
-    // Returns the active connection. Used by DefaultDataLoader to execute batch SQL.
+    
+    /**
+     * Author: Amrita Thapa
+     * Description: 
+     *      Returns the active connection. Used by DefaultDataLoader to execute batch SQL.
+     * 
+     * @param input description
+     * @return result description
+     */
     public Connection getConnection() {
         return this.conn;
     }
 
     /**
-     * Author: 
+     * Author: Amrita Thapa
      * Description: 
      *      <description>
      * 
@@ -90,7 +107,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Amrita Thapa
      * Description: 
      *      <description>
      * 
@@ -103,7 +120,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Amrita Thapa
      * Description: 
      *      <description>
      * 
@@ -120,7 +137,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Amrita Thapa
      * Description: 
      *      <description>
      * 
@@ -140,7 +157,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Amrita Thapa
      * Description: 
      *      <description>
      * 
@@ -167,7 +184,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Amrita Thapa
      * Description: 
      *      <description>
      * 
@@ -189,7 +206,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Bianca Hernandez
      * Description: 
      *      <description>
      * 
@@ -229,7 +246,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Amrita Thapa
      * Description: 
      *      <description>
      * 
@@ -307,7 +324,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Bianca Hernandez
      * Description: 
      *      <description>
      * 
@@ -447,7 +464,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Bianca Hernandez
      * Description: 
      *      <description>
      * 
@@ -682,7 +699,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Bianca Hernandez
      * Description: 
      *      <description>
      * 
@@ -703,7 +720,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Bianca Hernandez
      * Description: 
      *      <description>
      * 
