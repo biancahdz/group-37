@@ -8,7 +8,7 @@
  *      Title/login screen controller. Connects to the database, optionally preloads defaults, then launches the main shell.
  *
  *  Version: 1.0
- *  Created: 2026-05-06
+ *  Created: 2026-03-26
  *  Last Modified: 2026-05-06
  *
  *  Responsibilities:
@@ -100,6 +100,7 @@ public class TitleController {
     /**
      * Author: Cortland Kimzey
      * Description:
+     *      Animation Vibe Coded with Copilot.
      *      Plays the title fade-in, a brief pause, a slide upward, and the login panel
      *      fade-in as a sequential animation shown when DB credentials are not yet configured.
      */
@@ -136,6 +137,7 @@ public class TitleController {
     /**
      * Author: Cortland Kimzey
      * Description:
+     *      Animation Vibe Coded with Copilot.
      *      Plays the title fade-in, a brief pause, and a slide-off animation when the
      *      database is already reachable, then invokes the preload-and-launch flow on completion.
      */
