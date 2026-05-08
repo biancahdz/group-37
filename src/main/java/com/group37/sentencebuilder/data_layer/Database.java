@@ -2,7 +2,7 @@
  * ------------------------------------------------------------
  *  Project: Sentence Builder
  *  File:    Database.java
- *  Author:  Cortland Kimzey, Amrita Thapa, Bianca Hernandez
+ *  Author:  Cortland Kimzey, Amrita Thapa, Bianca Hernandez, Huy Nong
  *  Designed By: Cortland Kimzey
  *
  *  Description:
@@ -13,8 +13,9 @@
  *  Last Modified: 2026-03-16
  *
  *  Responsibilities:
- *      - <responsibilities 1>
- *      - <responsibilities 2>
+ *      - Connect and disconnect to the database
+ *      - execute queries on the database
+ *      - Check if we can connect to the database
  * ------------------------------------------------------------
  */
 
@@ -65,7 +66,6 @@ public class Database
      * Description: 
      *      <description>
      * 
-     * @param input description
      * @return result description
      */
     public String getUsername() { return this.username; }
@@ -75,7 +75,6 @@ public class Database
      * Description: 
      *      <description>
      * 
-     * @param input description
      * @return result description
      */
     public String getPassword() { return this.password; }
@@ -272,7 +271,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Amrita Thapa
      * Description: 
      *      <description>
      * 
@@ -299,7 +298,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Amrita Thapa
      * Description: 
      *      <description>
      * 
@@ -367,7 +366,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Amrita Thapa
      * Description: 
      *      <description>
      * 
@@ -392,7 +391,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Amrita Thapa
      * Description: 
      *      <description>
      * 
@@ -417,7 +416,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Amrita Thapa
      * Description: 
      *      <description>
      * 
@@ -441,7 +440,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Amrita Thapa
      * Description: 
      *      <description>
      * 
@@ -514,7 +513,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Amrita Thapa
      * Description: 
      *      <description>
      * 
@@ -540,7 +539,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Amrita Thapa
      * Description: 
      *      <description>
      * 
@@ -765,7 +764,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Bianca Hernandez
      * Description: 
      *      Creates a {@code txt} row at the start of import so per-file analytics can attach {@code txtID}.
      *      Call {@link #finishTxtImport(int, int, int)} after processing all sentences.
@@ -793,7 +792,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Bianca Hernandez
      * Description: 
      *      <description>
      * 
@@ -817,7 +816,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Bianca Hernandez
      * Description: 
      *      Adds token counts for one sentence into {@code txt_word} (after global {@link #addWords}).
      * 
@@ -857,7 +856,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Bianca Hernandez
      * Description: 
      *      Adds adjacent-word pair counts for one sentence into {@code txt_nextword}.
      * 
@@ -904,7 +903,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Amrita Thapa
      * Description: 
      *      <description>
      * 
@@ -930,7 +929,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Bianca Hernandez
      * Description: 
      *      <description>
      * 
@@ -956,7 +955,7 @@ public class Database
     }
 
     /**
-     * Author: Cortland Kimzey
+     * Author: Bianca Hernandez
      * Description: 
      *      <description>
      * 
@@ -1022,7 +1021,7 @@ public class Database
     public record CorpusAggregate(long uniqueWordTypes, long totalTokens, long topBigramCount) {}
 
     /**
-     * Author: 
+     * Author: Cortland Kimzey
      * Description: 
      *      <description>
      * 
@@ -1038,7 +1037,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Huy Nong
      * Description: 
      *      Imported files for scope dropdown and per-file table, newest first.
      * 
@@ -1076,7 +1075,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Huy Nong
      * Description: 
      *      Most frequent word types (excluding generator sentinel tokens).
      * 
@@ -1104,7 +1103,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Huy Nong
      * Description: 
      *      Strongest next-word transitions (excluding pairs involving sentinel tokens).
      * 
@@ -1136,7 +1135,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Huy Nong
      * Description: 
      *      Corpus-wide headline metrics for the analytics chips.
      * 
@@ -1166,7 +1165,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Huy Nong
      * Description: 
      *      Per-file top words (requires {@code txt_word}; populated on import).
      * 
@@ -1197,7 +1196,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Huy Nong
      * Description: 
      *      Per-file top bigrams (requires {@code txt_nextword}; populated on import).
      * 
@@ -1230,7 +1229,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Huy Nong
      * Description: 
      *      <description>
      * 
@@ -1266,7 +1265,7 @@ public class Database
     }
 
     /**
-     * Author: 
+     * Author: Cortland Kimzey
      * Description: 
      *      <description>
      * 
