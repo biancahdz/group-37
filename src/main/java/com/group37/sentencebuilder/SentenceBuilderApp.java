@@ -5,7 +5,7 @@
  *      successful login. Also re-attaches the title view after logout.
  *
  * Author: Sebastian Sarinana, Cortland Kimzey, Huy Nong
- * Created: 2026-05-07
+ * Created: 2026-03-21
  * Last Modified: 2026-05-07
  *
  * Version: 1.0
