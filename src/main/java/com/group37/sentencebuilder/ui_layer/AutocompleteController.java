@@ -227,10 +227,10 @@ public class AutocompleteController implements ApplicationPage, DatabasePage {
     /**
      * Author: Bianca Hernandez
      * Description: 
-     *      <description>
+     *      Handles the add word button click. Extracts the current 
+     *      word from text field and adds it to the db if it is not
+     *      blank. Updates the hint label to confirm the word was added
      * 
-     * @param input description
-     * @return result description
      */
     @FXML 
     private void onAddWord() {

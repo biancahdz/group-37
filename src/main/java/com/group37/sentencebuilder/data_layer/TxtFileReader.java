@@ -5,15 +5,19 @@
  *  Author:  Bianca Hernandez
  *
  *  Description:
- *      <description>
+ *      Reads and parses txt files to extract sentences and words, 
+ *      then stores them in database. Tracks word frequencies, adjacent word
+ *      combos, and sentence boundaries. 
  *
  *  Version: 1.0
  *  Created: 2026-03-15
- *  Last Modified: 2026-03-16
+ *  Last Modified: 2026-4-23
  *
  *  Responsibilities:
- *      - <responsibilities 1>
- *      - <responsibilities 2>
+ *      - Parse txt files into individual sentences and words
+ *      - Store words and combos into db
+ *
+ *  
  * ------------------------------------------------------------
  */
 
@@ -39,12 +43,9 @@ public class TxtFileReader
     private Database database = Database.getDatabase();
 
     /**
-     * Author: 
      * Description: 
-     *      <description>
+     *      Constructs a txtfilereader with custom display name
      * 
-     * @param input description
-     * @return result description
      */
     public TxtFileReader(File file, String displayName) {
         this.fileName = displayName;
@@ -52,12 +53,9 @@ public class TxtFileReader
     }
 
     /**
-     * Author: 
      * Description: 
-     *      <description>
+     *      Constructs txtfilereader using the file's actual name
      * 
-     * @param input description
-     * @return result description
      */
     public TxtFileReader(File file) {
         this.fileName = file.getName();
@@ -65,12 +63,11 @@ public class TxtFileReader
     }
 
     /**
-     * Author: 
      * Description: 
-     *      <description>
+     *      Splits raw text into individual sentences using punctuation as delimeters
      * 
-     * @param input description
-     * @return result description
+     * @param sb raw text as stringbuilder
+     * @return list of parsed sentences
      */
     private List<String> getSentences(StringBuilder sb)
     {
@@ -89,12 +86,11 @@ public class TxtFileReader
     }
 
     /**
-     * Author: 
      * Description: 
-     *      <description>
+     *      Adds a list of words to the db
      * 
-     * @param input description
-     * @return result description
+     * @param list of words to add
+     * @return true if successful,false otherwise
      */
     private boolean addWords(List<String> words) {
         if(!database.addWords(words))
@@ -103,12 +99,11 @@ public class TxtFileReader
     }
 
     /**
-     * Author: 
      * Description: 
-     *      <description>
+     *      records the first and last word of a sentence and links to start and end
      * 
-     * @param input description
-     * @return result description
+     * @param list of words in the sentence
+     * @return true if successful
      */
     private boolean addSentence(List<String> words) {
 
@@ -125,12 +120,11 @@ public class TxtFileReader
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
+     * Description:
+     *      records adjacent word pairs into db 
      * 
-     * @param input description
-     * @return result description
+     * @param list of words to extract pairs from
+     * @return true if successful, false otherwise
      */
     private boolean addCombo(List<String> words)
     {
@@ -153,12 +147,11 @@ public class TxtFileReader
     }
 
     /**
-     * Author: 
      * Description: 
-     *      <description>
+     *      returns a list of adjacent word id pairs from a sentence
      * 
-     * @param input description
-     * @return result description
+     * @param list of words to extract pairs from
+     * @return list  of adjacent word ID pairs
      */
     private List<int[]> adjacentPairs(List<String> words) {
         if (words == null || words.size() < 2) {
@@ -177,12 +170,11 @@ public class TxtFileReader
     }
 
     /**
-     * Author: 
      * Description: 
-     *      <description>
+     *      creates a background javafx task that reads the file,
+     *      parses sentences, and stores all data into the db
      * 
-     * @param input description
-     * @return result description
+     * @return JavaFX task that performs file import
      */
     public Task<Void> createTask() {
         return new Task<>() {
