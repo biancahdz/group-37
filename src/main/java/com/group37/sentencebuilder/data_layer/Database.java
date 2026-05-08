@@ -66,7 +66,7 @@ public class Database
      * Description: 
      *      Returns the username credetial stored in this Database instance.
      * 
-     * @return result description
+     * @return the username credential stored in this Database instance
      */
     public String getUsername() { return this.username; }
 
@@ -75,7 +75,7 @@ public class Database
      * Description: 
      *      Returns the password credential stored in this Database instance.
      * 
-     * @return result description
+     * @return the password credential stored in this Database instance
      */
     public String getPassword() { return this.password; }
     
@@ -84,8 +84,7 @@ public class Database
      * Description: 
      *      Returns the active connection. Used by DefaultDataLoader to execute batch SQL.
      * 
-     * @param input description
-     * @return result description
+     * @return the active JDBC Connection object, or null if not connected
      */
     public Connection getConnection() {
         return this.conn;
@@ -96,8 +95,9 @@ public class Database
      * Description: 
      *      Constructus a Database instance with the given credential and target database name
      * 
-     * @param input description
-     * @return result description
+     * @param username the MySQL username
+     * @param password the MySQL password
+     * @return dbName the name of the database to connect to
      */
     public Database(String username, String password, String dbName) {
         this.username = username;
@@ -110,8 +110,8 @@ public class Database
      * Description: 
      *      Builds the JDBC connection URL for the given database name using the configured host and port.
      * 
-     * @param input description
-     * @return result description
+     * @param databaseName the name of the database to include in the URL
+     * @return the full JDBC connection URL string
      */
     private static String jdbcUrl(String databaseName) {
         return "jdbc:mysql://" + JDBC_HOST + ":" + JDBC_PORT + "/" + databaseName
@@ -123,8 +123,7 @@ public class Database
      * Description: 
      *      Opens a JDBC connection to the database and returns true if successful.
      * 
-     * @param input description
-     * @return result description
+     * @return true if the connection was established successfully, false otherwise
      */
     public boolean connect() {
         try {
@@ -140,8 +139,7 @@ public class Database
      * Description: 
      *      Closes the active JDBC connection and returns true if successful
      * 
-     * @param input description
-     * @return result description
+     * @return true if the connection was closed successfully, false otherwise
      */
     public boolean disconnect() {
         if (this.conn != null) {
@@ -160,8 +158,8 @@ public class Database
      * Description: 
      *      Returns true if the given word exists in the word table
      * 
-     * @param input description
-     * @return result description
+     * @param word the word string to look up
+     * @return true if the word exists in the words table, false otherwise
      */
     public boolean isWord(String word) {
         String sql = "SELECT EXISTS (SELECT 1 FROM words WHERE word = ?)";
@@ -187,8 +185,8 @@ public class Database
      * Description: 
      *      Inserts a word into the words table or increments its count if it already exists.
      * 
-     * @param input description
-     * @return result description
+     * @param word the word string to insert or increment
+     * @return true if the operation was successful, false otherwise
      */
     public boolean addWord(String word) {
         String sql = "INSERT INTO words (word, wordCount) VALUES (?, 1) " +
@@ -250,8 +248,8 @@ public class Database
      * Description: 
      *      Returns the word string associated with the given word ID
      * 
-     * @param input description
-     * @return result description
+     * @param wordID the ID of the word to retrieve
+     * @return the word string, or null if not found
      */
     public String getWord(int wordID) {
         String sql = "SELECT word FROM words WHERE wordID = ?";
@@ -276,8 +274,8 @@ public class Database
      * Description: 
      *      Returns a Word object containing the ID, text, and count for the given word ID.
      * 
-     * @param input description
-     * @return result description
+     * @param wordID the ID of the word to retrieve
+     * @return a Word object containing the ID, text, and count, or null if not found
      */
     public Word getWordObj(int wordID)
     {
@@ -303,8 +301,8 @@ public class Database
      * Description: 
      *      Returns the ID of the given word from the words table.
      * 
-     * @param input description
-     * @return result description
+     * @param word the word string to look up
+     * @return the integer ID of the word, or null if not found
      */
     public Integer getWordID(String word) {
         String sql = "SELECT wordID FROM words WHERE word = ?";
@@ -371,8 +369,8 @@ public class Database
      * Description: 
      *      Returns how many times the given word appears across all imported text files.
      * 
-     * @param input description
-     * @return result description
+     * @param word the word string to look up
+     * @return the occurrence count of the word, or null if not found
      */
     public Integer getWordCount(String word) {
         String sql = "SELECT wordCount FROM words WHERE word = ?";
@@ -396,8 +394,8 @@ public class Database
      * Description: 
      *      Returns the occurrent count for the word with the given ID.
      * 
-     * @param input description
-     * @return result description
+     * @param wordID the ID of the word to look up
+     * @return the occurrence count of the word, or null if not found
      */
     public Integer getWordCount(int wordID) {
         String sql = "SELECT wordCount FROM words WHERE wordID = ?";
@@ -421,8 +419,9 @@ public class Database
      * Description: 
      *      Records a sentence by its first and last word IDs, or increments the count if it already exists. 
      * 
-     * @param input description
-     * @return result description
+     * @param firstWordID the ID of the first word in the sentence
+     * @param lastWordID the ID of the last word in the sentence
+     * @return true if the operation was successful, false otherwise
      */
     public boolean addSentence(int firstWordID, int lastWordID)
     {
@@ -445,8 +444,9 @@ public class Database
      * Description: 
      *      Records that one word was followed by another, or increments the combo count if the pair already exists.
      * 
-     * @param input description
-     * @return result description
+     * @param firstID the ID of the first word in the pair
+     * @param nextID the ID of the word that follows
+     * @return true if the operation was successful, false otherwise
      */
     public boolean addCombo(int firstID, int nextID) {
         String sql = "INSERT INTO nextWord (wordID, nextWordID, comboCount) VALUES (?, ?, 1) " +
@@ -519,8 +519,9 @@ public class Database
      * Description: 
      *      Returns how many times the second word has followed the first word.
      * 
-     * @param input description
-     * @return result description
+     * @param firstID the ID of the first word in the pair
+     * @param nextID the ID of the following word
+     * @return the number of times the pair has occurred, or null if not found
      */
     public Integer getComboCount(int firstID, int nextID) {
         String sql = "SELECT comboCount FROM nextWord WHERE wordID = ? AND nextWordID = ?";
@@ -545,8 +546,9 @@ public class Database
      * Description: 
      *      Returns the most frequently occuring next or previous word ID for the given word.
      * 
-     * @param input description
-     * @return result description
+     * @param wordID the ID of the word to look up
+     * @param first if true, returns the most frequent next word; if false, returns the most frequent previous word
+     * @return the ID of the most frequent next or previous word, or null if not found
      */
     public Integer getBestCombo(int wordID, boolean first) {
         String sql = null;
@@ -915,8 +917,7 @@ public class Database
      * Description: 
      *      Returns the total number of text files that have been imported into the database
      * 
-     * @param input description
-     * @return result description
+     * @return the total number of imported text files, or 0 if not connected
      */
     public int getTxtCount() {
         if (conn == null) {
