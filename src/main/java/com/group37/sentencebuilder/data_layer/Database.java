@@ -577,10 +577,11 @@ public class Database
     /**
      * Author: Cortland Kimzey
      * Description: 
-     *      <description>
+     *      Gets the best x word IDs from the database where the first word ID is wordID
      * 
-     * @param input description
-     * @return result description
+     * @param wordID the ID of the first word in the combo
+     * @param x the number of top combos to grab
+     * @return a List of all the x best word ids
      */
     public List<Integer> getXBest(int wordID, int x) {
         String sql = "SELECT nextWordID FROM nextWord WHERE wordID = ? ORDER BY comboCount DESC Limit ?";
@@ -607,10 +608,11 @@ public class Database
     /**
      * Author: Cortland Kimzey
      * Description: 
-     *      <description>
+     *      Gets the best x word combinations from the database where the first word is word
      * 
-     * @param input description
-     * @return result description
+     * @param word word object containing the first word in the combo
+     * @param x the number of top combos to grab
+     * @return A list of the top word combinations
      */
     public List<WordCombo> getXBestCombos(Word word, int x) {
         String sql = "SELECT nextWordID, comboCount FROM nextWord WHERE wordID = ? ORDER BY comboCount DESC Limit ?";
@@ -637,7 +639,7 @@ public class Database
     /**
      * Author: Cortland Kimzey
      * Description: 
-     *      <description>
+     *      Gets the x best words from the database giving the actual word string
      * 
      * @param input description
      * @return result description
