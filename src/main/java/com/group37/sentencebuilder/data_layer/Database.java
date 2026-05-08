@@ -10,7 +10,7 @@
  *
  *  Version: 1.0
  *  Created: 2026-03-15
- *  Last Modified: 2026-03-16
+ *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
  *      - Connect and disconnect to the database
@@ -207,10 +207,11 @@ public class Database
     /**
      * Author: Bianca Hernandez
      * Description: 
-     *      <description>
+     *      Inserts a list of words into the database in a single batch query.
+     *      If a word already exists its count is incremented
      * 
-     * @param input description
-     * @return result description
+     * @param words list of words to insert
+     * @return true if successful, false otherwise
      */
     public boolean addWords(List<String> words)
     {
@@ -325,10 +326,10 @@ public class Database
     /**
      * Author: Bianca Hernandez
      * Description: 
-     *      <description>
+     *      Retrives word IDs for a list of words in a single query
      * 
-     * @param input description
-     * @return result description
+     * @param words list of words to look up
+     * @return map of word to its database ID 
      */
     public Map<String, Integer> getWordIDs(List<String> words)
     {
@@ -464,11 +465,12 @@ public class Database
 
     /**
      * Author: Bianca Hernandez
-     * Description: 
-     *      <description>
+     * Description: Inserts multiple adjacent word pairs into the database.
+     *           in a single batch query. Duplicate pairs increment the combo count 
+     *      
      * 
-     * @param input description
-     * @return result description
+     * @param combos list of word ID pairs to insert
+     * @return true if successful, false otherwise
      */
     public boolean addCombos(List<int[]> combos)
     {
@@ -700,10 +702,10 @@ public class Database
     /**
      * Author: Bianca Hernandez
      * Description: 
-     *      <description>
+     *     Inserts a txt file record into the database by file name
      * 
-     * @param input description
-     * @return result description
+     * @param FileName 
+     * @return true if succesful, false otherwise
      */
     public boolean setTxt(String FileName) {
         String sql = "INSERT INTO txt (txtName) VALUES (?) ";
@@ -721,10 +723,12 @@ public class Database
     /**
      * Author: Bianca Hernandez
      * Description: 
-     *      <description>
+     *      Inserts a txt file record into the db with sentence and word counts
      * 
-     * @param input description
-     * @return result description
+     * @param FileName
+     * @param numSentences
+     * @param numWords
+     * @return true if succesful, false otherwise
      */
     public boolean setTxt(String FileName, int numSentences, int numWords) {
         String sql = "INSERT INTO txt (txtName, numSentences, numWords) VALUES (?, ?, ?)";
@@ -769,8 +773,8 @@ public class Database
      *      Creates a {@code txt} row at the start of import so per-file analytics can attach {@code txtID}.
      *      Call {@link #finishTxtImport(int, int, int)} after processing all sentences.
      * 
-     * @param input description
-     * @return result description
+     * @param fileName the name of the file being imported
+     * @return the generated txtID, or -1 if the insert failed
      */
     public int startTxtImport(String fileName) {
         if (!hasConnection(conn)) {
@@ -794,10 +798,12 @@ public class Database
     /**
      * Author: Bianca Hernandez
      * Description: 
-     *      <description>
+     *      updates the txt row with final sentence and word counts after import is complete 
      * 
-     * @param input description
-     * @return result description
+     * @param txtId the ID of the txt record to update
+     * @param numSentences total number of sentences processed
+     * @param numWords total number of words processed
+     * @return true if succesful, false otherwise
      */
     public boolean finishTxtImport(int txtId, int numSentences, int numWords) {
         if (!hasConnection(conn) || txtId <= 0) {
@@ -820,8 +826,9 @@ public class Database
      * Description: 
      *      Adds token counts for one sentence into {@code txt_word} (after global {@link #addWords}).
      * 
-     * @param input description
-     * @return result description
+     * @param txtId the id of the txt record
+     * @param words list of words in the sentence 
+     * @return true if succesful, else false
      */
     public boolean addTxtWordOccurrences(int txtId, List<String> words) {
         if (!hasConnection(conn) || txtId <= 0 || words == null || words.isEmpty()) {
@@ -860,8 +867,9 @@ public class Database
      * Description: 
      *      Adds adjacent-word pair counts for one sentence into {@code txt_nextword}.
      * 
-     * @param input description
-     * @return result description
+     * @param txtId the ID of the txt record
+     * @param combos list of adjacent word ID pairs
+     * @return true if succesful, else false 
      */
     public boolean addTxtCombosForTxt(int txtId, List<int[]> combos) {
         if (!hasConnection(conn) || txtId <= 0 || combos == null || combos.isEmpty()) {
@@ -931,10 +939,10 @@ public class Database
     /**
      * Author: Bianca Hernandez
      * Description: 
-     *      <description>
+     *      returns the total number across all imported txt files
      * 
-     * @param input description
-     * @return result description
+     * 
+     * @return total sentence count, or 0 if not connected
      */
     public int getTxtSentenceCount() {
         if (conn == null) {
@@ -957,10 +965,10 @@ public class Database
     /**
      * Author: Bianca Hernandez
      * Description: 
-     *      <description>
+     *      Retrives the full import history as an observable list for display in UI
      * 
-     * @param input description
-     * @return result description
+     * 
+     * @return ObservableList of ImportHistoryRow objects, or null if query fails 
      */
     public ObservableList<ImportHistoryRow> getTxtHistory()
     {
