@@ -2,13 +2,13 @@
  * ------------------------------------------------------------
  *  Project: Sentence Builder
  *  File:    Mailto.java
- *  Author:  Huy Nong, Cortland Kimzey
+ *  Author:  Huy Nong
  *
  *  Description:
  *      Utility for opening the system default mail client to a support email address using a mailto: URI.
  *
  *  Version: 1.0
- *  Created: 2026-05-06
+ *  Created: 2026-03-21
  *  Last Modified: 2026-05-06
  *
  *  Responsibilities:
@@ -29,7 +29,7 @@ public final class Mailto {
     public static final String SUPPORT_EMAIL = "sentencebuildersupport@gmail.com";
 
     /**
-     * Author: Huy Nong, Cortland Kimzey
+     * Author: Huy Nong
      * Description:
      *      Prevents instantiation; all members are static.
      */
@@ -37,7 +37,7 @@ public final class Mailto {
     }
 
     /**
-     * Author: Huy Nong, Cortland Kimzey
+     * Author: Huy Nong
      * Description:
      *      Opens the system default mail client addressed to the support inbox.
      */
@@ -46,7 +46,7 @@ public final class Mailto {
     }
 
     /**
-     * Author: Huy Nong, Cortland Kimzey
+     * Author: Huy Nong
      * Description:
      *      Opens the OS default mail handler for the given address, falling back to the
      *      browser if MAIL action is unsupported. Silently does nothing if the platform
