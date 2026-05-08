@@ -8,7 +8,7 @@
  *      Home/dashboard controller: shows corpus counts when connected and provides navigation shortcuts to key pages.
  *
  *  Version: 1.0
- *  Created: 2026-05-07
+ *  Created: 2026-03-21
  *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
@@ -47,7 +47,7 @@ public class HomeController implements ApplicationPage, DatabasePage {
     private Consumer<ViewKey> navigator = k -> { };
 
     /**
-     * Author: Cortland Kimzey
+     * Author: Huy Nong
      * Description:
      *      Registers the navigation callback used by workspace card clicks to switch pages.
      *
@@ -267,7 +267,7 @@ public class HomeController implements ApplicationPage, DatabasePage {
     @FXML private void onQuickCorpusStats() { navigator.accept(ViewKey.CORPUS_STATS); }
 
     /**
-     * Author: Cortland Kimzey
+     * Author: Huy Nong
      * Description:
      *      Applies dashboard chrome immediately and after layout, then queries the database
      *      for corpus counts and displays them in the stat tiles.
