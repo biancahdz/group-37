@@ -2,7 +2,7 @@
  * ------------------------------------------------------------
  *  Project: Sentence Builder
  *  File:    ViewKey.java
- *  Author:  Cortland Kimzey, Huy Nong
+ *  Author: Huy Nong
  *
  *  Description:
  *      Enum of top-level screen identifiers used by the main shell for navigation and view switching.
@@ -20,7 +20,7 @@
 package com.group37.sentencebuilder.ui_layer;
 
 /**
- * Author: Cortland Kimzey, Huy Nong
+ * Author: Huy Nong
  * Description:
  *      Identifiers for main shell views (UI navigation only).
  */
