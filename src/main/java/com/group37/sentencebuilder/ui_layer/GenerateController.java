@@ -8,7 +8,7 @@
  *      Sentence generator controller. Configures algorithm selection and triggers corpus-backed generation through GeneratorLogic.
  *
  *  Version: 1.0
- *  Created: 2026-05-07
+ *  Created: 2026-03-21
  *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
