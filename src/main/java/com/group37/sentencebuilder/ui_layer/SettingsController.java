@@ -2,13 +2,13 @@
  * ------------------------------------------------------------
  *  Project: Sentence Builder
  *  File:    SettingsController.java
- *  Author:  Sebastian Sarinana, Cortland Kimzey, Huy Nong
+ *  Author:  Sebastian Sarinana, Huy Nong
  *
  *  Description:
  *      Settings screen controller for appearance preferences (theme, font, font size) and support links.
  *
  *  Version: 1.0
- *  Created: 2026-04-06
+ *  Created: 2026-03-22
  *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
@@ -69,7 +69,7 @@ public class SettingsController implements ApplicationPage {
     private final InvalidationListener settingsChromeRefresh = obs -> applySettingsPageChrome();
 
     /**
-     * Author: Cortland Kimzey
+     * Author: Sebastian Sarinana
      * Description:
      *      Registers the logout callback that is invoked when the user clicks the logout button.
      *
@@ -80,7 +80,7 @@ public class SettingsController implements ApplicationPage {
     }
 
     /**
-     * Author: Cortland Kimzey
+     * Author: Sebastian Sarinana
      * Description:
      *      Fires the registered logout callback when the logout button is activated.
      */

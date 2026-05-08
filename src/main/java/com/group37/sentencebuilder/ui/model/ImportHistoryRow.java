@@ -2,7 +2,7 @@
  * ------------------------------------------------------------
  *  Project: Sentence Builder
  *  File:    ImportHistoryRow.java
- *  Author:  Cortland Kimzey
+ *  Author:  Sebastian Sarinana
  *
  *  Description:
  *      Table row model for the original ui ImportController. Holds mock import

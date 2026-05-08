@@ -2,17 +2,18 @@
  * ------------------------------------------------------------
  *  Project: Sentence Builder
  *  File:    DatabasePage.java
- *  Author:  Cortland Kimzey
+ *  Author:  Sebastian Sarinana
  *
  *  Description:
- *      Allows different pages to create a database object after they have been initialized and we have confirmed we can connect to the database
+ *      Contract for controllers that require a Database instance from the application shell.
  *
  *  Version: 1.0
- *  Created: 2026-03-26
- *  Last Modified: 2026-03-27
+ *  Created: 2026-03-31
+ *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
- *      - A setDatabase function to be overwriten by a controller so they can create a database object
+ *      - Allow a page controller to receive a shared Database instance via dependency injection
+ *      - Provide lifecycle-compatible database injection so pages can query or mutate corpus data
  * ------------------------------------------------------------
  */
 
@@ -20,15 +21,16 @@ package com.group37.sentencebuilder.ui_layer;
 
 import com.group37.sentencebuilder.data_layer.Database;
 
+/** Contract for page controllers that need access to the shared Database instance. */
 public interface DatabasePage
 {
 
     /**
-     * Author: Cortland Kimzey
+     * Author: Sebastian Sarinana
      * Description:
-     *      Allows the controller to overwrite and create a database object
+     *      Injects the active Database instance so the page can query or mutate corpus data.
      *
-     * @param db active database object
+     * @param db active database connection wrapper
      */
     public void setDatabase(Database db);
 

@@ -2,7 +2,7 @@
  * ------------------------------------------------------------
  *  Project: Sentence Builder
  *  File:    HomeController.java
- *  Author:  Sebastian Sarinana, Huy Nong, Cortland Kimzey
+ *  Author:  Sebastian Sarinana, Huy Nong
  *
  *  Description:
  *      Home/dashboard controller: shows corpus counts when connected and provides navigation shortcuts to key pages.
@@ -47,7 +47,7 @@ public class HomeController implements ApplicationPage, DatabasePage {
     private Consumer<ViewKey> navigator = k -> { };
 
     /**
-     * Author: Huy Nong
+     * Author: Sebastian Sarinana
      * Description:
      *      Registers the navigation callback used by workspace card clicks to switch pages.
      *
@@ -267,7 +267,7 @@ public class HomeController implements ApplicationPage, DatabasePage {
     @FXML private void onQuickCorpusStats() { navigator.accept(ViewKey.CORPUS_STATS); }
 
     /**
-     * Author: Huy Nong
+     * Author: Sebastian Sarinana
      * Description:
      *      Applies dashboard chrome immediately and after layout, then queries the database
      *      for corpus counts and displays them in the stat tiles.
@@ -296,7 +296,7 @@ public class HomeController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: Cortland Kimzey
+     * Author: Sebastian Sarinana
      * Description:
      *      No cleanup required when leaving the home page.
      */
@@ -305,7 +305,7 @@ public class HomeController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: Cortland Kimzey
+     * Author: Sebastian Sarinana
      * Description:
      *      Stores the injected Database instance used to load corpus count metrics on page enter.
      *

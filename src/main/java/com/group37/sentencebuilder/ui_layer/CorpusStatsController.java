@@ -2,13 +2,13 @@
  * ------------------------------------------------------------
  *  Project: Sentence Builder
  *  File:    CorpusStatsController.java
- *  Author:  Sebastian Sarinana, Huy Nong, Cortland Kimzey
+ *  Author:  Sebastian Sarinana, Huy Nong
  *
  *  Description:
  *      Word analytics controller. Displays corpus-wide and per-file word/bigram rankings, summary chips, and charts.
  *
  *  Version: 1.0
- *  Created: 2026-05-07
+ *  Created: 2026-03-31
  *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
@@ -298,7 +298,7 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: Cortland Kimzey
+     * Author: Sebastian Sarinana
      * Description:
      *      Prompts the user to choose a TXT or CSV export format and a save path, then writes
      *      the current analytics snapshot (summary chips, word table, bigram table, per-file
@@ -348,7 +348,7 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: Cortland Kimzey
+     * Author: Sebastian Sarinana
      * Description:
      *      Builds a plain-text representation of the current analytics view, including the scope
      *      hint, summary chips, word-count table, bigram table, per-file breakdown, and the
@@ -408,7 +408,7 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: Cortland Kimzey
+     * Author: Sebastian Sarinana
      * Description:
      *      Opens a multi-select checkbox dialog listing all imported files and updates the set of
      *      labels used in the file-comparison bar chart. Navigates to the charts tab on confirm
@@ -501,7 +501,7 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: Cortland Kimzey
+     * Author: Sebastian Sarinana
      * Description:
      *      Builds a CSV representation of the current analytics view, including scope metadata,
      *      summary chips, word-count table, bigram table, per-file breakdown, and the selected
@@ -559,7 +559,7 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: Cortland Kimzey
+     * Author: Sebastian Sarinana
      * Description:
      *      Convenience shorthand for csvLine with exactly three values (section, field, value).
      *
@@ -573,7 +573,7 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: Cortland Kimzey
+     * Author: Sebastian Sarinana
      * Description:
      *      Formats an arbitrary number of values as a single double-quoted CSV line, escaping
      *      embedded double-quotes with the standard two-quote sequence.
@@ -597,7 +597,7 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: Cortland Kimzey
+     * Author: Sebastian Sarinana
      * Description:
      *      Stores the injected Database instance for use during analytics data loads.
      *
@@ -609,7 +609,7 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: Cortland Kimzey
+     * Author: Sebastian Sarinana
      * Description:
      *      Applies theme-aware label styling and triggers a full database reload to refresh
      *      corpus analytics when the word analytics page becomes active.
@@ -621,7 +621,7 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: Cortland Kimzey
+     * Author: Sebastian Sarinana
      * Description:
      *      No cleanup required when leaving the word analytics page.
      */
@@ -1286,7 +1286,7 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: Cortland Kimzey
+     * Author: Sebastian Sarinana
      * Description:
      *      Returns the active file comparison label list, filtered to only labels still present in
      *      fileByComboLabel. Falls back to all known file labels if the selection is empty.
@@ -1310,7 +1310,7 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: Cortland Kimzey
+     * Author: Sebastian Sarinana
      * Description:
      *      Appends a TXT-formatted section listing the effective file comparison selection with
      *      per-file word, unique word, top pair count, and sentence columns.
@@ -1336,7 +1336,7 @@ public class CorpusStatsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: Cortland Kimzey
+     * Author: Sebastian Sarinana
      * Description:
      *      Appends a CSV-formatted section listing the effective file comparison selection with
      *      per-file word, unique word, top pair count, and sentence columns.
