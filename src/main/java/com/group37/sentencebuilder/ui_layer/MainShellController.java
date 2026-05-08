@@ -1,19 +1,19 @@
 /**
  * ------------------------------------------------------------
  *  Project: Sentence Builder
- *  File:    .java
- *  Author:  
+ *  File:    MainShellController.java
+ *  Author:  Sebastian Sarinana, Huy Nong, Cortland Kimzey
  *
  *  Description:
- *      <description>
+ *      Main application shell controller: manages sidebar navigation and loads/swaps the active page view.
  *
  *  Version: 1.0
- *  Created: 
- *  Last Modified: 
+ *  Created: 2026-05-07
+ *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
- *      - <responsibilities 1>
- *      - <responsibilities 2>
+ *      - Handle navigation events and update the selected workspace state
+ *      - Load FXML pages and route lifecycle callbacks (enter/leave) to controllers
  * ------------------------------------------------------------
  */
 
@@ -21,8 +21,8 @@ package com.group37.sentencebuilder.ui_layer;
 
 import com.group37.sentencebuilder.data_layer.Database;
 
-import com.group37.sentencebuilder.ui.DarkSurfaceText;
-import com.group37.sentencebuilder.ui.UiPreferences;
+import com.group37.sentencebuilder.ui_layer.theming.DarkSurfaceText;
+import com.group37.sentencebuilder.ui_layer.theming.UiPreferences;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -53,7 +53,7 @@ import java.util.Objects;
  */
 public class MainShellController {
 
-    /** Scene root — {@link #initialize()} sets a stable CSS id for high-specificity dark-theme text rules. */
+    /** Scene root — initialize() sets a stable CSS id for high-specificity dark-theme text rules. */
     @FXML
     private BorderPane shellRoot;
 
@@ -118,12 +118,11 @@ public class MainShellController {
     private boolean suppressNavToggleCallbacks;
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Sets the shell root CSS id, configures workspace scrolling, wires all nav
+     *      toggle buttons, prevents deselection, registers theme/OS-scheme listeners,
+     *      and shows the home view on startup.
      */
     @FXML
     private void initialize() {
@@ -170,20 +169,11 @@ public class MainShellController {
     }
 
     /**
-     * Sidebar chrome (brand row, nav toggles, footer) is styled only from CSS on {@code #sb-shell-root}.
-     * Do <strong>not</strong> call {@link DarkSurfaceText#clearForcedLabeledPaint} on sidebar nodes: nav
-     * toggles and labels are not {@link DarkSurfaceText#forceLabeledFill}'d from Java here, and clearing
-     * child {@code Text} fills breaks painting for the whole sidebar until hover (JavaFX).
-     * <p>
-     * After theme / scene attach, one {@link javafx.scene.Node#applyCss()} on the shell root reapplies tokens.
-     */
-    /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Calls applyCss() on the shell root to reapply sidebar chrome tokens after a theme
+     *      or scene-attach event. Sidebar nodes are styled entirely from CSS on #sb-shell-root;
+     *      clearing Text fills on nav toggles from Java breaks painting until hover.
      */
     private void applyShellChromeInlineText() {
         if (shellRoot != null) {
@@ -192,17 +182,11 @@ public class MainShellController {
     }
 
     /**
-     * Same issue as sidebar chrome: on dark palettes, stylesheet fills for page section eyebrows
-     * (DATA IN, GENERATE, …) can render too dark. {@link Labeled#setTextFill} reaches LabeledSkin
-     * more reliably than {@code -fx-text-fill} alone (see {@link HomeController#applyHomeHeroLabels}).
-     */
-    /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Walks all section-eyebrow nodes in the content host and forces accent fills
+     *      in dark mode or clears them in light mode, handling the LabeledSkin CSS
+     *      cascade issue that can render eyebrow text too dark on dark palettes.
      */
     private void applyWorkspaceEyebrowInlineText() {
         if (contentHost == null) {
@@ -223,14 +207,14 @@ public class MainShellController {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Returns the inline fill color for a section eyebrow label based on its accent
+     *      class, maximizing contrast on dark (#000/#18181b) canvas surfaces.
+     *
+     * @param lab the eyebrow Labeled node whose style classes determine the fill
+     * @return fill Color for the given accent class
      */
-    /** Maximum contrast on #000 / #18181b; primary eyebrow is white so small-caps stay readable. */
     private static Color eyebrowColorForAccentClass(Labeled lab) {
         if (lab.getStyleClass().contains("section-eyebrow-primary")) {
             return Color.web("#ffffff");
@@ -248,16 +232,10 @@ public class MainShellController {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
-     */
-    /**
-     * Make mouse-wheel / trackpad scrolling work across the full workspace area,
-     * not just when the cursor is over the inner content node.
+     * Author: Huy Nong
+     * Description:
+     *      Attaches a scroll event filter to the workspace inset so mouse-wheel and trackpad
+     *      scrolling works across the full workspace area, not just over the inner content node.
      */
     private void wireWorkspaceScrolling() {
         workspaceInset.addEventFilter(ScrollEvent.SCROLL, event -> {
@@ -276,16 +254,10 @@ public class MainShellController {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
-     */
-    /**
-     * A {@link ToggleGroup} clears the selected toggle when the user clicks it again.
-     * Keep one workspace always selected so the sidebar highlight never disappears.
+     * Author: Cortland Kimzey
+     * Description:
+     *      Listens on the nav toggle group and re-selects the previous toggle when the
+     *      user clicks the active button, ensuring the sidebar always has one selection.
      */
     private void preventNavDeselection() {
         navGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
@@ -302,25 +274,21 @@ public class MainShellController {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Cortland Kimzey
+     * Description:
+     *      Registers the logout callback wired by SentenceBuilderApp to return to the login scene.
+     *
+     * @param onLogout runnable to invoke when the user requests logout
      */
-    /** Wired from {@link com.group37.sentencebuilder.SentenceBuilderApp} to return to the login scene. */
     public void setOnLogout(Runnable onLogout) {
         this.onLogout = onLogout;
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Cortland Kimzey
+     * Description:
+     *      Fires the registered logout callback if one is present, triggering the transition
+     *      back to the login scene.
      */
     public void requestLogout() {
         if (onLogout != null) {
@@ -329,12 +297,13 @@ public class MainShellController {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Cortland Kimzey
+     * Description:
+     *      Attaches the ViewKey as user data on the button and registers a selection listener
+     *      that calls showView when the toggle is activated.
+     *
+     * @param button the sidebar ToggleButton to wire
+     * @param key the ViewKey identifying which page this button navigates to
      */
     private void wireNav(ToggleButton button, ViewKey key) {
         button.setUserData(key);
@@ -349,14 +318,14 @@ public class MainShellController {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Cortland Kimzey
+     * Description:
+     *      Loads or retrieves the cached view for the given key, swaps it into the content
+     *      host, calls page lifecycle callbacks, updates the header title, and syncs the
+     *      sidebar selection. Used by Home quick actions and nav toggle listeners.
+     *
+     * @param key the ViewKey identifying the page to display
      */
-    /** Used by Home quick actions to change the main view. */
     public void showView(ViewKey key) {
         if (currentController instanceof ApplicationPage oldPage)
         {
@@ -392,12 +361,12 @@ public class MainShellController {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Cortland Kimzey
+     * Description:
+     *      Finds the toggle in the nav group whose user data matches the given key and
+     *      selects it if not already selected.
+     *
+     * @param key the ViewKey whose corresponding nav toggle should be selected
      */
     private void selectNav(ViewKey key) {
         for (Toggle t : navGroup.getToggles()) {
@@ -411,12 +380,12 @@ public class MainShellController {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Cortland Kimzey
+     * Description:
+     *      Maps a ViewKey to the display string shown in the workspace header title bar.
+     *
+     * @param key the ViewKey to look up
+     * @return header title string for the given key
      */
     private static String titleFor(ViewKey key) {
         return switch (key) {
@@ -432,12 +401,14 @@ public class MainShellController {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Cortland Kimzey
+     * Description:
+     *      Loads the FXML for the given key, injects dependencies into the controller
+     *      (navigator for HomeController, database for DatabasePage, logout for SettingsController),
+     *      and stores the controller as user data on the parent node for lifecycle dispatch.
+     *
+     * @param key the ViewKey identifying which FXML resource to load
+     * @return the loaded Parent node with controller stored as user data
      */
     private Parent loadView(ViewKey key) {
         String resource = switch (key) {

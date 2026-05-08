@@ -1,19 +1,33 @@
+/**
+ * ------------------------------------------------------------
+ *  Project: Sentence Builder
+ *  File:    AppearanceCatalog.java
+ *  Author:  Huy Nong
+ *
+ *  Description:
+ *      Documentation anchor for the appearance package. Not used at runtime.
+ *      Points developers to the relevant classes that make up the theming system:
+ *      AppTheme, AppFont, FontSizePreset, UiPreferences, and the CSS files.
+ *
+ *  Version: 1.0
+ *  Created: 2026-03-27
+ *  Last Modified: 2026-05-07
+ *
+ *  Responsibilities:
+ *      - Serve as a discoverable entry point for the appearance package in the IDE
+ *      - Link to ThemePaletteKeys, TypographyRole, and SurfaceRole via Javadoc
+ * ------------------------------------------------------------
+ */
+
 package com.group37.sentencebuilder.ui.appearance;
 
-/**
- * <strong>Documentation anchor only — not used at runtime.</strong>
- * <p>
+/*
+ * Documentation anchor only — not used at runtime.
  * The app does not load themes from a central “catalog object.” Appearance is driven by:
- * {@link com.group37.sentencebuilder.ui.AppTheme}, {@link com.group37.sentencebuilder.ui.AppFont},
- * {@link com.group37.sentencebuilder.ui.FontSizePreset}, {@link com.group37.sentencebuilder.ui.UiPreferences},
- * and CSS under {@code src/main/resources/css/}. This empty class exists so the package has a single
- * discoverable entry in the IDE and this Javadoc can point engineers to those types — similar to a
- * README index, not a data structure.
- * </p>
- * <ul>
- *   <li><strong>Palette variable names</strong> — {@link ThemePaletteKeys}</li>
- *   <li><strong>Typography / surface roles</strong> — {@link TypographyRole}, {@link SurfaceRole}</li>
- * </ul>
+ * AppTheme, AppFont, FontSizePreset, UiPreferences, and CSS under src/main/resources/css/.
+ * This empty class exists so the package has a single discoverable entry in the IDE.
+ * - Palette variable names: ThemePaletteKeys
+ * - Typography / surface roles: TypographyRole, SurfaceRole
  */
 public final class AppearanceCatalog {
 

@@ -5,31 +5,25 @@
  *  Author:  Sebastian Sarinana
  *
  *  Description:
- *      Enum defining all color themes available in the application.
- *      Handles OS color scheme resolution for SYSTEM and INVERT_SYSTEM modes
- *      and provides per-theme ComboBox popup row colors.
+ *      Enum defining all color themes; handles OS color scheme resolution for SYSTEM and INVERT_SYSTEM modes.
  *
  *  Version: 1.0
  *  Created: 2026-03-27
- *  Last Modified: 2026-04-10
+ *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
- *      - Define all color theme options and their CSS palette class names
- *      - Resolve the correct palette class based on the OS color scheme
- *      - Supply background and text hex colors for ComboBox popup rows per theme
+ *      - Define color theme options and their resolved CSS palette class names
+ *      - Supply per-theme hex colors for ComboBox popup rows that cannot inherit scene CSS
  * ------------------------------------------------------------
  */
 
-package com.group37.sentencebuilder.ui;
+package com.group37.sentencebuilder.ui_layer.theming;
 
 import javafx.application.ColorScheme;
 
-/*
- * UI color themes. The combo shows getDisplayLabel() (e.g. “Light mode”, “Dark”).
- * Contrast for shell chrome, table headers, and page eyebrows is driven by sb-chrome-*,
- * sb-table-header-*, and sb-eyebrow-* tokens defined per theme in theme-palettes.css.
- * SYSTEM maps to the OS light/dark appearance via JavaFX ColorScheme (same signal as the
- * OS “appearance” setting — not a separate clock). INVERT_SYSTEM inverts that pairing.
+/**
+ * UI color themes. The Settings combo shows getDisplayLabel() (e.g. "Light mode", "Dark").
+ * SYSTEM maps to the OS light/dark appearance via JavaFX ColorScheme; INVERT_SYSTEM inverts that pairing.
  */
 public enum AppTheme {
     DEFAULT("Dark", "theme-default"),
@@ -52,22 +46,50 @@ public enum AppTheme {
     private final String displayLabel;
     private final String styleClass;
 
+    /**
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Constructs an AppTheme entry with its display label and CSS palette class.
+     *
+     * @param displayLabel human-readable name shown in the Settings combo box
+     * @param styleClass CSS class applied on the shell root to activate this theme palette
+     */
     AppTheme(String displayLabel, String styleClass) {
         this.displayLabel = displayLabel;
         this.styleClass = styleClass;
     }
 
+    /**
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Returns the human-readable theme name shown in the Settings combo box.
+     *
+     * @return display label string
+     */
     public String getDisplayLabel() {
         return displayLabel;
     }
 
+    /**
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Returns the raw CSS palette class for this theme entry before OS-scheme resolution.
+     *
+     * @return CSS style class string
+     */
     public String getStyleClass() {
         return styleClass;
     }
 
-    /*
-     * CSS palette class actually applied on the scene root. For SYSTEM and INVERT_SYSTEM,
-     * this follows (or inverts) the OS ColorScheme instead of using a fixed stylesheet block.
+    /**
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Returns the CSS palette class actually applied on the scene root. For SYSTEM and
+     *      INVERT_SYSTEM this follows (or inverts) the OS ColorScheme instead of using a
+     *      fixed stylesheet block.
+     *
+     * @param systemScheme the current OS color scheme; treated as LIGHT if null
+     * @return resolved CSS palette class string
      */
     public String resolvedPaletteStyleClass(ColorScheme systemScheme) {
         ColorScheme s = systemScheme != null ? systemScheme : ColorScheme.LIGHT;
@@ -79,7 +101,15 @@ public enum AppTheme {
         };
     }
 
-    /* Concrete theme used for ComboBox popup row colors (same rules as resolvedPaletteStyleClass). */
+    /**
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Returns the concrete AppTheme used for ComboBox popup row colors, applying the same
+     *      SYSTEM / INVERT_SYSTEM resolution rules as resolvedPaletteStyleClass.
+     *
+     * @param systemScheme the current OS color scheme; treated as LIGHT if null
+     * @return resolved concrete AppTheme constant
+     */
     public AppTheme resolvedForChrome(ColorScheme systemScheme) {
         ColorScheme s = systemScheme != null ? systemScheme : ColorScheme.LIGHT;
         boolean dark = s == ColorScheme.DARK;
@@ -90,18 +120,38 @@ public enum AppTheme {
         };
     }
 
-    /*
-     * ComboBox popup list rows are rendered in a separate scene that does not inherit sb-* CSS
-     * lookups from the main shell — use these hex colors for normal (non-selected) rows.
+    /**
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Returns the background hex color for non-selected ComboBox popup rows. Popup rows
+     *      live in a separate JavaFX scene and cannot inherit CSS variables from the main shell.
+     *
+     * @return hex color string (e.g. "#ffffff")
      */
     public String comboPopupRowBgHex() {
         return resolvedForChrome(safeColorScheme()).comboPopupRowBgHexConcrete();
     }
 
+    /**
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Returns the text hex color for non-selected ComboBox popup rows. Popup rows
+     *      live in a separate JavaFX scene and cannot inherit CSS variables from the main shell.
+     *
+     * @return hex color string (e.g. "#18181b")
+     */
     public String comboPopupRowTextHex() {
         return resolvedForChrome(safeColorScheme()).comboPopupRowTextHexConcrete();
     }
 
+    /**
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Returns the current OS color scheme, falling back to LIGHT if the platform
+     *      does not expose a color scheme preference.
+     *
+     * @return current ColorScheme, never null
+     */
     private static ColorScheme safeColorScheme() {
         try {
             return javafx.application.Platform.getPreferences().getColorScheme();
@@ -110,6 +160,14 @@ public enum AppTheme {
         }
     }
 
+    /**
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Returns the concrete background hex color for this theme's popup rows without
+     *      any OS-scheme resolution. Only valid to call on fully concrete themes.
+     *
+     * @return hex color string
+     */
     private String comboPopupRowBgHexConcrete() {
         return switch (this) {
             case LIGHT -> "#ffffff";
@@ -128,6 +186,14 @@ public enum AppTheme {
         };
     }
 
+    /**
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Returns the concrete text hex color for this theme's popup rows without
+     *      any OS-scheme resolution. Only valid to call on fully concrete themes.
+     *
+     * @return hex color string
+     */
     private String comboPopupRowTextHexConcrete() {
         return switch (this) {
             case LIGHT -> "#18181b";
@@ -146,6 +212,13 @@ public enum AppTheme {
         };
     }
 
+    /**
+     * Author: Sebastian Sarinana
+     * Description:
+     *      Returns the display label as the string representation of this enum constant.
+     *
+     * @return display label string
+     */
     @Override
     public String toString() {
         return displayLabel;

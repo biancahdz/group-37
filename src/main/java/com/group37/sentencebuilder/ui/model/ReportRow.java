@@ -1,3 +1,24 @@
+/**
+ * ------------------------------------------------------------
+ *  Project: Sentence Builder
+ *  File:    ReportRow.java
+ *  Author:  Cortland Kimzey
+ *
+ *  Description:
+ *      Table row model for the original ui ReportsController. Holds mock
+ *      generation report data as JavaFX StringProperty fields for use with
+ *      TableView cell value factories.
+ *
+ *  Version: 1.0
+ *  Created: 2026-03-22
+ *  Last Modified: 2026-05-07
+ *
+ *  Responsibilities:
+ *      - Store report ID, algorithm name, generation timestamp, and sentence preview
+ *      - Expose each field as a StringProperty for TableColumn binding
+ * ------------------------------------------------------------
+ */
+
 package com.group37.sentencebuilder.ui.model;
 
 import javafx.beans.property.SimpleStringProperty;

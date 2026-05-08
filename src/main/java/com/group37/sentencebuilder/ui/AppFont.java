@@ -1,9 +1,28 @@
+/**
+ * ------------------------------------------------------------
+ *  Project: Sentence Builder
+ *  File:    AppFont.java
+ *  Author:  Sebastian Sarinana
+ *
+ *  Description:
+ *      Enum defining the font stack options available in the application shell.
+ *      Each entry maps a display label to a CSS style class applied on the scene root.
+ *
+ *  Version: 1.0
+ *  Created: 2026-03-27
+ *  Last Modified: 2026-03-27
+ *
+ *  Responsibilities:
+ *      - Define all available font stacks for the application
+ *      - Provide CSS style class names used to apply fonts on the shell root
+ *      - Provide display labels shown in the Settings font combo box
+ * ------------------------------------------------------------
+ */
+
 package com.group37.sentencebuilder.ui;
 
-/**
- * Font stacks applied on the app root. {@link #DEFAULT} matches the UI stack; the combo shows {@link #getDisplayLabel()}
- * (e.g. "System UI"), not a placeholder name.
- */
+/* Font stacks applied on the app root. DEFAULT matches the UI stack; the combo shows getDisplayLabel()
+ * (e.g. "System UI"), not a placeholder name. */
 public enum AppFont {
     DEFAULT("System UI", "font-stack-default"),
     TIMES_NEW_ROMAN("Times New Roman", "font-stack-times"),
@@ -33,11 +52,11 @@ public enum AppFont {
         return styleClass;
     }
 
-    /**
+    /*
      * Extra layout class on the scene root so letter-spacing and line spacing match dense faces (Consolas, many serifs).
-     * Normalized root font-size for each size preset is set per {@link #getStyleClass()} in {@code theme-palettes.css}
-     * ({@code .root.font-stack-*.fs-*}) so switching fonts stays a similar visual size; this class only adds tracking.
-     * Paired CSS: {@code font-metrics-default} vs {@code font-metrics-relaxed}.
+     * Normalized root font-size for each size preset is set per getStyleClass() in theme-palettes.css
+     * (.root.font-stack-*.fs-*) so switching fonts stays a similar visual size; this class only adds tracking.
+     * Paired CSS: font-metrics-default vs font-metrics-relaxed.
      */
     public String getMetricsStyleClass() {
         return switch (this) {

@@ -4,20 +4,16 @@
  *  File:    GenerateController.java
  *  Author:  Huy Nong, Cortland Kimzey
  *
- * Author: 
- * Created: 
- * Last Modified: 2026-04-23
- *
  *  Description:
- *      <description>
+ *      Sentence generator controller. Configures algorithm selection and triggers corpus-backed generation through GeneratorLogic.
  *
  *  Version: 1.0
- *  Created: 
- *  Last Modified: 
+ *  Created: 2026-05-07
+ *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
- *      - <responsibilities 1>
- *      - <responsibilities 2>
+ *      - Collect generator inputs (start word, algorithm) and display generated output
+ *      - Coordinate UI state with backend generation logic and (optionally) database availability
  * ------------------------------------------------------------
  */
 
@@ -25,11 +21,8 @@ package com.group37.sentencebuilder.ui_layer;
 
 import com.group37.sentencebuilder.logic_layer.GeneratorLogic;
 
-import com.group37.sentencebuilder.ui.LabelThemeRegistry;
+import com.group37.sentencebuilder.ui_layer.theming.LabelThemeRegistry;
 
-import com.group37.sentencebuilder.data_layer.Database;
-import java.util.List;
-import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -42,11 +35,9 @@ public class GenerateController implements ApplicationPage {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Enumerates the sentence generation algorithms available in the generator UI,
+     *      each paired with a display label used in the ComboBox.
      */
     enum Algorithm {
         MARKOV("Stochastic Markov chain"),
@@ -90,11 +81,9 @@ public class GenerateController implements ApplicationPage {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Populates the algorithm combo with available options, selects the first by default,
+     *      sets the output placeholder text, and registers the eyebrow label for dark-mode styling.
      */
     @FXML
     private void initialize() {
@@ -113,11 +102,8 @@ public class GenerateController implements ApplicationPage {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Applies theme-aware label styling when the generator page becomes visible.
      */
     @Override
     public void onPageEnter() {
@@ -126,11 +112,8 @@ public class GenerateController implements ApplicationPage {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      No cleanup required when leaving the generator page.
      */
     @Override
     public void onPageLeave() {
@@ -138,11 +121,9 @@ public class GenerateController implements ApplicationPage {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Reads the start word and selected algorithm from the UI, runs the corresponding
+     *      generation logic, saves a report record, and displays the result in the output area.
      */
     @FXML
     private void onGenerate() {

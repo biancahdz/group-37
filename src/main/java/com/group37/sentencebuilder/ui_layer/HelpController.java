@@ -1,25 +1,25 @@
 /**
  * ------------------------------------------------------------
  *  Project: Sentence Builder
- *  File:    .java
- *  Author:  
+ *  File:    HelpController.java
+ *  Author:  Sebastian Sarinana, Cortland Kimzey, Huy Nong
  *
  *  Description:
- *      <description>
+ *      Controller for the static Help page; applies theme-aware label styling and opens the support email link.
  *
  *  Version: 1.0
- *  Created: 
- *  Last Modified: 
+ *  Created: 2026-05-07
+ *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
- *      - <responsibilities 1>
- *      - <responsibilities 2>
+ *      - Apply help-page chrome styling for readability in light/dark modes
+ *      - Handle the “Contact support” mailto action
  * ------------------------------------------------------------
  */
 
 package com.group37.sentencebuilder.ui_layer;
 
-import com.group37.sentencebuilder.ui.UiPreferences;
+import com.group37.sentencebuilder.ui_layer.theming.UiPreferences;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -52,12 +52,10 @@ public class HelpController implements ApplicationPage {
     @FXML private Hyperlink supportMailHyperlink;
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana, Cortland Kimzey, Huy Nong
+     * Description:
+     *      Sets the support hyperlink text, registers theme and OS color-scheme listeners
+     *      to reapply chrome on change, and defers an initial chrome pass to after layout.
      */
     @FXML
     private void initialize() {
@@ -79,12 +77,10 @@ public class HelpController implements ApplicationPage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana, Cortland Kimzey, Huy Nong
+     * Description:
+     *      Opens the system default mail client addressed to the support inbox when
+     *      the contact hyperlink is clicked.
      */
     @FXML
     private void onSupportMailClicked() {
@@ -92,12 +88,10 @@ public class HelpController implements ApplicationPage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana, Cortland Kimzey, Huy Nong
+     * Description:
+     *      Reapplies help page chrome immediately and on deferred layout pulses to ensure
+     *      all labels render correctly in the current light or dark theme.
      */
     @Override
     public void onPageEnter() {
@@ -107,24 +101,20 @@ public class HelpController implements ApplicationPage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana, Cortland Kimzey, Huy Nong
+     * Description:
+     *      No cleanup required when leaving the help page.
      */
     @Override
     public void onPageLeave() {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana, Cortland Kimzey, Huy Nong
+     * Description:
+     *      Walks the help page scene graph to style all labeled nodes, then directly
+     *      applies fills to named hero and section labels with deferred retries for
+     *      labels that may not yet have their skin built.
      */
     private void applyHelpChrome() {
         boolean dark = UiPreferences.get().isResolvedDarkSurface();
@@ -144,12 +134,12 @@ public class HelpController implements ApplicationPage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana, Cortland Kimzey, Huy Nong
+     * Description:
+     *      Directly sets inline text-fill on all named hero and section labels based on
+     *      the dark flag, bypassing CSS cascade issues with dark-surface palettes.
+     *
+     * @param dark true if the current surface palette is dark
      */
     private void applyDirectHeroLabels(boolean dark) {
         String w = dark ? "-fx-text-fill: #ffffff;" : null;
@@ -165,12 +155,13 @@ public class HelpController implements ApplicationPage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana, Cortland Kimzey, Huy Nong
+     * Description:
+     *      Recursively walks the scene graph from the given node and applies inline fill
+     *      styles to every Labeled node based on its style classes and the dark flag.
+     *
+     * @param node the root node to walk
+     * @param dark true if the current surface palette is dark
      */
     private static void walkHelpLabels(Node node, boolean dark) {
         if (node instanceof Labeled lab) {
@@ -184,12 +175,14 @@ public class HelpController implements ApplicationPage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Sebastian Sarinana, Cortland Kimzey, Huy Nong
+     * Description:
+     *      Returns the appropriate inline style string for a help page label based on its
+     *      CSS class and the dark flag; returns null to let the CSS cascade handle light mode.
+     *
+     * @param lab the Labeled node whose style classes determine the fill
+     * @param dark true if the current surface palette is dark
+     * @return inline style string or null
      */
     private static String resolveHelpLabelStyle(Labeled lab, boolean dark) {
         if (!dark) return null;

@@ -5,11 +5,11 @@
  *  Author:  Cortland Kimzey
  *
  *  Description:
- *      <description>
+ *      Lifecycle interface for page controllers hosted by the main shell.
  *
  *  Version: 1.0
  *  Created: 2026-03-26
- *  Last Modified: 2026-03-24
+ *  Last Modified: 2026-03-26
  *
  *  Responsibilities:
  *      - Creates functions to be overwritten by the page using them
@@ -25,10 +25,7 @@ public interface ApplicationPage {
     /**
      * Author: Cortland Kimzey
      * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     *      Called when the page becomes visible/active in the shell.
      */
     void onPageEnter();
 
@@ -36,10 +33,7 @@ public interface ApplicationPage {
     /**
      * Author: Cortland Kimzey
      * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     *      Called when the page is being hidden/deactivated in the shell.
      */
     void onPageLeave();
 

@@ -5,14 +5,15 @@
  *  Author:  Cortland Kimzey
  *
  *  Description:
- *      <description>
+ *      Contract for controllers that require a Database instance from the application shell.
  *
  *  Version: 1.0
  *  Created: 2026-03-26
  *  Last Modified: 2026-03-27
  *
  *  Responsibilities:
- *      - Allow a page to create a database object
+ *      - Allow a page controller to receive a shared Database instance via dependency injection
+ *      - Provide lifecycle-compatible database injection so pages can query or mutate corpus data
  * ------------------------------------------------------------
  */
 
@@ -20,17 +21,17 @@ package com.group37.sentencebuilder.ui_layer;
 
 import com.group37.sentencebuilder.data_layer.Database;
 
+/** Contract for page controllers that need access to the shared Database instance. */
 public interface DatabasePage
 {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Injects the active Database instance so the page can query or mutate corpus data.
+     *
+     * @param db active database connection wrapper
      */
     public void setDatabase(Database db);
-    
+
 }

@@ -5,29 +5,26 @@
  *  Author:  Huy Nong, Cortland Kimzey
  *
  *  Description:
- *      <description>
+ *      Reports page controller. Displays generated-sentence reports and supports client-side filtering/sorting.
  *
  *  Version: 1.0
  *  Created: 2026-03-26
- *  Last Modified: 2026-03-24
+ *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
- *      - <responsibilities 1>
- *      - <responsibilities 2>
+ *      - Populate and bind the reports TableView to ReportRow properties
+ *      - Apply filter selections and keep the table sorted for quick review
  * ------------------------------------------------------------
  */
 
 package com.group37.sentencebuilder.ui_layer;
 
-import com.group37.sentencebuilder.ui.LabelThemeRegistry;
+import com.group37.sentencebuilder.ui_layer.theming.LabelThemeRegistry;
 
 import com.group37.sentencebuilder.ui_layer.model.ReportRow;
 
 import com.group37.sentencebuilder.data_layer.Database;
-import com.group37.sentencebuilder.ui_layer.ApplicationPage;
-import com.group37.sentencebuilder.ui_layer.DatabasePage;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -74,11 +71,9 @@ public class ReportsController implements ApplicationPage, DatabasePage {
 
     /**
      * Author: Huy Nong
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Populates the algorithm and date filter combos, binds table column value factories,
+     *      applies a rounded clip to the table, and registers the eyebrow label for dark-mode styling.
      */
     @FXML
     private void initialize() {
@@ -99,12 +94,13 @@ public class ReportsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Clips the given TableView to rounded corners by binding a Rectangle clip
+     *      to the table's width and height properties.
+     *
+     * @param table the TableView to clip
+     * @param radius corner arc radius in pixels
      */
     private static void applyRoundedClip(TableView<?> table, double radius) {
         Rectangle clip = new Rectangle();
@@ -116,12 +112,12 @@ public class ReportsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Applies the current algorithm combo selection as a predicate on the filtered list,
+     *      hiding rows that do not match the selected algorithm.
+     *
+     * @param filtered the FilteredList to update with the current filter predicate
      */
     private void updateFilter(FilteredList<ReportRow> filtered) {
         String algo = algorithmFilter.getSelectionModel().getSelectedItem();
@@ -135,11 +131,9 @@ public class ReportsController implements ApplicationPage, DatabasePage {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Connects to the database, loads all report rows, wires filter listeners,
+     *      and binds the sorted list to the table for display.
      */
     @Override
     public void onPageEnter() {
@@ -158,11 +152,8 @@ public class ReportsController implements ApplicationPage, DatabasePage {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Disconnects from the database when the reports page is hidden.
      */
     @Override
     public void onPageLeave() {
@@ -171,11 +162,10 @@ public class ReportsController implements ApplicationPage, DatabasePage {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Stores the injected Database instance for use during page lifecycle calls.
+     *
+     * @param database the shared database connection wrapper
      */
     @Override
     public void setDatabase(Database database)

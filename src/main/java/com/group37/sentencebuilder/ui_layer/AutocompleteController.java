@@ -1,19 +1,19 @@
 /**
  * ------------------------------------------------------------
  *  Project: Sentence Builder
- *  File:    .java
+ *  File:    AutocompleteController.java
  *  Author:  Huy Nong, Cortland Kimzey, Bianca Hernandez
  *
  *  Description:
- *      <description>
+ *      Autocomplete screen controller. Suggests words from the corpus based on the current prefix and allows adding words.
  *
  *  Version: 1.0
- *  Created: 
- *  Last Modified: 
+ *  Created: 2026-05-07
+ *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
- *      - <responsibilities 1>
- *      - <responsibilities 2>
+ *      - Query and display prefix-matched word suggestions from the database
+ *      - Provide UI actions for updating the suggestions list and adding new words
  * ------------------------------------------------------------
  */
 
@@ -21,10 +21,7 @@ package com.group37.sentencebuilder.ui_layer;
 
 import com.group37.sentencebuilder.data_layer.Database;
 
-import com.group37.sentencebuilder.ui.LabelThemeRegistry;
-
-import com.group37.sentencebuilder.ui_layer.ApplicationPage;
-import com.group37.sentencebuilder.ui_layer.DatabasePage;
+import com.group37.sentencebuilder.ui_layer.theming.LabelThemeRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,11 +59,9 @@ public class AutocompleteController implements ApplicationPage, DatabasePage {
 
     /**
      * Author: Huy Nong
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Attaches a text-change listener to the prefix field to trigger live suggestion
+     *      refresh, and registers the eyebrow label for dark-mode styling.
      */
     @FXML
     private void initialize() {
@@ -76,11 +71,11 @@ public class AutocompleteController implements ApplicationPage, DatabasePage {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Queries the database on a background thread for words matching the current prefix
+     *      and populates the suggestion chip pane with clickable word labels.
+     *
+     * @param raw the current text field value used to derive the active prefix
      */
     private void refreshSuggestions(String raw) {
 
@@ -94,17 +89,12 @@ public class AutocompleteController implements ApplicationPage, DatabasePage {
         String[] parts = trimmed.isEmpty() ? new String[0] : trimmed.split("\\s+");
 
         String currentWord = "";
-        String previousWord = "";
 
         if (parts.length > 0) {
             currentWord = parts[parts.length - 1];
         }
-        if (parts.length > 1) {
-            previousWord = parts[parts.length - 2];
-        }
 
         String finalCurrentWord = currentWord;
-        String finalPreviousWord = previousWord;
 
         Task<List<String>> task = new Task<>() {
             @Override
@@ -183,11 +173,9 @@ public class AutocompleteController implements ApplicationPage, DatabasePage {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Connects to the database, applies theme-aware label styling, and triggers
+     *      an initial suggestion refresh for the current prefix field value.
      */
     @Override
     public void onPageEnter() {
@@ -198,11 +186,8 @@ public class AutocompleteController implements ApplicationPage, DatabasePage {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Disconnects from the database when the autocomplete page is hidden.
      */
     @Override
     public void onPageLeave()
@@ -212,11 +197,10 @@ public class AutocompleteController implements ApplicationPage, DatabasePage {
 
     /**
      * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Description:
+     *      Stores the injected Database instance used for word queries and autocomplete lookups.
+     *
+     * @param database the shared database connection wrapper
      */
     @Override
     public void setDatabase(Database database)
@@ -226,13 +210,11 @@ public class AutocompleteController implements ApplicationPage, DatabasePage {
     
     /**
      * Author: Bianca Hernandez
-     * Description: 
-     *      Handles the add word button click. Extracts the current 
-     *      word from text field and adds it to the db if it is not
-     *      blank. Updates the hint label to confirm the word was added
-     * 
+     * Description:
+     *      Extracts the last word from the prefix field and adds it to the database,
+     *      then refreshes suggestions and shows a confirmation hint.
      */
-    @FXML 
+    @FXML
     private void onAddWord() {
          String[] parts = prefixField.getText().trim().toLowerCase().split("\\s+");
          if (parts.length == 0) return;

@@ -1,19 +1,19 @@
 /**
  * ------------------------------------------------------------
  *  Project: Sentence Builder
- *  File:    .java
- *  Author:  
+ *  File:    WordFrequencyRow.java
+ *  Author:  Huy Nong
  *
  *  Description:
- *      <description>
+ *      JavaFX TableView row model for the Word Analytics “top words” table (rank, word, count).
  *
  *  Version: 1.0
- *  Created: 
- *  Last Modified: 
+ *  Created: 2026-05-06
+ *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
- *      - <responsibilities 1>
- *      - <responsibilities 2>
+ *      - Store rank/word/count values as JavaFX properties for binding
+ *      - Provide property accessors used by the analytics UI controller
  * ------------------------------------------------------------
  */
 
@@ -30,12 +30,13 @@ public class WordFrequencyRow {
     private final StringProperty count;
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Constructs a table row representing one ranked word and its occurrence count.
+     *
+     * @param rank display rank (e.g., "1")
+     * @param word token text
+     * @param count formatted occurrence count
      */
     public WordFrequencyRow(String rank, String word, String count) {
         this.rank = new SimpleStringProperty(rank);
@@ -44,60 +45,55 @@ public class WordFrequencyRow {
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the JavaFX property for the displayed rank.
+     *
+     * @return rank property
      */
     public StringProperty rankProperty() {
         return rank;
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the JavaFX property for the displayed word text.
+     *
+     * @return word property
      */
     public StringProperty wordProperty() {
         return word;
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the JavaFX property for the displayed count.
+     *
+     * @return count property
      */
     public StringProperty countProperty() {
         return count;
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the current word value for convenience (non-property access).
+     *
+     * @return word string
      */
     public String getWord() {
         return word.get();
     }
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * Author: Huy Nong
+     * Description:
+     *      Returns the current count value for convenience (non-property access).
+     *
+     * @return count string
      */
     public String getCount() {
         return count.get();

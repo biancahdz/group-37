@@ -1,17 +1,19 @@
 /**
- * File: 
- * Description: 
+ * File: SentenceBuilderApp.java
+ * Description:
+ *      JavaFX application entry point. Boots the login/title view first, then loads the main shell after
+ *      successful login. Also re-attaches the title view after logout.
  *
- * Author: 
- * Created: 
- * Last Modified: 2026-03-25
+ * Author: Sebastian Sarinana, Cortland Kimzey, Huy Nong
+ * Created: 2026-05-07
+ * Last Modified: 2026-05-07
  *
  * Version: 1.0
  */
 
 package com.group37.sentencebuilder;
 
-import com.group37.sentencebuilder.ui.UiPreferences;
+import com.group37.sentencebuilder.ui_layer.theming.UiPreferences;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -34,14 +36,6 @@ public class SentenceBuilderApp extends Application {
     private static final double MIN_WIDTH = 1024;
     private static final double MIN_HEIGHT = 640;
 
-    /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
-     */
     @Override
     public void start(Stage stage) throws IOException {
         stage.setTitle("Sentence Builder");
@@ -56,14 +50,6 @@ public class SentenceBuilderApp extends Application {
     /**
      * @param afterLogout if true, skip auto-launch when the DB is reachable so the user sees login again
      */
-    /**
-     * Author: 
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
-     */
     private void showTitleView(Stage stage, boolean afterLogout) throws IOException {
         if (afterLogout) {
             TitleController.setNextShowLoginOnly(true);
@@ -74,6 +60,7 @@ public class SentenceBuilderApp extends Application {
 
         TitleController controller = loader.getController();
 
+        // The title controller owns authentication/DB readiness checks; on success we transition to the shell.
         controller.setOnLoginSuccess(() -> {
             try {
                 loadMainShell(stage);
@@ -100,6 +87,7 @@ public class SentenceBuilderApp extends Application {
         Parent root = loader.load();
 
         MainShellController shell = loader.getController();
+        // Keep logout wiring centralized: the shell triggers a callback, and the app swaps back to TitleView.
         shell.setOnLogout(() -> {
             try {
                 showTitleView(stage, true);
