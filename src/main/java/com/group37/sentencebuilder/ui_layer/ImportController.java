@@ -2,7 +2,7 @@
  * ------------------------------------------------------------
  *  Project: Sentence Builder
  *  File:    ImportController.java
- *  Author:  Cortland Kimzey, Huy Nong, Sebastian Sarinana
+ *  Author:  Huy Nong, Sebastian Sarinana
  *
  *  Description:
  *      Controls the import page of the UI. Allows the user to upload files
@@ -52,7 +52,7 @@ public class ImportController implements ApplicationPage, DatabasePage {
     private Database database;
 
     /**
-     * Author: Cortland Kimzey, Sebastian Sarinana
+     * Author: Sebastian Sarinana
      * Description:
      *      Stores the injected Database instance for use during import operations.
      *
