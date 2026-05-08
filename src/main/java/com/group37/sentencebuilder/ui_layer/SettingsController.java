@@ -8,7 +8,7 @@
  *      Settings screen controller for appearance preferences (theme, font, font size) and support links.
  *
  *  Version: 1.0
- *  Created: 2026-05-07
+ *  Created: 2026-04-06
  *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
