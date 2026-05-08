@@ -2,7 +2,7 @@
  * ------------------------------------------------------------
  *  Project: Sentence Builder
  *  File:    ApplicationPage.java
- *  Author:  Sebastian Sarinana
+ *  Author:  Cortland Kimzey, Sebastian Sarinana
  *
  *  Description:
  *      Lifecycle interface for page controllers hosted by the main shell.
@@ -23,7 +23,7 @@ package com.group37.sentencebuilder.ui_layer;
 public interface ApplicationPage {
 
     /**
-     * Author: Sebastian Sarinana
+     * Author: Cortland Kimzey
      * Description: 
      *      Called when the page becomes visible/active in the shell.
      */
@@ -31,7 +31,7 @@ public interface ApplicationPage {
 
 
     /**
-     * Author: Sebastian Sarinana
+     * Author: Cortland Kimzey
      * Description: 
      *      Called when the page is being hidden/deactivated in the shell.
      */

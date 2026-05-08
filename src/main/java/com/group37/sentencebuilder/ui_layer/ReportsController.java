@@ -2,7 +2,7 @@
  * ------------------------------------------------------------
  *  Project: Sentence Builder
  *  File:    ReportsController.java
- *  Author:  Huy Nong, Sebastian Sarinana
+ *  Author:  Cortland Kimzey, Huy Nong, Sebastian Sarinana
  *
  *  Description:
  *      Reports page controller. Displays generated-sentence reports and supports client-side filtering/sorting.
