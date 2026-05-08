@@ -2,14 +2,14 @@
  * ------------------------------------------------------------
  *  Project: Sentence Builder
  *  File:    DatabasePage.java
- *  Author:  Cortland Kimzey
+ *  Author:  Sebastian Sarinana
  *
  *  Description:
  *      Contract for controllers that require a Database instance from the application shell.
  *
  *  Version: 1.0
- *  Created: 2026-03-26
- *  Last Modified: 2026-03-27
+ *  Created: 2026-03-31
+ *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
  *      - Allow a page controller to receive a shared Database instance via dependency injection
@@ -26,7 +26,7 @@ public interface DatabasePage
 {
 
     /**
-     * Author: Cortland Kimzey
+     * Author: Sebastian Sarinana
      * Description:
      *      Injects the active Database instance so the page can query or mutate corpus data.
      *

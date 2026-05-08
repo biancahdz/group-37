@@ -2,14 +2,14 @@
  * ------------------------------------------------------------
  *  Project: Sentence Builder
  *  File:    ApplicationPage.java
- *  Author:  Cortland Kimzey
+ *  Author:  Sebastian Sarinana
  *
  *  Description:
  *      Lifecycle interface for page controllers hosted by the main shell.
  *
  *  Version: 1.0
- *  Created: 2026-03-26
- *  Last Modified: 2026-03-26
+ *  Created: 2026-03-31
+ *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
  *      - Creates functions to be overwritten by the page using them
@@ -23,7 +23,7 @@ package com.group37.sentencebuilder.ui_layer;
 public interface ApplicationPage {
 
     /**
-     * Author: Cortland Kimzey
+     * Author: Sebastian Sarinana
      * Description: 
      *      Called when the page becomes visible/active in the shell.
      */
@@ -31,7 +31,7 @@ public interface ApplicationPage {
 
 
     /**
-     * Author: Cortland Kimzey
+     * Author: Sebastian Sarinana
      * Description: 
      *      Called when the page is being hidden/deactivated in the shell.
      */

@@ -2,13 +2,13 @@
  * ------------------------------------------------------------
  *  Project: Sentence Builder
  *  File:    ReportsController.java
- *  Author:  Huy Nong, Cortland Kimzey
+ *  Author:  Huy Nong, Sebastian Sarinana
  *
  *  Description:
  *      Reports page controller. Displays generated-sentence reports and supports client-side filtering/sorting.
  *
  *  Version: 1.0
- *  Created: 2026-03-26
+ *  Created: 2026-03-22
  *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
@@ -130,7 +130,7 @@ public class ReportsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: Cortland Kimzey
+     * Author: Sebastian Sarinana
      * Description:
      *      Connects to the database, loads all report rows, wires filter listeners,
      *      and binds the sorted list to the table for display.
@@ -151,7 +151,7 @@ public class ReportsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: Cortland Kimzey
+     * Author: Sebastian Sarinana
      * Description:
      *      Disconnects from the database when the reports page is hidden.
      */
@@ -161,7 +161,7 @@ public class ReportsController implements ApplicationPage, DatabasePage {
     }
 
     /**
-     * Author: Cortland Kimzey
+     * Author: Sebastian Sarinana
      * Description:
      *      Stores the injected Database instance for use during page lifecycle calls.
      *

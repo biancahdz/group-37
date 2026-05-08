@@ -10,7 +10,7 @@
  *
  *  Version: 1.0
  *  Created: 2026-03-27
- *  Last Modified: 2026-03-27
+ *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
  *      - Define all available font stacks for the application

@@ -4,8 +4,8 @@
  *      JavaFX application entry point. Boots the login/title view first, then loads the main shell after
  *      successful login. Also re-attaches the title view after logout.
  *
- * Author: Sebastian Sarinana, Cortland Kimzey, Huy Nong
- * Created: 2026-05-07
+ * Author: Sebastian Sarinana, Huy Nong
+ * Created: 2026-03-21
  * Last Modified: 2026-05-07
  *
  * Version: 1.0

@@ -104,13 +104,17 @@ public final class TxtOnDiskAnalytics {
 
     /**
      * Author: Huy Nong
-     * Description: 
-     *      Reads and processes a txt file to compute word frequencies,
-     *      bigram counts, and aggregate statistics
-     * 
-     * @param file text file to scan
-     * @param limit the maximum number of top entries to return 
-     * @return a ScanResult containing top words, bigrams and aggregates
+     * Description:
+     *      Scans the provided text file and computes word-frequency and bigram-frequency statistics
+     *      using the same sentence splitting and tokenization rules as the import pipeline.
+     *
+     *      This method is the core implementation behind {@link #scan(String, int)} and is used to
+     *      support offline per-file analytics (reading the `.txt` directly from disk).
+     *
+     * @param file  the `.txt` file to read and analyze
+     * @param limit maximum number of ranked word/bigram entries to return
+     * @return computed top words, top bigrams, and aggregate metrics for the file
+     * @throws IOException if the file cannot be read
      */
     static ScanResult scanFile(File file, int limit) throws IOException {
         StringBuilder sb = new StringBuilder();

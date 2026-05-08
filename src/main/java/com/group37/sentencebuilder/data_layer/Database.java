@@ -64,7 +64,7 @@ public class Database
     /**
      * Author: Amrita Thapa
      * Description: 
-     *      <description>
+     *      Returns the username credetial stored in this Database instance.
      * 
      * @return result description
      */
@@ -73,7 +73,7 @@ public class Database
     /**
      * Author: Amrita Thapa
      * Description: 
-     *      <description>
+     *      Returns the password credential stored in this Database instance.
      * 
      * @return result description
      */
@@ -94,7 +94,7 @@ public class Database
     /**
      * Author: Amrita Thapa
      * Description: 
-     *      <description>
+     *      Constructus a Database instance with the given credential and target database name
      * 
      * @param input description
      * @return result description
@@ -108,7 +108,7 @@ public class Database
     /**
      * Author: Amrita Thapa
      * Description: 
-     *      <description>
+     *      Builds the JDBC connection URL for the given database name using the configured host and port.
      * 
      * @param input description
      * @return result description
@@ -121,7 +121,7 @@ public class Database
     /**
      * Author: Amrita Thapa
      * Description: 
-     *      <description>
+     *      Opens a JDBC connection to the database and returns true if successful.
      * 
      * @param input description
      * @return result description
@@ -138,7 +138,7 @@ public class Database
     /**
      * Author: Amrita Thapa
      * Description: 
-     *      <description>
+     *      Closes the active JDBC connection and returns true if successful
      * 
      * @param input description
      * @return result description
@@ -158,7 +158,7 @@ public class Database
     /**
      * Author: Amrita Thapa
      * Description: 
-     *      <description>
+     *      Returns true if the given word exists in the word table
      * 
      * @param input description
      * @return result description
@@ -185,7 +185,7 @@ public class Database
     /**
      * Author: Amrita Thapa
      * Description: 
-     *      <description>
+     *      Inserts a word into the words table or increments its count if it already exists.
      * 
      * @param input description
      * @return result description
@@ -248,7 +248,7 @@ public class Database
     /**
      * Author: Amrita Thapa
      * Description: 
-     *      <description>
+     *      Returns the word string associated with the given word ID
      * 
      * @param input description
      * @return result description
@@ -274,7 +274,7 @@ public class Database
     /**
      * Author: Amrita Thapa
      * Description: 
-     *      <description>
+     *      Returns a Word object containing the ID, text, and count for the given word ID.
      * 
      * @param input description
      * @return result description
@@ -301,7 +301,7 @@ public class Database
     /**
      * Author: Amrita Thapa
      * Description: 
-     *      <description>
+     *      Returns the ID of the given word from the words table.
      * 
      * @param input description
      * @return result description
@@ -369,7 +369,7 @@ public class Database
     /**
      * Author: Amrita Thapa
      * Description: 
-     *      <description>
+     *      Returns how many times the given word appears across all imported text files.
      * 
      * @param input description
      * @return result description
@@ -394,7 +394,7 @@ public class Database
     /**
      * Author: Amrita Thapa
      * Description: 
-     *      <description>
+     *      Returns the occurrent count for the word with the given ID.
      * 
      * @param input description
      * @return result description
@@ -419,7 +419,7 @@ public class Database
     /**
      * Author: Amrita Thapa
      * Description: 
-     *      <description>
+     *      Records a sentence by its first and last word IDs, or increments the count if it already exists. 
      * 
      * @param input description
      * @return result description
@@ -443,7 +443,7 @@ public class Database
     /**
      * Author: Amrita Thapa
      * Description: 
-     *      <description>
+     *      Records that one word was followed by another, or increments the combo count if the pair already exists.
      * 
      * @param input description
      * @return result description
@@ -517,7 +517,7 @@ public class Database
     /**
      * Author: Amrita Thapa
      * Description: 
-     *      <description>
+     *      Returns how many times the second word has followed the first word.
      * 
      * @param input description
      * @return result description
@@ -543,7 +543,7 @@ public class Database
     /**
      * Author: Amrita Thapa
      * Description: 
-     *      <description>
+     *      Returns the most frequently occuring next or previous word ID for the given word.
      * 
      * @param input description
      * @return result description
@@ -913,7 +913,7 @@ public class Database
     /**
      * Author: Amrita Thapa
      * Description: 
-     *      <description>
+     *      Returns the total number of text files that have been imported into the database
      * 
      * @param input description
      * @return result description
