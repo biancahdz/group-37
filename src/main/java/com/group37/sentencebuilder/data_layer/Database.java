@@ -639,10 +639,13 @@ public class Database
     /**
      * Author: Cortland Kimzey
      * Description: 
-     *      Gets the x best words from the database giving the actual word string
+     *      Gets the x best words from the database given the word ID.
+     *      The best combinations of the word given the count. Gets the
+     *      actual string of the word.
      * 
-     * @param input description
-     * @return result description
+     * @param wordID the id of the first word in the combo
+     * @param x the number of word combos to grab
+     * @return A list of word strings
      */
     public List<String> getXBestWords(int wordID, int x) {
         String sql = 
@@ -676,10 +679,12 @@ public class Database
     /**
      * Author: Cortland Kimzey
      * Description: 
-     *      <description>
+     *      Takes a string and checks the word table for any word that begins with that string.
+     *      grabs the top x possible word by there count in the database.
      * 
-     * @param input description
-     * @return result description
+     * @param word a string for a possible word
+     * @param x the number of words to grab from the database
+     * @return A list of possible words
      */
     public List<String> autoComplete(String word, int x) {
         String sql =   "SELECT word FROM words WHERE word LIKE CONCAT(?, '%') ORDER BY wordCount DESC LIMIT ?";
@@ -752,10 +757,12 @@ public class Database
     /**
      * Author: Cortland Kimzey
      * Description: 
-     *      <description>
+     *      Adds a report to the report table, this stores the sentence generated and the
+     *      algorithm used to generate it
      * 
-     * @param input description
-     * @return result description
+     * @param algorithm the algorithm used
+     * @param text the sentence that was generated
+     * @return true if it was inserted correctly, otherwise false
      */
     public boolean setReport(String algorithm, String text) {
         String sql = "INSERT INTO reports (algorithmName, sentence) VALUES (?, ?)";
@@ -996,10 +1003,9 @@ public class Database
     /**
      * Author: Cortland Kimzey
      * Description: 
-     *      <description>
+     *      Grabs all data in the reports table to be displayed as a list
      * 
-     * @param input description
-     * @return result description
+     * @return a ObservableList of all the report table rows
      */
     public ObservableList<ReportRow> getReports()
     {
@@ -1032,12 +1038,12 @@ public class Database
     public record CorpusAggregate(long uniqueWordTypes, long totalTokens, long topBigramCount) {}
 
     /**
-     * Author: Cortland Kimzey
+     * Author: Huy Nong
      * Description: 
-     *      <description>
+     *      Checks if a connection exists
      * 
-     * @param input description
-     * @return result description
+     * @param c a database connection
+     * @return true if the connection exists, false otherwise
      */
     private static boolean hasConnection(Connection c) {
         try {
@@ -1051,9 +1057,6 @@ public class Database
      * Author: Huy Nong
      * Description: 
      *      Imported files for scope dropdown and per-file table, newest first.
-     * 
-     * @param input description
-     * @return result description
      */
     public List<TxtFileSummary> listTxtFileSummaries() {
         List<TxtFileSummary> out = new ArrayList<>();
@@ -1089,9 +1092,6 @@ public class Database
      * Author: Huy Nong
      * Description: 
      *      Most frequent word types (excluding generator sentinel tokens).
-     * 
-     * @param input description
-     * @return result description
      */
     public List<TopWordEntry> fetchTopWords(int limit) {
         List<TopWordEntry> out = new ArrayList<>();
@@ -1117,9 +1117,6 @@ public class Database
      * Author: Huy Nong
      * Description: 
      *      Strongest next-word transitions (excluding pairs involving sentinel tokens).
-     * 
-     * @param input description
-     * @return result description
      */
     public List<TopBigramEntry> fetchTopBigrams(int limit) {
         List<TopBigramEntry> out = new ArrayList<>();
@@ -1149,9 +1146,6 @@ public class Database
      * Author: Huy Nong
      * Description: 
      *      Corpus-wide headline metrics for the analytics chips.
-     * 
-     * @param input description
-     * @return result description
      */
     public CorpusAggregate fetchCorpusAggregate() {
         if (!hasConnection(conn)) {
@@ -1179,9 +1173,6 @@ public class Database
      * Author: Huy Nong
      * Description: 
      *      Per-file top words (requires {@code txt_word}; populated on import).
-     * 
-     * @param input description
-     * @return result description
      */
     public List<TopWordEntry> fetchTopWordsForTxt(int txtId, int limit) {
         List<TopWordEntry> out = new ArrayList<>();
@@ -1210,9 +1201,6 @@ public class Database
      * Author: Huy Nong
      * Description: 
      *      Per-file top bigrams (requires {@code txt_nextword}; populated on import).
-     * 
-     * @param input description
-     * @return result description
      */
     public List<TopBigramEntry> fetchTopBigramsForTxt(int txtId, int limit) {
         List<TopBigramEntry> out = new ArrayList<>();
@@ -1241,11 +1229,6 @@ public class Database
 
     /**
      * Author: Huy Nong
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
      */
     public CorpusAggregate fetchCorpusAggregateForTxt(int txtId) {
         if (!hasConnection(conn) || txtId <= 0) {
@@ -1278,50 +1261,9 @@ public class Database
     /**
      * Author: Cortland Kimzey
      * Description: 
-     *      <description>
+     *      Creates a database object using the stored credentials
      * 
-     * @param input description
-     * @return result description
-     */
-    public void dumpDatabase() throws Exception
-    {
-        String[] command = {
-            "mysqldump",
-            "-u", username,
-            "-p" + password,
-            dbName
-        };
-
-        Process process = Runtime.getRuntime().exec(command);
-        
-        try (InputStream is = process.getInputStream();
-            FileOutputStream fos = new FileOutputStream("data/SQLDatabase.sql")) {
-
-            byte[] buffer = new byte[4096];
-            int read;
-
-            while ((read = is.read(buffer)) != -1) {
-                fos.write(buffer, 0, read);
-            }
-        }
-
-        try (InputStream es = process.getErrorStream()) {
-            byte[] errBuffer = es.readAllBytes();
-            if (errBuffer.length > 0) {
-                System.err.println("mysqldump error: " + new String(errBuffer));
-            }
-        }
-
-        process.waitFor();
-    }
-
-    /**
-     * Author: Cortland Kimzey
-     * Description: 
-     *      <description>
-     * 
-     * @param input description
-     * @return result description
+     * @return the created database object
      */
     public static Database getDatabase() {
         String user = "root";
@@ -1340,10 +1282,9 @@ public class Database
     /**
      * Author: Cortland Kimzey
      * Description: 
-     *      <description>
+     *      Checks if stored credential are valid and can create a connection
      * 
-     * @param input description
-     * @return result description
+     * @return true if we can connect, false if we can't
      */
     public static boolean canConnect()
     {
@@ -1369,10 +1310,11 @@ public class Database
     /**
      * Author: Cortland Kimzey
      * Description: 
-     *      <description>
+     *      Checks if a connection can be made to the database using given credetials
      * 
-     * @param input description
-     * @return result description
+     * @param user the username of the account
+     * @param pass the password of the account
+     * @return true if we can connect false if we can't
      */
     public static boolean canConfigConnect(String user, String pass)
     {
