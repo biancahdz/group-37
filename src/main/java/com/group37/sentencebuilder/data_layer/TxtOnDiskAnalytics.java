@@ -2,14 +2,14 @@
  * ------------------------------------------------------------
  *  Project: Sentence Builder
  *  File:    TxtOnDiskAnalytics.java
- *  Author:  Huy Nong
+ *  Author:  Huy Nong, Bianca Hernandez 
  *
  *  Description:
  *      Computes per-file word and bigram statistics by scanning a `.txt` on disk.
  *      Used by Word Analytics as an offline-first path when per-import DB tables are missing.
  *
  *  Version: 1.0
- *  Created: 2026-05-06
+ *  Created: 2026-04-06 
  *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
@@ -56,12 +56,13 @@ public final class TxtOnDiskAnalytics {
     }
 
     /**
-     * Author: 
-     * Description: 
+     * Author:Bianca Hernandez
+     * Description: locates a .txt file by searching in the txt files folder or by 
+     *            a direct path 
      *      <description>
      * 
-     * @param input description
-     * @return result description
+     * @param txtName 
+     * @return an optional containing the file if found empty otherwise
      */
     public static Optional<File> locate(String txtName) {
         if (txtName == null || txtName.isBlank()) {
@@ -81,12 +82,13 @@ public final class TxtOnDiskAnalytics {
 
 
     /**
-     * Author: 
-     * Description: 
-     *      <description>
+     * Author: Bianca Hernandez
+     * Description: scans a text file by name and returns
+     *         statistics up to the given limit 
+     *      
      * 
-     * @param input description
-     * @return empty if the file is not found or cannot be read
+     * @param txtName 
+     * @return optional scan result 
      */
     public static Optional<ScanResult> scan(String txtName, int limit) {
         Optional<File> file = locate(txtName);
@@ -101,12 +103,14 @@ public final class TxtOnDiskAnalytics {
     }
 
     /**
-     * Author: 
+     * Author: Huy Nong
      * Description: 
-     *      <description>
+     *      Reads and processes a txt file to compute word frequencies,
+     *      bigram counts, and aggregate statistics
      * 
-     * @param input description
-     * @return result description
+     * @param file text file to scan
+     * @param limit the maximum number of top entries to return 
+     * @return a ScanResult containing top words, bigrams and aggregates
      */
     static ScanResult scanFile(File file, int limit) throws IOException {
         StringBuilder sb = new StringBuilder();
@@ -157,12 +161,13 @@ public final class TxtOnDiskAnalytics {
     }
 
     /**
-     * Author: 
-     * Description: 
+     * Author: Bianca Hernandez 
+     * Description: Splits raw text into individual sentences using the same
+     *           regex as TxtFileReader
      *      Same regex split as {@link TxtFileReader#getSentences(StringBuilder)}.
      * 
-     * @param input description
-     * @return result description
+     * @param fullText the raw text to split 
+     * @return list of parsed sentences 
      */
     static List<String> splitSentences(String fullText) {
         String regex = "(?<=[.!?][\"',]?)(?=\\s+|$)";
@@ -177,12 +182,14 @@ public final class TxtOnDiskAnalytics {
     }
 
     /**
-     * Author: 
+     * Author: Bianca Hernandez
      * Description: 
-     *      Same cleaning as {@link TxtFileReader} import loop.
+     *      Same cleaning as {@link TxtFileReader} import loop. 
+     *      Cleans and tokenizes a sentence into lowercase words, 
+     *      stripping all non-alphabetic character. 
      * 
-     * @param input description
-     * @return result description
+     * @param sentence the sentence to tokenize 
+     * @return list of cleaned lowercase words 
      */
     static List<String> tokenizeSentence(String sentence) {
         String[] rawWords = sentence.split("\\s+");
