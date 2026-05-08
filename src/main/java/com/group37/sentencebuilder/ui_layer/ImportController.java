@@ -5,15 +5,20 @@
  *  Author:  Huy Nong, Cortland Kimzey
  *
  *  Description:
- *      Import screen controller for selecting a `.txt` file, running import into the database, and showing import history.
+ *      Controls the import page of the UI. Allows the user to upload files
+ *      to be processed by the TxtFileReader object and added to the database.
+ *      It informs the user on the progress of there upload and keeps a table
+ *      of all the files that have been uploaded.
  *
  *  Version: 1.0
- *  Created: 2026-05-07
+ *  Created: 2026-03-21
  *  Last Modified: 2026-05-07
  *
  *  Responsibilities:
- *      - Drive file selection and import progress UI state
- *      - Invoke TxtFileReader / Database import logic and refresh history table rows
+ *      - Open the file directory and allow to user to upload a txt file
+ *      - Process the txt file into the database
+ *      - Keep a table of all the files that have been stored in the database
+ *      - Inform the user of the progress of the upload
  * ------------------------------------------------------------
  */
 
